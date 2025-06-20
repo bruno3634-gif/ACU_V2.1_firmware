@@ -1,15 +1,7 @@
 #include <Arduino.h>
 #include "definitions.h"
 #include "FlexCAN_T4_.h"
-#include "IntervalTimer.h"
-#include "autonomous_temporary.h"
-
-
 #define print_state 1
-
-
-
-#define PRESSURE_READINGS 8 // Number of pressure readings to average
 
 /* -------------------- STATE MACHINE DEFINITIONS -------------------- */
 // VCU state enumeration
@@ -64,17 +56,7 @@ FlexCAN_T4<CAN2, RX_SIZE_1024, TX_SIZE_1024> CAN;
 //VARIABLES
 unsigned long HeartBit = 0;
 
-float EBS_TANK_PRESSURE_A_values[PRESSURE_READINGS], EBS_TANK_PRESSURE_B_values[PRESSURE_READINGS];
-float TANK_PRESSURE_B = 0, TANK_PRESSURE_A = 0; // Pressure values for tank A and B
-uint8_t adc_pointer = 0; // Pointer for pressure readings
-bool update_median_flag = false; // Flag to indicate if median update is needed
 
-uint8_t ignition_flag = 0; // Flag to indicate ignition signal
-uint8_t asms_flag = 0; // Current ignition signal state
-uint8_t emergency_flag = 0; // Flag to indicate emergency state
-
-uint8_t mission_response_jetson = 1; // Mission response from Jetson
-uint8_t res_emergency = 0; // Emergency response from AS
 
 
 
@@ -83,12 +65,11 @@ void HandleState(void);
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to);
 
 // Function prototypes
-void canISR(const CAN_message_t &msg);
 void led_heartbit();
 void peripheral_init();
 void Pressure_readings();
 void send_can_msg();
-void median_pressures(); 
+
 
 void setup()
 {
@@ -99,11 +80,6 @@ void loop()
 {
 
   led_heartbit();
-
-  if(update_median_flag) {
-    median_pressures(); // Read pressure values
-    update_median_flag = false; // Reset flag after reading
-  }
 
   UpdateState();
 
@@ -179,7 +155,6 @@ void UpdateState(void)
     case STATE_INIT:
       break;
     case STATE_INITIAL_SEQUENCE:
-      // reset all inital sequence variables
 
 
       break;
@@ -301,14 +276,7 @@ void peripheral_init()
   CAN.begin();
   CAN.setBaudRate(1000000); // Set CAN baud rate to 1 Mbps
   CAN.setMaxMB(16); // Set maximum number of mailboxes
-  CAN.setMBFilter(REJECT_ALL);
 
-  CAN.setMBFilter(MB0, AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID);
-  CAN.setMBFilter(MB1, AUTONOMOUS_TEMPORARY_AS_STATE_FRAME_ID);
-  CAN.setMBFilter(MB2, AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID);
-  CAN.setMBFilter(MB3, AUTONOMOUS_TEMPORARY_RES_FRAME_ID);
-
-  CAN.onReceive(canISR);
 
   PRESSURE_TIMER.begin(Pressure_readings, 100000); // 100ms
 
@@ -327,18 +295,8 @@ void led_heartbit() {
  * @brief Read pressure sensors and update system state
  */
 void Pressure_readings() {
-
-
-  EBS_TANK_PRESSURE_A_values[adc_pointer] = analogRead(EBS_TANK_PRESSURE_A);
-  EBS_TANK_PRESSURE_B_values[adc_pointer] = analogRead(EBS_TANK_PRESSURE_B);
-  adc_pointer++;
-  if (adc_pointer >= PRESSURE_READINGS) {
-    adc_pointer = 0;
-  }
-  update_median_flag = true; // Set flag to update median values
-}
    
-
+}
 
 
 /**
@@ -346,78 +304,4 @@ void Pressure_readings() {
  */
 void send_can_msg() {
 
-  uint8_t tx_buffer[8]; // Buffer for CAN message
-
-    struct autonomous_temporary_acu_ign_t encoded_ign;    
-
-    encoded_ign.ebs_pressure_rear = (uint8_t)(TANK_PRESSURE_B); // Convert to 0.1 bar scale
-    encoded_ign.ebs_pressure_front = (uint8_t)(TANK_PRESSURE_A); // Convert to 0.1 bar scale
-    encoded_ign.ign = ignition_flag; // Set ignition flag
-    encoded_ign.asms = asms_flag; // Set ASMS flag
-    encoded_ign.emergency = emergency_flag; // Set emergency flag
-
-    autonomous_temporary_acu_ign_pack(tx_buffer, &encoded_ign, sizeof(encoded_ign));
-    Serial.println("tx_buffer:");
-    for (int i = 0; i < 8; i++) {
-        Serial.print(tx_buffer[i], HEX);
-        Serial.print(" ");
-    }
 }
-
-
-void median_pressures() {
-
-    // Calculate median for tank pressure B
-    float sum = 0;
-    for (int i = 0; i < PRESSURE_READINGS; i++) {
-      sum += EBS_TANK_PRESSURE_B_values[i];
-    }
-    TANK_PRESSURE_B = sum / PRESSURE_READINGS;
-    
-    // Store raw voltage for debugging (convert ADC to voltage)
-    float rawVoltage = TANK_PRESSURE_B * 3.3 / 1023; // Read raw voltage from the analog pin
-    
-    // Use corrected divider value (0.85 instead of 0.66) prev val 0.476
-    float actualVoltage = rawVoltage / 0.66;
-    
-
-    TANK_PRESSURE_B = (actualVoltage - 0.5) / 0.4;
-
-    // tank pressure A
-
-    sum = 0;
-    for (int i = 0; i < PRESSURE_READINGS; i++) {
-      sum += EBS_TANK_PRESSURE_A_values[i];
-    }
-    TANK_PRESSURE_A = sum / PRESSURE_READINGS;
-    
-    // Store raw voltage for debugging (convert ADC to voltage)
-    rawVoltage = TANK_PRESSURE_A * 3.3 / 1023; // Read raw voltage from the analog pin
-    
-    // Use corrected divider value (0.85 instead of 0.66) prev val 0.476
-     actualVoltage = rawVoltage / 0.66;
-    
-    // Apply formula ONCE with corrected divider
-    TANK_PRESSURE_A = (actualVoltage - 0.5) / 0.4;
-  }
-
-
-
-  void canISR(const CAN_message_t &msg){
-
-    switch(msg.id) {
-      case AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID:
-        struct autonomous_temporary_jetson_ms_t decoded_jetson_ms_data;
-        autonomous_temporary_jetson_ms_unpack(&decoded_jetson_ms_data,msg.buf,sizeof(decoded_jetson_ms_data));
-        mission_response_jetson = decoded_jetson_ms_data.mission_select; // Update mission response from Jetson 
-        break;
-      case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
-        struct autonomous_temporary_res_t decoded_res_data;
-        autonomous_temporary_res_unpack(&decoded_res_data, msg.buf, sizeof(decoded_res_data));
-        res_emergency = (decoded_res_data.signal != 0) ? 0 : 1; // Update emergency response from AS
-        break;
-      default:
-        // Unknown message ID, ignore
-        break;
-    }
-  }
