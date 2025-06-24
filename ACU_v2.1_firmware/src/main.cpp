@@ -20,7 +20,8 @@ typedef enum
   STATE_READY,
   STATE_DRIVING,
   STATE_EBS_ERROR,      
-  STATE_EMERGENCY            
+  STATE_EMERGENCY,   
+  STATE_FINISHED         
 } ACU_STATE_t;
 
 typedef enum
@@ -33,11 +34,28 @@ typedef enum
 } AS_STATE_t;
 
 
+
+typedef enum
+{
+  WDT_TOOGLE_CHECK,
+  WDT_STP_TOOGLE_CHECK,
+  PNEUMATIC_CHECK,
+  PRESSURE_CHECK1,
+  IGNITON,
+  PRESSURE_CHECK_FRONT,
+  PRESSURE_CHECK_REAR,
+  PRESSURE_CHECK2,
+  ERROR
+} INITIAL_SEQUENCE_STATE_t;
+
+
 // State machine variables
 ACU_STATE_t current_state = STATE_INIT;  // Current state of the VCU
 ACU_STATE_t previous_state = STATE_INIT; // Previous state of the VCU
 
 AS_STATE_t as_state = AS_STATE_OFF; // Autonomous system state
+
+INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
 
 // State names for debug output
 const char *state_names[] = {
@@ -65,17 +83,28 @@ FlexCAN_T4<CAN2, RX_SIZE_1024, TX_SIZE_1024> CAN;
 unsigned long HeartBit = 0;
 
 float EBS_TANK_PRESSURE_A_values[PRESSURE_READINGS], EBS_TANK_PRESSURE_B_values[PRESSURE_READINGS];
-float TANK_PRESSURE_B = 0, TANK_PRESSURE_A = 0; // Pressure values for tank A and B
+float TANK_PRESSURE_FRONT = 0, TANK_PRESSURE_REAR = 0; // Pressure values for tank A and B
+float HYDRAULIC_PRESSURE_FRONT = 0, HYDRAULIC_PRESSURE_REAR = 0; // Pressure values for front and rear hydraulics
+
 uint8_t adc_pointer = 0; // Pointer for pressure readings
 bool update_median_flag = false; // Flag to indicate if median update is needed
 
 uint8_t ignition_flag = 0; // Flag to indicate ignition signal
+uint8_t ignition_vcu = 0; // Ignition signal state
 uint8_t asms_flag = 0; // Current ignition signal state
 uint8_t emergency_flag = 0; // Flag to indicate emergency state
 
 uint8_t mission_response_jetson = 1; // Mission response from Jetson
 uint8_t res_emergency = 0; // Emergency response from AS
+volatile bool wdt_toogle_enable = true; // Flag to enable WDT toggle
+unsigned long wdt_toogle_counter = 0; // Counter for WDT toggle
+unsigned long wdt_relay_timout = 0; // Timeout for WDT relay
+unsigned long pressure_check_delay = 0; // Delay for pressure check
+uint8_t ignition_enable = 0; // Flag to enable ignition
 
+
+
+unsigned long ASSI_YELLOW_time = 0, ASSI_BLUE_time = 0;
 
 
 void UpdateState(void);
@@ -89,26 +118,46 @@ void peripheral_init();
 void Pressure_readings();
 void send_can_msg();
 void median_pressures(); 
+void initial_sequence();
+void check_ignition();
+void ASSI();
+
+
+void led_heartbit();
 
 void setup()
 {
-
+  peripheral_init(); // Initialize peripherals and pins
 }
 
 void loop()
 {
 
+
+  UpdateState();
+
+  /* Handle actions specific to the current state */
+  HandleState();
+
   led_heartbit();
+  
 
   if(update_median_flag) {
     median_pressures(); // Read pressure values
     update_median_flag = false; // Reset flag after reading
   }
 
-  UpdateState();
+  ASSI(); // Update ASSI state
 
-  /* Handle actions specific to the current state */
-  HandleState();
+  if(wdt_toogle_enable) {
+    if(millis() - wdt_toogle_counter >= 10) { // Check if 10 ms has passed
+      digitalWrite(WDT, !digitalRead(WDT)); // Toggle WDT pin
+      wdt_toogle_counter = millis(); // Reset counter
+    }
+  
+  }
+  check_ignition(); // Check ignition state
+
 }
 
 /* -------------------- STATE MACHINE FUNCTIONS -------------------- */
@@ -143,14 +192,16 @@ void UpdateState(void)
   switch (current_state)
   {
   case STATE_INIT:
-    current_state = STATE_INITIAL_SEQUENCE; 
+
+
     break;
 
   case STATE_INITIAL_SEQUENCE:
-
+    initial_sequence_state = WDT_TOOGLE_CHECK;
     break;
 
   case STATE_EBS_ERROR:
+
 
     break;
 
@@ -164,6 +215,9 @@ void UpdateState(void)
 
   case STATE_EMERGENCY:
 
+    break;
+  case STATE_FINISHED:
+    // Handle finished state if needed
     break;
   }
 
@@ -185,7 +239,8 @@ void UpdateState(void)
       break;
 
     case STATE_EBS_ERROR:
-
+      digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
       break;
 
     case STATE_READY:
@@ -201,6 +256,9 @@ void UpdateState(void)
     case STATE_EMERGENCY:
 
       break;
+      case STATE_FINISHED:
+      // Handle finished state actions if needed
+      break;
     }
   }
 }
@@ -211,18 +269,32 @@ void UpdateState(void)
 void HandleState(void)
 {
 
+  if(res_emergency == 1){
+    current_state = STATE_EMERGENCY;
+  }
+
   switch (current_state)
   {
   case STATE_INIT:
-    peripheral_init();
+    //peripheral_init();
+      as_state = AS_STATE_OFF; // Autonomous system state
+      ignition_enable = 0; // Reset ignition enable flag
+      emergency_flag = 0; // Reset emergency flag
+      ignition_flag = 0;
+      asms_flag = 0;
+      mission_response_jetson = 1;
+      res_emergency = 0;
+      wdt_toogle_enable = true;
+
+    
     current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
     break;
   case STATE_INITIAL_SEQUENCE:
-
+    initial_sequence(); // Execute initial sequence actions
     break;
 
   case STATE_EBS_ERROR:
-    // Handle EBS error state
+    current_state = STATE_EMERGENCY;
     break;
 
   case STATE_READY:
@@ -235,6 +307,9 @@ void HandleState(void)
 
   case STATE_EMERGENCY:
 
+    break;
+    case STATE_FINISHED:
+    // Handle finished state actions if needed
     break;
   }
 }
@@ -288,11 +363,11 @@ void peripheral_init()
   pinMode(ASMS, INPUT);
   pinMode(IGN_PIN, INPUT);
 
-  pinMode(SOLENOID1, OUTPUT);
-  pinMode(SOLENOID2, OUTPUT);
+  pinMode(SOLENOID_FRONT, OUTPUT);
+  pinMode(SOLENOID_REAR, OUTPUT);
 
-  digitalWrite(SOLENOID1, 1);
-  digitalWrite(SOLENOID2, 1);
+  digitalWrite(SOLENOID_FRONT, 1);  // 1 equals braking on
+  digitalWrite(SOLENOID_REAR, 1);
 
   Serial2.begin(115200);
   Serial.begin(115200);
@@ -313,6 +388,9 @@ void peripheral_init()
   PRESSURE_TIMER.begin(Pressure_readings, 100000); // 100ms
 
   CAN_TIMER.begin(send_can_msg, 100000);      // 100ms
+
+  Serial.println("Peripheral initialization complete");
+  digitalWrite(Debug_LED2, 1); // Indicate initialization complete
  
 }
 
@@ -347,22 +425,24 @@ void Pressure_readings() {
 void send_can_msg() {
 
   uint8_t tx_buffer[8]; // Buffer for CAN message
+    
+    CAN_message_t tx_message;
 
     struct autonomous_temporary_acu_ign_t encoded_ign;    
-
-    encoded_ign.ebs_pressure_rear = (uint8_t)(TANK_PRESSURE_B); // Convert to 0.1 bar scale
-    encoded_ign.ebs_pressure_front = (uint8_t)(TANK_PRESSURE_A); // Convert to 0.1 bar scale
+    encoded_ign.ebs_pressure_rear = (uint8_t)(TANK_PRESSURE_FRONT ); // Convert to 0.1 bar scale
+    encoded_ign.ebs_pressure_front = (uint8_t)(TANK_PRESSURE_REAR); // Convert to 0.1 bar scale
     encoded_ign.ign = ignition_flag; // Set ignition flag
     encoded_ign.asms = asms_flag; // Set ASMS flag
     encoded_ign.emergency = emergency_flag; // Set emergency flag
 
-    autonomous_temporary_acu_ign_pack(tx_buffer, &encoded_ign, sizeof(encoded_ign));
-    Serial.println("tx_buffer:");
-    for (int i = 0; i < 8; i++) {
-        Serial.print(tx_buffer[i], HEX);
-        Serial.print(" ");
+    autonomous_temporary_acu_ign_pack(tx_buffer, &encoded_ign, AUTONOMOUS_TEMPORARY_ACU_IGN_LENGTH);
+    tx_message.id = AUTONOMOUS_TEMPORARY_ACU_IGN_FRAME_ID; // Set CAN ID
+    tx_message.len = AUTONOMOUS_TEMPORARY_ACU_IGN_LENGTH; // Set message length
+    memcpy(tx_message.buf, tx_buffer, AUTONOMOUS_TEMPORARY_ACU_IGN_LENGTH); // Copy data to CAN message buffer
+
+    CAN.write(tx_message); // Send CAN message
+    
     }
-}
 
 
 void median_pressures() {
@@ -372,16 +452,16 @@ void median_pressures() {
     for (int i = 0; i < PRESSURE_READINGS; i++) {
       sum += EBS_TANK_PRESSURE_B_values[i];
     }
-    TANK_PRESSURE_B = sum / PRESSURE_READINGS;
+    TANK_PRESSURE_FRONT = sum / PRESSURE_READINGS;
     
     // Store raw voltage for debugging (convert ADC to voltage)
-    float rawVoltage = TANK_PRESSURE_B * 3.3 / 1023; // Read raw voltage from the analog pin
+    float rawVoltage = TANK_PRESSURE_FRONT * 3.3 / 1023; // Read raw voltage from the analog pin
     
     // Use corrected divider value (0.85 instead of 0.66) prev val 0.476
     float actualVoltage = rawVoltage / 0.66;
     
 
-    TANK_PRESSURE_B = (actualVoltage - 0.5) / 0.4;
+    TANK_PRESSURE_FRONT = (actualVoltage - 0.5) / 0.4;
 
     // tank pressure A
 
@@ -389,16 +469,16 @@ void median_pressures() {
     for (int i = 0; i < PRESSURE_READINGS; i++) {
       sum += EBS_TANK_PRESSURE_A_values[i];
     }
-    TANK_PRESSURE_A = sum / PRESSURE_READINGS;
+    TANK_PRESSURE_REAR = sum / PRESSURE_READINGS;
     
     // Store raw voltage for debugging (convert ADC to voltage)
-    rawVoltage = TANK_PRESSURE_A * 3.3 / 1023; // Read raw voltage from the analog pin
+    rawVoltage = TANK_PRESSURE_REAR * 3.3 / 1023; // Read raw voltage from the analog pin
     
     // Use corrected divider value (0.85 instead of 0.66) prev val 0.476
      actualVoltage = rawVoltage / 0.66;
     
     // Apply formula ONCE with corrected divider
-    TANK_PRESSURE_A = (actualVoltage - 0.5) / 0.4;
+    TANK_PRESSURE_REAR = (actualVoltage - 0.5) / 0.4;
   }
 
 
@@ -416,8 +496,185 @@ void median_pressures() {
         autonomous_temporary_res_unpack(&decoded_res_data, msg.buf, sizeof(decoded_res_data));
         res_emergency = (decoded_res_data.signal != 0) ? 0 : 1; // Update emergency response from AS
         break;
+      case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
+        struct autonomous_temporary_vcu_hv_t decoded_vcu_hv_data;
+        autonomous_temporary_vcu_hv_unpack(&decoded_vcu_hv_data, msg.buf, sizeof(decoded_vcu_hv_data));
+        ignition_vcu = (decoded_vcu_hv_data.hv == AUTONOMOUS_TEMPORARY_VCU_HV_HV_HV_ON_CHOICE) ? 1 : 0; // Update ignition signal
+        HYDRAULIC_PRESSURE_FRONT = decoded_vcu_hv_data.brake_pressure_front / 10.0; // Convert to bar
+        HYDRAULIC_PRESSURE_REAR = decoded_vcu_hv_data.brake_pressure_rear / 10.0;
+        break;
       default:
         // Unknown message ID, ignore
         break;
     }
   }
+
+
+
+
+  void initial_sequence() {
+    switch (initial_sequence_state)
+    {
+    case WDT_TOOGLE_CHECK:
+      if(digitalRead(WDT) == HIGH) {
+        initial_sequence_state = WDT_STP_TOOGLE_CHECK;
+        wdt_toogle_enable = false; // Disable WDT toggle for initial sequence
+        wdt_relay_timout = millis(); // Reset WDT toggle counter
+      }
+      break;
+    case WDT_STP_TOOGLE_CHECK:
+      if(digitalRead(WDT) == LOW) {
+        initial_sequence_state = PNEUMATIC_CHECK; 
+        wdt_toogle_enable = true; 
+      }else{
+        if(millis() - wdt_relay_timout >= 500) { 
+          initial_sequence_state = ERROR;
+        }
+      }
+      break;
+    case PNEUMATIC_CHECK:
+      if (/*TANK_PRESSURE_REAR > 6.0 &&*/ TANK_PRESSURE_FRONT > 6.0)
+      {
+        if (/*TANK_PRESSURE_REAR < 10.0 &&*/ TANK_PRESSURE_FRONT < 10.0)
+        {
+          initial_sequence_state = PRESSURE_CHECK1; // Transition to pressure check state
+        }else
+        {
+          initial_sequence_state = ERROR; // Transition to pressure check state
+        }
+      }else
+      {
+        initial_sequence_state = ERROR; // Transition to pressure check state
+      }
+      break;
+    case PRESSURE_CHECK1: 
+       if (HYDRAULIC_PRESSURE_FRONT >= 11.5 * TANK_PRESSURE_FRONT /*&& HYDRAULIC_PRESSURE_REAR >= 11.5 * TANK_PRESSURE_REAR*/)
+       {
+        initial_sequence_state = IGNITON; 
+       }else{
+        initial_sequence_state = ERROR;
+       }
+       
+      break;
+    case IGNITON:
+        ignition_enable = 1; // Enable ignition
+        if(ignition_vcu == 1 && ignition_flag == 1) {
+          initial_sequence_state = PRESSURE_CHECK_FRONT; // Transition to pressure check state
+          pressure_check_delay = millis(); // Reset pressure check delay
+        }
+      break;
+    case PRESSURE_CHECK_REAR:
+      digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
+      if(/*TANK_PRESSURE_REAR >= 11.5 * HYDRAULIC_PRESSURE_REAR &&*/ TANK_PRESSURE_FRONT <= 1) {
+        initial_sequence_state = PRESSURE_CHECK2; 
+        pressure_check_delay = millis(); // Reset pressure check delay
+      }
+      if(millis() - pressure_check_delay >= 500) { // Check if 500 ms has passed
+        initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
+      }
+      break;
+    case PRESSURE_CHECK_FRONT:
+      digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
+      if(TANK_PRESSURE_FRONT > 11.5 * HYDRAULIC_PRESSURE_FRONT && TANK_PRESSURE_REAR <= 1) {
+        //initial_sequence_state = PRESSURE_CHECK_REAR; 
+        initial_sequence_state = PRESSURE_CHECK2; // Transition to pressure check state
+        pressure_check_delay = millis(); // Reset pressure check delay
+      }
+      if(millis() - pressure_check_delay >= 500) { // Check if 500 ms has passed
+        initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
+      }
+      break;
+    case PRESSURE_CHECK2:
+      digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW); // Deactivate front solenoid
+      if(/*TANK_PRESSURE_REAR >= 11.5 * HYDRAULIC_PRESSURE_REAR &&*/ TANK_PRESSURE_FRONT >= 11.5 * HYDRAULIC_PRESSURE_FRONT) {
+        current_state = STATE_READY; // Transition to ready state
+      }
+      if(millis() - pressure_check_delay >= 1000) { // Check if 1000 ms has passed
+        initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
+      }
+      break;
+    case ERROR:
+      current_state = STATE_EBS_ERROR; // Transition to EBS error state
+
+    break;
+    default:
+      Serial.println("Unknown initial sequence state");
+      break;
+    }
+  }
+
+
+
+  void check_ignition() {
+    static uint8_t last_ign_state = LOW;
+    static uint8_t debounced_ign_state = LOW;
+    static unsigned long last_debounce_time = 0;
+    const unsigned long debounce_delay = 30; // 30 ms debounce
+
+    uint8_t current_state = digitalRead(IGN_PIN);
+
+    if (current_state != last_ign_state) {
+      last_debounce_time = millis();
+      last_ign_state = current_state;
+    }
+
+    if ((millis() - last_debounce_time) > debounce_delay) {
+      if (debounced_ign_state != current_state) {
+        debounced_ign_state = current_state;
+        ignition_flag = (debounced_ign_state == HIGH) ? 1 : 0;
+      }
+    }
+    ignition_flag = ignition_flag && ignition_enable; // Ensure ignition flag is set only if ignition is enabled
+  }
+
+
+
+
+void ASSI()
+{
+
+  switch (as_state)
+  {
+  case AS_STATE_OFF:
+    digitalWrite(YELLOW_LEDS, HIGH);
+    digitalWrite(BLUE_LEDS, LOW);
+
+    break;
+  case AS_STATE_READY:
+
+    digitalWrite(YELLOW_LEDS, HIGH);
+    digitalWrite(BLUE_LEDS, LOW);
+    break;
+  case AS_STATE_DRIVING:
+    digitalWrite(BLUE_LEDS, LOW);
+    if (millis() - ASSI_YELLOW_time >= 500)
+    {
+      ASSI_YELLOW_time = millis();
+      digitalWrite(YELLOW_LEDS, !digitalRead(YELLOW_LEDS));
+    }
+    break;
+  case AS_STATE_EMERGENCY:
+    digitalWrite(YELLOW_LEDS, LOW);
+    if (millis() - ASSI_BLUE_time >= 500)
+    {
+      ASSI_BLUE_time = millis();
+      digitalWrite(BLUE_LEDS, !digitalRead(BLUE_LEDS));
+    }
+    break;
+  case AS_STATE_FINISHED:
+    digitalWrite(YELLOW_LEDS, LOW);
+    digitalWrite(BLUE_LEDS, HIGH);
+    break;
+
+  default:
+    digitalWrite(YELLOW_LEDS, LOW);
+    digitalWrite(BLUE_LEDS, LOW);
+
+    break;
+  }
+
+
+}

@@ -33,8 +33,8 @@
 
 // Solenoides
 
-#define SOLENOID1 36
-#define SOLENOID2 10
+#define SOLENOID_FRONT 36
+#define SOLENOID_REAR 10
 
 
 // Debug Leds
