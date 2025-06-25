@@ -1,0 +1,84 @@
+flowchart TD
+    START([System Start]) --> SETUP[Setup/Peripheral Init]
+    SETUP --> MAINLOOP{Main Loop}
+    
+    %% Main Loop Actions
+    MAINLOOP --> UPDATE[UpdateState]
+    MAINLOOP --> HANDLE[HandleState]
+    MAINLOOP --> HEARTBEAT[LED Heartbeat]
+    MAINLOOP --> MEDIAN{Update Median Flag?}
+    MAINLOOP --> ASSI[ASSI Control]
+    MAINLOOP --> WDT{WDT Toggle Enabled?}
+    MAINLOOP --> IGNITION[Check Ignition]
+    
+    %% Return to main loop
+    UPDATE --> MAINLOOP
+    HANDLE --> MAINLOOP
+    HEARTBEAT --> MAINLOOP
+    MEDIAN -->|Yes| CALC_MEDIAN[Calculate Median Pressures]
+    MEDIAN -->|No| MAINLOOP
+    CALC_MEDIAN --> MAINLOOP
+    ASSI --> MAINLOOP
+    WDT -->|Yes| TOGGLE_WDT[Toggle WDT Pin]
+    WDT -->|No| MAINLOOP
+    TOGGLE_WDT --> MAINLOOP
+    IGNITION --> MAINLOOP
+    
+    %% UpdateState Details
+    UPDATE --> STATE_CHECK{Current State}
+    STATE_CHECK -->|STATE_INIT| INIT_ACTIONS[AS_STATE_OFF<br/>Mission = TRACKDRIVE]
+    STATE_CHECK -->|STATE_INITIAL_SEQUENCE| SEQ_RESET[Reset Initial Sequence]
+    STATE_CHECK -->|STATE_READY| READY_AS[AS_STATE_READY]
+    STATE_CHECK -->|STATE_DRIVING| DRIVING_AS[AS_STATE_DRIVING]
+    STATE_CHECK -->|STATE_EMERGENCY| EMERGENCY_AS[AS_STATE_EMERGENCY]
+    STATE_CHECK -->|STATE_FINISHED| FINISHED_AS[AS_STATE_FINISHED]
+    
+    %% HandleState Details
+    HANDLE --> EMERGENCY_CHECK{res_emergency == 1?}
+    EMERGENCY_CHECK -->|Yes| FORCE_EMERGENCY[Force STATE_EMERGENCY]
+    EMERGENCY_CHECK -->|No| HANDLE_STATE{Current State}
+    
+    HANDLE_STATE -->|STATE_INIT| INIT_HANDLE[Reset All Variables<br/>Go to INITIAL_SEQUENCE]
+    HANDLE_STATE -->|STATE_INITIAL_SEQUENCE| INIT_SEQ[Execute Initial Sequence]
+    HANDLE_STATE -->|STATE_EBS_ERROR| EBS_TO_EMERGENCY[Go to STATE_EMERGENCY]
+    HANDLE_STATE -->|STATE_READY| READY_HANDLE[Ready State Actions]
+    HANDLE_STATE -->|STATE_DRIVING| DRIVING_HANDLE[Driving State Actions]
+    HANDLE_STATE -->|STATE_EMERGENCY| EMERGENCY_HANDLE[Emergency Actions]
+    HANDLE_STATE -->|STATE_FINISHED| FINISHED_HANDLE[Finished Actions]
+    
+    %% Initial Sequence Sub-states
+    INIT_SEQ --> INIT_STATE{Initial Sequence State}
+    INIT_STATE -->|WDT_TOOGLE_CHECK| WDT_HIGH[Check WDT High]
+    INIT_STATE -->|WDT_STP_TOOGLE_CHECK| WDT_LOW[Check WDT Low]
+    INIT_STATE -->|PNEUMATIC_CHECK| PNEUMATIC[Check Tank Pressure<br/>6-10 bar]
+    INIT_STATE -->|PRESSURE_CHECK1| PRESSURE1[Check Hydraulic Ratio]
+    INIT_STATE -->|IGNITON| IGN_ENABLE[Enable Ignition<br/>Wait VCU & IGN]
+    INIT_STATE -->|PRESSURE_CHECK_FRONT| FRONT_TEST[Test Front Solenoid]
+    INIT_STATE -->|PRESSURE_CHECK_REAR| REAR_TEST[Test Rear Solenoid]
+    INIT_STATE -->|PRESSURE_CHECK2| PRESSURE2[Test Both Solenoids<br/>Go to READY]
+    INIT_STATE -->|ERROR| ERROR_STATE[Go to EBS_ERROR]
+    
+    %% Timer Interrupts (Parallel Processes)
+    PRESSURE_TIMER([Pressure Timer<br/>100ms]) --> READ_ADC[Read ADC Values<br/>Set Update Flag]
+    CAN_TIMER([CAN Timer<br/>100ms]) --> SEND_CAN[Send CAN Messages]
+    CAN_RX([CAN Receive<br/>Interrupt]) --> PROCESS_CAN[Process:<br/>- Jetson Mission<br/>- RES Emergency<br/>- VCU HV Data]
+    
+    %% ASSI LED Control
+    ASSI --> AS_STATE_CHECK{AS State}
+    AS_STATE_CHECK -->|AS_STATE_OFF| LED_OFF[Yellow ON<br/>Blue OFF]
+    AS_STATE_CHECK -->|AS_STATE_READY| LED_READY[Yellow ON<br/>Blue OFF]
+    AS_STATE_CHECK -->|AS_STATE_DRIVING| LED_DRIVING[Yellow Blink<br/>Blue OFF]
+    AS_STATE_CHECK -->|AS_STATE_EMERGENCY| LED_EMERGENCY[Yellow OFF<br/>Blue Blink]
+    AS_STATE_CHECK -->|AS_STATE_FINISHED| LED_FINISHED[Yellow OFF<br/>Blue ON]
+    
+    %% Styling
+    style START fill:#90EE90
+    style ERROR_STATE fill:#FFB6C1
+    style EBS_TO_EMERGENCY fill:#FFB6C1
+    style FORCE_EMERGENCY fill:#FFB6C1
+    style EMERGENCY_AS fill:#FFB6C1
+    style LED_EMERGENCY fill:#FFB6C1
+    style MAINLOOP fill:#87CEEB
+    style PRESSURE_TIMER fill:#DDA0DD
+    style CAN_TIMER fill:#DDA0DD
+    style CAN_RX fill:#DDA0DD

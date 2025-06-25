@@ -1,0 +1,20 @@
+flowchart TD
+    INIT(["STATE_INIT"]) --> SEQUENCE(["STATE_INITIAL_SEQUENCE"]) & EMERGENCY(["STATE_EMERGENCY"])
+    SEQUENCE -- Success --> READY(["STATE_READY"])
+    SEQUENCE -- Failure --> EBS_ERROR(["STATE_EBS_ERROR"])
+    EBS_ERROR --> EMERGENCY
+    READY --> DRIVING(["STATE_DRIVING"]) & EMERGENCY
+    DRIVING --> FINISHED(["STATE_FINISHED"]) & EMERGENCY
+    SEQUENCE --> EMERGENCY
+    EMERGENCY --> FINISHED
+    FINISHED --> INIT
+
+    style INIT fill:#EEE8AA,stroke:#333,stroke-width:2px
+    style SEQUENCE fill:#C9E4DE,stroke:#333,stroke-width:2px
+    style EMERGENCY fill:#FFD6A5,stroke:#333,stroke-width:2px
+    style READY fill:#C6DEF1,stroke:#333,stroke-width:2px
+    style EBS_ERROR fill:#FFB6B9,stroke:#333,stroke-width:2px
+    style DRIVING fill:#F7D9C4,stroke:#333,stroke-width:2px
+    style FINISHED fill:#B5EAD7,stroke:#333,stroke-width:2px
+
+

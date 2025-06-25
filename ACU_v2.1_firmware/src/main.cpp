@@ -34,6 +34,17 @@ typedef enum
 } AS_STATE_t;
 
 
+typedef enum{
+  MANUAL,       // 0
+  ACCELERATION, // 1
+  SKIDPAD,      // 2
+  AUTOCROSS,    // 3
+  TRACKDRIVE,   // 4
+  EBS_TEST,     // 5
+  INSPECTION    // 6
+}current_mission_t;
+
+
 
 typedef enum
 {
@@ -56,6 +67,9 @@ ACU_STATE_t previous_state = STATE_INIT; // Previous state of the VCU
 AS_STATE_t as_state = AS_STATE_OFF; // Autonomous system state
 
 INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
+
+current_mission_t current_mission = MANUAL; // Current mission state
+current_mission_t jetson_mission = MANUAL; // Mission state from Jetson
 
 // State names for debug output
 const char *state_names[] = {
@@ -94,7 +108,7 @@ uint8_t ignition_vcu = 0; // Ignition signal state
 uint8_t asms_flag = 0; // Current ignition signal state
 uint8_t emergency_flag = 0; // Flag to indicate emergency state
 
-uint8_t mission_response_jetson = 1; // Mission response from Jetson
+
 uint8_t res_emergency = 0; // Emergency response from AS
 volatile bool wdt_toogle_enable = true; // Flag to enable WDT toggle
 unsigned long wdt_toogle_counter = 0; // Counter for WDT toggle
@@ -121,9 +135,9 @@ void median_pressures();
 void initial_sequence();
 void check_ignition();
 void ASSI();
-
-
 void led_heartbit();
+void Mission_Indicator();
+
 
 void setup()
 {
@@ -168,7 +182,7 @@ void loop()
  */
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
 {
-  printf("\n\rState transition: %s -> %s\n", state_names[from], state_names[to]);
+  Serial.printf("\n\rState transition: %s -> %s\n", state_names[from], state_names[to]);
 }
 
 /**
@@ -192,31 +206,31 @@ void UpdateState(void)
   switch (current_state)
   {
   case STATE_INIT:
-
-
+    as_state = AS_STATE_OFF; // Autonomous system state
+    current_mission = TRACKDRIVE; 
+    jetson_mission = MANUAL;
     break;
-
   case STATE_INITIAL_SEQUENCE:
     initial_sequence_state = WDT_TOOGLE_CHECK;
     break;
-
   case STATE_EBS_ERROR:
 
 
     break;
 
   case STATE_READY:
-
+    as_state = AS_STATE_READY;
     break;
 
   case STATE_DRIVING:
-
+    as_state = AS_STATE_DRIVING;
     break;
 
   case STATE_EMERGENCY:
-
+    as_state = AS_STATE_EMERGENCY;
     break;
   case STATE_FINISHED:
+    as_state = AS_STATE_FINISHED;
     // Handle finished state if needed
     break;
   }
@@ -241,6 +255,7 @@ void UpdateState(void)
     case STATE_EBS_ERROR:
       digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
       digitalWrite(SOLENOID_FRONT, LOW);
+      
       break;
 
     case STATE_READY:
@@ -249,15 +264,19 @@ void UpdateState(void)
       break;
 
     case STATE_DRIVING:
-
-
+      digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
+      
       break;
 
     case STATE_EMERGENCY:
-
+      digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH);
       break;
       case STATE_FINISHED:
       // Handle finished state actions if needed
+      digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH);
       break;
     }
   }
@@ -282,7 +301,7 @@ void HandleState(void)
       emergency_flag = 0; // Reset emergency flag
       ignition_flag = 0;
       asms_flag = 0;
-      mission_response_jetson = 1;
+      jetson_mission = MANUAL;
       res_emergency = 0;
       wdt_toogle_enable = true;
 
@@ -441,8 +460,24 @@ void send_can_msg() {
     memcpy(tx_message.buf, tx_buffer, AUTONOMOUS_TEMPORARY_ACU_IGN_LENGTH); // Copy data to CAN message buffer
 
     CAN.write(tx_message); // Send CAN message
-    
+
+
+
+    struct autonomous_temporary_acu_ms_t encoded_mission;
+    encoded_mission.mission_select = (uint8_t)current_mission;
+    autonomous_temporary_acu_ms_pack(tx_buffer, &encoded_mission, AUTONOMOUS_TEMPORARY_ACU_MS_LENGTH);
+    tx_message.id = AUTONOMOUS_TEMPORARY_ACU_MS_FRAME_ID; // Set CAN ID
+    tx_message.len = AUTONOMOUS_TEMPORARY_ACU_MS_LENGTH; // Set message length
+    memcpy(tx_message.buf, tx_buffer, AUTONOMOUS_TEMPORARY_ACU_MS_LENGTH); // Copy data to CAN message buffer
+    Serial.print("tx_message:");
+    for (int i = 0; i < AUTONOMOUS_TEMPORARY_ACU_MS_LENGTH; i++) {
+        Serial.print(tx_message.buf[i], HEX);
+        Serial.print(" ");
     }
+    Serial.println();
+    CAN.write(tx_message); // Send CAN message
+
+}
 
 
 void median_pressures() {
@@ -489,7 +524,7 @@ void median_pressures() {
       case AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID:
         struct autonomous_temporary_jetson_ms_t decoded_jetson_ms_data;
         autonomous_temporary_jetson_ms_unpack(&decoded_jetson_ms_data,msg.buf,sizeof(decoded_jetson_ms_data));
-        mission_response_jetson = decoded_jetson_ms_data.mission_select; // Update mission response from Jetson 
+        jetson_mission = (current_mission_t)decoded_jetson_ms_data.mission_select; // Update mission response from Jetson
         break;
       case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
         struct autonomous_temporary_res_t decoded_res_data;
@@ -677,4 +712,83 @@ void ASSI()
   }
 
 
+}
+
+
+void Mission_Indicator() {
+  switch (current_mission)
+  {
+  case MANUAL:
+    digitalWrite(MS_LED1, 0);
+    digitalWrite(MS_LED2, 1);
+    digitalWrite(MS_LED3, 1);
+    digitalWrite(MS_LED4, 1);
+    digitalWrite(MS_LED5, 1);
+    digitalWrite(MS_LED6, 1);
+    digitalWrite(MS_LED7, 1);
+    break;
+  case ACCELERATION:
+    digitalWrite(MS_LED1, 1);
+    digitalWrite(MS_LED2, 0);
+    digitalWrite(MS_LED3, 1);
+    digitalWrite(MS_LED4, 1);
+    digitalWrite(MS_LED5, 1);
+    digitalWrite(MS_LED6, 1);
+    digitalWrite(MS_LED7, 1);
+    break;
+  case SKIDPAD:
+    digitalWrite(MS_LED1, 1);
+    digitalWrite(MS_LED2, 1);
+    digitalWrite(MS_LED3, 0);
+    digitalWrite(MS_LED4, 1);
+    digitalWrite(MS_LED5, 1);
+    digitalWrite(MS_LED6, 1);
+    digitalWrite(MS_LED7, 1);
+    break;
+  case TRACKDRIVE:
+    digitalWrite(MS_LED1, 1);
+    digitalWrite(MS_LED2, 1);
+    digitalWrite(MS_LED3, 1);
+    digitalWrite(MS_LED4, 0);
+    digitalWrite(MS_LED5, 1);
+    digitalWrite(MS_LED6, 1);
+    digitalWrite(MS_LED7, 1);
+    break;
+  case EBS_TEST:
+    digitalWrite(MS_LED1, 1);
+    digitalWrite(MS_LED2, 1);
+    digitalWrite(MS_LED3, 1);
+    digitalWrite(MS_LED4, 1);
+    digitalWrite(MS_LED5, 0);
+    digitalWrite(MS_LED6, 1);
+    digitalWrite(MS_LED7, 1);
+    break;
+  case INSPECTION:
+    digitalWrite(MS_LED1, 1);
+    digitalWrite(MS_LED2, 1);
+    digitalWrite(MS_LED3, 1);
+    digitalWrite(MS_LED4, 1);
+    digitalWrite(MS_LED5, 1);
+    digitalWrite(MS_LED6, 0);
+    digitalWrite(MS_LED7, 1);
+    break;
+  case AUTOCROSS:
+    digitalWrite(MS_LED1, 1);
+    digitalWrite(MS_LED2, 1);
+    digitalWrite(MS_LED3, 1);
+    digitalWrite(MS_LED4, 1);
+    digitalWrite(MS_LED5, 1);
+    digitalWrite(MS_LED6, 1);
+    digitalWrite(MS_LED7, 0);
+    break;
+  default:
+    digitalWrite(MS_LED1, 1);
+    digitalWrite(MS_LED2, 1);
+    digitalWrite(MS_LED3, 1);
+    digitalWrite(MS_LED4, 1);
+    digitalWrite(MS_LED5, 1);
+    digitalWrite(MS_LED6, 1);
+    digitalWrite(MS_LED7, 1);
+    break;
+  }
 }
