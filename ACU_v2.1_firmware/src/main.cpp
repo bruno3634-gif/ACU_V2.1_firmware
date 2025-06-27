@@ -15,7 +15,8 @@
 // VCU state enumeration
 typedef enum
 {
-  STATE_INIT,                   
+  STATE_INIT, 
+  STATE_MISSION_SELECCT,                  
   STATE_INITIAL_SEQUENCE,
   STATE_READY,
   STATE_DRIVING,
@@ -66,8 +67,8 @@ ACU_STATE_t previous_state = STATE_INIT; // Previous state of the VCU
 
 AS_STATE_t as_state = AS_STATE_OFF; // Autonomous system state
 
-INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
-
+//INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
+INITIAL_SEQUENCE_STATE_t initial_sequence_state = PNEUMATIC_CHECK;
 current_mission_t current_mission = MANUAL; // Current mission state
 current_mission_t jetson_mission = MANUAL; // Mission state from Jetson
 
@@ -121,6 +122,11 @@ uint8_t ignition_enable = 0; // Flag to enable ignition
 unsigned long ASSI_YELLOW_time = 0, ASSI_BLUE_time = 0;
 
 
+/***  For debounce */
+static uint8_t last_ign_state = LOW;
+static uint8_t debounced_ign_state = LOW;
+
+
 void UpdateState(void);
 void HandleState(void);
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to);
@@ -154,7 +160,8 @@ void loop()
   HandleState();
 
   led_heartbit();
-  
+
+  Mission_Indicator();
 
   if(update_median_flag) {
     median_pressures(); // Read pressure values
@@ -182,7 +189,7 @@ void loop()
  */
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
 {
-  Serial.printf("\n\rState transition: %s -> %s\n", state_names[from], state_names[to]);
+  Serial2.printf("\n\rState transition: %s -> %s\n", state_names[from], state_names[to]);
 }
 
 /**
@@ -207,15 +214,14 @@ void UpdateState(void)
   {
   case STATE_INIT:
     as_state = AS_STATE_OFF; // Autonomous system state
-    current_mission = TRACKDRIVE; 
     jetson_mission = MANUAL;
+    break;
+  case STATE_MISSION_SELECCT:
     break;
   case STATE_INITIAL_SEQUENCE:
     initial_sequence_state = WDT_TOOGLE_CHECK;
     break;
   case STATE_EBS_ERROR:
-
-
     break;
 
   case STATE_READY:
@@ -246,10 +252,10 @@ void UpdateState(void)
     {
     case STATE_INIT:
       break;
+    case STATE_MISSION_SELECCT:
+      break;
     case STATE_INITIAL_SEQUENCE:
       // reset all inital sequence variables
-
-
       break;
 
     case STATE_EBS_ERROR:
@@ -265,7 +271,7 @@ void UpdateState(void)
 
     case STATE_DRIVING:
       digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
-      digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
       
       break;
 
@@ -307,6 +313,37 @@ void HandleState(void)
 
     
     current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
+    break;
+  case STATE_MISSION_SELECCT:
+    // Read mission select button with debounce while ASMS is off
+    if (digitalRead(ASMS) == LOW) { // ASMS is off
+      static uint8_t last_button_state = HIGH;
+      static uint8_t debounced_button_state = HIGH;
+      static unsigned long last_debounce_time = 0;
+      const unsigned long debounce_delay = 30; // ms
+
+      uint8_t current_button_state = digitalRead(MS_BUTTON1);
+
+      if (current_button_state != last_button_state) {
+        last_debounce_time = millis();
+        last_button_state = current_button_state;
+      }
+
+      if ((millis() - last_debounce_time) > debounce_delay) {
+        if (debounced_button_state != current_button_state) {
+          debounced_button_state = current_button_state;
+          if (debounced_button_state == LOW) {
+            // Cycle to next mission
+            current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
+          }
+        }
+      }
+    }
+    else{
+      if(current_mission != MANUAL){
+        current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
+      }
+    }
     break;
   case STATE_INITIAL_SEQUENCE:
     initial_sequence(); // Execute initial sequence actions
@@ -469,14 +506,20 @@ void send_can_msg() {
     tx_message.id = AUTONOMOUS_TEMPORARY_ACU_MS_FRAME_ID; // Set CAN ID
     tx_message.len = AUTONOMOUS_TEMPORARY_ACU_MS_LENGTH; // Set message length
     memcpy(tx_message.buf, tx_buffer, AUTONOMOUS_TEMPORARY_ACU_MS_LENGTH); // Copy data to CAN message buffer
-    Serial.print("tx_message:");
-    for (int i = 0; i < AUTONOMOUS_TEMPORARY_ACU_MS_LENGTH; i++) {
-        Serial.print(tx_message.buf[i], HEX);
-        Serial.print(" ");
-    }
-    Serial.println();
+
     CAN.write(tx_message); // Send CAN message
 
+
+
+    struct autonomous_temporary_rd_jetson_t RD_jetson_encode;
+    RD_jetson_encode.rd = (as_state == AS_STATE_READY || as_state == AS_STATE_DRIVING) ? 1 : 0; // Set RD value based on current mission
+    autonomous_temporary_rd_jetson_pack(tx_buffer, &RD_jetson_encode, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH);
+    tx_message.id = AUTONOMOUS_TEMPORARY_RD_JETSON_FRAME_ID;
+    tx_message.len = AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH; //
+    memcpy(tx_message.buf, tx_buffer, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH); // Copy data to CAN message buffer
+
+    CAN.write(tx_message); // Send CAN message
+    
 }
 
 
@@ -538,6 +581,11 @@ void median_pressures() {
         HYDRAULIC_PRESSURE_FRONT = decoded_vcu_hv_data.brake_pressure_front / 10.0; // Convert to bar
         HYDRAULIC_PRESSURE_REAR = decoded_vcu_hv_data.brake_pressure_rear / 10.0;
         break;
+        case AUTONOMOUS_TEMPORARY_AS_STATE_FRAME_ID:
+        struct autonomous_temporary_as_state_t decoded_as_state_data;
+        autonomous_temporary_as_state_unpack(&decoded_as_state_data, msg.buf, sizeof(decoded_as_state_data));
+        as_state = (AS_STATE_t)decoded_as_state_data.state; // Update autonomous system state
+
       default:
         // Unknown message ID, ignore
         break;
@@ -643,27 +691,25 @@ void median_pressures() {
 
 
 
-  void check_ignition() {
-    static uint8_t last_ign_state = LOW;
-    static uint8_t debounced_ign_state = LOW;
-    static unsigned long last_debounce_time = 0;
-    const unsigned long debounce_delay = 30; // 30 ms debounce
+void check_ignition() {
+  static unsigned long last_debounce_time = 0;
+  const unsigned long debounce_delay = 30; // 30 ms debounce
 
-    uint8_t current_state = digitalRead(IGN_PIN);
+  uint8_t current_state = digitalRead(IGN_PIN);
 
-    if (current_state != last_ign_state) {
-      last_debounce_time = millis();
-      last_ign_state = current_state;
-    }
-
-    if ((millis() - last_debounce_time) > debounce_delay) {
-      if (debounced_ign_state != current_state) {
-        debounced_ign_state = current_state;
-        ignition_flag = (debounced_ign_state == HIGH) ? 1 : 0;
-      }
-    }
-    ignition_flag = ignition_flag && ignition_enable; // Ensure ignition flag is set only if ignition is enabled
+  if (current_state != last_ign_state) {
+    last_debounce_time = millis();
+    last_ign_state = current_state;
   }
+
+  if ((millis() - last_debounce_time) > debounce_delay) {
+    if (debounced_ign_state != current_state) {
+      debounced_ign_state = current_state;
+      ignition_flag = (debounced_ign_state == HIGH) ? 1 : 0;
+    }
+  }
+  ignition_flag = ignition_flag && ignition_enable; // Ensure ignition flag is set only if ignition is enabled
+}
 
 
 
