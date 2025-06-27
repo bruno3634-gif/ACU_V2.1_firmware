@@ -16,7 +16,7 @@
 typedef enum
 {
   STATE_INIT, 
-  STATE_MISSION_SELECCT,                  
+  STATE_MISSION_SELECT,                  
   STATE_INITIAL_SEQUENCE,
   STATE_READY,
   STATE_DRIVING,
@@ -27,12 +27,13 @@ typedef enum
 
 typedef enum
 {
-  AS_STATE_OFF,
-  AS_STATE_READY,                 
-  AS_STATE_DRIVING,
-  AS_STATE_EMERGENCY,
-  AS_STATE_FINISHED          
+  AS_STATE_OFF,         //0
+  AS_STATE_READY,       //1          
+  AS_STATE_DRIVING,     //2
+  AS_STATE_EMERGENCY,   //3
+  AS_STATE_FINISHED     //4         
 } AS_STATE_t;
+
 
 
 typedef enum{
@@ -116,6 +117,7 @@ unsigned long wdt_toogle_counter = 0; // Counter for WDT toggle
 unsigned long wdt_relay_timout = 0; // Timeout for WDT relay
 unsigned long pressure_check_delay = 0; // Delay for pressure check
 uint8_t ignition_enable = 0; // Flag to enable ignition
+volatile bool res_active = false; // Flag to indicate if response is active
 
 
 
@@ -147,6 +149,7 @@ void Mission_Indicator();
 
 void setup()
 {
+  delay(5000); // Delay for testing purposes
   peripheral_init(); // Initialize peripherals and pins
 }
 
@@ -189,7 +192,7 @@ void loop()
  */
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
 {
-  Serial2.printf("\n\rState transition: %s -> %s\n", state_names[from], state_names[to]);
+  Serial2.printf("\n\rState transition: %s -> %s\n\r", state_names[from], state_names[to]);
 }
 
 /**
@@ -216,7 +219,7 @@ void UpdateState(void)
     as_state = AS_STATE_OFF; // Autonomous system state
     jetson_mission = MANUAL;
     break;
-  case STATE_MISSION_SELECCT:
+  case STATE_MISSION_SELECT:
     break;
   case STATE_INITIAL_SEQUENCE:
     initial_sequence_state = WDT_TOOGLE_CHECK;
@@ -252,7 +255,7 @@ void UpdateState(void)
     {
     case STATE_INIT:
       break;
-    case STATE_MISSION_SELECCT:
+    case STATE_MISSION_SELECT:
       break;
     case STATE_INITIAL_SEQUENCE:
       // reset all inital sequence variables
@@ -314,9 +317,9 @@ void HandleState(void)
     
     current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
     break;
-  case STATE_MISSION_SELECCT:
+  case STATE_MISSION_SELECT:
     // Read mission select button with debounce while ASMS is off
-    if (digitalRead(ASMS) == LOW) { // ASMS is off
+    if (digitalRead(ASMS) == LOW || res_active) { // ASMS is off
       static uint8_t last_button_state = HIGH;
       static uint8_t debounced_button_state = HIGH;
       static unsigned long last_debounce_time = 0;
@@ -570,9 +573,13 @@ void median_pressures() {
         jetson_mission = (current_mission_t)decoded_jetson_ms_data.mission_select; // Update mission response from Jetson
         break;
       case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
+      
         struct autonomous_temporary_res_t decoded_res_data;
         autonomous_temporary_res_unpack(&decoded_res_data, msg.buf, sizeof(decoded_res_data));
         res_emergency = (decoded_res_data.signal != 0) ? 0 : 1; // Update emergency response from AS
+        if(!res_active){
+          res_active = true; // Set response active flag
+        }
         break;
       case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
         struct autonomous_temporary_vcu_hv_t decoded_vcu_hv_data;
@@ -681,10 +688,11 @@ void median_pressures() {
       break;
     case ERROR:
       current_state = STATE_EBS_ERROR; // Transition to EBS error state
+      Serial2.println("Initial sequence error: Pressure check failed or timeout occurred");
 
     break;
     default:
-      Serial.println("Unknown initial sequence state");
+      Serial2.println("Unknown initial sequence state");
       break;
     }
   }
