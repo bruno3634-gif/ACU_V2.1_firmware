@@ -12,7 +12,7 @@
 #define PRESSURE_READINGS 8 // Number of pressure readings to average
 
 /* -------------------- STATE MACHINE DEFINITIONS -------------------- */
-// VCU state enumeration
+// ACU state enumeration
 typedef enum
 {
   STATE_INIT, 
@@ -63,10 +63,10 @@ typedef enum
 
 
 // State machine variables
-ACU_STATE_t current_state = STATE_INIT;  // Current state of the VCU
-ACU_STATE_t previous_state = STATE_INIT; // Previous state of the VCU
+volatile ACU_STATE_t current_state = STATE_INIT;  // Current state of the ACU
+volatile ACU_STATE_t previous_state = STATE_INIT; // Previous state of the ACU
 
-AS_STATE_t as_state = AS_STATE_OFF; // Autonomous system state
+volatile AS_STATE_t as_state = AS_STATE_OFF; // Autonomous system state
 
 //INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
 INITIAL_SEQUENCE_STATE_t initial_sequence_state = PNEUMATIC_CHECK;
@@ -149,13 +149,13 @@ void Mission_Indicator();
 
 void setup()
 {
-  delay(5000); // Delay for testing purposes
   peripheral_init(); // Initialize peripherals and pins
+  delay(3000);
 }
 
 void loop()
 {
-
+  
 
   UpdateState();
 
@@ -192,7 +192,8 @@ void loop()
  */
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
 {
-  Serial2.printf("\n\rState transition: %s -> %s\n\r", state_names[from], state_names[to]);
+  Serial.println("\n\rState transition: " + String(state_names[from]) + " -> " + String(state_names[to]));
+
 }
 
 /**
@@ -222,24 +223,24 @@ void UpdateState(void)
   case STATE_MISSION_SELECT:
     break;
   case STATE_INITIAL_SEQUENCE:
-    initial_sequence_state = WDT_TOOGLE_CHECK;
+    
     break;
   case STATE_EBS_ERROR:
     break;
 
   case STATE_READY:
-    as_state = AS_STATE_READY;
+    
     break;
 
   case STATE_DRIVING:
-    as_state = AS_STATE_DRIVING;
+    
     break;
 
   case STATE_EMERGENCY:
-    as_state = AS_STATE_EMERGENCY;
+    
     break;
   case STATE_FINISHED:
-    as_state = AS_STATE_FINISHED;
+    
     // Handle finished state if needed
     break;
   }
@@ -254,10 +255,13 @@ void UpdateState(void)
     switch (current_state)
     {
     case STATE_INIT:
+    as_state = AS_STATE_OFF; // Autonomous system state
       break;
     case STATE_MISSION_SELECT:
+      as_state = AS_STATE_OFF; // Autonomous system state
       break;
     case STATE_INITIAL_SEQUENCE:
+    initial_sequence_state = WDT_TOOGLE_CHECK;
       // reset all inital sequence variables
       break;
 
@@ -268,22 +272,25 @@ void UpdateState(void)
       break;
 
     case STATE_READY:
-
+      as_state = AS_STATE_READY;
 
       break;
 
     case STATE_DRIVING:
+      as_state = AS_STATE_DRIVING;
       digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
       
       break;
 
     case STATE_EMERGENCY:
+      as_state = AS_STATE_EMERGENCY;
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH);
       break;
       case STATE_FINISHED:
       // Handle finished state actions if needed
+      as_state = AS_STATE_FINISHED;
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH);
       break;
@@ -315,15 +322,20 @@ void HandleState(void)
       wdt_toogle_enable = true;
 
     
-    current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
+    //current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
+    current_state = STATE_MISSION_SELECT; // Transition to mission select state
     break;
   case STATE_MISSION_SELECT:
+       
+    static uint8_t last_button_state = HIGH;
+    static uint8_t debounced_button_state = HIGH;
+    static unsigned long last_debounce_time = 0;
+    const unsigned long debounce_delay = 30;
+
+
     // Read mission select button with debounce while ASMS is off
-    if (digitalRead(ASMS) == LOW || res_active) { // ASMS is off
-      static uint8_t last_button_state = HIGH;
-      static uint8_t debounced_button_state = HIGH;
-      static unsigned long last_debounce_time = 0;
-      const unsigned long debounce_delay = 30; // ms
+    if (digitalRead(ASMS) == LOW && !res_active) { // ← NOVO { // ASMS is off && RES is off
+
 
       uint8_t current_button_state = digitalRead(MS_BUTTON1);
 
@@ -343,9 +355,9 @@ void HandleState(void)
       }
     }
     else{
-      if(current_mission != MANUAL){
+      //if(current_mission != MANUAL){
         current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
-      }
+      //}
     }
     break;
   case STATE_INITIAL_SEQUENCE:
@@ -457,6 +469,7 @@ void led_heartbit() {
     if (HeartBit + 500 <= millis()) {
         digitalWrite(HB_LED, !digitalRead(HB_LED)); // Toggle LED state
         HeartBit = millis();
+        Serial.println(current_state);
     }
 }
 
@@ -521,8 +534,7 @@ void send_can_msg() {
     tx_message.len = AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH; //
     memcpy(tx_message.buf, tx_buffer, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH); // Copy data to CAN message buffer
 
-    CAN.write(tx_message); // Send CAN message
-    
+    CAN.write(tx_message); // Send CAN message    
 }
 
 
@@ -592,6 +604,26 @@ void median_pressures() {
         struct autonomous_temporary_as_state_t decoded_as_state_data;
         autonomous_temporary_as_state_unpack(&decoded_as_state_data, msg.buf, sizeof(decoded_as_state_data));
         as_state = (AS_STATE_t)decoded_as_state_data.state; // Update autonomous system state
+        switch (as_state)
+        {
+        case AS_STATE_OFF:
+          current_state = STATE_INIT; // Transition to INIT state
+          break;
+        case AS_STATE_READY:
+          current_state = STATE_READY; // Transition to READY state
+          break;
+        case AS_STATE_DRIVING:
+          current_state = STATE_DRIVING; // Transition to DRIVING state
+          break;
+        case AS_STATE_EMERGENCY:
+          current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+          break;
+        case AS_STATE_FINISHED:
+          current_state = STATE_FINISHED; // Transition to FINISHED state
+          break;
+        default:
+          break;
+        }
 
       default:
         // Unknown message ID, ignore
@@ -688,11 +720,11 @@ void median_pressures() {
       break;
     case ERROR:
       current_state = STATE_EBS_ERROR; // Transition to EBS error state
-      Serial2.println("Initial sequence error: Pressure check failed or timeout occurred");
+      Serial.println("Initial sequence error: Pressure check failed or timeout occurred");
 
     break;
     default:
-      Serial2.println("Unknown initial sequence state");
+      Serial.println("Unknown initial sequence state");
       break;
     }
   }
@@ -728,7 +760,7 @@ void ASSI()
   switch (as_state)
   {
   case AS_STATE_OFF:
-    digitalWrite(YELLOW_LEDS, HIGH);
+    digitalWrite(YELLOW_LEDS, LOW);
     digitalWrite(BLUE_LEDS, LOW);
 
     break;
