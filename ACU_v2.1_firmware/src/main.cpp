@@ -25,6 +25,18 @@ typedef enum
   STATE_FINISHED         
 } ACU_STATE_t;
 
+
+// State names for debug output
+const char *state_names[] = {
+    "STATE_INIT",
+    "STATE_Mission_Select",
+    "STATE_INITIAL_SEQUENCE",
+    "STATE_READY",
+    "STATE_DRIVING",
+    "STATE_EBS_ERROR",
+    "STATE_EMERGENCY",
+    "STATE_FINISHED"};
+
 typedef enum
 {
   AS_STATE_OFF,         //0
@@ -69,21 +81,11 @@ volatile ACU_STATE_t previous_state = STATE_INIT; // Previous state of the ACU
 volatile AS_STATE_t as_state = AS_STATE_OFF; // Autonomous system state
 
 //INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
-INITIAL_SEQUENCE_STATE_t initial_sequence_state = PNEUMATIC_CHECK;
+//INITIAL_SEQUENCE_STATE_t initial_sequence_state = PNEUMATIC_CHECK;
+INITIAL_SEQUENCE_STATE_t initial_sequence_state = IGNITON;
 current_mission_t current_mission = MANUAL; // Current mission state
 current_mission_t jetson_mission = MANUAL; // Mission state from Jetson
 
-// State names for debug output
-const char *state_names[] = {
-    "STATE_INIT",
-    "STATE_SHUTDOWN",
-    "STATE_STANDBY",
-    "STATE_PRECHARGE",
-    "STATE_WAITING_FOR_R2D_MANUAL",
-    "STATE_WAITING_FOR_R2D_AUTO",
-    "STATE_READY_MANUAL",
-    "STATE_READY_AUTONOMOUS",
-    "STATE_AS_EMERGENCY"};
 
 
 
@@ -103,7 +105,7 @@ float TANK_PRESSURE_FRONT = 0, TANK_PRESSURE_REAR = 0; // Pressure values for ta
 float HYDRAULIC_PRESSURE_FRONT = 0, HYDRAULIC_PRESSURE_REAR = 0; // Pressure values for front and rear hydraulics
 
 uint8_t adc_pointer = 0; // Pointer for pressure readings
-bool update_median_flag = false; // Flag to indicate if median update is needed
+volatile bool update_median_flag = false; // Flag to indicate if median update is needed
 
 uint8_t ignition_flag = 0; // Flag to indicate ignition signal
 uint8_t ignition_vcu = 0; // Ignition signal state
@@ -111,17 +113,18 @@ uint8_t asms_flag = 0; // Current ignition signal state
 uint8_t emergency_flag = 0; // Flag to indicate emergency state
 
 
-uint8_t res_emergency = 0; // Emergency response from AS
-volatile bool wdt_toogle_enable = true; // Flag to enable WDT toggle
-unsigned long wdt_toogle_counter = 0; // Counter for WDT toggle
+volatile uint8_t res_emergency = 0; // Emergency response from AS
+volatile bool wdt_togle_enable = true; // Flag to enable WDT toggle
+unsigned long wdt_togle_counter = 0; // Counter for WDT toggle
 unsigned long wdt_relay_timout = 0; // Timeout for WDT relay
 unsigned long pressure_check_delay = 0; // Delay for pressure check
 uint8_t ignition_enable = 0; // Flag to enable ignition
 volatile bool res_active = false; // Flag to indicate if response is active
 
-
+unsigned long emergency_timestamp = 0; // Timestamp for emergency state
 
 unsigned long ASSI_YELLOW_time = 0, ASSI_BLUE_time = 0;
+unsigned long last_button_time_ms = 0;
 
 
 /***  For debounce */
@@ -150,7 +153,7 @@ void Mission_Indicator();
 void setup()
 {
   peripheral_init(); // Initialize peripherals and pins
-  delay(3000);
+  //delay(3000);
 }
 
 void loop()
@@ -170,13 +173,13 @@ void loop()
     median_pressures(); // Read pressure values
     update_median_flag = false; // Reset flag after reading
   }
-
+  asms_flag = digitalRead(ASMS); // Read ASMS state
   ASSI(); // Update ASSI state
 
-  if(wdt_toogle_enable) {
-    if(millis() - wdt_toogle_counter >= 10) { // Check if 10 ms has passed
+  if(wdt_togle_enable) {
+    if(millis() - wdt_togle_counter >= 10) { // Check if 10 ms has passed
       digitalWrite(WDT, !digitalRead(WDT)); // Toggle WDT pin
-      wdt_toogle_counter = millis(); // Reset counter
+      wdt_togle_counter = millis(); // Reset counter
     }
   
   }
@@ -192,7 +195,7 @@ void loop()
  */
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
 {
-  Serial.println("\n\rState transition: " + String(state_names[from]) + " -> " + String(state_names[to]));
+  Serial2.println("\n\rState transition: " + String(state_names[from]) + " -> " + String(state_names[to]));
 
 }
 
@@ -201,16 +204,8 @@ void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
  */
 void UpdateState(void)
 {
-  // Store current state for change detection
-  previous_state = current_state;
+  
 
-  // Process emergency condition with highest priority
-  /*
-    if (((as_system.state == 4) || (res.signal == 0)) && current_state != STATE_AS_EMERGENCY)
-  {
-    current_state = STATE_AS_EMERGENCY;
-  }
-  */
 
 
   // State transitions
@@ -237,7 +232,9 @@ void UpdateState(void)
     break;
 
   case STATE_EMERGENCY:
-    
+    emergency_flag = 1; // Set emergency flag
+      digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH);
     break;
   case STATE_FINISHED:
     
@@ -256,9 +253,11 @@ void UpdateState(void)
     {
     case STATE_INIT:
     as_state = AS_STATE_OFF; // Autonomous system state
+    wdt_togle_enable = true; // Enable WDT toggle
       break;
     case STATE_MISSION_SELECT:
       as_state = AS_STATE_OFF; // Autonomous system state
+      wdt_togle_enable = true; // Enable WDT toggle
       break;
     case STATE_INITIAL_SEQUENCE:
     initial_sequence_state = WDT_TOOGLE_CHECK;
@@ -287,6 +286,8 @@ void UpdateState(void)
       as_state = AS_STATE_EMERGENCY;
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH);
+      emergency_timestamp = millis(); // Record the time of entering emergency state
+      Serial2.println("Entering emergency state");
       break;
       case STATE_FINISHED:
       // Handle finished state actions if needed
@@ -295,6 +296,8 @@ void UpdateState(void)
       digitalWrite(SOLENOID_FRONT, HIGH);
       break;
     }
+    // Store current state for change detection
+    previous_state = current_state;
   }
 }
 
@@ -304,8 +307,16 @@ void UpdateState(void)
 void HandleState(void)
 {
 
+  if(asms_flag == LOW && current_state > STATE_MISSION_SELECT){
+    ignition_enable = 0; // Reset ignition enable flag
+    current_state = STATE_MISSION_SELECT; // Transition to mission select state
+  }
+
+
+
   if(res_emergency == 1){
     current_state = STATE_EMERGENCY;
+    as_state = AS_STATE_EMERGENCY; // Autonomous system state
   }
 
   switch (current_state)
@@ -319,47 +330,33 @@ void HandleState(void)
       asms_flag = 0;
       jetson_mission = MANUAL;
       res_emergency = 0;
-      wdt_toogle_enable = true;
+      wdt_togle_enable = true;
 
     
     //current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
     break;
   case STATE_MISSION_SELECT:
-       
-    static uint8_t last_button_state = HIGH;
-    static uint8_t debounced_button_state = HIGH;
-    static unsigned long last_debounce_time = 0;
-    const unsigned long debounce_delay = 30;
 
-
-    // Read mission select button with debounce while ASMS is off
-    if (digitalRead(ASMS) == LOW && !res_active) { // ← NOVO { // ASMS is off && RES is off
-
-
-      uint8_t current_button_state = digitalRead(MS_BUTTON1);
-
-      if (current_button_state != last_button_state) {
-        last_debounce_time = millis();
-        last_button_state = current_button_state;
-      }
-
-      if ((millis() - last_debounce_time) > debounce_delay) {
-        if (debounced_button_state != current_button_state) {
-          debounced_button_state = current_button_state;
-          if (debounced_button_state == LOW) {
-            // Cycle to next mission
+    static bool last_button = false;  // Start with LOW (pulldown default)
+    
+    if (digitalRead(ASMS) == LOW && !res_active) {
+        bool current_button = (digitalRead(MS_BUTTON1) == HIGH);  // HIGH when pressed
+        
+        // Trigger ONLY on button press (LOW→HIGH transition)
+        if (!last_button && current_button) {
             current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
-          }
+            Serial.print("Mission changed to: ");
+            Serial.println(current_mission);
         }
-      }
+        
+        last_button = current_button;  // Update for next loop
     }
-    else{
-      //if(current_mission != MANUAL){
-        current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
-      //}
+    else {
+        current_state = STATE_INITIAL_SEQUENCE;
     }
     break;
+
   case STATE_INITIAL_SEQUENCE:
     initial_sequence(); // Execute initial sequence actions
     break;
@@ -377,6 +374,15 @@ void HandleState(void)
     break;
 
   case STATE_EMERGENCY:
+    // Handle emergency actions
+      if(res_emergency == 0 && TANK_PRESSURE_FRONT < 1 && TANK_PRESSURE_REAR < 1 && ignition_flag == 0 && millis() - emergency_timestamp > 9000) {
+        current_state = STATE_INIT;
+        as_state = AS_STATE_OFF; // Autonomous system state
+        Serial2.println("Emergency state timeout, returning to INIT state");
+      }
+      else{
+        Serial2.println("Emergency state active, waiting for AS response");
+      }
 
     break;
     case STATE_FINISHED:
@@ -455,6 +461,7 @@ void peripheral_init()
   CAN.setMBFilter(MB3, AUTONOMOUS_TEMPORARY_RES_FRAME_ID);
 
   CAN.onReceive(canISR);
+  CAN.enableMBInterrupts(); // Enable mailbox interrupts added 10 july 2025
 
   PRESSURE_TIMER.begin(Pressure_readings, 100000); // 100ms
 
@@ -501,8 +508,8 @@ void send_can_msg() {
     CAN_message_t tx_message;
 
     struct autonomous_temporary_acu_ign_t encoded_ign;    
-    encoded_ign.ebs_pressure_rear = (uint8_t)(TANK_PRESSURE_FRONT ); // Convert to 0.1 bar scale
-    encoded_ign.ebs_pressure_front = (uint8_t)(TANK_PRESSURE_REAR); // Convert to 0.1 bar scale
+    encoded_ign.ebs_pressure_rear = (uint8_t)(TANK_PRESSURE_FRONT *10); // Convert to 0.1 bar scale
+    encoded_ign.ebs_pressure_front = (uint8_t)(TANK_PRESSURE_REAR *10); // Convert to 0.1 bar scale
     encoded_ign.ign = ignition_flag; // Set ignition flag
     encoded_ign.asms = asms_flag; // Set ASMS flag
     encoded_ign.emergency = emergency_flag; // Set emergency flag
@@ -577,7 +584,7 @@ void median_pressures() {
 
 
   void canISR(const CAN_message_t &msg){
-
+    digitalWrite(Debug_LED3, !digitalRead(Debug_LED3)); // Indicate reception of RES message
     switch(msg.id) {
       case AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID:
         struct autonomous_temporary_jetson_ms_t decoded_jetson_ms_data;
@@ -585,25 +592,34 @@ void median_pressures() {
         jetson_mission = (current_mission_t)decoded_jetson_ms_data.mission_select; // Update mission response from Jetson
         break;
       case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
-      
         struct autonomous_temporary_res_t decoded_res_data;
-        autonomous_temporary_res_unpack(&decoded_res_data, msg.buf, sizeof(decoded_res_data));
-        res_emergency = (decoded_res_data.signal != 0) ? 0 : 1; // Update emergency response from AS
+       autonomous_temporary_res_unpack(&decoded_res_data, msg.buf, msg.len);
+        //res_emergency = (decoded_res_data.signal != 0) ? 0 : 1; // Update emergency response from AS
+        //if(decoded_res_data.signal == 0) {
+
+        if(decoded_res_data.signal == 0) {
+          res_emergency = 1; // Set emergency response flag
+        }else{
+          res_emergency = 0; // Reset emergency response flag
+        }
+        
         if(!res_active){
           res_active = true; // Set response active flag
         }
         break;
       case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
         struct autonomous_temporary_vcu_hv_t decoded_vcu_hv_data;
-        autonomous_temporary_vcu_hv_unpack(&decoded_vcu_hv_data, msg.buf, sizeof(decoded_vcu_hv_data));
+        autonomous_temporary_vcu_hv_unpack(&decoded_vcu_hv_data, msg.buf, msg.len);
         ignition_vcu = (decoded_vcu_hv_data.hv == AUTONOMOUS_TEMPORARY_VCU_HV_HV_HV_ON_CHOICE) ? 1 : 0; // Update ignition signal
         HYDRAULIC_PRESSURE_FRONT = decoded_vcu_hv_data.brake_pressure_front / 10.0; // Convert to bar
         HYDRAULIC_PRESSURE_REAR = decoded_vcu_hv_data.brake_pressure_rear / 10.0;
         break;
         case AUTONOMOUS_TEMPORARY_AS_STATE_FRAME_ID:
         struct autonomous_temporary_as_state_t decoded_as_state_data;
-        autonomous_temporary_as_state_unpack(&decoded_as_state_data, msg.buf, sizeof(decoded_as_state_data));
-        as_state = (AS_STATE_t)decoded_as_state_data.state; // Update autonomous system state
+        autonomous_temporary_as_state_unpack(&decoded_as_state_data, msg.buf, msg.len);
+        if(current_state != STATE_EMERGENCY){
+          as_state = (AS_STATE_t)decoded_as_state_data.state; // Update autonomous system state
+        }        
         switch (as_state)
         {
         case AS_STATE_OFF:
@@ -640,14 +656,14 @@ void median_pressures() {
     case WDT_TOOGLE_CHECK:
       if(digitalRead(WDT) == HIGH) {
         initial_sequence_state = WDT_STP_TOOGLE_CHECK;
-        wdt_toogle_enable = false; // Disable WDT toggle for initial sequence
+        wdt_togle_enable = false; // Disable WDT toggle for initial sequence
         wdt_relay_timout = millis(); // Reset WDT toggle counter
       }
       break;
     case WDT_STP_TOOGLE_CHECK:
       if(digitalRead(WDT) == LOW) {
         initial_sequence_state = PNEUMATIC_CHECK; 
-        wdt_toogle_enable = true; 
+        wdt_togle_enable = true; 
       }else{
         if(millis() - wdt_relay_timout >= 500) { 
           initial_sequence_state = ERROR;
