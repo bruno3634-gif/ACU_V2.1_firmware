@@ -1,6 +1,21 @@
 var searchData=
 [
-  ['tank_5fpressure_5ffront_0',['TANK_PRESSURE_FRONT',['../main_8cpp.html#a600772ce5723a61206cfb7896fa87b98',1,'main.cpp']]],
-  ['tank_5fpressure_5frear_1',['TANK_PRESSURE_REAR',['../main_8cpp.html#a130bd0aa4a3a92ede1b03bff81261c87',1,'main.cpp']]],
-  ['trackdrive_2',['TRACKDRIVE',['../main_8cpp.html#a52046db9ef2d3d10b93d18030826280aacd54d652c407892c09d1c0394be11a18',1,'main.cpp']]]
+  ['send_5fcan_5fmsg_0',['send_can_msg',['../main_8cpp.html#af5b02dc36a29cc8a9cecafe91de92888',1,'main.cpp']]],
+  ['send_5fhandbook_5fvariables_1',['send_handbook_variables',['../main_8cpp.html#a56d1af212215f6c381c19a42b5cee320',1,'main.cpp']]],
+  ['setup_2',['setup',['../main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'main.cpp']]],
+  ['skidpad_3',['SKIDPAD',['../main_8cpp.html#a52046db9ef2d3d10b93d18030826280aa6bc0810ff00cd4a385271784ee4c46eb',1,'main.cpp']]],
+  ['speed_5factual_4',['Speed_actual',['../main_8cpp.html#a7e01c2a42f6ff68b1cad1418014f3add',1,'main.cpp']]],
+  ['speed_5ftarget_5',['Speed_target',['../main_8cpp.html#abf8cc411bea715a48eb3d853adc29009',1,'main.cpp']]],
+  ['state_5fdriving_6',['STATE_DRIVING',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027af95526d1ef4831064e055679fde8e9d5',1,'main.cpp']]],
+  ['state_5febs_5ferror_7',['STATE_EBS_ERROR',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a3df5e9f9e42f7d731b2ada9df91022dc',1,'main.cpp']]],
+  ['state_5femergency_8',['STATE_EMERGENCY',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027ad0180e0382824e561c72f20f08838420',1,'main.cpp']]],
+  ['state_5ffinished_9',['STATE_FINISHED',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a5e09161e3e14f41b526727f69a2e4148',1,'main.cpp']]],
+  ['state_5finit_10',['STATE_INIT',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9',1,'main.cpp']]],
+  ['state_5finitial_5fsequence_11',['STATE_INITIAL_SEQUENCE',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027acee8959f0be0cfa49a2ce9eb88cfc216',1,'main.cpp']]],
+  ['state_5fmission_5fselect_12',['STATE_MISSION_SELECT',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a01684ac1931339796ba48f9898361b06',1,'main.cpp']]],
+  ['state_5fnames_13',['state_names',['../main_8cpp.html#afc8e27fc9a2dc86341a3c0c5ae2809da',1,'main.cpp']]],
+  ['state_5fready_14',['STATE_READY',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a5ae0bbfe1a737c76e53253b05168b56b',1,'main.cpp']]],
+  ['steering_5fangle_5factual_15',['Steering_angle_actual',['../main_8cpp.html#a61899b9e1e537705bcbb5a3f08b40604',1,'main.cpp']]],
+  ['steering_5fangle_5ftarget_16',['Steering_angle_target',['../main_8cpp.html#a63b193140600f9e866dcd2946e12760c',1,'main.cpp']]],
+  ['steering_5fstate_17',['Steering_state',['../main_8cpp.html#a83ff0ab6d7df349a5ff1bcc47f520eda',1,'main.cpp']]]
 ];

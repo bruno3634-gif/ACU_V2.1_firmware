@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['tank_5fpressure_5ffront_0',['TANK_PRESSURE_FRONT',['../main_8cpp.html#a600772ce5723a61206cfb7896fa87b98',1,'main.cpp']]],
-  ['tank_5fpressure_5frear_1',['TANK_PRESSURE_REAR',['../main_8cpp.html#a130bd0aa4a3a92ede1b03bff81261c87',1,'main.cpp']]]
+  ['speed_5factual_0',['Speed_actual',['../main_8cpp.html#a7e01c2a42f6ff68b1cad1418014f3add',1,'main.cpp']]],
+  ['speed_5ftarget_1',['Speed_target',['../main_8cpp.html#abf8cc411bea715a48eb3d853adc29009',1,'main.cpp']]],
+  ['state_5fnames_2',['state_names',['../main_8cpp.html#afc8e27fc9a2dc86341a3c0c5ae2809da',1,'main.cpp']]],
+  ['steering_5fangle_5factual_3',['Steering_angle_actual',['../main_8cpp.html#a61899b9e1e537705bcbb5a3f08b40604',1,'main.cpp']]],
+  ['steering_5fangle_5ftarget_4',['Steering_angle_target',['../main_8cpp.html#a63b193140600f9e866dcd2946e12760c',1,'main.cpp']]],
+  ['steering_5fstate_5',['Steering_state',['../main_8cpp.html#a83ff0ab6d7df349a5ff1bcc47f520eda',1,'main.cpp']]]
 ];

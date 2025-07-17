@@ -95,6 +95,8 @@ void \mbox{\hyperlink{main_8cpp_ad7ca1335f3784986a9e2ba85d381aa29}{ASSI}} ()
 \begin{DoxyCompactList}\small\item\em Controls the state of the YELLOW\+\_\+\+LEDS and BLUE\+\_\+\+LEDS based on the current as\+\_\+state. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8cpp_aa79651decaade86f3f99ac7d213f588d}{Mission\+\_\+\+Indicator}} ()
 \begin{DoxyCompactList}\small\item\em Updates the mission indicator LEDs based on the current mission state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a56d1af212215f6c381c19a42b5cee320}{send\+\_\+handbook\+\_\+variables}} ()
+\begin{DoxyCompactList}\small\item\em Encodes handbook variables for CAN bus transmission. This function prepares the handbook variables related to driving dynamics. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
 \item 
 void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
@@ -119,6 +121,8 @@ volatile \mbox{\hyperlink{main_8cpp_a9c37b122762e5d8b803b3ee44e747291}{AS\+\_\+\
 Interval\+Timer \mbox{\hyperlink{main_8cpp_a27704d3b3dc2314a6a46697028ea9084}{PRESSURE\+\_\+\+TIMER}}
 \item 
 Interval\+Timer \mbox{\hyperlink{main_8cpp_aad9c1d6673f4b146294ecb5c3deb475d}{CAN\+\_\+\+TIMER}}
+\item 
+Interval\+Timer \mbox{\hyperlink{main_8cpp_a3007cbc6fa027fdc71b1b88ed347006a}{HANDBOOK\+\_\+\+MESSAGE\+\_\+\+TIMER}}
 \item 
 Flex\+CAN\+\_\+\+T4$<$ CAN2, RX\+\_\+\+SIZE\+\_\+1024, TX\+\_\+\+SIZE\+\_\+1024 $>$ \mbox{\hyperlink{main_8cpp_ad167169760644f4776109ea0cfe13862}{CAN}}
 \item 
@@ -174,9 +178,9 @@ uint8\+\_\+t \mbox{\hyperlink{main_8cpp_a7e01c2a42f6ff68b1cad1418014f3add}{Speed
 \begin{DoxyCompactList}\small\item\em Handbook variables that are sent to can bus -\/\texorpdfstring{$>$}{>} DV driving dynamics 1 FSG Handbook 2025 page 20. \end{DoxyCompactList}\item 
 uint8\+\_\+t \mbox{\hyperlink{main_8cpp_abf8cc411bea715a48eb3d853adc29009}{Speed\+\_\+target}} = 0
 \item 
-uint8\+\_\+t \mbox{\hyperlink{main_8cpp_a853324ec6c561f4c32a7acfec48b8c0e}{Steering\+\_\+angle\+\_\+actual}} = 0
+int8\+\_\+t \mbox{\hyperlink{main_8cpp_a61899b9e1e537705bcbb5a3f08b40604}{Steering\+\_\+angle\+\_\+actual}} = 0
 \item 
-uint8\+\_\+t \mbox{\hyperlink{main_8cpp_a5b8c589ff5901ddd67657fa2027651e5}{Steering\+\_\+angle\+\_\+target}} = 0
+int8\+\_\+t \mbox{\hyperlink{main_8cpp_a63b193140600f9e866dcd2946e12760c}{Steering\+\_\+angle\+\_\+target}} = 0
 \item 
 uint8\+\_\+t \mbox{\hyperlink{main_8cpp_a3bd5756dc55dbfa3ada3d8319a134d4b}{Brake\+\_\+hydr\+\_\+actual}} = 0
 \item 
@@ -201,6 +205,12 @@ uint8\+\_\+t \mbox{\hyperlink{main_8cpp_aa65f1d3faf0dc1a57ed60dd811070ec4}{Lap\+
 uint8\+\_\+t \mbox{\hyperlink{main_8cpp_a4fec9983a5cbb27e05df4878d96afb9c}{cones\+\_\+count\+\_\+actual}} = 0
 \item 
 uint16\+\_\+t \mbox{\hyperlink{main_8cpp_a5d4f3a3d2fd70f4a9480c69c17594041}{cones\+\_\+count}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{main_8cpp_af900d3dd9d057aca9a83f3c317f64cb9}{Brake\+\_\+pressure\+\_\+front}} = 0
+\item 
+int8\+\_\+t \mbox{\hyperlink{main_8cpp_aefa82f7b8253bec3c79e84ef45a94f65}{Brake\+\_\+pressure\+\_\+rear}} = 0
+\item 
+int16\+\_\+t \mbox{\hyperlink{main_8cpp_a5e0a2c612c74c0467100da2e29eb063d}{dynamics\+\_\+steering\+\_\+angle}} = 0
 \end{DoxyCompactItemize}
 
 
@@ -511,7 +521,9 @@ void Handle\+State (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCapti
 
 Handle actions specific to the current state. 
 
-\Hypertarget{main_8cpp_af5410939209e53fe97278767aee5d5b0}\index{main.cpp@{main.cpp}!initial\_sequence@{initial\_sequence}}
+TODO\+: Se current\+\_\+state \texorpdfstring{$>$}{>} initial\+\_\+sequence and \texorpdfstring{$<$}{<} emegencia codigo do fluxogama que te vou envia
+
+TODO\+: Release brakes Solenoids a 0 AS\+\_\+state = AS\+\_\+\+STATE\+\_\+\+DRIVING;\Hypertarget{main_8cpp_af5410939209e53fe97278767aee5d5b0}\index{main.cpp@{main.cpp}!initial\_sequence@{initial\_sequence}}
 \index{initial\_sequence@{initial\_sequence}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{initial\_sequence()}{initial\_sequence()}}
 {\footnotesize\ttfamily \label{main_8cpp_af5410939209e53fe97278767aee5d5b0} 
@@ -591,6 +603,16 @@ void send\+\_\+can\+\_\+msg (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})
 
 
 Send CAN messages based on system state. 
+
+\Hypertarget{main_8cpp_a56d1af212215f6c381c19a42b5cee320}\index{main.cpp@{main.cpp}!send\_handbook\_variables@{send\_handbook\_variables}}
+\index{send\_handbook\_variables@{send\_handbook\_variables}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{send\_handbook\_variables()}{send\_handbook\_variables()}}
+{\footnotesize\ttfamily \label{main_8cpp_a56d1af212215f6c381c19a42b5cee320} 
+void send\+\_\+handbook\+\_\+variables (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Encodes handbook variables for CAN bus transmission. This function prepares the handbook variables related to driving dynamics. 
 
 \Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\index{main.cpp@{main.cpp}!setup@{setup}}
 \index{setup@{setup}!main.cpp@{main.cpp}}
@@ -727,6 +749,18 @@ uint8\+\_\+t Brake\+\_\+hydr\+\_\+actual = 0}
 {\footnotesize\ttfamily \label{main_8cpp_a59c47938a517ca38b64ce2df95924c85} 
 uint8\+\_\+t Brake\+\_\+hydr\+\_\+target = 0}
 
+\Hypertarget{main_8cpp_af900d3dd9d057aca9a83f3c317f64cb9}\index{main.cpp@{main.cpp}!Brake\_pressure\_front@{Brake\_pressure\_front}}
+\index{Brake\_pressure\_front@{Brake\_pressure\_front}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Brake\_pressure\_front}{Brake\_pressure\_front}}
+{\footnotesize\ttfamily \label{main_8cpp_af900d3dd9d057aca9a83f3c317f64cb9} 
+uint8\+\_\+t Brake\+\_\+pressure\+\_\+front = 0}
+
+\Hypertarget{main_8cpp_aefa82f7b8253bec3c79e84ef45a94f65}\index{main.cpp@{main.cpp}!Brake\_pressure\_rear@{Brake\_pressure\_rear}}
+\index{Brake\_pressure\_rear@{Brake\_pressure\_rear}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Brake\_pressure\_rear}{Brake\_pressure\_rear}}
+{\footnotesize\ttfamily \label{main_8cpp_aefa82f7b8253bec3c79e84ef45a94f65} 
+int8\+\_\+t Brake\+\_\+pressure\+\_\+rear = 0}
+
 \Hypertarget{main_8cpp_ad167169760644f4776109ea0cfe13862}\index{main.cpp@{main.cpp}!CAN@{CAN}}
 \index{CAN@{CAN}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{CAN}{CAN}}
@@ -762,6 +796,12 @@ uint8\+\_\+t cones\+\_\+count\+\_\+actual = 0}
 \doxysubsubsection{\texorpdfstring{current\_state}{current\_state}}
 {\footnotesize\ttfamily \label{main_8cpp_a84e205af5a6e985ba0c22f1641565e3d} 
 volatile \mbox{\hyperlink{main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} current\+\_\+state = \mbox{\hyperlink{main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}}}
+
+\Hypertarget{main_8cpp_a5e0a2c612c74c0467100da2e29eb063d}\index{main.cpp@{main.cpp}!dynamics\_steering\_angle@{dynamics\_steering\_angle}}
+\index{dynamics\_steering\_angle@{dynamics\_steering\_angle}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dynamics\_steering\_angle}{dynamics\_steering\_angle}}
+{\footnotesize\ttfamily \label{main_8cpp_a5e0a2c612c74c0467100da2e29eb063d} 
+int16\+\_\+t dynamics\+\_\+steering\+\_\+angle = 0}
 
 \Hypertarget{main_8cpp_a6864ae64ef562241139dde3ee81e4e67}\index{main.cpp@{main.cpp}!EBS\_status@{EBS\_status}}
 \index{EBS\_status@{EBS\_status}!main.cpp@{main.cpp}}
@@ -823,7 +863,13 @@ unsigned long emergency\+\_\+timestamp = 0}
 
 Timestamp for entering emergency state. 
 
-Set in \doxylink{main_8cpp_ab720bd133a6801af067982496780e6fe}{Update\+State()} when entering STATE\+\_\+\+EMERGENCY, used in \doxylink{main_8cpp_aeabeb8f2cc848d690e00b50345563597}{Handle\+State()} for timeout. \Hypertarget{main_8cpp_aee5c37d99841325356136abf5b12d12b}\index{main.cpp@{main.cpp}!HeartBit@{HeartBit}}
+Set in \doxylink{main_8cpp_ab720bd133a6801af067982496780e6fe}{Update\+State()} when entering STATE\+\_\+\+EMERGENCY, used in \doxylink{main_8cpp_aeabeb8f2cc848d690e00b50345563597}{Handle\+State()} for timeout. \Hypertarget{main_8cpp_a3007cbc6fa027fdc71b1b88ed347006a}\index{main.cpp@{main.cpp}!HANDBOOK\_MESSAGE\_TIMER@{HANDBOOK\_MESSAGE\_TIMER}}
+\index{HANDBOOK\_MESSAGE\_TIMER@{HANDBOOK\_MESSAGE\_TIMER}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{HANDBOOK\_MESSAGE\_TIMER}{HANDBOOK\_MESSAGE\_TIMER}}
+{\footnotesize\ttfamily \label{main_8cpp_a3007cbc6fa027fdc71b1b88ed347006a} 
+Interval\+Timer HANDBOOK\+\_\+\+MESSAGE\+\_\+\+TIMER}
+
+\Hypertarget{main_8cpp_aee5c37d99841325356136abf5b12d12b}\index{main.cpp@{main.cpp}!HeartBit@{HeartBit}}
 \index{HeartBit@{HeartBit}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{HeartBit}{HeartBit}}
 {\footnotesize\ttfamily \label{main_8cpp_aee5c37d99841325356136abf5b12d12b} 
@@ -1020,17 +1066,17 @@ const char\texorpdfstring{$\ast$}{*} state\+\_\+names\mbox{[}$\,$\mbox{]}}
 \DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_FINISHED"{}}\}}
 
 \end{DoxyCode}
-\Hypertarget{main_8cpp_a853324ec6c561f4c32a7acfec48b8c0e}\index{main.cpp@{main.cpp}!Steering\_angle\_actual@{Steering\_angle\_actual}}
+\Hypertarget{main_8cpp_a61899b9e1e537705bcbb5a3f08b40604}\index{main.cpp@{main.cpp}!Steering\_angle\_actual@{Steering\_angle\_actual}}
 \index{Steering\_angle\_actual@{Steering\_angle\_actual}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{Steering\_angle\_actual}{Steering\_angle\_actual}}
-{\footnotesize\ttfamily \label{main_8cpp_a853324ec6c561f4c32a7acfec48b8c0e} 
-uint8\+\_\+t Steering\+\_\+angle\+\_\+actual = 0}
+{\footnotesize\ttfamily \label{main_8cpp_a61899b9e1e537705bcbb5a3f08b40604} 
+int8\+\_\+t Steering\+\_\+angle\+\_\+actual = 0}
 
-\Hypertarget{main_8cpp_a5b8c589ff5901ddd67657fa2027651e5}\index{main.cpp@{main.cpp}!Steering\_angle\_target@{Steering\_angle\_target}}
+\Hypertarget{main_8cpp_a63b193140600f9e866dcd2946e12760c}\index{main.cpp@{main.cpp}!Steering\_angle\_target@{Steering\_angle\_target}}
 \index{Steering\_angle\_target@{Steering\_angle\_target}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{Steering\_angle\_target}{Steering\_angle\_target}}
-{\footnotesize\ttfamily \label{main_8cpp_a5b8c589ff5901ddd67657fa2027651e5} 
-uint8\+\_\+t Steering\+\_\+angle\+\_\+target = 0}
+{\footnotesize\ttfamily \label{main_8cpp_a63b193140600f9e866dcd2946e12760c} 
+int8\+\_\+t Steering\+\_\+angle\+\_\+target = 0}
 
 \Hypertarget{main_8cpp_a83ff0ab6d7df349a5ff1bcc47f520eda}\index{main.cpp@{main.cpp}!Steering\_state@{Steering\_state}}
 \index{Steering\_state@{Steering\_state}!main.cpp@{main.cpp}}

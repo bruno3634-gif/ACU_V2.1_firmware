@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['main_2ecpp_0',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['manual_1',['MANUAL',['../main_8cpp.html#a52046db9ef2d3d10b93d18030826280aa506e8dd29460ea318b68d035f679b01b',1,'main.cpp']]],
-  ['median_5fpressures_2',['median_pressures',['../main_8cpp.html#a8b77b8c8d4f003bea2fa1df64c7dd946',1,'main.cpp']]],
-  ['mission_5findicator_3',['Mission_Indicator',['../main_8cpp.html#aa79651decaade86f3f99ac7d213f588d',1,'main.cpp']]],
-  ['motor_5fmoment_5factual_4',['Motor_moment_actual',['../main_8cpp.html#a65875a2bae11dcf46dcbc32641e22d46',1,'main.cpp']]],
-  ['motor_5fmoment_5ftarget_5',['Motor_moment_target',['../main_8cpp.html#a326df945948d6e09603887fef61a1dce',1,'main.cpp']]]
+  ['lap_5fcounter_0',['Lap_counter',['../main_8cpp.html#aa65f1d3faf0dc1a57ed60dd811070ec4',1,'main.cpp']]],
+  ['last_5fbutton_5ftime_5fms_1',['last_button_time_ms',['../main_8cpp.html#abd5a48e208e80017eaac10fc7bbcf9fa',1,'main.cpp']]],
+  ['led_5fheartbit_2',['led_heartbit',['../main_8cpp.html#a80b90abfd46377a13c1ac43648bb3624',1,'main.cpp']]],
+  ['loop_3',['loop',['../main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'main.cpp']]]
 ];

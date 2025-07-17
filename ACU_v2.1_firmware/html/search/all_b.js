@@ -1,20 +1,5 @@
 var searchData=
 [
-  ['send_5fcan_5fmsg_0',['send_can_msg',['../main_8cpp.html#af5b02dc36a29cc8a9cecafe91de92888',1,'main.cpp']]],
-  ['setup_1',['setup',['../main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'main.cpp']]],
-  ['skidpad_2',['SKIDPAD',['../main_8cpp.html#a52046db9ef2d3d10b93d18030826280aa6bc0810ff00cd4a385271784ee4c46eb',1,'main.cpp']]],
-  ['speed_5factual_3',['Speed_actual',['../main_8cpp.html#a7e01c2a42f6ff68b1cad1418014f3add',1,'main.cpp']]],
-  ['speed_5ftarget_4',['Speed_target',['../main_8cpp.html#abf8cc411bea715a48eb3d853adc29009',1,'main.cpp']]],
-  ['state_5fdriving_5',['STATE_DRIVING',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027af95526d1ef4831064e055679fde8e9d5',1,'main.cpp']]],
-  ['state_5febs_5ferror_6',['STATE_EBS_ERROR',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a3df5e9f9e42f7d731b2ada9df91022dc',1,'main.cpp']]],
-  ['state_5femergency_7',['STATE_EMERGENCY',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027ad0180e0382824e561c72f20f08838420',1,'main.cpp']]],
-  ['state_5ffinished_8',['STATE_FINISHED',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a5e09161e3e14f41b526727f69a2e4148',1,'main.cpp']]],
-  ['state_5finit_9',['STATE_INIT',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9',1,'main.cpp']]],
-  ['state_5finitial_5fsequence_10',['STATE_INITIAL_SEQUENCE',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027acee8959f0be0cfa49a2ce9eb88cfc216',1,'main.cpp']]],
-  ['state_5fmission_5fselect_11',['STATE_MISSION_SELECT',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a01684ac1931339796ba48f9898361b06',1,'main.cpp']]],
-  ['state_5fnames_12',['state_names',['../main_8cpp.html#afc8e27fc9a2dc86341a3c0c5ae2809da',1,'main.cpp']]],
-  ['state_5fready_13',['STATE_READY',['../main_8cpp.html#a915949d2c2451633e1b1fbbd74a7b027a5ae0bbfe1a737c76e53253b05168b56b',1,'main.cpp']]],
-  ['steering_5fangle_5factual_14',['Steering_angle_actual',['../main_8cpp.html#a853324ec6c561f4c32a7acfec48b8c0e',1,'main.cpp']]],
-  ['steering_5fangle_5ftarget_15',['Steering_angle_target',['../main_8cpp.html#a5b8c589ff5901ddd67657fa2027651e5',1,'main.cpp']]],
-  ['steering_5fstate_16',['Steering_state',['../main_8cpp.html#a83ff0ab6d7df349a5ff1bcc47f520eda',1,'main.cpp']]]
+  ['res_5factive_0',['res_active',['../main_8cpp.html#acce35ce6efd55f2adb37b91e886ebc04',1,'main.cpp']]],
+  ['res_5femergency_1',['res_emergency',['../main_8cpp.html#a2e5a501df5392a203c113a3381817fbf',1,'main.cpp']]]
 ];

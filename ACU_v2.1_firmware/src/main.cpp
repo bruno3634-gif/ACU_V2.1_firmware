@@ -639,6 +639,13 @@ void HandleState(void)
      return; 
   }
 
+
+/**
+ * TODO: Se current_state > initial_sequence and < emegencia 
+ * codigo do fluxogama que te vou envia
+ */
+
+
   switch (current_state)
   {
   case STATE_INIT:
@@ -686,11 +693,19 @@ void HandleState(void)
     break;
 
   case STATE_READY:
+      /***TODO: Destava o cao
+       *  Solenoids a 0
+       * 
+       * ***/
 
     break;
 
   case STATE_DRIVING:
-
+    /**
+     * TODO: Release brakes
+     * Solenoids a 0
+     * AS_state = AS_STATE_DRIVING;
+     */
     break;
 
   case STATE_EMERGENCY:
@@ -706,7 +721,7 @@ void HandleState(void)
 
     break;
     case STATE_FINISHED:
-    // Handle finished state actions if needed
+    //TODO: Make sue the ca is stopped
     break;
   }
 }
@@ -938,6 +953,9 @@ void median_pressures() {
    
 
     break;
+//TODO: Read id 0x556
+// divide by 10 and store in float
+
     case AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID:
       jetson_mission = (current_mission_t)msg.buf[0]; // Update mission response from Jetson
       break;

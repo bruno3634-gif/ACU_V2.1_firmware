@@ -181,6 +181,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad7ca1335f3784986a9e2ba85d381aa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the state of the YELLOW_LEDS and BLUE_LEDS based on the current as_state.  <br /></td></tr>
 <tr class="memitem:aa79651decaade86f3f99ac7d213f588d" id="r_aa79651decaade86f3f99ac7d213f588d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa79651decaade86f3f99ac7d213f588d">Mission_Indicator</a> ()</td></tr>
 <tr class="memdesc:aa79651decaade86f3f99ac7d213f588d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the mission indicator LEDs based on the current mission state.  <br /></td></tr>
+<tr class="memitem:a56d1af212215f6c381c19a42b5cee320" id="r_a56d1af212215f6c381c19a42b5cee320"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56d1af212215f6c381c19a42b5cee320">send_handbook_variables</a> ()</td></tr>
+<tr class="memdesc:a56d1af212215f6c381c19a42b5cee320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes handbook variables for CAN bus transmission. This function prepares the handbook variables related to driving dynamics.  <br /></td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d" id="r_a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memitem:afe461d27b9c48d5921c00d521181f12f" id="r_afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
 </table><table class="memberdecls">
@@ -195,6 +197,7 @@ Variables</h2></td></tr>
 <tr class="memitem:afe9b6925097805059631c6391b043688" id="r_afe9b6925097805059631c6391b043688"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a52046db9ef2d3d10b93d18030826280a">current_mission_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe9b6925097805059631c6391b043688">jetson_mission</a> = <a class="el" href="#a52046db9ef2d3d10b93d18030826280aa506e8dd29460ea318b68d035f679b01b">MANUAL</a></td></tr>
 <tr class="memitem:a27704d3b3dc2314a6a46697028ea9084" id="r_a27704d3b3dc2314a6a46697028ea9084"><td class="memItemLeft" align="right" valign="top">IntervalTimer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27704d3b3dc2314a6a46697028ea9084">PRESSURE_TIMER</a></td></tr>
 <tr class="memitem:aad9c1d6673f4b146294ecb5c3deb475d" id="r_aad9c1d6673f4b146294ecb5c3deb475d"><td class="memItemLeft" align="right" valign="top">IntervalTimer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad9c1d6673f4b146294ecb5c3deb475d">CAN_TIMER</a></td></tr>
+<tr class="memitem:a3007cbc6fa027fdc71b1b88ed347006a" id="r_a3007cbc6fa027fdc71b1b88ed347006a"><td class="memItemLeft" align="right" valign="top">IntervalTimer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3007cbc6fa027fdc71b1b88ed347006a">HANDBOOK_MESSAGE_TIMER</a></td></tr>
 <tr class="memitem:ad167169760644f4776109ea0cfe13862" id="r_ad167169760644f4776109ea0cfe13862"><td class="memItemLeft" align="right" valign="top">FlexCAN_T4&lt; CAN2, RX_SIZE_1024, TX_SIZE_1024 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad167169760644f4776109ea0cfe13862">CAN</a></td></tr>
 <tr class="memitem:aee5c37d99841325356136abf5b12d12b" id="r_aee5c37d99841325356136abf5b12d12b"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee5c37d99841325356136abf5b12d12b">HeartBit</a> = 0</td></tr>
 <tr class="memitem:a33bc2688ab5de451dd1bb001cbc993e7" id="r_a33bc2688ab5de451dd1bb001cbc993e7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33bc2688ab5de451dd1bb001cbc993e7">EBS_TANK_PRESSURE_A_values</a> [<a class="el" href="#a645c9463ff569ba10e6278e6931d4466">PRESSURE_READINGS</a>]</td></tr>
@@ -246,8 +249,8 @@ Variables</h2></td></tr>
 <tr class="memitem:a7e01c2a42f6ff68b1cad1418014f3add" id="r_a7e01c2a42f6ff68b1cad1418014f3add"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e01c2a42f6ff68b1cad1418014f3add">Speed_actual</a> = 0</td></tr>
 <tr class="memdesc:a7e01c2a42f6ff68b1cad1418014f3add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handbook variables that are sent to can bus -&gt; DV driving dynamics 1 FSG Handbook 2025 page 20.  <br /></td></tr>
 <tr class="memitem:abf8cc411bea715a48eb3d853adc29009" id="r_abf8cc411bea715a48eb3d853adc29009"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf8cc411bea715a48eb3d853adc29009">Speed_target</a> = 0</td></tr>
-<tr class="memitem:a853324ec6c561f4c32a7acfec48b8c0e" id="r_a853324ec6c561f4c32a7acfec48b8c0e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a853324ec6c561f4c32a7acfec48b8c0e">Steering_angle_actual</a> = 0</td></tr>
-<tr class="memitem:a5b8c589ff5901ddd67657fa2027651e5" id="r_a5b8c589ff5901ddd67657fa2027651e5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b8c589ff5901ddd67657fa2027651e5">Steering_angle_target</a> = 0</td></tr>
+<tr class="memitem:a61899b9e1e537705bcbb5a3f08b40604" id="r_a61899b9e1e537705bcbb5a3f08b40604"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61899b9e1e537705bcbb5a3f08b40604">Steering_angle_actual</a> = 0</td></tr>
+<tr class="memitem:a63b193140600f9e866dcd2946e12760c" id="r_a63b193140600f9e866dcd2946e12760c"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63b193140600f9e866dcd2946e12760c">Steering_angle_target</a> = 0</td></tr>
 <tr class="memitem:a3bd5756dc55dbfa3ada3d8319a134d4b" id="r_a3bd5756dc55dbfa3ada3d8319a134d4b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bd5756dc55dbfa3ada3d8319a134d4b">Brake_hydr_actual</a> = 0</td></tr>
 <tr class="memitem:a59c47938a517ca38b64ce2df95924c85" id="r_a59c47938a517ca38b64ce2df95924c85"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59c47938a517ca38b64ce2df95924c85">Brake_hydr_target</a> = 0</td></tr>
 <tr class="memitem:a65875a2bae11dcf46dcbc32641e22d46" id="r_a65875a2bae11dcf46dcbc32641e22d46"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65875a2bae11dcf46dcbc32641e22d46">Motor_moment_actual</a> = 0</td></tr>
@@ -261,6 +264,9 @@ Variables</h2></td></tr>
 <tr class="memitem:aa65f1d3faf0dc1a57ed60dd811070ec4" id="r_aa65f1d3faf0dc1a57ed60dd811070ec4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa65f1d3faf0dc1a57ed60dd811070ec4">Lap_counter</a> = 0</td></tr>
 <tr class="memitem:a4fec9983a5cbb27e05df4878d96afb9c" id="r_a4fec9983a5cbb27e05df4878d96afb9c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fec9983a5cbb27e05df4878d96afb9c">cones_count_actual</a> = 0</td></tr>
 <tr class="memitem:a5d4f3a3d2fd70f4a9480c69c17594041" id="r_a5d4f3a3d2fd70f4a9480c69c17594041"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d4f3a3d2fd70f4a9480c69c17594041">cones_count</a> = 0</td></tr>
+<tr class="memitem:af900d3dd9d057aca9a83f3c317f64cb9" id="r_af900d3dd9d057aca9a83f3c317f64cb9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af900d3dd9d057aca9a83f3c317f64cb9">Brake_pressure_front</a> = 0</td></tr>
+<tr class="memitem:aefa82f7b8253bec3c79e84ef45a94f65" id="r_aefa82f7b8253bec3c79e84ef45a94f65"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefa82f7b8253bec3c79e84ef45a94f65">Brake_pressure_rear</a> = 0</td></tr>
+<tr class="memitem:a5e0a2c612c74c0467100da2e29eb063d" id="r_a5e0a2c612c74c0467100da2e29eb063d"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e0a2c612c74c0467100da2e29eb063d">dynamics_steering_angle</a> = 0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main firmware file for the Actuation Control Unit (ACU) V2.1. </p>
@@ -543,6 +549,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Handle actions specific to the current state. </p>
+<p>TODO: Se current_state &gt; initial_sequence and &lt; emegencia codigo do fluxogama que te vou envia</p>
+<p>TODO: Release brakes Solenoids a 0 AS_state = AS_STATE_DRIVING;</p>
 
 </div>
 </div>
@@ -718,6 +726,25 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Send CAN messages based on system state. </p>
+
+</div>
+</div>
+<a id="a56d1af212215f6c381c19a42b5cee320" name="a56d1af212215f6c381c19a42b5cee320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56d1af212215f6c381c19a42b5cee320">&#9670;&#160;</a></span>send_handbook_variables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void send_handbook_variables </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Encodes handbook variables for CAN bus transmission. This function prepares the handbook variables related to driving dynamics. </p>
 
 </div>
 </div>
@@ -938,6 +965,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af900d3dd9d057aca9a83f3c317f64cb9" name="af900d3dd9d057aca9a83f3c317f64cb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af900d3dd9d057aca9a83f3c317f64cb9">&#9670;&#160;</a></span>Brake_pressure_front</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Brake_pressure_front = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aefa82f7b8253bec3c79e84ef45a94f65" name="aefa82f7b8253bec3c79e84ef45a94f65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa82f7b8253bec3c79e84ef45a94f65">&#9670;&#160;</a></span>Brake_pressure_rear</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int8_t Brake_pressure_rear = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad167169760644f4776109ea0cfe13862" name="ad167169760644f4776109ea0cfe13862"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad167169760644f4776109ea0cfe13862">&#9670;&#160;</a></span>CAN</h2>
 
@@ -1016,6 +1071,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">volatile <a class="el" href="#a915949d2c2451633e1b1fbbd74a7b027">ACU_STATE_t</a> current_state = <a class="el" href="#a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9">STATE_INIT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e0a2c612c74c0467100da2e29eb063d" name="a5e0a2c612c74c0467100da2e29eb063d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e0a2c612c74c0467100da2e29eb063d">&#9670;&#160;</a></span>dynamics_steering_angle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t dynamics_steering_angle = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1107,6 +1176,20 @@ Variables</h2></td></tr>
 
 <p>Timestamp for entering emergency state. </p>
 <p>Set in <a class="el" href="#ab720bd133a6801af067982496780e6fe" title="Update the state of the ACU based on inputs and conditions.">UpdateState()</a> when entering STATE_EMERGENCY, used in <a class="el" href="#aeabeb8f2cc848d690e00b50345563597" title="Handle actions specific to the current state.">HandleState()</a> for timeout. </p>
+
+</div>
+</div>
+<a id="a3007cbc6fa027fdc71b1b88ed347006a" name="a3007cbc6fa027fdc71b1b88ed347006a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3007cbc6fa027fdc71b1b88ed347006a">&#9670;&#160;</a></span>HANDBOOK_MESSAGE_TIMER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IntervalTimer HANDBOOK_MESSAGE_TIMER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1444,28 +1527,28 @@ ID 0x500 </dd></dl>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a853324ec6c561f4c32a7acfec48b8c0e" name="a853324ec6c561f4c32a7acfec48b8c0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a853324ec6c561f4c32a7acfec48b8c0e">&#9670;&#160;</a></span>Steering_angle_actual</h2>
+<a id="a61899b9e1e537705bcbb5a3f08b40604" name="a61899b9e1e537705bcbb5a3f08b40604"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61899b9e1e537705bcbb5a3f08b40604">&#9670;&#160;</a></span>Steering_angle_actual</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t Steering_angle_actual = 0</td>
+          <td class="memname">int8_t Steering_angle_actual = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a5b8c589ff5901ddd67657fa2027651e5" name="a5b8c589ff5901ddd67657fa2027651e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b8c589ff5901ddd67657fa2027651e5">&#9670;&#160;</a></span>Steering_angle_target</h2>
+<a id="a63b193140600f9e866dcd2946e12760c" name="a63b193140600f9e866dcd2946e12760c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b193140600f9e866dcd2946e12760c">&#9670;&#160;</a></span>Steering_angle_target</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t Steering_angle_target = 0</td>
+          <td class="memname">int8_t Steering_angle_target = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
