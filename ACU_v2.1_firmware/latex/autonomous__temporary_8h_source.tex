@@ -1,0 +1,382 @@
+\doxysection{autonomous\+\_\+temporary.\+h}
+\hypertarget{autonomous__temporary_8h_source}{}\label{autonomous__temporary_8h_source}\index{src/autonomous\_temporary.h@{src/autonomous\_temporary.h}}
+\mbox{\hyperlink{autonomous__temporary_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ AUTONOMOUS\_TEMPORARY\_H}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_H}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#ifndef\ EINVAL}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#\ \ \ \ define\ EINVAL\ 22}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ Frame\ ids.\ */}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_FRAME\_ID\ (0x51u)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_FRAME\_ID\ (0x61u)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_RPM\_FRAME\_ID\ (0x510u)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_TARGET\_RPM\_FRAME\_ID\ (0x500u)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_FRAME\_ID\ (0x71u)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RD\_JETSON\_FRAME\_ID\ (0x512u)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_FRAME\_ID\ (0x502u)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_FRAME\_ID\ (0x81u)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_FRAME\_ID\ (0x191u)}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*\ Frame\ lengths\ in\ bytes.\ */}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_LENGTH\ (1u)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_LENGTH\ (1u)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_RPM\_LENGTH\ (2u)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_TARGET\_RPM\_LENGTH\ (2u)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_LENGTH\ (5u)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RD\_JETSON\_LENGTH\ (1u)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_LENGTH\ (1u)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_LENGTH\ (3u)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_LENGTH\ (8u)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ Extended\ or\ standard\ frame\ types.\ */}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_RPM\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_TARGET\_RPM\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RD\_JETSON\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_IS\_EXTENDED\ (0)}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{/*\ Frame\ cycle\ times\ in\ milliseconds.\ */}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{/*\ Signal\ choices.\ */}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_MANUAL\_CHOICE\ (0u)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_ACCELERATION\_CHOICE\ (1u)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_SKIDPAD\_CHOICE\ (2u)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_TRACKDRIVE\_CHOICE\ (3u)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_BRAKETEST\_CHOICE\ (4u)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_INSPECTION\_CHOICE\ (5u)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_AUTOCROSS\_CHOICE\ (6u)}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_MANUAL\_CHOICE\ (0u)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_ACCELERATION\_CHOICE\ (1u)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_SKIDPADD\_CHOICE\ (2u)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_TRACKDRIVE\_CHOICE\ (3u)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_BRAKETEST\_CHOICE\ (4u)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_INSPECTION\_CHOICE\ (5u)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_AUTOCROSS\_CHOICE\ (6u)}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_IGN\_OFF\_CHOICE\ (0u)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_IGN\_ON\_CHOICE\ (1u)}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_ASMS\_OFF\_CHOICE\ (0u)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_ASMS\_ON\_CHOICE\ (1u)}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_EMERGENCY\_EMERGENCY\_OFF\_CHOICE\ (0u)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_EMERGENCY\_EMERGENCY\_ON\_CHOICE\ (1u)}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RD\_JETSON\_RD\_OFF\_CHOICE\ (0u)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RD\_JETSON\_RD\_ON\_CHOICE\ (1u)}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_STATE\_OFF\_CHOICE\ (1u)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_STATE\_READY\_CHOICE\ (2u)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_STATE\_DRIVING\_CHOICE\ (3u)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_STATE\_EMERGENCY\_CHOICE\ (4u)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_STATE\_FINISH\_CHOICE\ (5u)}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_HV\_HV\_OFF\_CHOICE\ (0u)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_HV\_HV\_ON\_CHOICE\ (9u)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_HV\_CONTACTOR\_ERROR\_CHOICE\ (10u)}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_SIGNAL\_EMERGENCY\_CHOICE\ (0u)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_SIGNAL\_GO\_SIGNAL\_CHOICE\ (5u)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_SIGNAL\_GO\_SIGNAL\_2\_CHOICE\ (7u)}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{/*\ Frame\ Names.\ */}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_NAME\ "{}ACU\_MS"{}}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_NAME\ "{}JETSON\_MS"{}}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_RPM\_NAME\ "{}VCU\_RPM"{}}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_TARGET\_RPM\_NAME\ "{}Target\_RPM"{}}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_NAME\ "{}ACU\_IGN"{}}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RD\_JETSON\_NAME\ "{}RD\_JETSON"{}}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_NAME\ "{}AS\_STATE"{}}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_NAME\ "{}VCU\_HV"{}}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_NAME\ "{}RES"{}}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*\ Signal\ Names.\ */}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_MS\_MISSION\_SELECT\_NAME\ "{}Mission\_Select"{}}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_JETSON\_MS\_MISSION\_SELECT\_NAME\ "{}Mission\_Select"{}}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_RPM\_RPM\_NAME\ "{}RPM"{}}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_TARGET\_RPM\_RPM\_NAME\ "{}RPM"{}}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_IGN\_NAME\ "{}IGN"{}}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_ASMS\_NAME\ "{}ASMS"{}}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_EMERGENCY\_NAME\ "{}Emergency"{}}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_EBS\_PRESSURE\_FRONT\_NAME\ "{}EBS\_Pressure\_Front"{}}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_ACU\_IGN\_EBS\_PRESSURE\_REAR\_NAME\ "{}EBS\_Pressure\_Rear"{}}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RD\_JETSON\_RD\_NAME\ "{}RD"{}}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_AS\_STATE\_STATE\_NAME\ "{}STATE"{}}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_HV\_NAME\ "{}HV"{}}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_BRAKE\_PRESSURE\_FRONT\_NAME\ "{}Brake\_pressure\_Front"{}}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_VCU\_HV\_BRAKE\_PRESSURE\_REAR\_NAME\ "{}Brake\_pressure\_Rear"{}}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ AUTONOMOUS\_TEMPORARY\_RES\_SIGNAL\_NAME\ "{}SIGNAL"{}}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__acu__ms__t}{autonomous\_temporary\_acu\_ms\_t}}\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__acu__ms__t_af87d69c924fbd672d1aa86d91e9c72b3}{mission\_select}};}
+\DoxyCodeLine{00166\ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__jetson__ms__t}{autonomous\_temporary\_jetson\_ms\_t}}\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__jetson__ms__t_a77f3cf380ddac956cf7bb2e19cffaaee}{mission\_select}};}
+\DoxyCodeLine{00180\ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00187\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__vcu__rpm__t}{autonomous\_temporary\_vcu\_rpm\_t}}\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structautonomous__temporary__vcu__rpm__t_a28033479d6cd1c363f116e29a390527e}{rpm}};}
+\DoxyCodeLine{00194\ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00201\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__target__rpm__t}{autonomous\_temporary\_target\_rpm\_t}}\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structautonomous__temporary__target__rpm__t_a5b3a714a3d4302ce78b6f9716babe51c}{rpm}};}
+\DoxyCodeLine{00208\ \};}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00215\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__acu__ign__t}{autonomous\_temporary\_acu\_ign\_t}}\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t_a59c7add5f747a97deeae6dd1d9c1b3c7}{ign}};}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00228\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t_a9e9e6b66085994d27aabafeffa0ab187}{asms}};}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00235\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t_a11cab6697e3eeaf58fea1c4e5bbe49e8}{emergency}};}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00244\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t_adde8ceca4deb3e2ef2c8e6040ea52c20}{ebs\_pressure\_front}};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00253\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t_aa9ff8bf35ba2b4cbb6eb1969b381f05b}{ebs\_pressure\_rear}};}
+\DoxyCodeLine{00254\ \};}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00261\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__rd__jetson__t}{autonomous\_temporary\_rd\_jetson\_t}}\ \{}
+\DoxyCodeLine{00267\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__rd__jetson__t_a49f7883d583b6fc38e2e32cbf22d4ee4}{rd}};}
+\DoxyCodeLine{00268\ \};}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00275\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__as__state__t}{autonomous\_temporary\_as\_state\_t}}\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__as__state__t_a1146c4257f0449f8bb64ff01bbaf89fd}{state}};}
+\DoxyCodeLine{00284\ \};}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00291\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__vcu__hv__t}{autonomous\_temporary\_vcu\_hv\_t}}\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__vcu__hv__t_a4a2e5df91ee6a00b5ed8c0e2ee624d16}{hv}};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00304\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__vcu__hv__t_a428458a7b6e9e2e5847ca1d65fd620fe}{brake\_pressure\_front}};}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00311\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__vcu__hv__t_af347e921c38e3b356c4900704b6fc831}{brake\_pressure\_rear}};}
+\DoxyCodeLine{00312\ \};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00319\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structautonomous__temporary__res__t}{autonomous\_temporary\_res\_t}}\ \{}
+\DoxyCodeLine{00325\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structautonomous__temporary__res__t_aaed77baad84cc954aefc42cf84a6f8d1}{signal}};}
+\DoxyCodeLine{00326\ \};}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00337\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_ae07fa7def0fadd3544ac9619f002217e}{autonomous\_temporary\_acu\_ms\_pack}}(}
+\DoxyCodeLine{00338\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__acu__ms__t}{autonomous\_temporary\_acu\_ms\_t}}\ *src\_p,}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00351\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a760623fe4521bf9f4453207abe4cc83e}{autonomous\_temporary\_acu\_ms\_unpack}}(}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__acu__ms__t}{autonomous\_temporary\_acu\_ms\_t}}\ *dst\_p,}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00363\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_abdb86dc4c820d57ac3690d799c25f789}{autonomous\_temporary\_acu\_ms\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__acu__ms__t}{autonomous\_temporary\_acu\_ms\_t}}\ *msg\_p);}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00372\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_ae18a6bfd759908869273da80e0afaeda}{autonomous\_temporary\_acu\_ms\_mission\_select\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00381\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_adad010490467233345b5702209f55aa1}{autonomous\_temporary\_acu\_ms\_mission\_select\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00390\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a42043c4c88b995844f04d07ca264ec0f}{autonomous\_temporary\_acu\_ms\_mission\_select\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00401\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a9a741110c7aa79c9ffb2bac3d3acdc3d}{autonomous\_temporary\_jetson\_ms\_pack}}(}
+\DoxyCodeLine{00402\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__jetson__ms__t}{autonomous\_temporary\_jetson\_ms\_t}}\ *src\_p,}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00415\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a0d60f12b983facbcd72a1a2d05648942}{autonomous\_temporary\_jetson\_ms\_unpack}}(}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__jetson__ms__t}{autonomous\_temporary\_jetson\_ms\_t}}\ *dst\_p,}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00427\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a46e38c2be75a01b8bbd527cce1a916c2}{autonomous\_temporary\_jetson\_ms\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__jetson__ms__t}{autonomous\_temporary\_jetson\_ms\_t}}\ *msg\_p);}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00436\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_ae624402e23faed3baa82542494a5255e}{autonomous\_temporary\_jetson\_ms\_mission\_select\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00445\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_ab39d728df5d4a6c4db217045978e7276}{autonomous\_temporary\_jetson\_ms\_mission\_select\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00454\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a8a666dc19a49c0b21826230c901c66c4}{autonomous\_temporary\_jetson\_ms\_mission\_select\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00465\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a030d3caaf7e3d951845983bc433dbfaf}{autonomous\_temporary\_vcu\_rpm\_pack}}(}
+\DoxyCodeLine{00466\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__vcu__rpm__t}{autonomous\_temporary\_vcu\_rpm\_t}}\ *src\_p,}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00479\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a442652e41cf8d231dd6b527f809aad9e}{autonomous\_temporary\_vcu\_rpm\_unpack}}(}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__vcu__rpm__t}{autonomous\_temporary\_vcu\_rpm\_t}}\ *dst\_p,}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00491\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_aaaf6e6864ac92d9bd754ca3a2be77c08}{autonomous\_temporary\_vcu\_rpm\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__vcu__rpm__t}{autonomous\_temporary\_vcu\_rpm\_t}}\ *msg\_p);}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00500\ int16\_t\ \mbox{\hyperlink{autonomous__temporary_8h_ab7e5ef6e9b4e630fa2ddd8787393daf9}{autonomous\_temporary\_vcu\_rpm\_rpm\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00509\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a57681918e57de297bd33f1c714da4e8d}{autonomous\_temporary\_vcu\_rpm\_rpm\_decode}}(int16\_t\ value);}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00518\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_aaf763010a423031e827add915db85648}{autonomous\_temporary\_vcu\_rpm\_rpm\_is\_in\_range}}(int16\_t\ value);}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00529\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a11bbdc6f8e661fe3b8e363bb6b4c373a}{autonomous\_temporary\_target\_rpm\_pack}}(}
+\DoxyCodeLine{00530\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__target__rpm__t}{autonomous\_temporary\_target\_rpm\_t}}\ *src\_p,}
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00543\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_aec3ae67c9888735f54660d0c3b5d8185}{autonomous\_temporary\_target\_rpm\_unpack}}(}
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__target__rpm__t}{autonomous\_temporary\_target\_rpm\_t}}\ *dst\_p,}
+\DoxyCodeLine{00545\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00546\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00555\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_abcc8012490feee6288043d8d290e3e8f}{autonomous\_temporary\_target\_rpm\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__target__rpm__t}{autonomous\_temporary\_target\_rpm\_t}}\ *msg\_p);}
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00564\ int16\_t\ \mbox{\hyperlink{autonomous__temporary_8h_af0be453802440664cd8f8e40a5dda354}{autonomous\_temporary\_target\_rpm\_rpm\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00573\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a2f65b5298bb3274c6aebe6cc7da2dea9}{autonomous\_temporary\_target\_rpm\_rpm\_decode}}(int16\_t\ value);}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00582\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_ad989e92e852b948cb7a855e448f2efab}{autonomous\_temporary\_target\_rpm\_rpm\_is\_in\_range}}(int16\_t\ value);}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00593\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a05c7bedb93ac40c95b76df11403d955a}{autonomous\_temporary\_acu\_ign\_pack}}(}
+\DoxyCodeLine{00594\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t}{autonomous\_temporary\_acu\_ign\_t}}\ *src\_p,}
+\DoxyCodeLine{00596\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00607\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_ab33c3c15d0741b88f5ca3d7bad218eb6}{autonomous\_temporary\_acu\_ign\_unpack}}(}
+\DoxyCodeLine{00608\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t}{autonomous\_temporary\_acu\_ign\_t}}\ *dst\_p,}
+\DoxyCodeLine{00609\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00610\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00611\ }
+\DoxyCodeLine{00619\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a98dee65be4c0b46b5093d1ff802fe9af}{autonomous\_temporary\_acu\_ign\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__acu__ign__t}{autonomous\_temporary\_acu\_ign\_t}}\ *msg\_p);}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00628\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_a8c3963b95bbf93c0be87d45ad3d57008}{autonomous\_temporary\_acu\_ign\_ign\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00637\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_aca8b0047e42db30aa6308f7ace90745b}{autonomous\_temporary\_acu\_ign\_ign\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00646\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a3121f4103d12b82e3069e6ce034ce80f}{autonomous\_temporary\_acu\_ign\_ign\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00647\ }
+\DoxyCodeLine{00655\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_afad33f3840f28f2cf0e7c1e625d76b98}{autonomous\_temporary\_acu\_ign\_asms\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00664\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_ad0e32aaff32691651c926e45ee8e611b}{autonomous\_temporary\_acu\_ign\_asms\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00673\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a956422bb3e1ac8fe6c998a6924dbb3d4}{autonomous\_temporary\_acu\_ign\_asms\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00682\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_a445675fd606ac6740517b8a710440f0b}{autonomous\_temporary\_acu\_ign\_emergency\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00691\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a22012ef7c75e54e3ea3ebd0df0d87307}{autonomous\_temporary\_acu\_ign\_emergency\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00700\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_ace9ada1da75822f5134ea63d859a874f}{autonomous\_temporary\_acu\_ign\_emergency\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00709\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_a2270f10303a8c13dbd2357e8e360274c}{autonomous\_temporary\_acu\_ign\_ebs\_pressure\_front\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00718\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a71e79bdcb30d0a4fe206e521dcbe41cb}{autonomous\_temporary\_acu\_ign\_ebs\_pressure\_front\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00727\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a2c0a72ce95407704778dfdddfea49537}{autonomous\_temporary\_acu\_ign\_ebs\_pressure\_front\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00736\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_ad7b1aabe8b24ff7831cc93b873785b6b}{autonomous\_temporary\_acu\_ign\_ebs\_pressure\_rear\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00745\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a869fd800bf679974cb361dfc82348f08}{autonomous\_temporary\_acu\_ign\_ebs\_pressure\_rear\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00746\ }
+\DoxyCodeLine{00754\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a972881cead9a4c14ab1fd40d2c97ef89}{autonomous\_temporary\_acu\_ign\_ebs\_pressure\_rear\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00755\ }
+\DoxyCodeLine{00765\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_af6baeb496f073634d6942cc5e80d91bf}{autonomous\_temporary\_rd\_jetson\_pack}}(}
+\DoxyCodeLine{00766\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00767\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__rd__jetson__t}{autonomous\_temporary\_rd\_jetson\_t}}\ *src\_p,}
+\DoxyCodeLine{00768\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00769\ }
+\DoxyCodeLine{00779\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a7efd14f91f91d5a356790e10affd1e12}{autonomous\_temporary\_rd\_jetson\_unpack}}(}
+\DoxyCodeLine{00780\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__rd__jetson__t}{autonomous\_temporary\_rd\_jetson\_t}}\ *dst\_p,}
+\DoxyCodeLine{00781\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00782\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00783\ }
+\DoxyCodeLine{00791\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_ae4a42691cd64b42a30dae8770aaec86f}{autonomous\_temporary\_rd\_jetson\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__rd__jetson__t}{autonomous\_temporary\_rd\_jetson\_t}}\ *msg\_p);}
+\DoxyCodeLine{00792\ }
+\DoxyCodeLine{00800\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_a69e8700fbfcaa148da453ee2df0968a7}{autonomous\_temporary\_rd\_jetson\_rd\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00801\ }
+\DoxyCodeLine{00809\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_ac14ffdba8275f0e56feda93473c8a444}{autonomous\_temporary\_rd\_jetson\_rd\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00810\ }
+\DoxyCodeLine{00818\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_aabcce8f579cc33d540a117f6ca842538}{autonomous\_temporary\_rd\_jetson\_rd\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00819\ }
+\DoxyCodeLine{00829\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a57fc5ce10c41babe912f9c8435f7fe03}{autonomous\_temporary\_as\_state\_pack}}(}
+\DoxyCodeLine{00830\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00831\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__as__state__t}{autonomous\_temporary\_as\_state\_t}}\ *src\_p,}
+\DoxyCodeLine{00832\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00833\ }
+\DoxyCodeLine{00843\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_adee48bb1d66453f8b26fb77a3e8f6f51}{autonomous\_temporary\_as\_state\_unpack}}(}
+\DoxyCodeLine{00844\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__as__state__t}{autonomous\_temporary\_as\_state\_t}}\ *dst\_p,}
+\DoxyCodeLine{00845\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00846\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00847\ }
+\DoxyCodeLine{00855\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a8f5e0eda59977eb17b961d62ff257771}{autonomous\_temporary\_as\_state\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__as__state__t}{autonomous\_temporary\_as\_state\_t}}\ *msg\_p);}
+\DoxyCodeLine{00856\ }
+\DoxyCodeLine{00864\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_a2ce8dedd5f4a559a9cfcd59893ef12b8}{autonomous\_temporary\_as\_state\_state\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00865\ }
+\DoxyCodeLine{00873\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a82a9337c14dd36e8ce44b4aa34d3f2dc}{autonomous\_temporary\_as\_state\_state\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00874\ }
+\DoxyCodeLine{00882\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_afe0acfc988834106bd1768a58a2189b6}{autonomous\_temporary\_as\_state\_state\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00883\ }
+\DoxyCodeLine{00893\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a01ade2ec3c3c0cc6659158347a167ee4}{autonomous\_temporary\_vcu\_hv\_pack}}(}
+\DoxyCodeLine{00894\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{00895\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__vcu__hv__t}{autonomous\_temporary\_vcu\_hv\_t}}\ *src\_p,}
+\DoxyCodeLine{00896\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00907\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a1c418e40b92783c3b844863fd5257ce0}{autonomous\_temporary\_vcu\_hv\_unpack}}(}
+\DoxyCodeLine{00908\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__vcu__hv__t}{autonomous\_temporary\_vcu\_hv\_t}}\ *dst\_p,}
+\DoxyCodeLine{00909\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{00910\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00911\ }
+\DoxyCodeLine{00919\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_ac236a9cf7b38466f031920d5236b37d0}{autonomous\_temporary\_vcu\_hv\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__vcu__hv__t}{autonomous\_temporary\_vcu\_hv\_t}}\ *msg\_p);}
+\DoxyCodeLine{00920\ }
+\DoxyCodeLine{00928\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_aba0868e44a967e6b9378b4187757f3f3}{autonomous\_temporary\_vcu\_hv\_hv\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00929\ }
+\DoxyCodeLine{00937\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a01312de22d30d2e7045591e87d83d084}{autonomous\_temporary\_vcu\_hv\_hv\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00938\ }
+\DoxyCodeLine{00946\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a0cb75bd41fdd5ef097b5fe0efc87306c}{autonomous\_temporary\_vcu\_hv\_hv\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00947\ }
+\DoxyCodeLine{00955\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_ada10b8d794c5a39f94e427f16d301e71}{autonomous\_temporary\_vcu\_hv\_brake\_pressure\_front\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00964\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a4fa206e0e13ab0fdb1af07880079d4f8}{autonomous\_temporary\_vcu\_hv\_brake\_pressure\_front\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00965\ }
+\DoxyCodeLine{00973\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a3438fa66583f5f80b79ae8d8601e9f0c}{autonomous\_temporary\_vcu\_hv\_brake\_pressure\_front\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00982\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_a10120da8451333260cdab1478e059695}{autonomous\_temporary\_vcu\_hv\_brake\_pressure\_rear\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00983\ }
+\DoxyCodeLine{00991\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a522eabce346be080e5e29ee4c3670074}{autonomous\_temporary\_vcu\_hv\_brake\_pressure\_rear\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{00992\ }
+\DoxyCodeLine{01000\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_ac609216e8693b654f546bcf7555fc787}{autonomous\_temporary\_vcu\_hv\_brake\_pressure\_rear\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{01001\ }
+\DoxyCodeLine{01011\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a60eb0ba367a3bddec6d54810a4776674}{autonomous\_temporary\_res\_pack}}(}
+\DoxyCodeLine{01012\ \ \ \ \ uint8\_t\ *dst\_p,}
+\DoxyCodeLine{01013\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__res__t}{autonomous\_temporary\_res\_t}}\ *src\_p,}
+\DoxyCodeLine{01014\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{01015\ }
+\DoxyCodeLine{01025\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a57940866e8d5fb0218d52461896959bf}{autonomous\_temporary\_res\_unpack}}(}
+\DoxyCodeLine{01026\ \ \ \ \ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__res__t}{autonomous\_temporary\_res\_t}}\ *dst\_p,}
+\DoxyCodeLine{01027\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *src\_p,}
+\DoxyCodeLine{01028\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{01029\ }
+\DoxyCodeLine{01037\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{autonomous__temporary_8h_a15ac9d01de61dbf2d10f6f10a285ad50}{autonomous\_temporary\_res\_init}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structautonomous__temporary__res__t}{autonomous\_temporary\_res\_t}}\ *msg\_p);}
+\DoxyCodeLine{01038\ }
+\DoxyCodeLine{01046\ uint8\_t\ \mbox{\hyperlink{autonomous__temporary_8h_a3b01d9de75048406804ad391bdcc0ded}{autonomous\_temporary\_res\_signal\_encode}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{01047\ }
+\DoxyCodeLine{01055\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{autonomous__temporary_8h_a6b938bd623630db25c313b4552fce193}{autonomous\_temporary\_res\_signal\_decode}}(uint8\_t\ value);}
+\DoxyCodeLine{01056\ }
+\DoxyCodeLine{01064\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{autonomous__temporary_8h_a67dceeded3d4b9646785ec4d0f4954ce}{autonomous\_temporary\_res\_signal\_is\_in\_range}}(uint8\_t\ value);}
+\DoxyCodeLine{01065\ }
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{01068\ \}}
+\DoxyCodeLine{01069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01070\ }
+\DoxyCodeLine{01071\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

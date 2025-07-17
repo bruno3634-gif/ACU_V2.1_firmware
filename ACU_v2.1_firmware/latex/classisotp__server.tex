@@ -1,0 +1,176 @@
+\doxysection{isotp\+\_\+server Class Reference}
+\hypertarget{classisotp__server}{}\label{classisotp__server}\index{isotp\_server@{isotp\_server}}
+
+
+{\ttfamily \#include $<$isotp\+\_\+server.\+h$>$}
+
+Inheritance diagram for isotp\+\_\+server\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classisotp__server}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classisotp__server_ac528c302613138a10cc52696b0c4d9bc}{isotp\+\_\+server}} ()
+\item 
+void \mbox{\hyperlink{classisotp__server_af68c37b036351b3ff809696ae39fa723}{begin}} ()
+\item 
+void \mbox{\hyperlink{classisotp__server_a65aee799d1588207d50fbf811332ea0a}{enable}} (bool yes=1)
+\item 
+void \mbox{\hyperlink{classisotp__server_ab25984593e57310c2a414dc9a3621bd0}{set\+Write\+Bus}} (\mbox{\hyperlink{classFlexCAN__T4__Base}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}} \texorpdfstring{$\ast$}{*}\+\_\+bus\+Write\+Ptr)
+\item 
+void \mbox{\hyperlink{classisotp__server_a39ec5f6d86845c27e7d71b3bf3d20784}{set\+Padding}} (uint8\+\_\+t \+\_\+byte)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classisotp__server_a7301800d7e1e41cb3daba092f1a0be70}{\+\_\+process\+\_\+frame\+\_\+data}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{classisotp__server_aacbd89eced69ae21ccd0ddc0ba034935}{send\+\_\+first\+\_\+frame}} ()
+\item 
+bool \mbox{\hyperlink{classisotp__server_a3ac439e5de1438ecb4c4506215952738}{send\+\_\+next\+\_\+frame}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classisotp__server_a81376fa14789bd5bd2cc631f36518807}{header}} \mbox{[}2\mbox{]} = \{ 0 \}
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{classisotp__server_af97ec1a7d73fca9a6d0fd7a4e9512180}{request\+\_\+size}} = 4
+\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{classisotp__server_a3a8bc7c30cc04d0028a7e399fb05e25c}{index\+\_\+pos}} = 0
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{classisotp__server_a110fb73d0964366d329a703c73727eed}{index\+\_\+sequence}} = 1
+\item 
+volatile bool \mbox{\hyperlink{classisotp__server_a8f5fcb760f23439ad7558a98da48c1ae}{isotp\+\_\+enabled}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classisotp__server_a45cd1a3cb9aac55a8e6bd2a3b1731892}{padding\+\_\+value}} = 0x\+A5
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classisotp__server_ac3a82104059999ac942c7812dcbc4332}{read\+Bus}} = 1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classisotp__server__Base}{isotp\+\_\+server\+\_\+\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFlexCAN__T4__Base}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\+\_\+isotp\+\_\+server\+\_\+bus\+To\+Write}} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes inherited from \mbox{\hyperlink{classisotp__server__Base}{isotp\+\_\+server\+\_\+\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classisotp__server__Base_ad46127b263c06bf560c0b030906364a6}{buffer\+\_\+hosts}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classisotp__server_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classisotp__server_ac528c302613138a10cc52696b0c4d9bc}\index{isotp\_server@{isotp\_server}!isotp\_server@{isotp\_server}}
+\index{isotp\_server@{isotp\_server}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{isotp\_server()}{isotp\_server()}}
+{\footnotesize\ttfamily \label{classisotp__server_ac528c302613138a10cc52696b0c4d9bc} 
+isotp\+\_\+server\+::isotp\+\_\+server (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classisotp__server_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classisotp__server_a7301800d7e1e41cb3daba092f1a0be70}\index{isotp\_server@{isotp\_server}!\_process\_frame\_data@{\_process\_frame\_data}}
+\index{\_process\_frame\_data@{\_process\_frame\_data}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{\_process\_frame\_data()}{\_process\_frame\_data()}}
+{\footnotesize\ttfamily \label{classisotp__server_a7301800d7e1e41cb3daba092f1a0be70} 
+void isotp\+\_\+server\+::\+\_\+process\+\_\+frame\+\_\+data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classisotp__server__Base_ae6eb113799632e02d307e34a57839f52}{isotp\+\_\+server\+\_\+\+Base}}.
+
+\Hypertarget{classisotp__server_af68c37b036351b3ff809696ae39fa723}\index{isotp\_server@{isotp\_server}!begin@{begin}}
+\index{begin@{begin}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{classisotp__server_af68c37b036351b3ff809696ae39fa723} 
+void isotp\+\_\+server\+::begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp__server_a65aee799d1588207d50fbf811332ea0a}\index{isotp\_server@{isotp\_server}!enable@{enable}}
+\index{enable@{enable}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{enable()}{enable()}}
+{\footnotesize\ttfamily \label{classisotp__server_a65aee799d1588207d50fbf811332ea0a} 
+void isotp\+\_\+server\+::enable (\begin{DoxyParamCaption}\item[{bool}]{yes}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp__server_aacbd89eced69ae21ccd0ddc0ba034935}\index{isotp\_server@{isotp\_server}!send\_first\_frame@{send\_first\_frame}}
+\index{send\_first\_frame@{send\_first\_frame}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{send\_first\_frame()}{send\_first\_frame()}}
+{\footnotesize\ttfamily \label{classisotp__server_aacbd89eced69ae21ccd0ddc0ba034935} 
+void isotp\+\_\+server\+::send\+\_\+first\+\_\+frame (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_a3ac439e5de1438ecb4c4506215952738}\index{isotp\_server@{isotp\_server}!send\_next\_frame@{send\_next\_frame}}
+\index{send\_next\_frame@{send\_next\_frame}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{send\_next\_frame()}{send\_next\_frame()}}
+{\footnotesize\ttfamily \label{classisotp__server_a3ac439e5de1438ecb4c4506215952738} 
+bool isotp\+\_\+server\+::send\+\_\+next\+\_\+frame (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_a39ec5f6d86845c27e7d71b3bf3d20784}\index{isotp\_server@{isotp\_server}!setPadding@{setPadding}}
+\index{setPadding@{setPadding}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{setPadding()}{setPadding()}}
+{\footnotesize\ttfamily \label{classisotp__server_a39ec5f6d86845c27e7d71b3bf3d20784} 
+void isotp\+\_\+server\+::set\+Padding (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{\+\_\+byte}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp__server_ab25984593e57310c2a414dc9a3621bd0}\index{isotp\_server@{isotp\_server}!setWriteBus@{setWriteBus}}
+\index{setWriteBus@{setWriteBus}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{setWriteBus()}{setWriteBus()}}
+{\footnotesize\ttfamily \label{classisotp__server_ab25984593e57310c2a414dc9a3621bd0} 
+void isotp\+\_\+server\+::set\+Write\+Bus (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classFlexCAN__T4__Base}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}} \texorpdfstring{$\ast$}{*}}]{\+\_\+bus\+Write\+Ptr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classisotp__server_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classisotp__server_a81376fa14789bd5bd2cc631f36518807}\index{isotp\_server@{isotp\_server}!header@{header}}
+\index{header@{header}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{header}{header}}
+{\footnotesize\ttfamily \label{classisotp__server_a81376fa14789bd5bd2cc631f36518807} 
+uint8\+\_\+t isotp\+\_\+server\+::header\mbox{[}2\mbox{]} = \{ 0 \}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_a3a8bc7c30cc04d0028a7e399fb05e25c}\index{isotp\_server@{isotp\_server}!index\_pos@{index\_pos}}
+\index{index\_pos@{index\_pos}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{index\_pos}{index\_pos}}
+{\footnotesize\ttfamily \label{classisotp__server_a3a8bc7c30cc04d0028a7e399fb05e25c} 
+volatile uint16\+\_\+t isotp\+\_\+server\+::index\+\_\+pos = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_a110fb73d0964366d329a703c73727eed}\index{isotp\_server@{isotp\_server}!index\_sequence@{index\_sequence}}
+\index{index\_sequence@{index\_sequence}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{index\_sequence}{index\_sequence}}
+{\footnotesize\ttfamily \label{classisotp__server_a110fb73d0964366d329a703c73727eed} 
+volatile uint8\+\_\+t isotp\+\_\+server\+::index\+\_\+sequence = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_a8f5fcb760f23439ad7558a98da48c1ae}\index{isotp\_server@{isotp\_server}!isotp\_enabled@{isotp\_enabled}}
+\index{isotp\_enabled@{isotp\_enabled}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{isotp\_enabled}{isotp\_enabled}}
+{\footnotesize\ttfamily \label{classisotp__server_a8f5fcb760f23439ad7558a98da48c1ae} 
+volatile bool isotp\+\_\+server\+::isotp\+\_\+enabled = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_a45cd1a3cb9aac55a8e6bd2a3b1731892}\index{isotp\_server@{isotp\_server}!padding\_value@{padding\_value}}
+\index{padding\_value@{padding\_value}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{padding\_value}{padding\_value}}
+{\footnotesize\ttfamily \label{classisotp__server_a45cd1a3cb9aac55a8e6bd2a3b1731892} 
+uint8\+\_\+t isotp\+\_\+server\+::padding\+\_\+value = 0x\+A5\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_ac3a82104059999ac942c7812dcbc4332}\index{isotp\_server@{isotp\_server}!readBus@{readBus}}
+\index{readBus@{readBus}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{readBus}{readBus}}
+{\footnotesize\ttfamily \label{classisotp__server_ac3a82104059999ac942c7812dcbc4332} 
+uint8\+\_\+t isotp\+\_\+server\+::read\+Bus = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp__server_af97ec1a7d73fca9a6d0fd7a4e9512180}\index{isotp\_server@{isotp\_server}!request\_size@{request\_size}}
+\index{request\_size@{request\_size}!isotp\_server@{isotp\_server}}
+\doxysubsubsection{\texorpdfstring{request\_size}{request\_size}}
+{\footnotesize\ttfamily \label{classisotp__server_af97ec1a7d73fca9a6d0fd7a4e9512180} 
+volatile uint8\+\_\+t isotp\+\_\+server\+::request\+\_\+size = 4\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{isotp__server_8h}{isotp\+\_\+server.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,65 @@
+\doxysection{isotp\+\_\+\+Base Class Reference}
+\hypertarget{classisotp__Base}{}\label{classisotp__Base}\index{isotp\_Base@{isotp\_Base}}
+
+
+{\ttfamily \#include $<$isotp.\+h$>$}
+
+Inheritance diagram for isotp\+\_\+\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classisotp__Base}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classisotp__Base_a4525ed5a2c2f836152bf4f555ed8036b}{\+\_\+process\+\_\+frame\+\_\+data}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)=0
+\item 
+virtual void \mbox{\hyperlink{classisotp__Base_afeea48005bd7ff21340fb8944f77e938}{write}} (const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&config, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, uint16\+\_\+t size)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\+\_\+isotp\+\_\+cb\+\_\+ptr}} \mbox{\hyperlink{classisotp__Base_ad9f38f39cc3ef0a1dc1130ea3ac861ee}{\+\_\+isotp\+\_\+handler}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classisotp__Base_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classisotp__Base_a4525ed5a2c2f836152bf4f555ed8036b}\index{isotp\_Base@{isotp\_Base}!\_process\_frame\_data@{\_process\_frame\_data}}
+\index{\_process\_frame\_data@{\_process\_frame\_data}!isotp\_Base@{isotp\_Base}}
+\doxysubsubsection{\texorpdfstring{\_process\_frame\_data()}{\_process\_frame\_data()}}
+{\footnotesize\ttfamily \label{classisotp__Base_a4525ed5a2c2f836152bf4f555ed8036b} 
+virtual void isotp\+\_\+\+Base\+::\+\_\+process\+\_\+frame\+\_\+data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classisotp_a6c0b3afc72170c0379a997ac70caa2fe}{isotp}}.
+
+\Hypertarget{classisotp__Base_afeea48005bd7ff21340fb8944f77e938}\index{isotp\_Base@{isotp\_Base}!write@{write}}
+\index{write@{write}!isotp\_Base@{isotp\_Base}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{classisotp__Base_afeea48005bd7ff21340fb8944f77e938} 
+virtual void isotp\+\_\+\+Base\+::write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&}]{config}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{uint16\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classisotp_af631d4cafed239fba392b01b604a9fe4}{isotp}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classisotp__Base_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classisotp__Base_ad9f38f39cc3ef0a1dc1130ea3ac861ee}\index{isotp\_Base@{isotp\_Base}!\_isotp\_handler@{\_isotp\_handler}}
+\index{\_isotp\_handler@{\_isotp\_handler}!isotp\_Base@{isotp\_Base}}
+\doxysubsubsection{\texorpdfstring{\_isotp\_handler}{\_isotp\_handler}}
+{\footnotesize\ttfamily \label{classisotp__Base_ad9f38f39cc3ef0a1dc1130ea3ac861ee} 
+\mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\+\_\+isotp\+\_\+cb\+\_\+ptr}} isotp\+\_\+\+Base\+::\+\_\+isotp\+\_\+handler = nullptr}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{isotp_8h}{isotp.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,693 @@
+\doxysection{Flex\+CAN\+\_\+\+T4\+FD Class Reference}
+\hypertarget{classFlexCAN__T4FD}{}\label{classFlexCAN__T4FD}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+
+
+{\ttfamily \#include $<$Flex\+CAN\+\_\+\+T4\+\_\+.\+h$>$}
+
+Inheritance diagram for Flex\+CAN\+\_\+\+T4\+FD\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classFlexCAN__T4FD}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFlexCAN__T4FD_ab80ad1aea24e7efaf6540a93ea71fcfa}{Flex\+CAN\+\_\+\+T4\+FD}} ()
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_ac262473296783057f693cf3bd9fc7bab}{is\+FD}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_af251858d0cb3523b1e7d3c97c46a6dad}{begin}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a4e2e89b8f4df29ba2a5e3aa2f8aceba8}{set\+TX}} (\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}} pin=\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}})
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a0d0f4be6a64908bccffebb9d56f17f5b}{set\+RX}} (\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}} pin=\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}})
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a449751a5219bf139dceaa3f9f86b351c}{enable\+FIFO}} (bool status=1)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_abe800e5789fb3f9aff546f88ccd2fb52}{disable\+FIFO}} ()
+\item 
+int \mbox{\hyperlink{classFlexCAN__T4FD_ac7bb2bfd4d95f859f4aaaa29c17e1c80}{read}} (\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+int \mbox{\hyperlink{classFlexCAN__T4FD_a5778019e1e3d280211097e8781bd4d1c}{read\+MB}} (\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+int \mbox{\hyperlink{classFlexCAN__T4FD_ad56af6e4d343956fba0f0f72d7d8df53}{write}} (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+int \mbox{\hyperlink{classFlexCAN__T4FD_afbc4f97ed98885b37a873ae320ae0c12}{write}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)
+\item 
+int \mbox{\hyperlink{classFlexCAN__T4FD_ac20a4a4161ed212429a004ec75d50eb2}{write}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a44f11285f4ecb23bcd194cad908e37e7}{set\+MB}} (const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&mb\+\_\+num, const \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} \&mb\+\_\+rx\+\_\+tx, const \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\+\_\+\+IDE}} \&ide=\mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab}{STD}})
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a97646e16178e68b6b371e0aa246ae7ae}{set\+Regions}} (uint8\+\_\+t size)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a7f732a7172c8e73c93db845a77f65350}{set\+Regions}} (uint8\+\_\+t mbdsr0, uint8\+\_\+t mbdsr1)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a0e91c42172c08eeb96a15262e9729439}{set\+Baud\+Rate\+Advanced}} (\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}} config, uint8\+\_\+t nominal\+\_\+choice, uint8\+\_\+t flexdata\+\_\+choice, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} listen\+\_\+only=\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}})
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_ae482ea7d87e79ad207f28be81ac363eb}{set\+Baud\+Rate}} (\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}} config, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} listen\+\_\+only=\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}})
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_addde96b0fa5dea6b4f7e8a925c00a25b}{set\+Baud\+Rate}} (\mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\+\_\+\+FDRATES}} input, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} listen\+\_\+only=\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}})
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a3c383b8a804db17fa2736e3d1122cc64}{enable\+MBInterrupt}} (const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&mb\+\_\+num, bool status=1)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_afb31e83713f25307f8ec2c10e8a96236}{disable\+MBInterrupt}} (const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&mb\+\_\+num)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ae2fd0af3ce33bee3fa1d503118ea7571}{enable\+MBInterrupts}} (bool status=1)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a1c85e16511aa1ebdf71088d43ba15721}{disable\+MBInterrupts}} ()
+\item 
+uint64\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a46293547db87d716e8c055acf68494c7}{events}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ac5ddf6af383c6f3b35a8b795592bcecb}{on\+Receive}} (const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&mb\+\_\+num, \mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}} handler)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a1c5f2d42aaf685cef8d5bd80d88cb41d}{on\+Receive}} (\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}} handler)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a78ca6af2a3015f929fd6bee11221332a}{set\+MBFilter}} (\mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}} input)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a5251c8341137652cd79f494a44788118}{set\+MBFilter}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}} input)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a066b8497edf1c7af9b570715c8b8005e}{set\+MBFilter}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id1)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a2ef3404892aa682677ef99fbb959393f}{set\+MBFilter}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id1, uint32\+\_\+t id2)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a15061277d58200dfa58dd1552fceed37}{set\+MBFilter}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id1, uint32\+\_\+t id2, uint32\+\_\+t id3)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_ab0cba8c612892883b23e8dc4088fcf12}{set\+MBFilter}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id1, uint32\+\_\+t id2, uint32\+\_\+t id3, uint32\+\_\+t id4)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_aa90ffe93dba1416ded09e88e0b720898}{set\+MBFilter}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id1, uint32\+\_\+t id2, uint32\+\_\+t id3, uint32\+\_\+t id4, uint32\+\_\+t id5)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a364304375c46634c8179d8f3db8cbf18}{set\+MBFilter\+Range}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id1, uint32\+\_\+t id2)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ad53ccfad4c8c19d09d8dec5fe5e79590}{mailbox\+Status}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ab5f2419548743427510048ce1e2c5395}{enhance\+Filter}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a67dc343a39570ba78fa6336c2d34106a}{distribute}} (bool state=1)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a637cd477a5a8e33a6a62593d0df4a4ac}{enable\+DMA}} (bool state=1)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_add21532ac41ff5cd83a578d6608c5651}{disable\+DMA}} ()
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a452f6ed548b6ad3e80dd4d28f1f33736}{get\+First\+Tx\+Box\+Size}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ace52dbb7446130a67e5b3b1ba0fb6169}{set\+MBFilter\+Processing}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t filter\+\_\+id, uint32\+\_\+t calculated\+\_\+mask)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_ad7b516890d68b32e3bbf2d7b1026e608}{read\+IFLAG}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a70035a5c1ca2b57e4e1c1c23df73658d}{mailbox\+\_\+offset}} (uint8\+\_\+t mailbox, uint8\+\_\+t \&maxsize)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a2f82249134e449eb5cee34740b084a03}{write\+Tx\+Mailbox}} (uint8\+\_\+t mb\+\_\+num, const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a36887edc59d0ea77f2177e080909934c}{set\+Baud\+Rate}} (\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}} config, uint8\+\_\+t nominal\+\_\+choice, uint8\+\_\+t flexdata\+\_\+choice, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} listen\+\_\+only=\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}, bool advanced=0)
+\item 
+int \mbox{\hyperlink{classFlexCAN__T4FD_a786dd4342c59a60f2b718ef753e8bb51}{get\+First\+Tx\+Box}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a85e531e4c906c81a9f539cf39960794f}{FLEXCAN\+\_\+\+Exit\+Freeze\+Mode}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a2f191c477c4f687c903e3c69c7212c5d}{FLEXCAN\+\_\+\+Enter\+Freeze\+Mode}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a6073537917abe60630a7915e69a52ad0}{reset}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a1a9b40a4cfb35fea8e28e53cc4bc89c6}{flexcan\+\_\+interrupt}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a9e5fd61fbfe3192f7ca53e2efa0a20f5}{write\+IFLAG}} (uint64\+\_\+t value)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a6c6bd763970b11ce66c81c11df4c1021}{write\+IFLAGBit}} (uint8\+\_\+t mb\+\_\+num)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a1d9a32d1ade903e42d625c04ef48f12b}{max\+\_\+mailboxes}} ()
+\item 
+uint64\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a2ebf943a7e7261ca5a2fb61f00ed4227}{read\+IMASK}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a60c71b236188cf049e8819af2294a6c3}{frame\+\_\+distribution}} (\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ae74d0ee6eadc6a4f66be015f56695558}{set\+Baud\+Rate}} (uint32\+\_\+t baud=1000000, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} listen\+\_\+only=\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}})
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ac3fc435447fb193f605787ebcfb7a4fa}{set\+Clock}} (\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\+\_\+\+CLOCK}} clock=\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}{CLK\+\_\+24\+MHz}})
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_ac0aea922d3782264ef7d09b3e306d4a4}{get\+Clock}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_ad4f5a0e80fbde9b1f4c074dd35e7db27}{soft\+Reset}} ()
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_adf2874b1132c3b1e6e0584ae142f535d}{write\+IMASK}} (uint64\+\_\+t value)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a4b3ff070843f7d6ea1a243b71a0e5623}{write\+IMASKBit}} (uint8\+\_\+t mb\+\_\+num, bool set=1)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a65896b69bed1439392f66f96a4b08a6d}{dlc\+\_\+to\+\_\+len}} (uint8\+\_\+t val)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_af5f51a5d820eb6cc2643d971a0be732b}{len\+\_\+to\+\_\+dlc}} (uint8\+\_\+t val)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a3a8736020ff5f988ccb40b0c4074e128}{set\+Baud\+Rate\+FD}} (\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}} config, uint32\+\_\+t flexdata\+\_\+choice, bool advanced)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a4f6e75a660d86cf1aeb2c29647aef9d7}{mb\+Callbacks}} (const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&mb\+\_\+num, const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a87047b61ab19f722655553d630a093bc}{filter\+\_\+store}} (\mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}} type, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id\+\_\+count, uint32\+\_\+t id1, uint32\+\_\+t id2, uint32\+\_\+t id3, uint32\+\_\+t id4, uint32\+\_\+t id5, uint32\+\_\+t mask)
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a13f47230e86469d12b1226a0c550df0f}{filter\+\_\+match}} (\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} mb\+\_\+num, uint32\+\_\+t id)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a969b504d92c1cd10b46a9f005f61e0d0}{struct2queue\+Tx}} (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{classFlexCAN__T4FD_a8f3a8f89ae630fcadd86f8f7b9c75057}{struct2queue\+Rx}} (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+volatile bool \mbox{\hyperlink{classFlexCAN__T4FD_af22fcd6f800278132ec8abe37d877230}{is\+Events\+Used}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a34c308503fa34982299c09e35cc068fa}{mb\+\_\+filter\+\_\+table}} \mbox{[}64\mbox{]}\mbox{[}7\mbox{]}
+\item 
+\mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ uint8\+\_\+t,(uint32\+\_\+t) \+\_\+rx\+Size, sizeof(\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}})$>$ \mbox{\hyperlink{classFlexCAN__T4FD_a34ab60a0639b84a75280bc878d80e6e7}{rx\+Buffer}}
+\item 
+\mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ uint8\+\_\+t,(uint32\+\_\+t) \+\_\+tx\+Size, sizeof(\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}})$>$ \mbox{\hyperlink{classFlexCAN__T4FD_ae9dc349bca083ac627fd6c9494481504}{tx\+Buffer}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_aecc92cacbf64fd087fe9b7b0ded4777e}{bus\+Number}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_addac65f18f2ece67927b9f2f496973ea}{mailbox\+\_\+reader\+\_\+increment}} = 0
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classFlexCAN__T4FD_a1d401984c839cfd149d74627032514be}{nvic\+Irq}} = 0
+\item 
+\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}} \mbox{\hyperlink{classFlexCAN__T4FD_a40117aaf4c6126cc849975a2cfa40d23}{\+\_\+mb\+Handlers}} \mbox{[}64\mbox{]}
+\item 
+\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}} \mbox{\hyperlink{classFlexCAN__T4FD_a13776d6a48ee6b6f4820a6d9a02130ff}{\+\_\+main\+Handler}}
+\item 
+bool \mbox{\hyperlink{classFlexCAN__T4FD_a3f0af8c6b13414b884fd58c579a83b10}{distribution}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classFlexCAN__T4FD_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classFlexCAN__T4FD_ab80ad1aea24e7efaf6540a93ea71fcfa}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{FlexCAN\_T4FD()}{FlexCAN\_T4FD()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ab80ad1aea24e7efaf6540a93ea71fcfa} 
+Flex\+CAN\+\_\+\+T4\+FD\+::\+Flex\+CAN\+\_\+\+T4\+FD (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classFlexCAN__T4FD_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classFlexCAN__T4FD_af251858d0cb3523b1e7d3c97c46a6dad}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!begin@{begin}}
+\index{begin@{begin}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_af251858d0cb3523b1e7d3c97c46a6dad} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_add21532ac41ff5cd83a578d6608c5651}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!disableDMA@{disableDMA}}
+\index{disableDMA@{disableDMA}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{disableDMA()}{disableDMA()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_add21532ac41ff5cd83a578d6608c5651} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::disable\+DMA (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFlexCAN__T4FD_abe800e5789fb3f9aff546f88ccd2fb52}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!disableFIFO@{disableFIFO}}
+\index{disableFIFO@{disableFIFO}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{disableFIFO()}{disableFIFO()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_abe800e5789fb3f9aff546f88ccd2fb52} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::disable\+FIFO (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFlexCAN__T4FD_afb31e83713f25307f8ec2c10e8a96236}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!disableMBInterrupt@{disableMBInterrupt}}
+\index{disableMBInterrupt@{disableMBInterrupt}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{disableMBInterrupt()}{disableMBInterrupt()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_afb31e83713f25307f8ec2c10e8a96236} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::disable\+MBInterrupt (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&}]{mb\+\_\+num}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFlexCAN__T4FD_a1c85e16511aa1ebdf71088d43ba15721}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!disableMBInterrupts@{disableMBInterrupts}}
+\index{disableMBInterrupts@{disableMBInterrupts}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{disableMBInterrupts()}{disableMBInterrupts()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a1c85e16511aa1ebdf71088d43ba15721} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::disable\+MBInterrupts (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFlexCAN__T4FD_a67dc343a39570ba78fa6336c2d34106a}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!distribute@{distribute}}
+\index{distribute@{distribute}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{distribute()}{distribute()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a67dc343a39570ba78fa6336c2d34106a} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::distribute (\begin{DoxyParamCaption}\item[{bool}]{state}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFlexCAN__T4FD_a65896b69bed1439392f66f96a4b08a6d}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!dlc\_to\_len@{dlc\_to\_len}}
+\index{dlc\_to\_len@{dlc\_to\_len}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{dlc\_to\_len()}{dlc\_to\_len()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a65896b69bed1439392f66f96a4b08a6d} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::dlc\+\_\+to\+\_\+len (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a637cd477a5a8e33a6a62593d0df4a4ac}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!enableDMA@{enableDMA}}
+\index{enableDMA@{enableDMA}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{enableDMA()}{enableDMA()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a637cd477a5a8e33a6a62593d0df4a4ac} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::enable\+DMA (\begin{DoxyParamCaption}\item[{bool}]{state}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a449751a5219bf139dceaa3f9f86b351c}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!enableFIFO@{enableFIFO}}
+\index{enableFIFO@{enableFIFO}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{enableFIFO()}{enableFIFO()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a449751a5219bf139dceaa3f9f86b351c} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::enable\+FIFO (\begin{DoxyParamCaption}\item[{bool}]{status}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a3c383b8a804db17fa2736e3d1122cc64}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!enableMBInterrupt@{enableMBInterrupt}}
+\index{enableMBInterrupt@{enableMBInterrupt}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{enableMBInterrupt()}{enableMBInterrupt()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a3c383b8a804db17fa2736e3d1122cc64} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::enable\+MBInterrupt (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&}]{mb\+\_\+num}{, }\item[{bool}]{status}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ae2fd0af3ce33bee3fa1d503118ea7571}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!enableMBInterrupts@{enableMBInterrupts}}
+\index{enableMBInterrupts@{enableMBInterrupts}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{enableMBInterrupts()}{enableMBInterrupts()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ae2fd0af3ce33bee3fa1d503118ea7571} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::enable\+MBInterrupts (\begin{DoxyParamCaption}\item[{bool}]{status}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ab5f2419548743427510048ce1e2c5395}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!enhanceFilter@{enhanceFilter}}
+\index{enhanceFilter@{enhanceFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{enhanceFilter()}{enhanceFilter()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ab5f2419548743427510048ce1e2c5395} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::enhance\+Filter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a46293547db87d716e8c055acf68494c7}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!events@{events}}
+\index{events@{events}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{events()}{events()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a46293547db87d716e8c055acf68494c7} 
+uint64\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::events (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFlexCAN__T4__Base_a8c552770259e95ce790475bea3e8cd39}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}.
+
+\Hypertarget{classFlexCAN__T4FD_a13f47230e86469d12b1226a0c550df0f}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!filter\_match@{filter\_match}}
+\index{filter\_match@{filter\_match}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{filter\_match()}{filter\_match()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a13f47230e86469d12b1226a0c550df0f} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::filter\+\_\+match (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a87047b61ab19f722655553d630a093bc}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!filter\_store@{filter\_store}}
+\index{filter\_store@{filter\_store}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{filter\_store()}{filter\_store()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a87047b61ab19f722655553d630a093bc} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::filter\+\_\+store (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}}}]{type}{, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id\+\_\+count}{, }\item[{uint32\+\_\+t}]{id1}{, }\item[{uint32\+\_\+t}]{id2}{, }\item[{uint32\+\_\+t}]{id3}{, }\item[{uint32\+\_\+t}]{id4}{, }\item[{uint32\+\_\+t}]{id5}{, }\item[{uint32\+\_\+t}]{mask}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a2f191c477c4f687c903e3c69c7212c5d}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!FLEXCAN\_EnterFreezeMode@{FLEXCAN\_EnterFreezeMode}}
+\index{FLEXCAN\_EnterFreezeMode@{FLEXCAN\_EnterFreezeMode}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_EnterFreezeMode()}{FLEXCAN\_EnterFreezeMode()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a2f191c477c4f687c903e3c69c7212c5d} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::\+FLEXCAN\+\_\+\+Enter\+Freeze\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a85e531e4c906c81a9f539cf39960794f}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!FLEXCAN\_ExitFreezeMode@{FLEXCAN\_ExitFreezeMode}}
+\index{FLEXCAN\_ExitFreezeMode@{FLEXCAN\_ExitFreezeMode}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_ExitFreezeMode()}{FLEXCAN\_ExitFreezeMode()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a85e531e4c906c81a9f539cf39960794f} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::\+FLEXCAN\+\_\+\+Exit\+Freeze\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a1a9b40a4cfb35fea8e28e53cc4bc89c6}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!flexcan\_interrupt@{flexcan\_interrupt}}
+\index{flexcan\_interrupt@{flexcan\_interrupt}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{flexcan\_interrupt()}{flexcan\_interrupt()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a1a9b40a4cfb35fea8e28e53cc4bc89c6} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::flexcan\+\_\+interrupt (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFlexCAN__T4__Base_adcb104268c2330f249e0313ae83a5e45}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}.
+
+\Hypertarget{classFlexCAN__T4FD_a60c71b236188cf049e8819af2294a6c3}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!frame\_distribution@{frame\_distribution}}
+\index{frame\_distribution@{frame\_distribution}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{frame\_distribution()}{frame\_distribution()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a60c71b236188cf049e8819af2294a6c3} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::frame\+\_\+distribution (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_ac0aea922d3782264ef7d09b3e306d4a4}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!getClock@{getClock}}
+\index{getClock@{getClock}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{getClock()}{getClock()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ac0aea922d3782264ef7d09b3e306d4a4} 
+uint32\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::get\+Clock (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a786dd4342c59a60f2b718ef753e8bb51}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!getFirstTxBox@{getFirstTxBox}}
+\index{getFirstTxBox@{getFirstTxBox}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{getFirstTxBox()}{getFirstTxBox()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a786dd4342c59a60f2b718ef753e8bb51} 
+int Flex\+CAN\+\_\+\+T4\+FD\+::get\+First\+Tx\+Box (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a452f6ed548b6ad3e80dd4d28f1f33736}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!getFirstTxBoxSize@{getFirstTxBoxSize}}
+\index{getFirstTxBoxSize@{getFirstTxBoxSize}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{getFirstTxBoxSize()}{getFirstTxBoxSize()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a452f6ed548b6ad3e80dd4d28f1f33736} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::get\+First\+Tx\+Box\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFlexCAN__T4__Base_ab3fc0d4fb402d2a1c92925644eed4177}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}.
+
+\Hypertarget{classFlexCAN__T4FD_ac262473296783057f693cf3bd9fc7bab}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!isFD@{isFD}}
+\index{isFD@{isFD}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{isFD()}{isFD()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ac262473296783057f693cf3bd9fc7bab} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::is\+FD (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFlexCAN__T4__Base_a6d793364a419181c8ae586ae79e571ae}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}.
+
+\Hypertarget{classFlexCAN__T4FD_af5f51a5d820eb6cc2643d971a0be732b}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!len\_to\_dlc@{len\_to\_dlc}}
+\index{len\_to\_dlc@{len\_to\_dlc}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{len\_to\_dlc()}{len\_to\_dlc()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_af5f51a5d820eb6cc2643d971a0be732b} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::len\+\_\+to\+\_\+dlc (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a70035a5c1ca2b57e4e1c1c23df73658d}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!mailbox\_offset@{mailbox\_offset}}
+\index{mailbox\_offset@{mailbox\_offset}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{mailbox\_offset()}{mailbox\_offset()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a70035a5c1ca2b57e4e1c1c23df73658d} 
+uint32\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::mailbox\+\_\+offset (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mailbox}{, }\item[{uint8\+\_\+t \&}]{maxsize}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_ad53ccfad4c8c19d09d8dec5fe5e79590}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!mailboxStatus@{mailboxStatus}}
+\index{mailboxStatus@{mailboxStatus}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{mailboxStatus()}{mailboxStatus()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ad53ccfad4c8c19d09d8dec5fe5e79590} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::mailbox\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a1d9a32d1ade903e42d625c04ef48f12b}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!max\_mailboxes@{max\_mailboxes}}
+\index{max\_mailboxes@{max\_mailboxes}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{max\_mailboxes()}{max\_mailboxes()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a1d9a32d1ade903e42d625c04ef48f12b} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::max\+\_\+mailboxes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a4f6e75a660d86cf1aeb2c29647aef9d7}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!mbCallbacks@{mbCallbacks}}
+\index{mbCallbacks@{mbCallbacks}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{mbCallbacks()}{mbCallbacks()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a4f6e75a660d86cf1aeb2c29647aef9d7} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::mb\+Callbacks (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&}]{mb\+\_\+num}{, }\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a1c5f2d42aaf685cef8d5bd80d88cb41d}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!onReceive@{onReceive}}
+\index{onReceive@{onReceive}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{onReceive()}{onReceive()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a1c5f2d42aaf685cef8d5bd80d88cb41d} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::on\+Receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}}}]{handler}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ac5ddf6af383c6f3b35a8b795592bcecb}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!onReceive@{onReceive}}
+\index{onReceive@{onReceive}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{onReceive()}{onReceive()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ac5ddf6af383c6f3b35a8b795592bcecb} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::on\+Receive (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&}]{mb\+\_\+num}{, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}}}]{handler}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ac7bb2bfd4d95f859f4aaaa29c17e1c80}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!read@{read}}
+\index{read@{read}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ac7bb2bfd4d95f859f4aaaa29c17e1c80} 
+int Flex\+CAN\+\_\+\+T4\+FD\+::read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ad7b516890d68b32e3bbf2d7b1026e608}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!readIFLAG@{readIFLAG}}
+\index{readIFLAG@{readIFLAG}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{readIFLAG()}{readIFLAG()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ad7b516890d68b32e3bbf2d7b1026e608} 
+uint64\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::read\+IFLAG (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a2ebf943a7e7261ca5a2fb61f00ed4227}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!readIMASK@{readIMASK}}
+\index{readIMASK@{readIMASK}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{readIMASK()}{readIMASK()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a2ebf943a7e7261ca5a2fb61f00ed4227} 
+uint64\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::read\+IMASK (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a5778019e1e3d280211097e8781bd4d1c}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!readMB@{readMB}}
+\index{readMB@{readMB}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{readMB()}{readMB()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a5778019e1e3d280211097e8781bd4d1c} 
+int Flex\+CAN\+\_\+\+T4\+FD\+::read\+MB (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a6073537917abe60630a7915e69a52ad0}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!reset@{reset}}
+\index{reset@{reset}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a6073537917abe60630a7915e69a52ad0} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_ae482ea7d87e79ad207f28be81ac363eb}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setBaudRate@{setBaudRate}}
+\index{setBaudRate@{setBaudRate}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setBaudRate()}{setBaudRate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ae482ea7d87e79ad207f28be81ac363eb} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+Baud\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}}}]{config}{, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}]{listen\+\_\+only}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a36887edc59d0ea77f2177e080909934c}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setBaudRate@{setBaudRate}}
+\index{setBaudRate@{setBaudRate}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setBaudRate()}{setBaudRate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a36887edc59d0ea77f2177e080909934c} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+Baud\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}}}]{config}{, }\item[{uint8\+\_\+t}]{nominal\+\_\+choice}{, }\item[{uint8\+\_\+t}]{flexdata\+\_\+choice}{, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}]{listen\+\_\+only}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}}, }\item[{bool}]{advanced}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_addde96b0fa5dea6b4f7e8a925c00a25b}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setBaudRate@{setBaudRate}}
+\index{setBaudRate@{setBaudRate}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setBaudRate()}{setBaudRate()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_addde96b0fa5dea6b4f7e8a925c00a25b} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+Baud\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\+\_\+\+FDRATES}}}]{input}{, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}]{listen\+\_\+only}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ae74d0ee6eadc6a4f66be015f56695558}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setBaudRate@{setBaudRate}}
+\index{setBaudRate@{setBaudRate}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setBaudRate()}{setBaudRate()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ae74d0ee6eadc6a4f66be015f56695558} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+Baud\+Rate (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{baud}{ = {\ttfamily 1000000}, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}]{listen\+\_\+only}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFlexCAN__T4__Base_ab7c7050b49cf949fe24c440221f2e523}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}.
+
+\Hypertarget{classFlexCAN__T4FD_a0e91c42172c08eeb96a15262e9729439}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setBaudRateAdvanced@{setBaudRateAdvanced}}
+\index{setBaudRateAdvanced@{setBaudRateAdvanced}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setBaudRateAdvanced()}{setBaudRateAdvanced()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a0e91c42172c08eeb96a15262e9729439} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+Baud\+Rate\+Advanced (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}}}]{config}{, }\item[{uint8\+\_\+t}]{nominal\+\_\+choice}{, }\item[{uint8\+\_\+t}]{flexdata\+\_\+choice}{, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}]{listen\+\_\+only}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a3a8736020ff5f988ccb40b0c4074e128}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setBaudRateFD@{setBaudRateFD}}
+\index{setBaudRateFD@{setBaudRateFD}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setBaudRateFD()}{setBaudRateFD()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a3a8736020ff5f988ccb40b0c4074e128} 
+uint32\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::set\+Baud\+Rate\+FD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}}}]{config}{, }\item[{uint32\+\_\+t}]{flexdata\+\_\+choice}{, }\item[{bool}]{advanced}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_ac3fc435447fb193f605787ebcfb7a4fa}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setClock@{setClock}}
+\index{setClock@{setClock}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setClock()}{setClock()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ac3fc435447fb193f605787ebcfb7a4fa} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+Clock (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\+\_\+\+CLOCK}}}]{clock}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}{CLK\+\_\+24\+MHz}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a44f11285f4ecb23bcd194cad908e37e7}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMB@{setMB}}
+\index{setMB@{setMB}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMB()}{setMB()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a44f11285f4ecb23bcd194cad908e37e7} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+MB (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \&}]{mb\+\_\+num}{, }\item[{const \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} \&}]{mb\+\_\+rx\+\_\+tx}{, }\item[{const \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\+\_\+\+IDE}} \&}]{ide}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab}{STD}}}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a78ca6af2a3015f929fd6bee11221332a}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilter@{setMBFilter}}
+\index{setMBFilter@{setMBFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilter()}{setMBFilter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a78ca6af2a3015f929fd6bee11221332a} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}}}]{input}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a5251c8341137652cd79f494a44788118}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilter@{setMBFilter}}
+\index{setMBFilter@{setMBFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilter()}{setMBFilter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a5251c8341137652cd79f494a44788118} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}}}]{input}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a066b8497edf1c7af9b570715c8b8005e}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilter@{setMBFilter}}
+\index{setMBFilter@{setMBFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilter()}{setMBFilter()}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a066b8497edf1c7af9b570715c8b8005e} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id1}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a2ef3404892aa682677ef99fbb959393f}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilter@{setMBFilter}}
+\index{setMBFilter@{setMBFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilter()}{setMBFilter()}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a2ef3404892aa682677ef99fbb959393f} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id1}{, }\item[{uint32\+\_\+t}]{id2}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a15061277d58200dfa58dd1552fceed37}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilter@{setMBFilter}}
+\index{setMBFilter@{setMBFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilter()}{setMBFilter()}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a15061277d58200dfa58dd1552fceed37} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id1}{, }\item[{uint32\+\_\+t}]{id2}{, }\item[{uint32\+\_\+t}]{id3}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ab0cba8c612892883b23e8dc4088fcf12}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilter@{setMBFilter}}
+\index{setMBFilter@{setMBFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilter()}{setMBFilter()}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ab0cba8c612892883b23e8dc4088fcf12} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id1}{, }\item[{uint32\+\_\+t}]{id2}{, }\item[{uint32\+\_\+t}]{id3}{, }\item[{uint32\+\_\+t}]{id4}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_aa90ffe93dba1416ded09e88e0b720898}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilter@{setMBFilter}}
+\index{setMBFilter@{setMBFilter}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilter()}{setMBFilter()}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_aa90ffe93dba1416ded09e88e0b720898} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id1}{, }\item[{uint32\+\_\+t}]{id2}{, }\item[{uint32\+\_\+t}]{id3}{, }\item[{uint32\+\_\+t}]{id4}{, }\item[{uint32\+\_\+t}]{id5}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ace52dbb7446130a67e5b3b1ba0fb6169}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilterProcessing@{setMBFilterProcessing}}
+\index{setMBFilterProcessing@{setMBFilterProcessing}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilterProcessing()}{setMBFilterProcessing()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ace52dbb7446130a67e5b3b1ba0fb6169} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter\+Processing (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{filter\+\_\+id}{, }\item[{uint32\+\_\+t}]{calculated\+\_\+mask}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a364304375c46634c8179d8f3db8cbf18}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setMBFilterRange@{setMBFilterRange}}
+\index{setMBFilterRange@{setMBFilterRange}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setMBFilterRange()}{setMBFilterRange()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a364304375c46634c8179d8f3db8cbf18} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::set\+MBFilter\+Range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{uint32\+\_\+t}]{id1}{, }\item[{uint32\+\_\+t}]{id2}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a7f732a7172c8e73c93db845a77f65350}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setRegions@{setRegions}}
+\index{setRegions@{setRegions}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setRegions()}{setRegions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a7f732a7172c8e73c93db845a77f65350} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::set\+Regions (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mbdsr0}{, }\item[{uint8\+\_\+t}]{mbdsr1}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a97646e16178e68b6b371e0aa246ae7ae}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setRegions@{setRegions}}
+\index{setRegions@{setRegions}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setRegions()}{setRegions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a97646e16178e68b6b371e0aa246ae7ae} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::set\+Regions (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{size}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a0d0f4be6a64908bccffebb9d56f17f5b}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setRX@{setRX}}
+\index{setRX@{setRX}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setRX()}{setRX()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a0d0f4be6a64908bccffebb9d56f17f5b} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+RX (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}}}]{pin}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}}}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a4e2e89b8f4df29ba2a5e3aa2f8aceba8}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!setTX@{setTX}}
+\index{setTX@{setTX}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{setTX()}{setTX()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a4e2e89b8f4df29ba2a5e3aa2f8aceba8} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::set\+TX (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}}}]{pin}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}}}}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_ad4f5a0e80fbde9b1f4c074dd35e7db27}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!softReset@{softReset}}
+\index{softReset@{softReset}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{softReset()}{softReset()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ad4f5a0e80fbde9b1f4c074dd35e7db27} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::soft\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a8f3a8f89ae630fcadd86f8f7b9c75057}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!struct2queueRx@{struct2queueRx}}
+\index{struct2queueRx@{struct2queueRx}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{struct2queueRx()}{struct2queueRx()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a8f3a8f89ae630fcadd86f8f7b9c75057} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::struct2queue\+Rx (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a969b504d92c1cd10b46a9f005f61e0d0}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!struct2queueTx@{struct2queueTx}}
+\index{struct2queueTx@{struct2queueTx}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{struct2queueTx()}{struct2queueTx()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a969b504d92c1cd10b46a9f005f61e0d0} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::struct2queue\+Tx (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_afbc4f97ed98885b37a873ae320ae0c12}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!write@{write}}
+\index{write@{write}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_afbc4f97ed98885b37a873ae320ae0c12} 
+int Flex\+CAN\+\_\+\+T4\+FD\+::write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFlexCAN__T4__Base_aafee80f5041ed0c84129e9a72385e1cd}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}.
+
+\Hypertarget{classFlexCAN__T4FD_ad56af6e4d343956fba0f0f72d7d8df53}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!write@{write}}
+\index{write@{write}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ad56af6e4d343956fba0f0f72d7d8df53} 
+int Flex\+CAN\+\_\+\+T4\+FD\+::write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classFlexCAN__T4__Base_ae13e2e69d9994dbea41667c382b5c9a5}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}.
+
+\Hypertarget{classFlexCAN__T4FD_ac20a4a4161ed212429a004ec75d50eb2}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!write@{write}}
+\index{write@{write}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ac20a4a4161ed212429a004ec75d50eb2} 
+int Flex\+CAN\+\_\+\+T4\+FD\+::write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}]{mb\+\_\+num}{, }\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classFlexCAN__T4FD_a9e5fd61fbfe3192f7ca53e2efa0a20f5}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!writeIFLAG@{writeIFLAG}}
+\index{writeIFLAG@{writeIFLAG}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{writeIFLAG()}{writeIFLAG()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a9e5fd61fbfe3192f7ca53e2efa0a20f5} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::write\+IFLAG (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a6c6bd763970b11ce66c81c11df4c1021}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!writeIFLAGBit@{writeIFLAGBit}}
+\index{writeIFLAGBit@{writeIFLAGBit}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{writeIFLAGBit()}{writeIFLAGBit()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a6c6bd763970b11ce66c81c11df4c1021} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::write\+IFLAGBit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mb\+\_\+num}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_adf2874b1132c3b1e6e0584ae142f535d}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!writeIMASK@{writeIMASK}}
+\index{writeIMASK@{writeIMASK}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{writeIMASK()}{writeIMASK()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_adf2874b1132c3b1e6e0584ae142f535d} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::write\+IMASK (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a4b3ff070843f7d6ea1a243b71a0e5623}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!writeIMASKBit@{writeIMASKBit}}
+\index{writeIMASKBit@{writeIMASKBit}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{writeIMASKBit()}{writeIMASKBit()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a4b3ff070843f7d6ea1a243b71a0e5623} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::write\+IMASKBit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mb\+\_\+num}{, }\item[{bool}]{set}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a2f82249134e449eb5cee34740b084a03}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!writeTxMailbox@{writeTxMailbox}}
+\index{writeTxMailbox@{writeTxMailbox}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{writeTxMailbox()}{writeTxMailbox()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a2f82249134e449eb5cee34740b084a03} 
+void Flex\+CAN\+\_\+\+T4\+FD\+::write\+Tx\+Mailbox (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mb\+\_\+num}{, }\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classFlexCAN__T4FD_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classFlexCAN__T4FD_a13776d6a48ee6b6f4820a6d9a02130ff}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!\_mainHandler@{\_mainHandler}}
+\index{\_mainHandler@{\_mainHandler}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{\_mainHandler}{\_mainHandler}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a13776d6a48ee6b6f4820a6d9a02130ff} 
+\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}} Flex\+CAN\+\_\+\+T4\+FD\+::\+\_\+main\+Handler\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a40117aaf4c6126cc849975a2cfa40d23}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!\_mbHandlers@{\_mbHandlers}}
+\index{\_mbHandlers@{\_mbHandlers}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{\_mbHandlers}{\_mbHandlers}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a40117aaf4c6126cc849975a2cfa40d23} 
+\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}} Flex\+CAN\+\_\+\+T4\+FD\+::\+\_\+mb\+Handlers\mbox{[}64\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_aecc92cacbf64fd087fe9b7b0ded4777e}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!busNumber@{busNumber}}
+\index{busNumber@{busNumber}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{busNumber}{busNumber}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_aecc92cacbf64fd087fe9b7b0ded4777e} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::bus\+Number\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a3f0af8c6b13414b884fd58c579a83b10}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!distribution@{distribution}}
+\index{distribution@{distribution}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{distribution}{distribution}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a3f0af8c6b13414b884fd58c579a83b10} 
+bool Flex\+CAN\+\_\+\+T4\+FD\+::distribution = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_af22fcd6f800278132ec8abe37d877230}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!isEventsUsed@{isEventsUsed}}
+\index{isEventsUsed@{isEventsUsed}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{isEventsUsed}{isEventsUsed}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_af22fcd6f800278132ec8abe37d877230} 
+volatile bool Flex\+CAN\+\_\+\+T4\+FD\+::is\+Events\+Used = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_addac65f18f2ece67927b9f2f496973ea}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!mailbox\_reader\_increment@{mailbox\_reader\_increment}}
+\index{mailbox\_reader\_increment@{mailbox\_reader\_increment}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{mailbox\_reader\_increment}{mailbox\_reader\_increment}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_addac65f18f2ece67927b9f2f496973ea} 
+uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::mailbox\+\_\+reader\+\_\+increment = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a34c308503fa34982299c09e35cc068fa}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!mb\_filter\_table@{mb\_filter\_table}}
+\index{mb\_filter\_table@{mb\_filter\_table}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{mb\_filter\_table}{mb\_filter\_table}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a34c308503fa34982299c09e35cc068fa} 
+uint32\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::mb\+\_\+filter\+\_\+table\mbox{[}64\mbox{]}\mbox{[}7\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a1d401984c839cfd149d74627032514be}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!nvicIrq@{nvicIrq}}
+\index{nvicIrq@{nvicIrq}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{nvicIrq}{nvicIrq}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a1d401984c839cfd149d74627032514be} 
+uint32\+\_\+t Flex\+CAN\+\_\+\+T4\+FD\+::nvic\+Irq = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_a34ab60a0639b84a75280bc878d80e6e7}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!rxBuffer@{rxBuffer}}
+\index{rxBuffer@{rxBuffer}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{rxBuffer}{rxBuffer}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_a34ab60a0639b84a75280bc878d80e6e7} 
+\mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$uint8\+\_\+t, (uint32\+\_\+t)\+\_\+rx\+Size, sizeof(\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}})$>$ Flex\+CAN\+\_\+\+T4\+FD\+::rx\+Buffer\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classFlexCAN__T4FD_ae9dc349bca083ac627fd6c9494481504}\index{FlexCAN\_T4FD@{FlexCAN\_T4FD}!txBuffer@{txBuffer}}
+\index{txBuffer@{txBuffer}!FlexCAN\_T4FD@{FlexCAN\_T4FD}}
+\doxysubsubsection{\texorpdfstring{txBuffer}{txBuffer}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4FD_ae9dc349bca083ac627fd6c9494481504} 
+\mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$uint8\+\_\+t, (uint32\+\_\+t)\+\_\+tx\+Size, sizeof(\mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}})$>$ Flex\+CAN\+\_\+\+T4\+FD\+::tx\+Buffer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{FlexCAN__T4___8h}{Flex\+CAN\+\_\+\+T4\+\_\+.\+h}}\end{DoxyCompactItemize}

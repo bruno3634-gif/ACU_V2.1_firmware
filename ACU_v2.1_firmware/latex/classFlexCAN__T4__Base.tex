@@ -1,0 +1,109 @@
+\doxysection{Flex\+CAN\+\_\+\+T4\+\_\+\+Base Class Reference}
+\hypertarget{classFlexCAN__T4__Base}{}\label{classFlexCAN__T4__Base}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+
+
+{\ttfamily \#include $<$Flex\+CAN\+\_\+\+T4\+\_\+.\+h$>$}
+
+Inheritance diagram for Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classFlexCAN__T4__Base}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classFlexCAN__T4__Base_adcb104268c2330f249e0313ae83a5e45}{flexcan\+\_\+interrupt}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classFlexCAN__T4__Base_ab7c7050b49cf949fe24c440221f2e523}{set\+Baud\+Rate}} (uint32\+\_\+t baud=1000000, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} listen\+\_\+only=\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}})=0
+\item 
+virtual uint64\+\_\+t \mbox{\hyperlink{classFlexCAN__T4__Base_a8c552770259e95ce790475bea3e8cd39}{events}} ()=0
+\item 
+virtual int \mbox{\hyperlink{classFlexCAN__T4__Base_ae13e2e69d9994dbea41667c382b5c9a5}{write}} (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)=0
+\item 
+virtual int \mbox{\hyperlink{classFlexCAN__T4__Base_aafee80f5041ed0c84129e9a72385e1cd}{write}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)=0
+\item 
+virtual bool \mbox{\hyperlink{classFlexCAN__T4__Base_a6d793364a419181c8ae586ae79e571ae}{is\+FD}} ()=0
+\item 
+virtual uint8\+\_\+t \mbox{\hyperlink{classFlexCAN__T4__Base_ab3fc0d4fb402d2a1c92925644eed4177}{get\+First\+Tx\+Box\+Size}} ()=0
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classFlexCAN__T4__Base_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classFlexCAN__T4__Base_a8c552770259e95ce790475bea3e8cd39}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}!events@{events}}
+\index{events@{events}!FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+\doxysubsubsection{\texorpdfstring{events()}{events()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4__Base_a8c552770259e95ce790475bea3e8cd39} 
+virtual uint64\+\_\+t Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+::events (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classFlexCAN__T4_a3234561bb46c457c1fd58b464a4bad8f}{Flex\+CAN\+\_\+\+T4}}, and \mbox{\hyperlink{classFlexCAN__T4FD_a46293547db87d716e8c055acf68494c7}{Flex\+CAN\+\_\+\+T4\+FD}}.
+
+\Hypertarget{classFlexCAN__T4__Base_adcb104268c2330f249e0313ae83a5e45}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}!flexcan\_interrupt@{flexcan\_interrupt}}
+\index{flexcan\_interrupt@{flexcan\_interrupt}!FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+\doxysubsubsection{\texorpdfstring{flexcan\_interrupt()}{flexcan\_interrupt()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4__Base_adcb104268c2330f249e0313ae83a5e45} 
+virtual void Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+::flexcan\+\_\+interrupt (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classFlexCAN__T4_a6e2aeb22c403e3f56825c67e5c12ea21}{Flex\+CAN\+\_\+\+T4}}, and \mbox{\hyperlink{classFlexCAN__T4FD_a1a9b40a4cfb35fea8e28e53cc4bc89c6}{Flex\+CAN\+\_\+\+T4\+FD}}.
+
+\Hypertarget{classFlexCAN__T4__Base_ab3fc0d4fb402d2a1c92925644eed4177}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}!getFirstTxBoxSize@{getFirstTxBoxSize}}
+\index{getFirstTxBoxSize@{getFirstTxBoxSize}!FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+\doxysubsubsection{\texorpdfstring{getFirstTxBoxSize()}{getFirstTxBoxSize()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4__Base_ab3fc0d4fb402d2a1c92925644eed4177} 
+virtual uint8\+\_\+t Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+::get\+First\+Tx\+Box\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classFlexCAN__T4_aa85143d26528901aa9619e647c96fa20}{Flex\+CAN\+\_\+\+T4}}, and \mbox{\hyperlink{classFlexCAN__T4FD_a452f6ed548b6ad3e80dd4d28f1f33736}{Flex\+CAN\+\_\+\+T4\+FD}}.
+
+\Hypertarget{classFlexCAN__T4__Base_a6d793364a419181c8ae586ae79e571ae}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}!isFD@{isFD}}
+\index{isFD@{isFD}!FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+\doxysubsubsection{\texorpdfstring{isFD()}{isFD()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4__Base_a6d793364a419181c8ae586ae79e571ae} 
+virtual bool Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+::is\+FD (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classFlexCAN__T4_aa5d4091dbb79a96083ce5526881c2029}{Flex\+CAN\+\_\+\+T4}}, and \mbox{\hyperlink{classFlexCAN__T4FD_ac262473296783057f693cf3bd9fc7bab}{Flex\+CAN\+\_\+\+T4\+FD}}.
+
+\Hypertarget{classFlexCAN__T4__Base_ab7c7050b49cf949fe24c440221f2e523}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}!setBaudRate@{setBaudRate}}
+\index{setBaudRate@{setBaudRate}!FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+\doxysubsubsection{\texorpdfstring{setBaudRate()}{setBaudRate()}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4__Base_ab7c7050b49cf949fe24c440221f2e523} 
+virtual void Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+::set\+Baud\+Rate (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{baud}{ = {\ttfamily 1000000}, }\item[{\mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}]{listen\+\_\+only}{ = {\ttfamily \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classFlexCAN__T4_ae0c0b7a8db6e34f39022b46b1055514f}{Flex\+CAN\+\_\+\+T4}}, and \mbox{\hyperlink{classFlexCAN__T4FD_ae74d0ee6eadc6a4f66be015f56695558}{Flex\+CAN\+\_\+\+T4\+FD}}.
+
+\Hypertarget{classFlexCAN__T4__Base_aafee80f5041ed0c84129e9a72385e1cd}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}!write@{write}}
+\index{write@{write}!FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4__Base_aafee80f5041ed0c84129e9a72385e1cd} 
+virtual int Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+::write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classFlexCAN__T4_ab5076792e4c192b5cdddb148d3919f9d}{Flex\+CAN\+\_\+\+T4}}, and \mbox{\hyperlink{classFlexCAN__T4FD_afbc4f97ed98885b37a873ae320ae0c12}{Flex\+CAN\+\_\+\+T4\+FD}}.
+
+\Hypertarget{classFlexCAN__T4__Base_ae13e2e69d9994dbea41667c382b5c9a5}\index{FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}!write@{write}}
+\index{write@{write}!FlexCAN\_T4\_Base@{FlexCAN\_T4\_Base}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classFlexCAN__T4__Base_ae13e2e69d9994dbea41667c382b5c9a5} 
+virtual int Flex\+CAN\+\_\+\+T4\+\_\+\+Base\+::write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classFlexCAN__T4_a68cf8fca17ceb8a065bff0a5ba523d8f}{Flex\+CAN\+\_\+\+T4}}, and \mbox{\hyperlink{classFlexCAN__T4FD_ad56af6e4d343956fba0f0f72d7d8df53}{Flex\+CAN\+\_\+\+T4\+FD}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{FlexCAN__T4___8h}{Flex\+CAN\+\_\+\+T4\+\_\+.\+h}}\end{DoxyCompactItemize}

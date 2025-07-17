@@ -1,3 +1,41 @@
+/**
+ * @file main.cpp
+ * @brief Main firmware file for the Actuation Control Unit (ACU) V2.1.
+ *
+ * This file implements the main logic, state machine, and peripheral handling for the ACU,
+ * which manages the actuation and safety logic for an autonomous vehicle.
+ * The ACU interfaces with pressure sensors, solenoids, CAN bus, and various status indicators.
+ *
+ * Key features:
+ * - Implements a robust state machine for ACU operation, including initialization, mission selection,
+ *   initial safety checks, ready, driving, emergency, and finished states.
+ * - Handles CAN communication for receiving commands and sending status updates.
+ * - Reads and processes pressure sensor data with averaging and conversion to engineering units.
+ * - Manages ignition and emergency logic with debounce and safety checks.
+ * - Controls visual indicators (LEDs) for system and mission status.
+ * - Provides detailed documentation for each function and state.
+ *
+ * @note Key global variables used throughout this file include:
+ *   - current_state, previous_state: ACU state machine tracking.
+ *   - as_state: Autonomous system state.
+ *   - initial_sequence_state: State for initial safety sequence.
+ *   - current_mission, jetson_mission: Mission selection tracking.
+ *   - EBS_TANK_PRESSURE_A_values, EBS_TANK_PRESSURE_B_values: Pressure sensor readings.
+ *   - TANK_PRESSURE_FRONT, TANK_PRESSURE_REAR: Calculated tank pressures.
+ *   - HYDRAULIC_PRESSURE_FRONT, HYDRAULIC_PRESSURE_REAR: Hydraulic pressures.
+ *   - ignition_flag, ignition_vcu, ignition_enable: Ignition logic.
+ *   - asms_flag: Autonomous system master switch state.
+ *   - emergency_flag, res_emergency, res_active: Emergency logic.
+ *   - wdt_togle_enable, wdt_togle_counter, wdt_relay_timout: Watchdog timer logic.
+ *   - pressure_check_delay: Timing for pressure checks.
+ *   - emergency_timestamp: Timing for emergency state.
+ *   - ASSI_YELLOW_time, ASSI_BLUE_time: Timing for LED indicators.
+ *   - last_button_time_ms: Debounce for mission selection button.
+ *   - last_ign_state, debounced_ign_state: Debounce for ignition input.
+ *
+ * @author (Bruno Vicente - LART)
+ * @date (2025)
+ */
 #include <Arduino.h>
 #include "definitions.h"
 #include "FlexCAN_T4_.h"
@@ -12,7 +50,37 @@
 #define PRESSURE_READINGS 8 // Number of pressure readings to average
 
 /* -------------------- STATE MACHINE DEFINITIONS -------------------- */
-// ACU state enumeration
+
+
+
+
+
+
+
+/**
+ * @enum ACU_STATE_t
+ * @brief Represents the various operational states of the ACU (Actuation Control Unit).
+ *
+ * This enumeration defines the possible states in which the ACU can exist during its lifecycle.
+ * Each state corresponds to a specific phase or condition of the system.
+ *
+ * @var STATE_INIT
+ *      The initial state after power-up or reset, where system initialization occurs.
+ * @var STATE_MISSION_SELECT
+ *      State where the mission or operational mode is selected.
+ * @var STATE_INITIAL_SEQUENCE
+ *      State for executing the initial sequence before becoming ready.
+ * @var STATE_READY
+ *      System is ready and awaiting further commands or actions.
+ * @var STATE_DRIVING
+ *      The ACU is actively controlling the vehicle or system in its driving mode.
+ * @var STATE_EBS_ERROR
+ *      An error has occurred in the Emergency Braking System (EBS).
+ * @var STATE_EMERGENCY
+ *      The system has entered an emergency state, requiring immediate attention.
+ * @var STATE_FINISHED
+ *      The mission or operation has completed, and the system is in a finished state.
+ */
 typedef enum
 {
   STATE_INIT, 
@@ -37,6 +105,32 @@ const char *state_names[] = {
     "STATE_EMERGENCY",
     "STATE_FINISHED"};
 
+
+
+
+
+
+
+
+
+
+
+/**
+ * @enum AS_STATE_t
+ * @brief Represents the different states of the Autonomous System (AS).
+ * This enumeration defines the various operational states of the AS,
+ * which can be used to manage the system's behavior during autonomous operations.
+ * @var AS_STATE_OFF
+ * ASSI OFF
+ * @var AS_STATE_READY
+ *    ASSI yellow
+ *  @var AS_STATE_DRIVING
+ *   ASSI Blinking yellow
+ * @var AS_STATE_EMERGENCY
+ *  ASSI blinking Blue
+ * @var AS_STATE_FINISHED
+ * ASSI Blue
+ */
 typedef enum
 {
   AS_STATE_OFF,         //0
@@ -93,6 +187,8 @@ IntervalTimer PRESSURE_TIMER;
 
 IntervalTimer CAN_TIMER;
 
+IntervalTimer HANDBOOK_MESSAGE_TIMER;
+
 
 FlexCAN_T4<CAN2, RX_SIZE_1024, TX_SIZE_1024> CAN;
 
@@ -100,36 +196,257 @@ FlexCAN_T4<CAN2, RX_SIZE_1024, TX_SIZE_1024> CAN;
 //VARIABLES
 unsigned long HeartBit = 0;
 
-float EBS_TANK_PRESSURE_A_values[PRESSURE_READINGS], EBS_TANK_PRESSURE_B_values[PRESSURE_READINGS];
-float TANK_PRESSURE_FRONT = 0, TANK_PRESSURE_REAR = 0; // Pressure values for tank A and B
-float HYDRAULIC_PRESSURE_FRONT = 0, HYDRAULIC_PRESSURE_REAR = 0; // Pressure values for front and rear hydraulics
+/**
+ * @brief Array storing recent pressure readings from EBS Tank A.
+ *
+ * This array holds the last PRESSURE_READINGS number of float values,
+ * representing the sampled pressure values from the EBS (Emergency Braking System) Tank A.
+ * Updated in Pressure_readings(), used in median_pressures() for filtering/averaging.
+ *
+ * @see EBS_TANK_PRESSURE_B_values
+ * @see PRESSURE_READINGS
+ */
+float EBS_TANK_PRESSURE_A_values[PRESSURE_READINGS];
 
-uint8_t adc_pointer = 0; // Pointer for pressure readings
-volatile bool update_median_flag = false; // Flag to indicate if median update is needed
+/**
+ * @brief Array storing recent pressure readings from EBS Tank B.
+ *
+ * This array holds the last PRESSURE_READINGS number of float values,
+ * representing the sampled pressure values from the EBS (Emergency Braking System) Tank B.
+ * Updated in Pressure_readings(), used in median_pressures() for filtering/averaging.
+ *
+ * @see EBS_TANK_PRESSURE_A_values
+ * @see PRESSURE_READINGS
+ */
+float EBS_TANK_PRESSURE_B_values[PRESSURE_READINGS];
 
-uint8_t ignition_flag = 0; // Flag to indicate ignition signal
-uint8_t ignition_vcu = 0; // Ignition signal state
-uint8_t asms_flag = 0; // Current ignition signal state
-uint8_t emergency_flag = 0; // Flag to indicate emergency state
+/**
+ * @brief Pressure value for front tank (in bar).
+ *
+ * Calculated in median_pressures() from EBS_TANK_PRESSURE_B_values.
+ * Used in initial_sequence(), HandleState(), send_can_msg(), and for state transitions.
+ */
+float TANK_PRESSURE_FRONT = 0;
 
+/**
+ * @brief Pressure value for rear tank (in bar).
+ *
+ * Calculated in median_pressures() from EBS_TANK_PRESSURE_A_values.
+ * Used in initial_sequence(), HandleState(), send_can_msg(), and for state transitions.
+ */
+float TANK_PRESSURE_REAR = 0;
 
-volatile uint8_t res_emergency = 0; // Emergency response from AS
-volatile bool wdt_togle_enable = true; // Flag to enable WDT toggle
-unsigned long wdt_togle_counter = 0; // Counter for WDT toggle
-unsigned long wdt_relay_timout = 0; // Timeout for WDT relay
-unsigned long pressure_check_delay = 0; // Delay for pressure check
-uint8_t ignition_enable = 0; // Flag to enable ignition
-volatile bool res_active = false; // Flag to indicate if response is active
+/**
+ * @brief Hydraulic pressure value for front brakes (in bar).
+ *
+ * Updated in canISR() from CAN message AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID.
+ * Used in initial_sequence() for pressure checks.
+ */
+float HYDRAULIC_PRESSURE_FRONT = 0;
 
-unsigned long emergency_timestamp = 0; // Timestamp for emergency state
+/**
+ * @brief Hydraulic pressure value for rear brakes (in bar).
+ *
+ * Updated in canISR() from CAN message AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID.
+ * Used in initial_sequence() for pressure checks.
+ */
+float HYDRAULIC_PRESSURE_REAR = 0;
 
-unsigned long ASSI_YELLOW_time = 0, ASSI_BLUE_time = 0;
+/**
+ * @brief Pointer for pressure readings buffer.
+ *
+ * Used in Pressure_readings() to cycle through EBS_TANK_PRESSURE_A_values and EBS_TANK_PRESSURE_B_values.
+ */
+uint8_t adc_pointer = 0;
+
+/**
+ * @brief Flag to indicate if median pressure update is needed.
+ *
+ * Set in Pressure_readings(), checked in loop() to call median_pressures().
+ */
+volatile bool update_median_flag = false;
+
+/**
+ * @brief Flag to indicate ignition signal.
+ *
+ * Updated in check_ignition(), used in send_can_msg(), HandleState(), and initial_sequence().
+ */
+uint8_t ignition_flag = 0;
+
+/**
+ * @brief Ignition signal state from VCU.
+ *
+ * Updated in canISR() from CAN message AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID.
+ * Used in initial_sequence().
+ */
+uint8_t ignition_vcu = 0;
+
+/**
+ * @brief Current ASMS (Autonomous System Master Switch) signal state.
+ *
+ * Updated in loop() from digitalRead(ASMS), used in send_can_msg().
+ */
+uint8_t asms_flag = 0;
+
+/**
+ * @brief Flag to indicate emergency state.
+ *
+ * Set in HandleState() and UpdateState(), used in send_can_msg().
+ */
+uint8_t emergency_flag = 0;
+
+/**
+ * @brief Emergency response from AS (Autonomous System).
+ *
+ * Updated in canISR() from CAN message AUTONOMOUS_TEMPORARY_RES_FRAME_ID.
+ * Used in HandleState() and UpdateState().
+ */
+volatile uint8_t res_emergency = 0;
+
+/**
+ * @brief Flag to enable WDT (Watchdog Timer) toggle.
+ *
+ * Used in loop() and initial_sequence() to control WDT toggling.
+ */
+volatile bool wdt_togle_enable = true;
+
+/**
+ * @brief Counter for WDT toggle timing.
+ *
+ * Used in loop() and initial_sequence() to measure elapsed time for WDT toggling.
+ */
+unsigned long wdt_togle_counter = 0;
+
+/**
+ * @brief Timeout for WDT relay check.
+ *
+ * Used in initial_sequence() for timing WDT relay state.
+ */
+unsigned long wdt_relay_timout = 0;
+
+/**
+ * @brief Delay for pressure check timing.
+ *
+ * Used in initial_sequence() to measure elapsed time for pressure checks.
+ */
+unsigned long pressure_check_delay = 0;
+
+/**
+ * @brief Flag to enable ignition logic.
+ *
+ * Set in initial_sequence(), used in check_ignition().
+ */
+uint8_t ignition_enable = 0;
+
+/**
+ * @brief Flag to indicate if response from AS is active.
+ *
+ * Updated in canISR(), used in HandleState() and mission selection logic.
+ */
+volatile bool res_active = false;
+
+/**
+ * @brief Timestamp for entering emergency state.
+ *
+ * Set in UpdateState() when entering STATE_EMERGENCY, used in HandleState() for timeout.
+ */
+unsigned long emergency_timestamp = 0;
+
+/**
+ * @brief Timestamp for ASSI yellow LED blinking.
+ *
+ * Used in ASSI() for timing yellow LED blinking in AS_STATE_DRIVING.
+ */
+unsigned long ASSI_YELLOW_time = 0;
+
+/**
+ * @brief Timestamp for ASSI blue LED blinking.
+ *
+ * Used in ASSI() for timing blue LED blinking in AS_STATE_EMERGENCY.
+ */
+unsigned long ASSI_BLUE_time = 0;
+
+/**
+ * @brief Last button press time in milliseconds.
+ *
+ * Used in HandleState() for mission selection button debounce.
+ */
 unsigned long last_button_time_ms = 0;
 
-
-/***  For debounce */
+/**
+ * @brief Last raw state read from the ignition pin.
+ *
+ * Used in check_ignition() for debounce logic.
+ */
 static uint8_t last_ign_state = LOW;
+
+/**
+ * @brief Last debounced state of the ignition pin.
+ *
+ * Used in check_ignition() for debounce logic.
+ */
 static uint8_t debounced_ign_state = LOW;
+
+
+
+
+
+
+
+/**
+ * @brief Handbook variables that are sent to can bus -> DV driving dynamics 1
+ * @showrefs FSG Handbook 2025  page 20
+ * @param speed_actual Current speed of the vehicle 0.5 scale
+ * @param speed_target Target speed of the vehicle 0.5 scale
+ * @param steering_angle_actual Current steering angle of the vehicle 0.5 scale
+ * @param steering_angle_target Target steering angle of the vehicle 0.5 scale
+ * @param brake_hydr_actual Current hydraulic brake pressure 0.5 scale
+ * @param brake_hydr_target Target hydraulic brake pressure 0.5 scale
+ * @param motor_moment_actual Current motor moment 0.5 scale
+ * @param motor_moment_target Target motor moment 0.5 scale
+ * @note 0,5 scale
+ * @note ID 0x500
+ */ 
+
+uint8_t Speed_actual =  0;
+uint8_t Speed_target =  0;
+int8_t Steering_angle_actual = 0; 
+int8_t Steering_angle_target = 0;
+uint8_t Brake_hydr_actual = 0;
+uint8_t Brake_hydr_target = 0;
+uint8_t Motor_moment_actual = 0; 
+uint8_t Motor_moment_target = 0;
+
+
+/**
+ * @brief Handbook variables that are sent to can bus -> DV system status 
+ * @showrefs FSG Handbook 2025  page 20
+ * @param as_status Autonomous system status (3 bits) -> @see AS_STATE_t 
+ * @param EBS_status Emergency Braking System status (2 bits) 
+ * @param AMI_status Autonomous Mission Indicator status (3 bits) -> @see current_mission
+ * @param Steering_state Current steering state (1 bit) -> true if steering is engaged
+ * @param ASB_redundancy Autonomous System Backup status (2 bits) 
+ * @param Lap_counter Current lap counter value (4 bits)
+ * @param cones_count_actual Current count of cones detected 8 bits) 
+ * @param cones_count Total count of cones detected (16 bits)
+ * 
+ * @note ID 0x501
+ */
+
+uint8_t as_status = 1;
+uint8_t EBS_status = 0; 
+uint8_t AMI_status = 0;
+bool Steering_state = false; 
+uint8_t ASB_redundancy = 0; 
+uint8_t Lap_counter = 0;
+uint8_t cones_count_actual = 0;
+uint16_t cones_count = 0; 
+
+
+uint8_t Brake_pressure_front = 0;
+int8_t Brake_pressure_rear = 0;
+
+int16_t dynamics_steering_angle = 0;
 
 
 void UpdateState(void);
@@ -149,6 +466,7 @@ void ASSI();
 void led_heartbit();
 void Mission_Indicator();
 
+void send_handbook_variables();
 
 void setup()
 {
@@ -283,6 +601,7 @@ void UpdateState(void)
       break;
 
     case STATE_EMERGENCY:
+    ignition_enable = 0; 
       as_state = AS_STATE_EMERGENCY;
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH);
@@ -307,7 +626,7 @@ void UpdateState(void)
 void HandleState(void)
 {
 
-  if(asms_flag == LOW && current_state > STATE_MISSION_SELECT){
+  if(asms_flag == LOW && current_state > STATE_MISSION_SELECT && current_state != STATE_EMERGENCY){
     ignition_enable = 0; // Reset ignition enable flag
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
   }
@@ -317,6 +636,7 @@ void HandleState(void)
   if(res_emergency == 1){
     current_state = STATE_EMERGENCY;
     as_state = AS_STATE_EMERGENCY; // Autonomous system state
+     return; 
   }
 
   switch (current_state)
@@ -376,8 +696,8 @@ void HandleState(void)
   case STATE_EMERGENCY:
     // Handle emergency actions
       if(res_emergency == 0 && TANK_PRESSURE_FRONT < 1 && TANK_PRESSURE_REAR < 1 && ignition_flag == 0 && millis() - emergency_timestamp > 9000) {
-        current_state = STATE_INIT;
-        as_state = AS_STATE_OFF; // Autonomous system state
+        as_state = AS_STATE_OFF;
+        current_state = STATE_INIT; 
         Serial2.println("Emergency state timeout, returning to INIT state");
       }
       else{
@@ -453,15 +773,22 @@ void peripheral_init()
   CAN.begin();
   CAN.setBaudRate(1000000); // Set CAN baud rate to 1 Mbps
   CAN.setMaxMB(16); // Set maximum number of mailboxes
-  CAN.setMBFilter(REJECT_ALL);
+  //CAN.setMB(MB4,RX,STD);
+  //CAN.setMB(MB5,RX,STD);
+  //CAN.setMBFilter(REJECT_ALL);
 
-  CAN.setMBFilter(MB0, AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID);
+  /*CAN.setMBFilter(MB0, AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID);
   CAN.setMBFilter(MB1, AUTONOMOUS_TEMPORARY_AS_STATE_FRAME_ID);
   CAN.setMBFilter(MB2, AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID);
   CAN.setMBFilter(MB3, AUTONOMOUS_TEMPORARY_RES_FRAME_ID);
+  CAN.setMBFilter(MB4, 0x446);
+  CAN.setMBFilter(MB5, 0x546);*/
 
-  CAN.onReceive(canISR);
+
   CAN.enableMBInterrupts(); // Enable mailbox interrupts added 10 july 2025
+  CAN.onReceive(canISR);
+
+  
 
   PRESSURE_TIMER.begin(Pressure_readings, 100000); // 100ms
 
@@ -469,6 +796,8 @@ void peripheral_init()
 
   Serial.println("Peripheral initialization complete");
   digitalWrite(Debug_LED2, 1); // Indicate initialization complete
+
+  HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
  
 }
 
@@ -582,73 +911,88 @@ void median_pressures() {
   }
 
 
-
-  void canISR(const CAN_message_t &msg){
+/**
+ * @brief CAN receive interrupt callback.
+ * 
+ * When a can message is received, this function is called to process the message.
+ * It decodes the message based on its ID and updates the system state accordingly.
+ * @note This function is called from the FlexCAN_T4 library's interrupt handler.
+ * @param msg The received CAN message
+ */
+  void canISR(const CAN_message_t &msg)
+  {
+    uint16_t aux_brake_p = 0;
     digitalWrite(Debug_LED3, !digitalRead(Debug_LED3)); // Indicate reception of RES message
-    switch(msg.id) {
-      case AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID:
-        struct autonomous_temporary_jetson_ms_t decoded_jetson_ms_data;
-        autonomous_temporary_jetson_ms_unpack(&decoded_jetson_ms_data,msg.buf,sizeof(decoded_jetson_ms_data));
-        jetson_mission = (current_mission_t)decoded_jetson_ms_data.mission_select; // Update mission response from Jetson
-        break;
-      case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
-        struct autonomous_temporary_res_t decoded_res_data;
-       autonomous_temporary_res_unpack(&decoded_res_data, msg.buf, msg.len);
-        //res_emergency = (decoded_res_data.signal != 0) ? 0 : 1; // Update emergency response from AS
-        //if(decoded_res_data.signal == 0) {
+    switch (msg.id)
+    {
+    case 0x446:
+    dynamics_steering_angle = msg.buf[1] << 8 | msg.buf[0]; // Update steering angle actual
+    Steering_angle_actual = (dynamics_steering_angle / 10);
+    Serial2.println("Steering angle actual: " + String(Steering_angle_actual) + " degrees in isr");
+    Serial2.println("Dynamics steering angle: " + String(dynamics_steering_angle/10) + " degrees in isr");
+    break;
+  case 0x546:
+    aux_brake_p = (msg.buf[1] << 8 | msg.buf[0]) / 10; // Update rear brake pressure
+    Brake_pressure_rear = aux_brake_p;
+    Serial2.println("Rear brake pressure: " + String(Brake_pressure_rear) + " bar in isr");
+   
 
-        if(decoded_res_data.signal == 0) {
-          res_emergency = 1; // Set emergency response flag
-        }else{
-          res_emergency = 0; // Reset emergency response flag
-        }
-        
-        if(!res_active){
-          res_active = true; // Set response active flag
-        }
-        break;
-      case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
-        struct autonomous_temporary_vcu_hv_t decoded_vcu_hv_data;
-        autonomous_temporary_vcu_hv_unpack(&decoded_vcu_hv_data, msg.buf, msg.len);
-        ignition_vcu = (decoded_vcu_hv_data.hv == AUTONOMOUS_TEMPORARY_VCU_HV_HV_HV_ON_CHOICE) ? 1 : 0; // Update ignition signal
-        HYDRAULIC_PRESSURE_FRONT = decoded_vcu_hv_data.brake_pressure_front / 10.0; // Convert to bar
-        HYDRAULIC_PRESSURE_REAR = decoded_vcu_hv_data.brake_pressure_rear / 10.0;
-        break;
-        case AUTONOMOUS_TEMPORARY_AS_STATE_FRAME_ID:
-        struct autonomous_temporary_as_state_t decoded_as_state_data;
-        autonomous_temporary_as_state_unpack(&decoded_as_state_data, msg.buf, msg.len);
-        if(current_state != STATE_EMERGENCY){
-          as_state = (AS_STATE_t)decoded_as_state_data.state; // Update autonomous system state
-        }        
-        switch (as_state)
-        {
-        case AS_STATE_OFF:
-          current_state = STATE_INIT; // Transition to INIT state
-          break;
-        case AS_STATE_READY:
-          current_state = STATE_READY; // Transition to READY state
-          break;
-        case AS_STATE_DRIVING:
-          current_state = STATE_DRIVING; // Transition to DRIVING state
-          break;
-        case AS_STATE_EMERGENCY:
-          current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
-          break;
-        case AS_STATE_FINISHED:
-          current_state = STATE_FINISHED; // Transition to FINISHED state
-          break;
-        default:
-          break;
-        }
+    break;
+    case AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID:
+      jetson_mission = (current_mission_t)msg.buf[0]; // Update mission response from Jetson
+      break;
+    case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
 
+      if (msg.buf[0] == 0)
+      {
+        res_emergency = 1; // Set emergency response flag
+      }
+      else
+      {
+        res_emergency = 0; // Reset emergency response flag
+      }
+
+      if (!res_active)
+      {
+        res_active = true; // Set response active flag
+      }
+      break;
+    case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
+      ignition_vcu = (msg.buf[0] == 9) ? 1 : 0; // Update ignition signal from VCU
+      HYDRAULIC_PRESSURE_FRONT = msg.buf[1];    // Convert to bar
+      Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
+      break;
+    case AUTONOMOUS_TEMPORARY_AS_STATE_FRAME_ID:
+      if (current_state != STATE_EMERGENCY)
+      {
+        as_state = (AS_STATE_t)msg.buf[0]; // Update autonomous system state
+      }
+      switch (as_state)
+      {
+      case AS_STATE_OFF:
+        current_state = STATE_INIT; // Transition to INIT state
+        break;
+      case AS_STATE_READY:
+        current_state = STATE_READY; // Transition to READY state
+        break;
+      case AS_STATE_DRIVING:
+        current_state = STATE_DRIVING; // Transition to DRIVING state
+        break;
+      case AS_STATE_EMERGENCY:
+        current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+        break;
+      case AS_STATE_FINISHED:
+        current_state = STATE_FINISHED; // Transition to FINISHED state
+        break;
       default:
-        // Unknown message ID, ignore
         break;
+      }
+      break;
+    default:
+      // Unknown message ID, ignore
+      break;
     }
   }
-
-
-
 
   void initial_sequence() {
     switch (initial_sequence_state)
@@ -747,6 +1091,25 @@ void median_pressures() {
 
 
 
+/**
+ * @brief Debounces and checks the ignition input signal.
+ *
+ * This function reads the current state of the ignition pin (IGN_PIN) and applies
+ * a debounce algorithm to filter out spurious changes due to mechanical switch noise.
+ * It updates the ignition_flag based on the debounced state and the ignition_enable flag.
+ *
+ *@note Variables used:
+ *@note - last_debounce_time (static): Stores the last time the ignition input changed, used for debouncing.
+ *@note - debounce_delay (const): The debounce interval in milliseconds.
+ *@note - current_state: The current raw reading from the ignition pin.
+ *@note - last_ign_state (external): The last raw state read from the ignition pin.
+ *@note - debounced_ign_state (external): The last debounced state of the ignition pin.
+ *@note - ignition_flag (external): Set to 1 if ignition is ON and enabled, otherwise 0.
+ *@note - ignition_enable (external): Enables or disables the ignition logic.
+ *
+ * The function ensures that ignition_flag is set only if the ignition input is HIGH
+ * and ignition_enable is true, providing reliable ignition state detection.
+ */
 void check_ignition() {
   static unsigned long last_debounce_time = 0;
   const unsigned long debounce_delay = 30; // 30 ms debounce
@@ -770,6 +1133,25 @@ void check_ignition() {
 
 
 
+/**
+ * @brief Controls the state of the YELLOW_LEDS and BLUE_LEDS based on the current as_state.
+ *
+ * This function manages the visual indication of the system's state by toggling or setting
+ * the YELLOW_LEDS and BLUE_LEDS according to the value of the as_state variable. The behavior
+ * for each state is as follows:
+ * - AS_STATE_OFF: Turns off both YELLOW_LEDS and BLUE_LEDS.
+ * - AS_STATE_READY: Turns on YELLOW_LEDS and turns off BLUE_LEDS.
+ * - AS_STATE_DRIVING: Toggles YELLOW_LEDS every 500 ms, keeps BLUE_LEDS off.
+ * - AS_STATE_EMERGENCY: Toggles BLUE_LEDS every 500 ms, keeps YELLOW_LEDS off.
+ * - AS_STATE_FINISHED: Turns off YELLOW_LEDS and turns on BLUE_LEDS.
+ * - Default: Turns off both YELLOW_LEDS and BLUE_LEDS.
+ *
+ * Timing for toggling is managed using ASSI_YELLOW_time and ASSI_BLUE_time variables.
+ *
+ * @note This function assumes that as_state, ASSI_YELLOW_time, and ASSI_BLUE_time are
+ *       defined and accessible in the current scope, and that digitalWrite, digitalRead,
+ *       and millis functions are available (e.g., in an Arduino environment).
+ */
 void ASSI()
 {
 
@@ -817,6 +1199,15 @@ void ASSI()
 }
 
 
+/**
+ * @brief Updates the mission indicator LEDs based on the current mission state.
+ *
+ * This function sets the state of each mission status LED (MS_LED1 to MS_LED7)
+ * to indicate the currently active mission. Each mission mode corresponds to a unique
+ * LED pattern, where one LED is turned on to represent the active mission,
+ * and the others are turned off (logic HIGH). If the mission state is not recognized,
+ * all LEDs are turned off by default.
+ */
 void Mission_Indicator() {
   switch (current_mission)
   {
@@ -893,4 +1284,72 @@ void Mission_Indicator() {
     digitalWrite(MS_LED7, 1);
     break;
   }
+}
+
+
+/**
+ * @brief Encodes handbook variables for CAN bus transmission.
+ * This function prepares the handbook variables related to driving dynamics
+ */
+void send_handbook_variables(){
+
+  uint8_t aux_buf = 0;
+
+
+  // DV driving dynamics 1 
+    CAN_message_t msg;
+    msg.buf[0] = Speed_actual; // Scale speed actual to 0.5
+    msg.buf[1] = Speed_target; // Scale speed target to 0.5
+    msg.buf[2] = Steering_angle_actual * 2; // Scale steering angle actual to 0.5
+    msg.buf[3] = Steering_angle_target * 2; // Scale steering angle target to 0.5
+    msg.buf[4] = Brake_hydr_actual; // Scale brake hydraulic actual to 0.5
+    msg.buf[5] = Brake_hydr_target; // Scale brake hydraulic target to 0.5
+    msg.buf[6] = Motor_moment_actual; // Scale motor moment actual to 0.5
+    msg.buf[7] = Motor_moment_target; // Scale motor moment target to 0.5
+
+    msg.id = 0x500; // Set CAN ID for driving dynamics 1
+    msg.len = 8; // Set message length to 8 bytes
+    CAN.write(msg); // Send the CAN message
+
+
+    // DV system status
+
+    // byte 0
+    CAN_message_t msg_dv;
+    msg_dv.buf[0] = as_status && 0b00000111; // Autonomous system status
+    aux_buf = EBS_status << 3;
+    msg_dv.buf[0] = msg_dv.buf[0] || aux_buf; // Set EBS status in bits 3-4
+    aux_buf = AMI_status << 5; // set AMI status in bits 5-7
+    msg_dv.buf[0] = msg_dv.buf[0] || aux_buf; // Set AMI status in bits 5-7
+    
+    // byte 1
+    msg_dv.buf[1] = (Steering_state ? 1 : 0);
+    aux_buf = ASB_redundancy << 1; // Set ASB redundancy in bits 1-2
+    msg_dv.buf[1] = msg_dv.buf[1] || aux_buf; // Set ASB redundancy in bits 1-2
+    aux_buf = Lap_counter << 3; // Set lap counter in bits 3-6
+    msg_dv.buf[1] = msg_dv.buf[1] || aux_buf; // Set lap
+
+    // byte 2
+    msg_dv.buf[2] = cones_count_actual; // Set current cones count in byte 2
+    // byte 3-4
+    msg_dv.buf[3] = cones_count >> 8;
+    msg_dv.buf[4] = (cones_count << 8) & 0xFF; // Set total cones count in bytes 3-4
+
+    msg_dv.id = 0x502;
+    msg_dv.len = 5; // Set message length to 5 bytes
+    CAN.write(msg_dv); // Send the CAN message
+
+
+
+    // ASF signals
+
+    CAN_message_t msg_asf;
+    msg_asf.buf[0] = (uint8_t)(TANK_PRESSURE_FRONT * 10); 
+    msg_asf.buf[1] = (uint8_t)(TANK_PRESSURE_REAR * 10); 
+    msg_asf.buf[2] = Brake_pressure_front; // Convert to 0.1 bar scale
+    msg_asf.buf[3] = Brake_pressure_rear; // Convert to 0.1 bar scale
+
+    msg_asf.len = 4; // Set message length to 4 bytes
+    msg_asf.id = 0x511; // Set CAN ID for ASF signals
+    CAN.write(msg_asf); // Send the CAN message
 }

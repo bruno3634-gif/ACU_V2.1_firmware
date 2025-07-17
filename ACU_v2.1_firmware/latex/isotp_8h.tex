@@ -1,0 +1,150 @@
+\doxysection{lib/\+Flex\+CAN\+\_\+\+T4/isotp.h File Reference}
+\hypertarget{isotp_8h}{}\label{isotp_8h}\index{lib/FlexCAN\_T4/isotp.h@{lib/FlexCAN\_T4/isotp.h}}
+{\ttfamily \#include "{}Arduino.\+h"{}}\newline
+{\ttfamily \#include "{}circular\+\_\+buffer.\+h"{}}\newline
+{\ttfamily \#include "{}isotp.\+h"{}}\newline
+{\ttfamily \#include "{}isotp.\+tpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}}
+\item 
+class \mbox{\hyperlink{classisotp__Base}{isotp\+\_\+\+Base}}
+\item 
+class \mbox{\hyperlink{classisotp}{isotp}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{isotp_8h_a6dd61d649128360213d6c389b9835cb2}{ISOTP\+\_\+\+CLASS}}~template$<$\mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}} \+\_\+rx\+Banks = \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a3ce5a7cc207b03dbe0d4d2877aa942fb}{RX\+\_\+\+BANKS\+\_\+16}}, size\+\_\+t \+\_\+max\+\_\+length = 32$>$
+\item 
+\#define \mbox{\hyperlink{isotp_8h_ab4e6f329e3bf831d544d7c7018c884f5}{ISOTP\+\_\+\+FUNC}}~template$<$\mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}} \+\_\+rx\+Banks, size\+\_\+t \+\_\+max\+\_\+length$>$
+\item 
+\#define \mbox{\hyperlink{isotp_8h_a8c0eef4ea774ff8193dc01ac01e1e43c}{ISOTP\+\_\+\+OPT}}~\mbox{\hyperlink{classisotp}{isotp}}$<$\+\_\+rx\+Banks, \+\_\+max\+\_\+length$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct ISOTP\+\_\+data \mbox{\hyperlink{isotp_8h_a878ec3d1f4df0b911397f996d18a311d}{ISOTP\+\_\+data}}
+\item 
+typedef enum \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}} \mbox{\hyperlink{isotp_8h_a84eb39e17d9a12edc84ddd78bdc17994}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\+\_\+isotp\+\_\+cb\+\_\+ptr}}) (const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&config, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}} \{ \newline
+\mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039aefdf14fcbeaebffe5e2d5480868f1989}{RX\+\_\+\+BANKS\+\_\+2}} = (uint16\+\_\+t)2
+, \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab7a816e16451f7fee45ce37cd97446d0}{RX\+\_\+\+BANKS\+\_\+4}} = (uint16\+\_\+t)4
+, \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a90ae7ea310c61a435b0f1e8bae007f9f}{RX\+\_\+\+BANKS\+\_\+8}} = (uint16\+\_\+t)8
+, \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a3ce5a7cc207b03dbe0d4d2877aa942fb}{RX\+\_\+\+BANKS\+\_\+16}} = (uint16\+\_\+t)16
+, \newline
+\mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a109e8e406b18f597e8bab249291f2810}{RX\+\_\+\+BANKS\+\_\+32}} = (uint16\+\_\+t)32
+, \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a147817d9320a5f0ce5cd5a0b049cc5e3}{RX\+\_\+\+BANKS\+\_\+64}} = (uint16\+\_\+t)64
+, \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a48bb0c28823df5f93c256a16992b4acf}{RX\+\_\+\+BANKS\+\_\+128}} = (uint16\+\_\+t)128
+, \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a554a8831ccf3aa04e3a9ebb9686fb477}{RX\+\_\+\+BANKS\+\_\+256}} = (uint16\+\_\+t)256
+, \newline
+\mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab54a07a09717dcb9208eb2d4d0009c17}{RX\+\_\+\+BANKS\+\_\+512}} = (uint16\+\_\+t)512
+, \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a39377dfecda960dc4a0d8d7f0b27383f}{RX\+\_\+\+BANKS\+\_\+1024}} = (uint16\+\_\+t)1024
+ \}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{isotp_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{isotp_8h_a6dd61d649128360213d6c389b9835cb2}\index{isotp.h@{isotp.h}!ISOTP\_CLASS@{ISOTP\_CLASS}}
+\index{ISOTP\_CLASS@{ISOTP\_CLASS}!isotp.h@{isotp.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_CLASS}{ISOTP\_CLASS}}
+{\footnotesize\ttfamily \label{isotp_8h_a6dd61d649128360213d6c389b9835cb2} 
+\#define ISOTP\+\_\+\+CLASS~template$<$\mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}} \+\_\+rx\+Banks = \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a3ce5a7cc207b03dbe0d4d2877aa942fb}{RX\+\_\+\+BANKS\+\_\+16}}, size\+\_\+t \+\_\+max\+\_\+length = 32$>$}
+
+\Hypertarget{isotp_8h_ab4e6f329e3bf831d544d7c7018c884f5}\index{isotp.h@{isotp.h}!ISOTP\_FUNC@{ISOTP\_FUNC}}
+\index{ISOTP\_FUNC@{ISOTP\_FUNC}!isotp.h@{isotp.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_FUNC}{ISOTP\_FUNC}}
+{\footnotesize\ttfamily \label{isotp_8h_ab4e6f329e3bf831d544d7c7018c884f5} 
+\#define ISOTP\+\_\+\+FUNC~template$<$\mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}} \+\_\+rx\+Banks, size\+\_\+t \+\_\+max\+\_\+length$>$}
+
+\Hypertarget{isotp_8h_a8c0eef4ea774ff8193dc01ac01e1e43c}\index{isotp.h@{isotp.h}!ISOTP\_OPT@{ISOTP\_OPT}}
+\index{ISOTP\_OPT@{ISOTP\_OPT}!isotp.h@{isotp.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_OPT}{ISOTP\_OPT}}
+{\footnotesize\ttfamily \label{isotp_8h_a8c0eef4ea774ff8193dc01ac01e1e43c} 
+\#define ISOTP\+\_\+\+OPT~\mbox{\hyperlink{classisotp}{isotp}}$<$\+\_\+rx\+Banks, \+\_\+max\+\_\+length$>$}
+
+
+
+\label{doc-typedef-members}
+\Hypertarget{isotp_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{isotp_8h_a92cfde92030026deac25802a0d98826c}\index{isotp.h@{isotp.h}!\_isotp\_cb\_ptr@{\_isotp\_cb\_ptr}}
+\index{\_isotp\_cb\_ptr@{\_isotp\_cb\_ptr}!isotp.h@{isotp.h}}
+\doxysubsubsection{\texorpdfstring{\_isotp\_cb\_ptr}{\_isotp\_cb\_ptr}}
+{\footnotesize\ttfamily \label{isotp_8h_a92cfde92030026deac25802a0d98826c} 
+typedef void(\texorpdfstring{$\ast$}{*} \+\_\+isotp\+\_\+cb\+\_\+ptr) (const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&config, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf)}
+
+\Hypertarget{isotp_8h_a878ec3d1f4df0b911397f996d18a311d}\index{isotp.h@{isotp.h}!ISOTP\_data@{ISOTP\_data}}
+\index{ISOTP\_data@{ISOTP\_data}!isotp.h@{isotp.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_data}{ISOTP\_data}}
+{\footnotesize\ttfamily \label{isotp_8h_a878ec3d1f4df0b911397f996d18a311d} 
+typedef struct ISOTP\+\_\+data ISOTP\+\_\+data}
+
+\Hypertarget{isotp_8h_a84eb39e17d9a12edc84ddd78bdc17994}\index{isotp.h@{isotp.h}!ISOTP\_RXBANKS\_TABLE@{ISOTP\_RXBANKS\_TABLE}}
+\index{ISOTP\_RXBANKS\_TABLE@{ISOTP\_RXBANKS\_TABLE}!isotp.h@{isotp.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_RXBANKS\_TABLE}{ISOTP\_RXBANKS\_TABLE}}
+{\footnotesize\ttfamily \label{isotp_8h_a84eb39e17d9a12edc84ddd78bdc17994} 
+typedef enum \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}} \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}}}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{isotp_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}\index{isotp.h@{isotp.h}!ISOTP\_RXBANKS\_TABLE@{ISOTP\_RXBANKS\_TABLE}}
+\index{ISOTP\_RXBANKS\_TABLE@{ISOTP\_RXBANKS\_TABLE}!isotp.h@{isotp.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_RXBANKS\_TABLE}{ISOTP\_RXBANKS\_TABLE}}
+{\footnotesize\ttfamily \label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039} 
+enum \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\+\_\+\+RXBANKS\+\_\+\+TABLE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_2@{RX\_BANKS\_2}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_2@{RX\_BANKS\_2}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039aefdf14fcbeaebffe5e2d5480868f1989}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039aefdf14fcbeaebffe5e2d5480868f1989} 
+RX\+\_\+\+BANKS\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_4@{RX\_BANKS\_4}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_4@{RX\_BANKS\_4}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab7a816e16451f7fee45ce37cd97446d0}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab7a816e16451f7fee45ce37cd97446d0} 
+RX\+\_\+\+BANKS\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_8@{RX\_BANKS\_8}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_8@{RX\_BANKS\_8}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a90ae7ea310c61a435b0f1e8bae007f9f}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a90ae7ea310c61a435b0f1e8bae007f9f} 
+RX\+\_\+\+BANKS\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_16@{RX\_BANKS\_16}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_16@{RX\_BANKS\_16}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a3ce5a7cc207b03dbe0d4d2877aa942fb}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a3ce5a7cc207b03dbe0d4d2877aa942fb} 
+RX\+\_\+\+BANKS\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_32@{RX\_BANKS\_32}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_32@{RX\_BANKS\_32}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a109e8e406b18f597e8bab249291f2810}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a109e8e406b18f597e8bab249291f2810} 
+RX\+\_\+\+BANKS\+\_\+32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_64@{RX\_BANKS\_64}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_64@{RX\_BANKS\_64}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a147817d9320a5f0ce5cd5a0b049cc5e3}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a147817d9320a5f0ce5cd5a0b049cc5e3} 
+RX\+\_\+\+BANKS\+\_\+64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_128@{RX\_BANKS\_128}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_128@{RX\_BANKS\_128}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a48bb0c28823df5f93c256a16992b4acf}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a48bb0c28823df5f93c256a16992b4acf} 
+RX\+\_\+\+BANKS\+\_\+128&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_256@{RX\_BANKS\_256}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_256@{RX\_BANKS\_256}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a554a8831ccf3aa04e3a9ebb9686fb477}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a554a8831ccf3aa04e3a9ebb9686fb477} 
+RX\+\_\+\+BANKS\+\_\+256&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_512@{RX\_BANKS\_512}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_512@{RX\_BANKS\_512}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab54a07a09717dcb9208eb2d4d0009c17}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab54a07a09717dcb9208eb2d4d0009c17} 
+RX\+\_\+\+BANKS\+\_\+512&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_BANKS\_1024@{RX\_BANKS\_1024}!isotp.h@{isotp.h}}\index{isotp.h@{isotp.h}!RX\_BANKS\_1024@{RX\_BANKS\_1024}}}\Hypertarget{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a39377dfecda960dc4a0d8d7f0b27383f}\label{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a39377dfecda960dc4a0d8d7f0b27383f} 
+RX\+\_\+\+BANKS\+\_\+1024&\\
+\hline
+
+\end{DoxyEnumFields}

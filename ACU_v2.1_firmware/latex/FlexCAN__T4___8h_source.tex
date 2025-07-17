@@ -1,0 +1,574 @@
+\doxysection{Flex\+CAN\+\_\+\+T4\+\_\+.\+h}
+\hypertarget{FlexCAN__T4___8h_source}{}\label{FlexCAN__T4___8h_source}\index{lib/FlexCAN\_T4/FlexCAN\_T4\_.h@{lib/FlexCAN\_T4/FlexCAN\_T4\_.h}}
+\mbox{\hyperlink{FlexCAN__T4___8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ MIT\ License}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ Copyright\ (c)\ 2018\ Antonio\ Alexander\ Brewer\ (tonton81)\ -\/\ https://github.com/tonton81}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ Designed\ and\ tested\ for\ PJRC\ Teensy\ 4.0.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ Forum\ link\ :\ https://forum.pjrc.com/threads/56035-\/FlexCAN\_T4-\/FlexCAN-\/for-\/Teensy-\/4?highlight=flexcan\_t4}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ Thanks\ goes\ to\ skpang,\ mjs513,\ and\ collin\ for\ tech/testing\ support}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and\ /\ or\ sell}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ SOFTWARE.}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ !defined(\_FLEXCAN\_T4\_H\_)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ \_FLEXCAN\_T4\_H\_}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{circular__buffer_8h}{circular\_buffer.h}}"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{imxrt__flexcan_8h}{imxrt\_flexcan.h}}"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCAN__error__t}{CAN\_error\_t}}\ \{}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structCAN__error__t_a8dd9a167ad4530141e3e8621091724fd}{state}}[30]\ =\ \textcolor{stringliteral}{"{}Idle"{}};}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_a90fddb8806b02c00bf955398646ee945}{BIT1\_ERR}}\ =\ 0;}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_a0a335ee9becfa77e7068ea4f224b53f2}{BIT0\_ERR}}\ =\ 0;}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_a22f0d7790b29fb995b42ef8a3d1245e6}{ACK\_ERR}}\ =\ 0;}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_a579228fdb79400580f0ccf77319c80c7}{CRC\_ERR}}\ =\ 0;}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_a0140e4c9324f8bfb66bba17b87c02c43}{FRM\_ERR}}\ =\ 0;}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_a1a0a978ae15749a625140aa7335ba0d6}{STF\_ERR}}\ =\ 0;}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_a8b1c27d774c24c6bb0851513e07b1814}{TX\_WRN}}\ =\ 0;}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__error__t_ad093d41fb92a1c03227ff96608511862}{RX\_WRN}}\ =\ 0;}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structCAN__error__t_a10ed633a0b14b020ee80261ac860dd68}{FLT\_CONF}}[14]\ =\ \{\ 0\ \};}
+\DoxyCodeLine{00048\ \ \ uint8\_t\ \mbox{\hyperlink{structCAN__error__t_a85d83392283220e9da778d343e414407}{RX\_ERR\_COUNTER}}\ =\ 0;}
+\DoxyCodeLine{00049\ \ \ uint8\_t\ \mbox{\hyperlink{structCAN__error__t_a1269310f44ea8c1a5b0dca9831f3d21d}{TX\_ERR\_COUNTER}}\ =\ 0;}
+\DoxyCodeLine{00050\ \ \ uint32\_t\ \mbox{\hyperlink{structCAN__error__t_aeab456e54dafaea1d91b394e77ee3679}{ESR1}}\ =\ 0;}
+\DoxyCodeLine{00051\ \ \ uint16\_t\ \mbox{\hyperlink{structCAN__error__t_a1929006a6514fec0c9cf5306a820a88a}{ECR}}\ =\ 0;}
+\DoxyCodeLine{00052\ \}\ \mbox{\hyperlink{structCAN__error__t}{CAN\_error\_t}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \{}
+\DoxyCodeLine{00056\ \ \ uint32\_t\ \textcolor{keywordtype}{id}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ can\ identifier}}
+\DoxyCodeLine{00057\ \ \ uint16\_t\ \mbox{\hyperlink{structCAN__message__t_aa9e73822485d6d1e96b9faf40f823643}{timestamp}}\ =\ 0;\ \ \ \textcolor{comment}{//\ FlexCAN\ time\ when\ message\ arrived}}
+\DoxyCodeLine{00058\ \ \ uint8\_t\ \mbox{\hyperlink{structCAN__message__t_a338504e83663e390c3e9b78252ddd941}{idhit}}\ =\ 0;\ \textcolor{comment}{//\ filter\ that\ id\ came\ from}}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__message__t_a06e7a88ef519f6831072cb46db81dfd3}{extended}}\ =\ 0;\ \textcolor{comment}{//\ identifier\ is\ extended\ (29-\/bit)}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__message__t_a438f0464c022d6561575bc7db79cd442}{remote}}\ =\ 0;\ \ \textcolor{comment}{//\ remote\ transmission\ request\ packet\ type}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__message__t_a1993a9fe50ca9bfad03fd81ad879d955}{overrun}}\ =\ 0;\ \textcolor{comment}{//\ message\ overrun}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__message__t_ad23ec8e319319c4694e43787392ed4d4}{reserved}}\ =\ 0;}
+\DoxyCodeLine{00064\ \ \ \}\ \mbox{\hyperlink{structCAN__message__t_a6a9de58ab8a818d4889121dcc4f214f1}{flags}};}
+\DoxyCodeLine{00065\ \ \ uint8\_t\ \mbox{\hyperlink{structCAN__message__t_afc951607033ce8c0efd4c946c5ae0a97}{len}}\ =\ 8;\ \ \ \ \ \ \textcolor{comment}{//\ length\ of\ data}}
+\DoxyCodeLine{00066\ \ \ uint8\_t\ \mbox{\hyperlink{structCAN__message__t_a52bc67911e26766be5b19d70018182e9}{buf}}[8]\ =\ \{\ 0\ \};\ \ \ \ \ \ \ \textcolor{comment}{//\ data}}
+\DoxyCodeLine{00067\ \ \ int8\_t\ \mbox{\hyperlink{structCAN__message__t_af502bb6074144f6e55835af88ecd0d6a}{mb}}\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//\ used\ to\ identify\ mailbox\ reception}}
+\DoxyCodeLine{00068\ \ \ uint8\_t\ \mbox{\hyperlink{structCAN__message__t_a2199715a48006dda162c7ac2d1e3ea4e}{bus}}\ =\ 0;\ \ \ \ \ \ \textcolor{comment}{//\ used\ to\ identify\ where\ the\ message\ came\ from\ when\ events()\ is\ used.}}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCAN__message__t_af2ae92d000d655ff6985f16d1b3b2769}{seq}}\ =\ 0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sequential\ frames}}
+\DoxyCodeLine{00070\ \}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \{}
+\DoxyCodeLine{00073\ \ \ uint32\_t\ \textcolor{keywordtype}{id}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ can\ identifier}}
+\DoxyCodeLine{00074\ \ \ uint16\_t\ \mbox{\hyperlink{structCANFD__message__t_a64897e9c1769e535e2c63ee161bc82ff}{timestamp}}\ =\ 0;\ \ \ \textcolor{comment}{//\ FlexCAN\ time\ when\ message\ arrived}}
+\DoxyCodeLine{00075\ \ \ uint8\_t\ \mbox{\hyperlink{structCANFD__message__t_ad784db14183b16d01b1137aa798bf6b1}{idhit}}\ =\ 0;\ \textcolor{comment}{//\ filter\ that\ id\ came\ from}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCANFD__message__t_aeae2cf923e5deb3830fe3f635b8aeb1e}{brs}}\ =\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ baud\ rate\ switching\ for\ data}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCANFD__message__t_a5cbdd5e970376fb1df09b8766cca0998}{esi}}\ =\ 0;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ error\ status\ indicator}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCANFD__message__t_a431c62dbc1851f7ff0e1de98ae8a65f4}{edl}}\ =\ 1;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ extended\ data\ length\ (for\ RX,\ 0\ ==\ CAN2.0,\ 1\ ==\ FD)}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCANFD__message__t_a495d4ef647f972c7be15d666a4d56f99}{extended}}\ =\ 0;\ \textcolor{comment}{//\ identifier\ is\ extended\ (29-\/bit)}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCANFD__message__t_a38163f20d303edd2ce1aa1d02d72969d}{overrun}}\ =\ 0;\ \textcolor{comment}{//\ message\ overrun}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCANFD__message__t_a09463c4a24791a4f74bfaba77c6396c1}{reserved}}\ =\ 0;}
+\DoxyCodeLine{00083\ \ \ \}\ \mbox{\hyperlink{structCANFD__message__t_ab7861e2f0699e0bffc4edff360a1b15e}{flags}};}
+\DoxyCodeLine{00084\ \ \ uint8\_t\ \mbox{\hyperlink{structCANFD__message__t_a5cf0c34dacf02165cece3043ae73179b}{len}}\ =\ 8;\ \ \ \ \ \ \textcolor{comment}{//\ length\ of\ data}}
+\DoxyCodeLine{00085\ \ \ uint8\_t\ \mbox{\hyperlink{structCANFD__message__t_acc9796148618b8142e29a96ebc55e807}{buf}}[64]\ =\ \{\ 0\ \};\ \ \ \ \ \ \ \textcolor{comment}{//\ data}}
+\DoxyCodeLine{00086\ \ \ int8\_t\ \mbox{\hyperlink{structCANFD__message__t_a4ea4747f7f46f4cad33e9064c1a9e81e}{mb}}\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//\ used\ to\ identify\ mailbox\ reception}}
+\DoxyCodeLine{00087\ \ \ uint8\_t\ \mbox{\hyperlink{structCANFD__message__t_a26913a3888b4e3d8b22ed60f5cc0e5fd}{bus}}\ =\ 0;\ \ \ \ \ \ \textcolor{comment}{//\ used\ to\ identify\ where\ the\ message\ came\ from\ when\ events()\ is\ used.}}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structCANFD__message__t_a3c9160fc2e55c7e0baa72e823782a9f9}{seq}}\ =\ 0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sequential\ frames}}
+\DoxyCodeLine{00089\ \}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);\ \textcolor{comment}{/*\ mailbox\ /\ global\ callbacks\ */}}
+\DoxyCodeLine{00092\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\_MBFD\_ptr}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);\ \textcolor{comment}{/*\ mailbox\ /\ global\ callbacks\ */}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\_PINS}}\ \{}
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206ab1d948a93e387798ef60b07c24a7c337}{ALT}}\ =\ 0,}
+\DoxyCodeLine{00097\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}}\ =\ 1,}
+\DoxyCodeLine{00098\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\_PINS}};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \{}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a28b37a4fe11d2d1cac7891e746846cea}{MB0}}\ =\ 0,}
+\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab8f2fdd7004d436c67330e246703e10d}{MB1}}\ =\ 1,}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2eb489e39eb3591129813ea563ebaf64}{MB2}}\ =\ 2,}
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a81f6125b908196dac2ca27a981f7beba}{MB3}}\ =\ 3,}
+\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a32b8964db621c444dfac0c773d76f6ec}{MB4}}\ =\ 4,}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af13285c367fdd83037fc1a8db4223a82}{MB5}}\ =\ 5,}
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a73354c0140c4bf0893d57bc9b7f034f5}{MB6}}\ =\ 6,}
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab0bc3cf9d45719117c7407116e95e904}{MB7}}\ =\ 7,}
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3cbf1384ae69e77d4ba1572c00f3cabc}{MB8}}\ =\ 8,}
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6afe7d271a47b25ed55db61f0340375e6b}{MB9}}\ =\ 9,}
+\DoxyCodeLine{00111\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8dd7149ec7bd1a5c0181f44e8cb29803}{MB10}}\ =\ 10,}
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab4cc9f1371a57d1b100ad8d06972e41a}{MB11}}\ =\ 11,}
+\DoxyCodeLine{00113\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6d367d6cea2be200fad20f1ccc23aa31}{MB12}}\ =\ 12,}
+\DoxyCodeLine{00114\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a76b82498371648ad4633bf3f30b4d62f}{MB13}}\ =\ 13,}
+\DoxyCodeLine{00115\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a19ce62ecbb30979cfac8d56dddcd7a7f}{MB14}}\ =\ 14,}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab3758caa36e6531f63b11d8777efee1c}{MB15}}\ =\ 15,}
+\DoxyCodeLine{00117\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9addf0ab5579760478e918cf397b6b77}{MB16}}\ =\ 16,}
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a314b891c8b8ea68fa44f73a4d5e69ac5}{MB17}}\ =\ 17,}
+\DoxyCodeLine{00119\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1aee26d1188d1538df0e3505cc31e9c}{MB18}}\ =\ 18,}
+\DoxyCodeLine{00120\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa552c9f470a31147639e7e885f3ae244}{MB19}}\ =\ 19,}
+\DoxyCodeLine{00121\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a498d91e7d61e1dd5dad774bb492949e4}{MB20}}\ =\ 20,}
+\DoxyCodeLine{00122\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acd07528ebce1d24fdb90be0812cfc213}{MB21}}\ =\ 21,}
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a15b1db44f9e4d4727c2efa56cbbfeafe}{MB22}}\ =\ 22,}
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7ec8724844f5686d45ff13a914b24ca8}{MB23}}\ =\ 23,}
+\DoxyCodeLine{00125\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae15ae695c0995184684d2e3fa6981467}{MB24}}\ =\ 24,}
+\DoxyCodeLine{00126\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a786c818dca89a2342f59add47f1d70fc}{MB25}}\ =\ 25,}
+\DoxyCodeLine{00127\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a4f787a96ff4e8cf076fafcd1f0b3b4bc}{MB26}}\ =\ 26,}
+\DoxyCodeLine{00128\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a688e1af92c01433be46b02b1a8857b7c}{MB27}}\ =\ 27,}
+\DoxyCodeLine{00129\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af7aa5d0a1e235eb9df9267bfa2078278}{MB28}}\ =\ 28,}
+\DoxyCodeLine{00130\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0d9214efcd9a5404cb02ad552fc3d235}{MB29}}\ =\ 29,}
+\DoxyCodeLine{00131\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9f9c45d49a5b51436e4c28ff8aa7ff09}{MB30}}\ =\ 30,}
+\DoxyCodeLine{00132\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a1c60e302a7901685bdd81bc16689e9e9}{MB31}}\ =\ 31,}
+\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6a42fed557c86bca298fa8cad4f9dc43}{MB32}}\ =\ 32,}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8e2f91c861504188beff3f60e3bfef85}{MB33}}\ =\ 33,}
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c970aafe3282ad3f2a9a01f849dc6d4}{MB34}}\ =\ 34,}
+\DoxyCodeLine{00136\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af9284eb71e3b2eaaed3d2d0d08cb6a3f}{MB35}}\ =\ 35,}
+\DoxyCodeLine{00137\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aab95c20670823537468df78082c9b487}{MB36}}\ =\ 36,}
+\DoxyCodeLine{00138\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1591af29950ba83cf498b2b628c2f22}{MB37}}\ =\ 37,}
+\DoxyCodeLine{00139\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3d7849942006bb7a42701663d489a659}{MB38}}\ =\ 38,}
+\DoxyCodeLine{00140\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9a47142e5ee10a7df6c5079c78216a85}{MB39}}\ =\ 39,}
+\DoxyCodeLine{00141\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2af07b1e8a0ad5458f4adf92503beeff}{MB40}}\ =\ 40,}
+\DoxyCodeLine{00142\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab7df4390c756adafb50d988066731f3c}{MB41}}\ =\ 41,}
+\DoxyCodeLine{00143\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a74de2551bc779630532eea25898c3ec8}{MB42}}\ =\ 42,}
+\DoxyCodeLine{00144\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7a3638e5cf2694095c2983e19169aaed}{MB43}}\ =\ 43,}
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a737a6c44e19b352536996dce3ef0f1e4}{MB44}}\ =\ 44,}
+\DoxyCodeLine{00146\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aea2c259681f39686df2bab2f22744168}{MB45}}\ =\ 45,}
+\DoxyCodeLine{00147\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a83e236f22a2b805819d84b47928e9771}{MB46}}\ =\ 46,}
+\DoxyCodeLine{00148\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ac465784c4ea934b4153f09187916fcca}{MB47}}\ =\ 47,}
+\DoxyCodeLine{00149\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0de7218400b27a7481c13054f7505e57}{MB48}}\ =\ 48,}
+\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3b35fc0b487062337726438fe45beae4}{MB49}}\ =\ 49,}
+\DoxyCodeLine{00151\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa80a0e6b5f58be1ba71dae802faf4bad}{MB50}}\ =\ 50,}
+\DoxyCodeLine{00152\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6adebed4fbe5c2679925d540fc0910d6ac}{MB51}}\ =\ 51,}
+\DoxyCodeLine{00153\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0abeedbcfc533cfe10ab5436b6f07e2b}{MB52}}\ =\ 52,}
+\DoxyCodeLine{00154\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a708ab18c4b94c40bdc212b0271cb032a}{MB53}}\ =\ 53,}
+\DoxyCodeLine{00155\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a745d5a117fdaff0a7181609d0ad569c5}{MB54}}\ =\ 54,}
+\DoxyCodeLine{00156\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ad277130d92101d1ce461abd75b13358d}{MB55}}\ =\ 55,}
+\DoxyCodeLine{00157\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af6d997c230a179e4f646b5db3e003125}{MB56}}\ =\ 56,}
+\DoxyCodeLine{00158\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6cd9a3b78759fb37008723c34f3bbbd4}{MB57}}\ =\ 57,}
+\DoxyCodeLine{00159\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa9bc7deba1d4388456bd801276d1d49b}{MB58}}\ =\ 58,}
+\DoxyCodeLine{00160\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a82158490fd3ba1feafe377e22a1da2aa}{MB59}}\ =\ 59,}
+\DoxyCodeLine{00161\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acabbe536a6ca6f76bd1d6d6437608054}{MB60}}\ =\ 60,}
+\DoxyCodeLine{00162\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a277c05af9dc076399de46ada7dded2a3}{MB61}}\ =\ 61,}
+\DoxyCodeLine{00163\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aaf6e28a10a74815510ce5cb2c00372d1}{MB62}}\ =\ 62,}
+\DoxyCodeLine{00164\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c45af284bdf957a8087ee99450069f9}{MB63}}\ =\ 63,}
+\DoxyCodeLine{00165\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7795ebef271efe70b28f37deb9a07a83}{FIFO}}\ =\ 99}
+\DoxyCodeLine{00166\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ \{}
+\DoxyCodeLine{00169\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}},}
+\DoxyCodeLine{00170\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a4aca20d6e60fffb66e9668b3a6592531}{RX}},}
+\DoxyCodeLine{00171\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a8db36ffd3e5dcacb9e1d3b696b14063f}{LISTEN\_ONLY}}}
+\DoxyCodeLine{00172\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\_FDRATES}}\ \{}
+\DoxyCodeLine{00175\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ae66758a4ff1e39331c56aab55326c592}{CAN\_1M\_2M}},}
+\DoxyCodeLine{00176\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ab292047f9b4bb3c66f50fb0505214d8b}{CAN\_1M\_4M}},}
+\DoxyCodeLine{00177\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7abc463412d19affb567d9e1e420a2828d}{CAN\_1M\_6M}},}
+\DoxyCodeLine{00178\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7afb23ad1b3b849b66e9222686f6a57414}{CAN\_1M\_8M}}}
+\DoxyCodeLine{00179\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\_FDRATES}};}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\_CLOCK}}\ \{}
+\DoxyCodeLine{00182\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3baed4e85dc658fa8416c3c0870ed59da97}{CLK\_OFF}},}
+\DoxyCodeLine{00183\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba1b5d3d8a5387493c22273b17502b5c2b}{CLK\_8MHz}}\ =\ 8,}
+\DoxyCodeLine{00184\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba2ee83ac1eb96ee44aea3743585ab3ee9}{CLK\_16MHz}}\ =\ 16,}
+\DoxyCodeLine{00185\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba5a5fe3174f496f72f8668ff05ac87e30}{CLK\_20MHz}}\ =\ 20,}
+\DoxyCodeLine{00186\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}{CLK\_24MHz}}\ =\ 24,}
+\DoxyCodeLine{00187\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bacb8c5bc5790737e0986b772e8a9f01d2}{CLK\_30MHz}}\ =\ 30,}
+\DoxyCodeLine{00188\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba21be0f8c63aff4d56ebd2a54b7dfe4cd}{CLK\_40MHz}}\ =\ 40,}
+\DoxyCodeLine{00189\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bad6363a225675ab6bb5383d54e2f8e888}{CLK\_60MHz}}\ =\ 60,}
+\DoxyCodeLine{00190\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba673f3c45b31b8f2706c911948cd22bfa}{CLK\_80MHz}}\ =\ 80}
+\DoxyCodeLine{00191\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\_CLOCK}};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCANFD__timings__t}{CANFD\_timings\_t}}\ \{}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structCANFD__timings__t_a0cb1d3c0c95145870e3a8ab1b7c7a560}{baudrate}}\ =\ 1000000;}
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structCANFD__timings__t_a2793511e5c3c804c21f942ccb4961e8a}{baudrateFD}}\ =\ 2000000;}
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structCANFD__timings__t_ae635166d33e912ece5d55a17f9197e84}{propdelay}}\ =\ 190;}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structCANFD__timings__t_ad22f1dc875b4ce2df2d204bdb96eeead}{bus\_length}}\ =\ 1;}
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structCANFD__timings__t_a8b730fb9ddb0129da51d5fb3ea315b9f}{sample}}\ =\ 75;}
+\DoxyCodeLine{00199\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\_CLOCK}}\ \mbox{\hyperlink{structCANFD__timings__t_ade73e1825e45e61264be270d2cd6b8c9}{clock}}\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}{CLK\_24MHz}};\ }
+\DoxyCodeLine{00200\ \}\ \mbox{\hyperlink{structCANFD__timings__t}{CANFD\_timings\_t}};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \{}
+\DoxyCodeLine{00203\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}}\ =\ 0,}
+\DoxyCodeLine{00204\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a43943b97a80411494fa56399e53f17c2}{EXT}}\ =\ 1,}
+\DoxyCodeLine{00205\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a779454a8be1f54331f192ac0d20d5fe0}{RTR}}\ =\ 2,}
+\DoxyCodeLine{00206\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab}{STD}}\ =\ 3,}
+\DoxyCodeLine{00207\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a3ff8ba88da6f8947ab7c22b7825c6bb6}{INACTIVE}}}
+\DoxyCodeLine{00208\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}};}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\_FLTEN}}\ \{}
+\DoxyCodeLine{00211\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152a05f9de91d24f397ddfd2df959caf6e81}{ACCEPT\_ALL}}\ =\ 0,}
+\DoxyCodeLine{00212\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152aa8421710214f1fbd34c43b0d0b09d98f}{REJECT\_ALL}}\ =\ 1}
+\DoxyCodeLine{00213\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\_FLTEN}};}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\_FILTER\_TABLE}}\ \{}
+\DoxyCodeLine{00216\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a9e029969c3c20a660324454fafca38f5}{FLEXCAN\_MULTI}}\ =\ 1,}
+\DoxyCodeLine{00217\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a439d11e753ede097a9c09fc401cd87b9}{FLEXCAN\_RANGE}}\ =\ 2,}
+\DoxyCodeLine{00218\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a8cb5a473b73a628c152a578c128432d0}{FLEXCAN\_TABLE\_B\_MULTI}}\ =\ 3,}
+\DoxyCodeLine{00219\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a3c3f4780d9b42f53748813c373840ea1}{FLEXCAN\_TABLE\_B\_RANGE}}\ =\ 4,}
+\DoxyCodeLine{00220\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a2535c44466728adebd8a04ac40aa231a}{FLEXCAN\_USERMASK}}\ =\ 5}
+\DoxyCodeLine{00221\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\_FILTER\_TABLE}};}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\_FIFOTABLE}}\ \{}
+\DoxyCodeLine{00224\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca42a4ade1acd55a49164099104990e09f}{A}}\ =\ 0,}
+\DoxyCodeLine{00225\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca3f2a77ecd272aa6d6b5902faa5e5fc68}{B}}\ =\ 1,}
+\DoxyCodeLine{00226\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca739ce3f516592d245d16fd8a3893472c}{C}}\ =\ 2}
+\DoxyCodeLine{00227\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\_FIFOTABLE}};}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\_RXQUEUE\_TABLE}}\ \{}
+\DoxyCodeLine{00230\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea0591454b86898c32815b4cde991dfb10}{RX\_SIZE\_2}}\ =\ (uint16\_t)2,}
+\DoxyCodeLine{00231\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea47951aafb85869e62636f4a4bb5d28e6}{RX\_SIZE\_4}}\ =\ (uint16\_t)4,}
+\DoxyCodeLine{00232\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7a7bcf6089a816659b7c871bffb13759}{RX\_SIZE\_8}}\ =\ (uint16\_t)8,}
+\DoxyCodeLine{00233\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149}{RX\_SIZE\_16}}\ =\ (uint16\_t)16,}
+\DoxyCodeLine{00234\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7cb3201675052b330ff23a77a84d6586}{RX\_SIZE\_32}}\ =\ (uint16\_t)32,}
+\DoxyCodeLine{00235\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeab679305fe53195c6b2f3748496f9fb01}{RX\_SIZE\_64}}\ =\ (uint16\_t)64,}
+\DoxyCodeLine{00236\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea2586e615aa7d4ccd20c6a5cd29756a3e}{RX\_SIZE\_128}}\ =\ (uint16\_t)128,}
+\DoxyCodeLine{00237\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeadc9b6daa4a86e480a2d18a44d7671fc0}{RX\_SIZE\_256}}\ =\ (uint16\_t)256,}
+\DoxyCodeLine{00238\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea9c5b3264c4c9b76eba05745947456d51}{RX\_SIZE\_512}}\ =\ (uint16\_t)512,}
+\DoxyCodeLine{00239\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea099f75b5031df716734b9a04489ae37a}{RX\_SIZE\_1024}}\ =\ (uint16\_t)1024}
+\DoxyCodeLine{00240\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\_RXQUEUE\_TABLE}};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}{FLEXCAN\_DLC\_SIZE}}\ \{}
+\DoxyCodeLine{00243\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caaf109bacc2978cf4fdc45de462ab2ffd}{DLC\_SIZE\_8}}\ =\ (uint16\_t)8,}
+\DoxyCodeLine{00244\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070cad1ed1f126b914314fcb1a223a47dc0c9}{DLC\_SIZE\_12}}\ =\ (uint16\_t)12,}
+\DoxyCodeLine{00245\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca7439b2a15eb7999195156ac71a7eb47e}{DLC\_SIZE\_16}}\ =\ (uint16\_t)16,}
+\DoxyCodeLine{00246\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca6a7a37cf48ea05f627ed26e3cb326527}{DLC\_SIZE\_20}}\ =\ (uint16\_t)20,}
+\DoxyCodeLine{00247\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca986362f817c494cfc589ab587028b5a7}{DLC\_SIZE\_24}}\ =\ (uint16\_t)24,}
+\DoxyCodeLine{00248\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca75edac1ff2eb549c460440e30cb55136}{DLC\_SIZE\_32}}\ =\ (uint16\_t)32,}
+\DoxyCodeLine{00249\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caa2200fd2f527c1687646d966d3bcfdd8}{DLC\_SIZE\_48}}\ =\ (uint16\_t)48,}
+\DoxyCodeLine{00250\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca81f810251c282deb708c918d909d02a9}{DLC\_SIZE\_64}}\ =\ (uint16\_t)64}
+\DoxyCodeLine{00251\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}{FLEXCAN\_DLC\_SIZE}};}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\_RFFN\_TABLE}}\ \{}
+\DoxyCodeLine{00254\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa1ba88613aafdfb9f6ebf900317379db6}{RFFN\_8}}\ =\ (uint8\_t)0,}
+\DoxyCodeLine{00255\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa9632dfb58e72dcdd9c338a049a307f4}{RFFN\_16}}\ =\ (uint8\_t)1,}
+\DoxyCodeLine{00256\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa3ca54810ec9ed53388edf3249921c4a2}{RFFN\_24}}\ =\ (uint8\_t)2,}
+\DoxyCodeLine{00257\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fab4d2a7abdab4450aef3f519c1cf9cd3d}{RFFN\_32}}\ =\ (uint8\_t)3,}
+\DoxyCodeLine{00258\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa5272eb1c97f9fd626c769e4ee2f3fbb2}{RFFN\_40}}\ =\ (uint8\_t)4,}
+\DoxyCodeLine{00259\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac92e0558e1d3f86ca62bf83ca6d30fa0}{RFFN\_48}}\ =\ (uint8\_t)5,}
+\DoxyCodeLine{00260\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa78e51b44d166e15ec04c21bed170a2ce}{RFFN\_56}}\ =\ (uint8\_t)6,}
+\DoxyCodeLine{00261\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac34130f5a245306ae21078bcc4875501}{RFFN\_64}}\ =\ (uint8\_t)7,}
+\DoxyCodeLine{00262\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa39c7afb60580091e887ddb188d8c9ad8}{RFFN\_72}}\ =\ (uint8\_t)8,}
+\DoxyCodeLine{00263\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa267279df01e8ef61c3a54a0b028d0e0c}{RFFN\_80}}\ =\ (uint8\_t)9,}
+\DoxyCodeLine{00264\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faae6efed3e21baa5421f0ec74601dcdb9}{RFFN\_88}}\ =\ (uint8\_t)10,}
+\DoxyCodeLine{00265\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa226b63a540a109588d7a91623a8da68b}{RFFN\_96}}\ =\ (uint8\_t)11,}
+\DoxyCodeLine{00266\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa7928b87be8b023d2f81345e17723eed5}{RFFN\_104}}\ =\ (uint8\_t)12,}
+\DoxyCodeLine{00267\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa88d34e9a6e0544b2a31183c657a1f0c5}{RFFN\_112}}\ =\ (uint8\_t)13,}
+\DoxyCodeLine{00268\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa99b353317a759d67008b6b1d291bb04a}{RFFN\_120}}\ =\ (uint8\_t)14,}
+\DoxyCodeLine{00269\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa734b834dd1c7754ba0e1acb2149923f}{RFFN\_128}}\ =\ (uint8\_t)15}
+\DoxyCodeLine{00270\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\_RFFN\_TABLE}};}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\_TXQUEUE\_TABLE}}\ \{}
+\DoxyCodeLine{00273\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca0718cd311d70cea04754a112f416850b}{TX\_SIZE\_2}}\ =\ (uint16\_t)2,}
+\DoxyCodeLine{00274\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3bfdca5d3696b6596d63dcb935435bdb}{TX\_SIZE\_4}}\ =\ (uint16\_t)4,}
+\DoxyCodeLine{00275\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3cb70677c8d814d691eed77393f464f7}{TX\_SIZE\_8}}\ =\ (uint16\_t)8,}
+\DoxyCodeLine{00276\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271}{TX\_SIZE\_16}}\ =\ (uint16\_t)16,}
+\DoxyCodeLine{00277\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca38c7694abce2bb6449b60e00892b0657}{TX\_SIZE\_32}}\ =\ (uint16\_t)32,}
+\DoxyCodeLine{00278\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca6189f814362be8f2ca2dd3748c1ff7b9}{TX\_SIZE\_64}}\ =\ (uint16\_t)64,}
+\DoxyCodeLine{00279\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca094510ccc41293601c9be0229a1fb90f}{TX\_SIZE\_128}}\ =\ (uint16\_t)128,}
+\DoxyCodeLine{00280\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca439f1b2bf0a923cbb8f28a7fd2027e9a}{TX\_SIZE\_256}}\ =\ (uint16\_t)256,}
+\DoxyCodeLine{00281\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca2812566f4a520ecd388af545461f0c44}{TX\_SIZE\_512}}\ =\ (uint16\_t)512,}
+\DoxyCodeLine{00282\ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95cae50651e18fc8e7f0f774fd135b7854c6}{TX\_SIZE\_1024}}\ =\ (uint16\_t)1024}
+\DoxyCodeLine{00283\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\_TXQUEUE\_TABLE}};}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\_DEV\_TABLE}}\ \{}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#if\ defined(\_\_IMXRT1062\_\_)}}
+\DoxyCodeLine{00287\ \ \ CAN0\ =\ (uint32\_t)0x0,}
+\DoxyCodeLine{00288\ \ \ CAN1\ =\ (uint32\_t)0x401D0000,}
+\DoxyCodeLine{00289\ \ \ CAN2\ =\ (uint32\_t)0x401D4000,}
+\DoxyCodeLine{00290\ \ \ CAN3\ =\ (uint32\_t)0x401D8000}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#if\ defined(\_\_MK20DX256\_\_)\ ||\ defined(\_\_MK64FX512\_\_)\ ||\ defined(\_\_MK66FX1M0\_\_)}}
+\DoxyCodeLine{00293\ \ \ CAN0\ =\ (uint32\_t)0x40024000,}
+\DoxyCodeLine{00294\ \ \ CAN1\ =\ (uint32\_t)0x400A4000,}
+\DoxyCodeLine{00295\ \ \ CAN2\ =\ (uint32\_t)0x0,}
+\DoxyCodeLine{00296\ \ \ CAN3\ =\ (uint32\_t)0x0}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00298\ \}\ \mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\_DEV\_TABLE}};}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ FCTP\_CLASS\ template<CAN\_DEV\_TABLE\ \_bus,\ FLEXCAN\_RXQUEUE\_TABLE\ \_rxSize\ =\ RX\_SIZE\_16,\ FLEXCAN\_TXQUEUE\_TABLE\ \_txSize\ =\ TX\_SIZE\_16>}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ FCTP\_FUNC\ template<CAN\_DEV\_TABLE\ \_bus,\ FLEXCAN\_RXQUEUE\_TABLE\ \_rxSize,\ FLEXCAN\_TXQUEUE\_TABLE\ \_txSize>}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ FCTP\_OPT\ FlexCAN\_T4<\_bus,\ \_rxSize,\ \_txSize>}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ FCTPFD\_CLASS\ template<CAN\_DEV\_TABLE\ \_bus,\ FLEXCAN\_RXQUEUE\_TABLE\ \_rxSize\ =\ RX\_SIZE\_16,\ FLEXCAN\_TXQUEUE\_TABLE\ \_txSize\ =\ TX\_SIZE\_16>}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#define\ FCTPFD\_FUNC\ template<CAN\_DEV\_TABLE\ \_bus,\ FLEXCAN\_RXQUEUE\_TABLE\ \_rxSize,\ FLEXCAN\_TXQUEUE\_TABLE\ \_txSize>}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ FCTPFD\_OPT\ FlexCAN\_T4FD<\_bus,\ \_rxSize,\ \_txSize>}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#define\ SIZE\_LISTENERS\ 4}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCANListener_a32ab9a4b4959fcb3778db9c84d92e984}{CANListener}}\ \{}
+\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00312\ \ \ \ \ \mbox{\hyperlink{classCANListener_a32ab9a4b4959fcb3778db9c84d92e984}{CANListener}}\ ()\ \{\ \mbox{\hyperlink{classCANListener_ae4729c316224400bafd45f915832c91f}{callbacksActive}}\ =\ 0;\ \}}
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCANListener_aaf2276c948cde12394cf8ac350db4b17}{frameHandler}}\ (\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&frame,\ \textcolor{keywordtype}{int}\ mailbox,\ uint8\_t\ controller)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCANListener_a10c64fc99a6f751bbe6d48e076ed231e}{txHandler}}\ (\textcolor{keywordtype}{int}\ mailbox,\ uint8\_t\ controller)\ \{;\}\ \textcolor{comment}{/*\ unused\ in\ Collin's\ library\ */}}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCANListener_ad5d44a051a97af80457a91dd64366877}{attachMBHandler}}\ (uint64\_t\ mailBox)\ \{\ \mbox{\hyperlink{classCANListener_ae4729c316224400bafd45f915832c91f}{callbacksActive}}\ |=\ (1UL\ <<\ mailBox);\ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCANListener_a8906d9aed26d35de509a1c9649e9e3d6}{detachMBHandler}}\ (uint64\_t\ mailBox)\ \{\ \mbox{\hyperlink{classCANListener_ae4729c316224400bafd45f915832c91f}{callbacksActive}}\ \&=\ \string~(1UL\ <<\ mailBox);\ \}}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCANListener_ae1650c9f13d8dc1654316f9011d76da3}{attachGeneralHandler}}\ (\textcolor{keywordtype}{void})\ \{\ \mbox{\hyperlink{classCANListener_ad947d14a98e75bb5cb0cb45e7e728046}{generalCallbackActive}}\ =\ 1;\ \}}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCANListener_a774669f1b25dd631550284d8e6ddce10}{detachGeneralHandler}}\ (\textcolor{keywordtype}{void})\ \{\ \mbox{\hyperlink{classCANListener_ad947d14a98e75bb5cb0cb45e7e728046}{generalCallbackActive}}\ =\ 0;\ \}}
+\DoxyCodeLine{00319\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classCANListener_ae4729c316224400bafd45f915832c91f}{callbacksActive}};\ \textcolor{comment}{//\ bitfield\ indicating\ which\ callbacks\ are\ installed\ (for\ object\ oriented\ callbacks\ only)}}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCANListener_ad947d14a98e75bb5cb0cb45e7e728046}{generalCallbackActive}}\ =\ 0;}
+\DoxyCodeLine{00321\ \};}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}\ \{}
+\DoxyCodeLine{00324\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4__Base_adcb104268c2330f249e0313ae83a5e45}{flexcan\_interrupt}}()\ =\ 0;}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4__Base_ab7c7050b49cf949fe24c440221f2e523}{setBaudRate}}(uint32\_t\ baud\ =\ 1000000,\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ listen\_only\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}})\ =\ 0;}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keyword}{virtual}\ uint64\_t\ \mbox{\hyperlink{classFlexCAN__T4__Base_a8c552770259e95ce790475bea3e8cd39}{events}}()\ =\ 0;}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4__Base_ae13e2e69d9994dbea41667c382b5c9a5}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg)\ =\ 0;}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4__Base_aafee80f5041ed0c84129e9a72385e1cd}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg)\ =\ 0;}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4__Base_a6d793364a419181c8ae586ae79e571ae}{isFD}}()\ =\ 0;}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keyword}{virtual}\ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4__Base_ab3fc0d4fb402d2a1c92925644eed4177}{getFirstTxBoxSize}}()\ =\ 0;}
+\DoxyCodeLine{00332\ \};}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#if\ defined(\_\_IMXRT1062\_\_)}}
+\DoxyCodeLine{00335\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_CAN1\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00336\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_CAN2\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00337\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_CAN3\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#if\ defined(\_\_MK20DX256\_\_)\ ||\ defined(\_\_MK64FX512\_\_)\ ||\ defined(\_\_MK66FX1M0\_\_)}}
+\DoxyCodeLine{00340\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_CAN0\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00341\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_CAN1\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{FlexCAN__T4___8h_ac162aec08f666e2c08b82819aaaf6d48}{ext\_outputFD1}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);\ \textcolor{comment}{//\ Interrupt\ data\ output,\ not\ filtered,\ for\ external\ libraries}}
+\DoxyCodeLine{00345\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{FlexCAN__T4___8h_ae4449c456d2067818cf924b5d33adbbe}{ext\_outputFD2}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00346\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{FlexCAN__T4___8h_ad7ae642723704150ac87c57cb2ae1414}{ext\_outputFD3}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1d6cd6ac5253642ca58a5dcdc21456b4}{ext\_output1}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);\ \textcolor{comment}{//\ Interrupt\ data\ output,\ not\ filtered,\ for\ external\ libraries}}
+\DoxyCodeLine{00349\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{FlexCAN__T4___8h_a440a7ae381df47bd201536971bba0026}{ext\_output2}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00350\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{FlexCAN__T4___8h_a23b18f101cb3333c06fc68ac36f4ad9f}{ext\_output3}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \mbox{\hyperlink{FlexCAN__T4___8h_adc2eabac41aa646f3855c1503778e566}{FCTPFD\_CLASS}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFlexCAN__T4FD_ab80ad1aea24e7efaf6540a93ea71fcfa}{FlexCAN\_T4FD}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}\ \{}
+\DoxyCodeLine{00353\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00354\ \ \ \ \ \mbox{\hyperlink{classFlexCAN__T4FD_ab80ad1aea24e7efaf6540a93ea71fcfa}{FlexCAN\_T4FD}}();}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_ac262473296783057f693cf3bd9fc7bab}{isFD}}()\ \{\ \textcolor{keywordflow}{return}\ 1;\ \}}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_af251858d0cb3523b1e7d3c97c46a6dad}{begin}}();}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a4e2e89b8f4df29ba2a5e3aa2f8aceba8}{setTX}}(\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\_PINS}}\ pin\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}});}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a0d0f4be6a64908bccffebb9d56f17f5b}{setRX}}(\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\_PINS}}\ pin\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}});}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a449751a5219bf139dceaa3f9f86b351c}{enableFIFO}}(\textcolor{keywordtype}{bool}\ status\ =\ 1);}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_abe800e5789fb3f9aff546f88ccd2fb52}{disableFIFO}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4FD_a449751a5219bf139dceaa3f9f86b351c}{enableFIFO}}(0);\ \}}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4FD_ac7bb2bfd4d95f859f4aaaa29c17e1c80}{read}}(\mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4FD_a5778019e1e3d280211097e8781bd4d1c}{readMB}}(\mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4FD_ad56af6e4d343956fba0f0f72d7d8df53}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);\ \textcolor{comment}{/*\ use\ any\ available\ mailbox\ for\ transmitting\ */}}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4FD_afbc4f97ed98885b37a873ae320ae0c12}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg)\ \{\ \textcolor{keywordflow}{return}\ 0;\ \}\ \textcolor{comment}{/*\ to\ satisfy\ base\ class\ for\ external\ pointers\ */}}
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4FD_ac20a4a4161ed212429a004ec75d50eb2}{write}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);\ \textcolor{comment}{/*\ use\ a\ single\ mailbox\ for\ transmitting\ */}}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a44f11285f4ecb23bcd194cad908e37e7}{setMB}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ \&mb\_rx\_tx,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab}{STD}});}
+\DoxyCodeLine{00367\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a97646e16178e68b6b371e0aa246ae7ae}{setRegions}}(uint8\_t\ size);\ \textcolor{comment}{/*\ 8,\ 16,\ 32\ or\ 64\ bytes\ */}}
+\DoxyCodeLine{00368\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a7f732a7172c8e73c93db845a77f65350}{setRegions}}(uint8\_t\ mbdsr0,\ uint8\_t\ mbdsr1);\ \textcolor{comment}{/*\ set\ both\ regions\ independantly\ */}}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a0e91c42172c08eeb96a15262e9729439}{setBaudRateAdvanced}}(\mbox{\hyperlink{structCANFD__timings__t}{CANFD\_timings\_t}}\ config,\ uint8\_t\ nominal\_choice,\ uint8\_t\ flexdata\_choice,\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ listen\_only\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}});}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_ae482ea7d87e79ad207f28be81ac363eb}{setBaudRate}}(\mbox{\hyperlink{structCANFD__timings__t}{CANFD\_timings\_t}}\ config,\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ listen\_only\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}});}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_addde96b0fa5dea6b4f7e8a925c00a25b}{setBaudRate}}(\mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\_FDRATES}}\ input,\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ listen\_only\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}});}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a3c383b8a804db17fa2736e3d1122cc64}{enableMBInterrupt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \textcolor{keywordtype}{bool}\ status\ =\ 1);}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_afb31e83713f25307f8ec2c10e8a96236}{disableMBInterrupt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num)\ \{\ \mbox{\hyperlink{classFlexCAN__T4FD_a3c383b8a804db17fa2736e3d1122cc64}{enableMBInterrupt}}(mb\_num,\ 0);\ \}}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ae2fd0af3ce33bee3fa1d503118ea7571}{enableMBInterrupts}}(\textcolor{keywordtype}{bool}\ status\ =\ 1);}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a1c85e16511aa1ebdf71088d43ba15721}{disableMBInterrupts}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4FD_ae2fd0af3ce33bee3fa1d503118ea7571}{enableMBInterrupts}}(0);\ \}}
+\DoxyCodeLine{00376\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a46293547db87d716e8c055acf68494c7}{events}}();}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ac5ddf6af383c6f3b35a8b795592bcecb}{onReceive}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\_MBFD\_ptr}}\ handler);\ \textcolor{comment}{/*\ individual\ mailbox\ callback\ function\ */}}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a1c5f2d42aaf685cef8d5bd80d88cb41d}{onReceive}}(\mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\_MBFD\_ptr}}\ handler);\ \textcolor{comment}{/*\ global\ callback\ function\ */}}
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a78ca6af2a3015f929fd6bee11221332a}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\_FLTEN}}\ input);\ \textcolor{comment}{/*\ enable/disable\ traffic\ for\ all\ MBs\ (for\ individual\ masking)\ */}}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a5251c8341137652cd79f494a44788118}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\_FLTEN}}\ input);\ \textcolor{comment}{/*\ set\ specific\ MB\ to\ accept/deny\ traffic\ */}}
+\DoxyCodeLine{00381\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a066b8497edf1c7af9b570715c8b8005e}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1);\ \textcolor{comment}{/*\ input\ 1\ ID\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a2ef3404892aa682677ef99fbb959393f}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2);\ \textcolor{comment}{/*\ input\ 2\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a15061277d58200dfa58dd1552fceed37}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3);\ \textcolor{comment}{/*\ input\ 3\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_ab0cba8c612892883b23e8dc4088fcf12}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4);\ \textcolor{comment}{/*\ input\ 4\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_aa90ffe93dba1416ded09e88e0b720898}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4,\ uint32\_t\ id5);\ \textcolor{comment}{/*\ input\ 5\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a364304375c46634c8179d8f3db8cbf18}{setMBFilterRange}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2);\ \textcolor{comment}{/*\ filter\ a\ range\ of\ ids\ */}}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ad53ccfad4c8c19d09d8dec5fe5e79590}{mailboxStatus}}();}
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ab5f2419548743427510048ce1e2c5395}{enhanceFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num);}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a67dc343a39570ba78fa6336c2d34106a}{distribute}}(\textcolor{keywordtype}{bool}\ state\ =\ 1)\ \{\ \mbox{\hyperlink{classFlexCAN__T4FD_a3f0af8c6b13414b884fd58c579a83b10}{distribution}}\ =\ state;\ \}}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a637cd477a5a8e33a6a62593d0df4a4ac}{enableDMA}}(\textcolor{keywordtype}{bool}\ state\ =\ 1);}
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_add21532ac41ff5cd83a578d6608c5651}{disableDMA}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4FD_a637cd477a5a8e33a6a62593d0df4a4ac}{enableDMA}}(0);\ \}}
+\DoxyCodeLine{00392\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a452f6ed548b6ad3e80dd4d28f1f33736}{getFirstTxBoxSize}}();}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ace52dbb7446130a67e5b3b1ba0fb6169}{setMBFilterProcessing}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ filter\_id,\ uint32\_t\ calculated\_mask);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_af22fcd6f800278132ec8abe37d877230}{isEventsUsed}}\ =\ 0;}
+\DoxyCodeLine{00397\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_ad7b516890d68b32e3bbf2d7b1026e608}{readIFLAG}}()\ \{\ \textcolor{keywordflow}{return}\ (((uint64\_t)\mbox{\hyperlink{imxrt__flexcan_8h_a11d0cbcea128c353a22c2617b40f01c6}{FLEXCANb\_IFLAG2}}(\_bus)\ <<\ 32)\ |\ \mbox{\hyperlink{imxrt__flexcan_8h_af6e95ea1e9f354a612ad32bdc7c0ddee}{FLEXCANb\_IFLAG1}}(\_bus));\ \}}
+\DoxyCodeLine{00398\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a70035a5c1ca2b57e4e1c1c23df73658d}{mailbox\_offset}}(uint8\_t\ mailbox,\ uint8\_t\ \&maxsize);\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a2f82249134e449eb5cee34740b084a03}{writeTxMailbox}}(uint8\_t\ mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a36887edc59d0ea77f2177e080909934c}{setBaudRate}}(\mbox{\hyperlink{structCANFD__timings__t}{CANFD\_timings\_t}}\ config,\ uint8\_t\ nominal\_choice,\ uint8\_t\ flexdata\_choice,\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ listen\_only\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}},\ \textcolor{keywordtype}{bool}\ advanced\ =\ 0);}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4FD_a786dd4342c59a60f2b718ef753e8bb51}{getFirstTxBox}}();}
+\DoxyCodeLine{00402\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a34c308503fa34982299c09e35cc068fa}{mb\_filter\_table}}[64][7];}
+\DoxyCodeLine{00403\ \ \ \ \ \mbox{\hyperlink{classCircular__Buffer}{Circular\_Buffer}}<uint8\_t,\ (uint32\_t)\_rxSize,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}})>\ \mbox{\hyperlink{classFlexCAN__T4FD_a34ab60a0639b84a75280bc878d80e6e7}{rxBuffer}};}
+\DoxyCodeLine{00404\ \ \ \ \ \mbox{\hyperlink{classCircular__Buffer}{Circular\_Buffer}}<uint8\_t,\ (uint32\_t)\_txSize,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}})>\ \mbox{\hyperlink{classFlexCAN__T4FD_ae9dc349bca083ac627fd6c9494481504}{txBuffer}};}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a85e531e4c906c81a9f539cf39960794f}{FLEXCAN\_ExitFreezeMode}}();}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a2f191c477c4f687c903e3c69c7212c5d}{FLEXCAN\_EnterFreezeMode}}();}
+\DoxyCodeLine{00407\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a6073537917abe60630a7915e69a52ad0}{reset}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4FD_ad4f5a0e80fbde9b1f4c074dd35e7db27}{softReset}}();\ \}\ \textcolor{comment}{/*\ reset\ flexcan\ controller\ (needs\ register\ restore\ capabilities...)\ */}}
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a1a9b40a4cfb35fea8e28e53cc4bc89c6}{flexcan\_interrupt}}();}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a9e5fd61fbfe3192f7ca53e2efa0a20f5}{writeIFLAG}}(uint64\_t\ value);}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a6c6bd763970b11ce66c81c11df4c1021}{writeIFLAGBit}}(uint8\_t\ mb\_num);}
+\DoxyCodeLine{00411\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a1d9a32d1ade903e42d625c04ef48f12b}{max\_mailboxes}}();}
+\DoxyCodeLine{00412\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a2ebf943a7e7261ca5a2fb61f00ed4227}{readIMASK}}()\ \{\ \textcolor{keywordflow}{return}\ (((uint64\_t)\mbox{\hyperlink{imxrt__flexcan_8h_a1058db9f2b341de272d36ab650349fdf}{FLEXCANb\_IMASK2}}(\_bus)\ <<\ 32)\ |\ \mbox{\hyperlink{imxrt__flexcan_8h_a262069b4ec3339d7d6aff8161ac08eb1}{FLEXCANb\_IMASK1}}(\_bus));\ \}}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a60c71b236188cf049e8819af2294a6c3}{frame\_distribution}}(\mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ae74d0ee6eadc6a4f66be015f56695558}{setBaudRate}}(uint32\_t\ baud\ =\ 1000000,\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ listen\_only\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}})\ \{\ ;\ \}\ \textcolor{comment}{//\ unused,\ CAN2.0\ only\ (needed\ for\ base\ class\ existance)}}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ac3fc435447fb193f605787ebcfb7a4fa}{setClock}}(\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\_CLOCK}}\ clock\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}{CLK\_24MHz}});}
+\DoxyCodeLine{00416\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_ac0aea922d3782264ef7d09b3e306d4a4}{getClock}}();}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_ad4f5a0e80fbde9b1f4c074dd35e7db27}{softReset}}();}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_adf2874b1132c3b1e6e0584ae142f535d}{writeIMASK}}(uint64\_t\ value);}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a4b3ff070843f7d6ea1a243b71a0e5623}{writeIMASKBit}}(uint8\_t\ mb\_num,\ \textcolor{keywordtype}{bool}\ set\ =\ 1);}
+\DoxyCodeLine{00420\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_aecc92cacbf64fd087fe9b7b0ded4777e}{busNumber}};}
+\DoxyCodeLine{00421\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_addac65f18f2ece67927b9f2f496973ea}{mailbox\_reader\_increment}}\ =\ 0;}
+\DoxyCodeLine{00422\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a1d401984c839cfd149d74627032514be}{nvicIrq}}\ =\ 0;\ }
+\DoxyCodeLine{00423\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a65896b69bed1439392f66f96a4b08a6d}{dlc\_to\_len}}(uint8\_t\ val);\ }
+\DoxyCodeLine{00424\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_af5f51a5d820eb6cc2643d971a0be732b}{len\_to\_dlc}}(uint8\_t\ val);\ }
+\DoxyCodeLine{00425\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4FD_a3a8736020ff5f988ccb40b0c4074e128}{setBaudRateFD}}(\mbox{\hyperlink{structCANFD__timings__t}{CANFD\_timings\_t}}\ config,\ uint32\_t\ flexdata\_choice,\ \textcolor{keywordtype}{bool}\ advanced);\ \textcolor{comment}{/*\ internally\ used\ */}}
+\DoxyCodeLine{00426\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a4f6e75a660d86cf1aeb2c29647aef9d7}{mbCallbacks}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00427\ \ \ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\_MBFD\_ptr}}\ \mbox{\hyperlink{classFlexCAN__T4FD_a40117aaf4c6126cc849975a2cfa40d23}{\_mbHandlers}}[64];\ \textcolor{comment}{/*\ individual\ mailbox\ handlers\ */}}
+\DoxyCodeLine{00428\ \ \ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\_MBFD\_ptr}}\ \mbox{\hyperlink{classFlexCAN__T4FD_a13776d6a48ee6b6f4820a6d9a02130ff}{\_mainHandler}};\ \textcolor{comment}{/*\ global\ mailbox\ handler\ */}}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a87047b61ab19f722655553d630a093bc}{filter\_store}}(\mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\_FILTER\_TABLE}}\ type,\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id\_count,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4,\ uint32\_t\ id5,\ uint32\_t\ mask);}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a13f47230e86469d12b1226a0c550df0f}{filter\_match}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00431\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a969b504d92c1cd10b46a9f005f61e0d0}{struct2queueTx}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4FD_a8f3a8f89ae630fcadd86f8f7b9c75057}{struct2queueRx}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4FD_a3f0af8c6b13414b884fd58c579a83b10}{distribution}}\ =\ 0;}
+\DoxyCodeLine{00434\ \};}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \mbox{\hyperlink{FlexCAN__T4___8h_af476d4a3a963e4d87d8cd9a7bfaafa92}{FCTP\_CLASS}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFlexCAN__T4_a54992dc649e60d5a893b837ee4012a66}{FlexCAN\_T4}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}\ \{}
+\DoxyCodeLine{00437\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00438\ \ \ \ \ \mbox{\hyperlink{classFlexCAN__T4_a54992dc649e60d5a893b837ee4012a66}{FlexCAN\_T4}}();}
+\DoxyCodeLine{00439\ \ \ \ \ \mbox{\hyperlink{classCANListener}{CANListener}}\ *\mbox{\hyperlink{classFlexCAN__T4_a3c033080747e7de38d344122db57c2f5}{listener}}[\mbox{\hyperlink{FlexCAN__T4___8h_a746890fd396a84f08998256753010e1e}{SIZE\_LISTENERS}}];}
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a7488e1eadddd734c09ffba8a3731a5b1}{attachObj}}\ (\mbox{\hyperlink{classCANListener}{CANListener}}\ *\mbox{\hyperlink{classFlexCAN__T4_a3c033080747e7de38d344122db57c2f5}{listener}});}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_ac724ee95f92d70f3000e3f9a074317a5}{detachObj}}\ (\mbox{\hyperlink{classCANListener}{CANListener}}\ *\mbox{\hyperlink{classFlexCAN__T4_a3c033080747e7de38d344122db57c2f5}{listener}});}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_aa5d4091dbb79a96083ce5526881c2029}{isFD}}()\ \{\ \textcolor{keywordflow}{return}\ 0;\ \}}
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a53b990ee71110537db7cfce280fbe889}{begin}}();}
+\DoxyCodeLine{00444\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4_a51e4ed587633a765ee51548a3030e2c6}{getBaudRate}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classFlexCAN__T4_a6c1ee0d259cf86db9c90a8fbf4a8f79d}{currentBitrate}};\ \}}
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_aa91e1acc4c2a4386abcac56cc1ace1d0}{setTX}}(\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\_PINS}}\ pin\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}});}
+\DoxyCodeLine{00446\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a327ff0d3340d855b18c32a5961353aeb}{setRX}}(\mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\_PINS}}\ pin\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}});}
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ae0c0b7a8db6e34f39022b46b1055514f}{setBaudRate}}(uint32\_t\ baud\ =\ 1000000,\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ listen\_only\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}});}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a54219578e77dee708705e881cf9b360b}{reset}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4_ae6dbd55f6584f2676468a4bd64b744f2}{softReset}}();\ \}\ \textcolor{comment}{/*\ reset\ flexcan\ controller\ (needs\ register\ restore\ capabilities...)\ */}}
+\DoxyCodeLine{00449\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_adbf7ffba2862db7e53986bfdd203d035}{setMaxMB}}(uint8\_t\ last);}
+\DoxyCodeLine{00450\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a6c25f1d6956ea2cae4a2b1eacbd3088a}{enableLoopBack}}(\textcolor{keywordtype}{bool}\ yes\ =\ 1);}
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a6b87b70d0a4397cd132c320ad9049f81}{enableFIFO}}(\textcolor{keywordtype}{bool}\ status\ =\ 1);}
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_aff69071908df9a37ede4caa3efc1746f}{disableFIFO}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4_a6b87b70d0a4397cd132c320ad9049f81}{enableFIFO}}(0);\ \}}
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ac2849118cb08788ecae31532a2f4300f}{enableFIFOInterrupt}}(\textcolor{keywordtype}{bool}\ status\ =\ 1);}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ae659128d793b8d55179bbd7ce60a9e44}{disableFIFOInterrupt}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4_ac2849118cb08788ecae31532a2f4300f}{enableFIFOInterrupt}}(0);\ \}}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a1de9e6b35243dfcbf0ab95c8566265c8}{mailboxStatus}}();}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4_ac3ea61f36cef44b59d1be7194b7578f8}{read}}(\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4_a1932bd3cf019cc6fdb5ab6d2f9b4c342}{readMB}}(\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4_a1501b541033071adbe67b2c563bf6e76}{readFIFO}}(\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a8fd952c3046a145d64406253773f8dff}{setMB}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\_RXTX}}\ \&mb\_rx\_tx,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab}{STD}});}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a23fd42051236b4dd37941dfcd79d7919}{enableMBInterrupt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \textcolor{keywordtype}{bool}\ status\ =\ 1);}
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a873fb40e45216067bdbac894d21b9aca}{disableMBInterrupt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num)\ \{\ \mbox{\hyperlink{classFlexCAN__T4_a23fd42051236b4dd37941dfcd79d7919}{enableMBInterrupt}}(mb\_num,\ 0);\ \}}
+\DoxyCodeLine{00462\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a67403aabc705ea11719322c49de70fca}{enableMBInterrupts}}(\textcolor{keywordtype}{bool}\ status\ =\ 1);}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a54199c2348ea823b99c4546f6b5162fc}{disableMBInterrupts}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4_a67403aabc705ea11719322c49de70fca}{enableMBInterrupts}}(0);\ \}}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a8aaa81436faee51223000e76b46dd40f}{setMRP}}(\textcolor{keywordtype}{bool}\ mrp\ =\ 1);\ \textcolor{comment}{/*\ mailbox(1)/fifo(0)\ priority\ */}}
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a0ab6979aceefc41eb6faba992b13e8cc}{setRRS}}(\textcolor{keywordtype}{bool}\ rrs\ =\ 1);\ \textcolor{comment}{/*\ store\ remote\ frames\ */}}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_add8125b22a5becca5804ee664fa2d6fc}{onReceive}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ handler);\ \textcolor{comment}{/*\ individual\ mailbox\ callback\ function\ */}}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ac1cd3cb04aa8a64d66ded04b1877ff12}{onReceive}}(\mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ handler);\ \textcolor{comment}{/*\ global\ callback\ function\ */}}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a0765e5f1f2ca2fed6e4bcc8b220b5e6d}{onTransmit}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ handler);\ \textcolor{comment}{/*\ individual\ mailbox\ callback\ function\ */}}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a685d1ed30cc99ebe8dd820eeecd5c2de}{onTransmit}}(\mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ handler);\ \textcolor{comment}{/*\ global\ callback\ function\ */}}
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_ad4d125f12d81b194b1f5566a5a5bc206}{setMBUserFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ mask);}
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a8cb633f93a081e51d22631ac6a28baff}{setMBUserFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ mask);}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a050b59c87dc3705600eefb2d7ddea653}{setMBUserFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ mask);}
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_ac4c4cbf465e21bd6ebb5a63e4bad223f}{setMBUserFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4,\ uint32\_t\ mask);}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a7cbd5050f395c772047e5c9e0ffba575}{setMBManualFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ mask);}
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a79209285be42dcd855e3444656709aab}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\_FLTEN}}\ input);\ \textcolor{comment}{/*\ enable/disable\ traffic\ for\ all\ MBs\ (for\ individual\ masking)\ */}}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a87c896c765353df1133934aba29483b4}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\_FLTEN}}\ input);\ \textcolor{comment}{/*\ set\ specific\ MB\ to\ accept/deny\ traffic\ */}}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a09c60236b0544f6cf33c240ccf26a95e}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1);\ \textcolor{comment}{/*\ input\ 1\ ID\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a32166ca48489f06e62ea25ad8cd0b08b}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2);\ \textcolor{comment}{/*\ input\ 2\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a695a34c9dc5329389e2c7b240c720dde}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3);\ \textcolor{comment}{/*\ input\ 3\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a444955cc5355e6653602fd80eae0120c}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4);\ \textcolor{comment}{/*\ input\ 4\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a9b8767a5ffdf3f23c45cd6aa0cf0250b}{setMBFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4,\ uint32\_t\ id5);\ \textcolor{comment}{/*\ input\ 5\ ID's\ to\ be\ filtered\ */}}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a72118d91b86a2e251050da87e5478394}{setMBFilterRange}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id1,\ uint32\_t\ id2);\ \textcolor{comment}{/*\ filter\ a\ range\ of\ ids\ */}}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4_ab5076792e4c192b5cdddb148d3919f9d}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);\ \textcolor{comment}{/*\ use\ any\ available\ mailbox\ for\ transmitting\ */}}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4_a68cf8fca17ceb8a065bff0a5ba523d8f}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCANFD__message__t}{CANFD\_message\_t}}\ \&msg)\ \{\ \textcolor{keywordflow}{return}\ 0;\ \}\ \textcolor{comment}{/*\ to\ satisfy\ base\ class\ for\ external\ pointers\ */}}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4_a51305af526bca0860f175b3c8040c36b}{write}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);\ \textcolor{comment}{/*\ use\ a\ single\ mailbox\ for\ transmitting\ */}}
+\DoxyCodeLine{00486\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classFlexCAN__T4_a3234561bb46c457c1fd58b464a4bad8f}{events}}();}
+\DoxyCodeLine{00487\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4_ae94bb358bf771200b1f984e932d3c70d}{setRFFN}}(\mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\_RFFN\_TABLE}}\ rffn\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa1ba88613aafdfb9f6ebf900317379db6}{RFFN\_8}});\ \textcolor{comment}{/*\ Number\ Of\ Rx\ FIFO\ Filters\ (0\ ==\ 8\ filters,\ 1\ ==\ 16\ filters,\ etc..\ */}}
+\DoxyCodeLine{00488\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4_a11cc830b404404b1df254c18346694e1}{setRFFN}}(uint8\_t\ rffn)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classFlexCAN__T4_a11cc830b404404b1df254c18346694e1}{setRFFN}}((\mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\_RFFN\_TABLE}})constrain(rffn,\ 0,\ 15));\ \}}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a2c565160a786d93bb581a225308b8bfe}{setFIFOFilterTable}}(\mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\_FIFOTABLE}}\ letter);}
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a5659981760b002a34048d07f6fb3b466}{setFIFOUserFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ mask,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});}
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a1d0d9bdd404a2b5849a2b42259730d95}{setFIFOUserFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ mask,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});}
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a57ac1c37697cdc21a1bd9d5800765fc9}{setFIFOUserFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ mask,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a623359869720edbbe94eaf1944729072}{setFIFOUserFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4,\ uint32\_t\ mask,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});}
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a27d95c42c1fb54b287f0bf0d49e8c3c2}{setFIFOFilter}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\_FLTEN}}\ \&input);}
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a2dd5cc61c83465267c41c5394a9c8ed1}{setFIFOManualFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ mask,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_aabab8e21e1c9c24833b7960705ac6391}{setFIFOFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});\ \textcolor{comment}{/*\ single\ ID\ per\ filter\ */}}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a3597266ad905e29ca9ad2b5de88aa39e}{setFIFOFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ id2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});\ \textcolor{comment}{/*\ 2\ ID's\ per\ filter\ */}}
+\DoxyCodeLine{00498\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a313968104db7cc68223da9c23aed0252}{setFIFOFilterRange}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ id2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}});\ \textcolor{comment}{/*\ ID\ range\ per\ filter\ */}}
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a8a89404ec7943166b14684bd38878d5c}{setFIFOFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote1,\ uint32\_t\ id2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote2);\ \textcolor{comment}{/*\ TableB\ 2\ ID\ /\ filter\ */}}
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a649c93695380b1c8b7941cbae1dfd2cd}{setFIFOFilter}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ id2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote1,\ uint32\_t\ id3,\ uint32\_t\ id4,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote2);\ \textcolor{comment}{/*\ TableB\ 4\ minimum\ ID\ /\ filter\ */}}
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a2ed87e34e89e86415981df075bfc8df3}{setFIFOFilterRange}}(uint8\_t\ filter,\ uint32\_t\ id1,\ uint32\_t\ id2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote1,\ uint32\_t\ id3,\ uint32\_t\ id4,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&ide2,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\_IDE}}\ \&remote2);\ \textcolor{comment}{/*\ TableB\ dual\ range\ based\ IDs\ */}}
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_aa18d1cca86a72fd367151b4526a80673}{struct2queueTx}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a10c42a0d103bd223090c20c33f193e94}{struct2queueRx}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#if\ defined(\_\_IMXRT1062\_\_)}}
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keywordtype}{void}\ setClock(\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\_CLOCK}}\ clock\ =\ \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}{CLK\_24MHz}});}
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_af761b2dc6012549dea74831c46807b31}{enhanceFilter}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num);}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a2ce4838c70c53d1ffdfded912580c10e}{distribute}}(\textcolor{keywordtype}{bool}\ state\ =\ 1)\ \{\ \mbox{\hyperlink{classFlexCAN__T4_a95cf1ca13c581cf6d6c8186c430c08da}{distribution}}\ =\ state;\ \}}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a53e6676aea41c57292f01d1c4eefde04}{enableDMA}}(\textcolor{keywordtype}{bool}\ state\ =\ 1);}
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a9b4060f88de6d62f8e9621be7fb7b3c7}{disableDMA}}()\ \{\ \mbox{\hyperlink{classFlexCAN__T4_a53e6676aea41c57292f01d1c4eefde04}{enableDMA}}(0);\ \}}
+\DoxyCodeLine{00511\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4_aa85143d26528901aa9619e647c96fa20}{getFirstTxBoxSize}}()\{\ \textcolor{keywordflow}{return}\ 8;\ \}}
+\DoxyCodeLine{00512\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a2cad816b51fc4e47b41cbb496fbd70f4}{FLEXCAN\_ExitFreezeMode}}();}
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ac7e9abe5957d5ee4a06663115ac3cea8}{FLEXCAN\_EnterFreezeMode}}();}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a12e046dfb6d215536d509486b48682c4}{error}}(\mbox{\hyperlink{structCAN__error__t}{CAN\_error\_t}}\ \&\mbox{\hyperlink{classFlexCAN__T4_a12e046dfb6d215536d509486b48682c4}{error}},\ \textcolor{keywordtype}{bool}\ printDetails);}
+\DoxyCodeLine{00515\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4_a5d1fc6767c31fccb114ad3a73eac7c58}{getRXQueueCount}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classFlexCAN__T4_af9bcd715d2aea2b9a7098fe4e7384100}{rxBuffer}}.size();\ \}}
+\DoxyCodeLine{00516\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4_aff966a835ee7dd709971af79b3ff6a08}{getTXQueueCount}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classFlexCAN__T4_a81fc1b3a847b925f526fac568c5d9026}{txBuffer}}.size();\ \}}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00519\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a650a02f84a15e525196711df45403956}{setMBFilterProcessing}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ filter\_id,\ uint32\_t\ calculated\_mask);}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a6aba44f0d7cbf3a51c1ad8173187c363}{writeTxMailbox}}(uint8\_t\ mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00521\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classFlexCAN__T4_a5ecd3de49c715667bd0575a217d97b55}{readIMASK}}();\textcolor{comment}{//\ \{\ return\ (((uint64\_t)FLEXCANb\_IMASK2(\_bus)\ <<\ 32)\ |\ FLEXCANb\_IMASK1(\_bus));\ \}}}
+\DoxyCodeLine{00522\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a6e2aeb22c403e3f56825c67e5c12ea21}{flexcan\_interrupt}}();}
+\DoxyCodeLine{00523\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ad758ef2c659cc394d5b67ec9176740be}{flexcanFD\_interrupt}}()\ \{\ ;\ \}\ \textcolor{comment}{//\ dummy\ placeholder\ to\ satisfy\ base\ class}}
+\DoxyCodeLine{00524\ \ \ \ \ \mbox{\hyperlink{classCircular__Buffer}{Circular\_Buffer}}<uint8\_t,\ (uint32\_t)\_rxSize,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}})>\ \mbox{\hyperlink{classFlexCAN__T4_af9bcd715d2aea2b9a7098fe4e7384100}{rxBuffer}};}
+\DoxyCodeLine{00525\ \ \ \ \ \mbox{\hyperlink{classCircular__Buffer}{Circular\_Buffer}}<uint8\_t,\ (uint32\_t)\_txSize,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}})>\ \mbox{\hyperlink{classFlexCAN__T4_a81fc1b3a847b925f526fac568c5d9026}{txBuffer}};}
+\DoxyCodeLine{00526\ \ \ \ \ \mbox{\hyperlink{classCircular__Buffer}{Circular\_Buffer<uint32\_t,\ 16>}}\ \mbox{\hyperlink{classFlexCAN__T4_a5b8b02f38a9eb1e2108e3d56246b7f79}{busESR1}};}
+\DoxyCodeLine{00527\ \ \ \ \ \mbox{\hyperlink{classCircular__Buffer}{Circular\_Buffer<uint16\_t,\ 16>}}\ \mbox{\hyperlink{classFlexCAN__T4_abad6a70fa4c7df6b86cf479f0f7a8654}{busECR}};}
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a81170021ef3c8bd45e546a33433858f1}{printErrors}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__error__t}{CAN\_error\_t}}\ \&\mbox{\hyperlink{classFlexCAN__T4_a12e046dfb6d215536d509486b48682c4}{error}});}
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\#if\ defined(\_\_IMXRT1062\_\_)}}
+\DoxyCodeLine{00530\ \ \ \ \ uint32\_t\ getClock();}
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4_ad9a0da08e8e12a2738b942be26005bff}{fifo\_filter\_table}}[32][6];}
+\DoxyCodeLine{00533\ \ \ \ \ \textcolor{keyword}{volatile}\ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4_ad9b08effed0dce22dfdd63195e03e33b}{mb\_filter\_table}}[64][6];}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a60ad002cee81d21ff0b384650540b01e}{fifo\_filter\_match}}(uint32\_t\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00535\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a9164f0aba54b9842ea74dff5b26b0c16}{isEventsUsed}}\ =\ 0;}
+\DoxyCodeLine{00536\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ad5b8988fe89d92574cb947226d8139fa}{frame\_distribution}}(\mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00537\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a08364cda46cbe8135c881252b51d87f7}{filter\_store}}(\mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\_FILTER\_TABLE}}\ type,\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ id\_count,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4,\ uint32\_t\ id5);}
+\DoxyCodeLine{00538\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_afb263f480b3994f30b1890f174ce86ab}{fifo\_filter\_store}}(\mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\_FILTER\_TABLE}}\ type,\ uint8\_t\ filter,\ uint32\_t\ id\_count,\ uint32\_t\ id1,\ uint32\_t\ id2,\ uint32\_t\ id3,\ uint32\_t\ id4,\ uint32\_t\ id5);}
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_ab2b3d7ad75420cc59524d3b88aa606d2}{filter\_match}}(\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ mb\_num,\ uint32\_t\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFlexCAN__T4_a95cf1ca13c581cf6d6c8186c430c08da}{distribution}}\ =\ 0;}
+\DoxyCodeLine{00541\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4_ae6933421ceebe9d9640208fdc93f5c0e}{getNumMailBoxes}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{imxrt__flexcan_8h_a1a823a007c3451f585badd4ab14d862b}{FLEXCANb\_MAXMB\_SIZE}}(\_bus);\ \}}
+\DoxyCodeLine{00542\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4_ae8c126e3374e62263db7ee59558f7aeb}{mailboxOffset}}();}
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ae6dbd55f6584f2676468a4bd64b744f2}{softReset}}();}
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFlexCAN__T4_a1205b2196627122364cc6fe7f0aa1590}{getFirstTxBox}}();}
+\DoxyCodeLine{00545\ \ \ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ \mbox{\hyperlink{classFlexCAN__T4_ae56fe58750269de1e8e57ccc11469a8d}{\_mbHandlers}}[64];\ \textcolor{comment}{/*\ individual\ mailbox\ handlers\ */}}
+\DoxyCodeLine{00546\ \ \ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ \mbox{\hyperlink{classFlexCAN__T4_ab50421cc7f8de96bbee25b47a39f79eb}{\_mainHandler}};\ \textcolor{comment}{/*\ global\ mailbox\ handler\ */}}
+\DoxyCodeLine{00547\ \ \ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ \mbox{\hyperlink{classFlexCAN__T4_aaca78927f508d3ca2c22b3cd1ba520da}{\_mbTxHandlers}}[64];\ \textcolor{comment}{/*\ individual\ mailbox\ tx\ handlers\ */}}
+\DoxyCodeLine{00548\ \ \ \ \ \mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\_MB\_ptr}}\ \mbox{\hyperlink{classFlexCAN__T4_a9a6c27c146162f30201bbbac8d1c3533}{\_mainTxHandler}};\ \textcolor{comment}{/*\ global\ mailbox\ handler\ */}}
+\DoxyCodeLine{00549\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{classFlexCAN__T4_ab74e3e13595bee8dcb2197029907849c}{readIFLAG}}();\textcolor{comment}{//\ \{\ return\ (((uint64\_t)FLEXCANb\_IFLAG2(\_bus)\ <<\ 32)\ |\ FLEXCANb\_IFLAG1(\_bus));\ \}}}
+\DoxyCodeLine{00550\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_afa408c06796c774f5fa2f07ccb7c5aa4}{writeIFLAG}}(uint64\_t\ value);}
+\DoxyCodeLine{00551\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_ae12a889b7927a468e7f5135d2f2ff4ad}{writeIFLAGBit}}(uint8\_t\ mb\_num);}
+\DoxyCodeLine{00552\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a3ad81fd73a8ab3d1be182771a1895c89}{writeIMASK}}(uint64\_t\ value);}
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a707aec5639cc182fa0a7a868bccd8eac}{writeIMASKBit}}(uint8\_t\ mb\_num,\ \textcolor{keywordtype}{bool}\ set\ =\ 1);}
+\DoxyCodeLine{00554\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4_aba2f41230faf582aa4aa1717bb2f86cb}{nvicIrq}}\ =\ 0;\ }
+\DoxyCodeLine{00555\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{classFlexCAN__T4_a6c1ee0d259cf86db9c90a8fbf4a8f79d}{currentBitrate}}\ =\ 0UL;}
+\DoxyCodeLine{00556\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4_ac36c55556926e75ff9f522eb19819ea3}{mailbox\_reader\_increment}}\ =\ 0;}
+\DoxyCodeLine{00557\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classFlexCAN__T4_aa0a5b6ec47954727dd1df1440e3cfa22}{busNumber}};}
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFlexCAN__T4_a4cd898f57a913025b3febcbcc1425f07}{mbCallbacks}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\_MAILBOX}}\ \&mb\_num,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00559\ \};}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\#include\ "{}FlexCAN\_T4.tpp"{}}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \textcolor{preprocessor}{\#if\ defined(\_\_IMXRT1062\_\_)}}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#include\ "{}FlexCAN\_T4FD.tpp"{}}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\#include\ "{}FlexCAN\_T4FDTimings.tpp"{}}}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

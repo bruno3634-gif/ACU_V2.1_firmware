@@ -1,0 +1,297 @@
+\begin{theindex}
+
+  \item {ACCELERATION}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {ACU\_STATE\_t}
+    \subitem {main.cpp}, \hyperpage{6}
+  \item {adc\_pointer}
+    \subitem {main.cpp}, \hyperpage{11}
+  \item {as\_state}
+    \subitem {main.cpp}, \hyperpage{11}
+  \item {AS\_STATE\_DRIVING}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {AS\_STATE\_EMERGENCY}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {AS\_STATE\_FINISHED}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {AS\_STATE\_OFF}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {AS\_STATE\_READY}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {AS\_STATE\_t}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {asms\_flag}
+    \subitem {main.cpp}, \hyperpage{11}
+  \item {ASSI}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {ASSI\_BLUE\_time}
+    \subitem {main.cpp}, \hyperpage{11}
+  \item {ASSI\_YELLOW\_time}
+    \subitem {main.cpp}, \hyperpage{11}
+  \item {AUTOCROSS}
+    \subitem {main.cpp}, \hyperpage{7}
+
+  \indexspace
+
+  \item {CAN}
+    \subitem {main.cpp}, \hyperpage{11}
+  \item {CAN\_TIMER}
+    \subitem {main.cpp}, \hyperpage{12}
+  \item {canISR}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {check\_ignition}
+    \subitem {main.cpp}, \hyperpage{9}
+  \item {current\_mission}
+    \subitem {main.cpp}, \hyperpage{12}
+  \item {current\_mission\_t}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {current\_state}
+    \subitem {main.cpp}, \hyperpage{12}
+
+  \indexspace
+
+  \item {EBS\_TANK\_PRESSURE\_A\_values}
+    \subitem {main.cpp}, \hyperpage{12}
+  \item {EBS\_TANK\_PRESSURE\_B\_values}
+    \subitem {main.cpp}, \hyperpage{12}
+  \item {EBS\_TEST}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {emergency\_flag}
+    \subitem {main.cpp}, \hyperpage{12}
+  \item {emergency\_timestamp}
+    \subitem {main.cpp}, \hyperpage{13}
+  \item {ERROR}
+    \subitem {main.cpp}, \hyperpage{8}
+
+  \indexspace
+
+  \item {HandleState}
+    \subitem {main.cpp}, \hyperpage{9}
+  \item {HeartBit}
+    \subitem {main.cpp}, \hyperpage{13}
+  \item {HYDRAULIC\_PRESSURE\_FRONT}
+    \subitem {main.cpp}, \hyperpage{13}
+  \item {HYDRAULIC\_PRESSURE\_REAR}
+    \subitem {main.cpp}, \hyperpage{13}
+
+  \indexspace
+
+  \item {ignition\_enable}
+    \subitem {main.cpp}, \hyperpage{13}
+  \item {ignition\_flag}
+    \subitem {main.cpp}, \hyperpage{13}
+  \item {ignition\_vcu}
+    \subitem {main.cpp}, \hyperpage{14}
+  \item {IGNITON}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {initial\_sequence}
+    \subitem {main.cpp}, \hyperpage{9}
+  \item {initial\_sequence\_state}
+    \subitem {main.cpp}, \hyperpage{14}
+  \item {INITIAL\_SEQUENCE\_STATE\_t}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {INSPECTION}
+    \subitem {main.cpp}, \hyperpage{7}
+
+  \indexspace
+
+  \item {jetson\_mission}
+    \subitem {main.cpp}, \hyperpage{14}
+
+  \indexspace
+
+  \item {last\_button\_time\_ms}
+    \subitem {main.cpp}, \hyperpage{14}
+  \item {led\_heartbit}
+    \subitem {main.cpp}, \hyperpage{9}
+  \item {loop}
+    \subitem {main.cpp}, \hyperpage{9}
+
+  \indexspace
+
+  \item {main.cpp}
+    \subitem {ACCELERATION}, \hyperpage{7}
+    \subitem {ACU\_STATE\_t}, \hyperpage{6}
+    \subitem {adc\_pointer}, \hyperpage{11}
+    \subitem {as\_state}, \hyperpage{11}
+    \subitem {AS\_STATE\_DRIVING}, \hyperpage{7}
+    \subitem {AS\_STATE\_EMERGENCY}, \hyperpage{7}
+    \subitem {AS\_STATE\_FINISHED}, \hyperpage{7}
+    \subitem {AS\_STATE\_OFF}, \hyperpage{7}
+    \subitem {AS\_STATE\_READY}, \hyperpage{7}
+    \subitem {AS\_STATE\_t}, \hyperpage{7}
+    \subitem {asms\_flag}, \hyperpage{11}
+    \subitem {ASSI}, \hyperpage{8}
+    \subitem {ASSI\_BLUE\_time}, \hyperpage{11}
+    \subitem {ASSI\_YELLOW\_time}, \hyperpage{11}
+    \subitem {AUTOCROSS}, \hyperpage{7}
+    \subitem {CAN}, \hyperpage{11}
+    \subitem {CAN\_TIMER}, \hyperpage{12}
+    \subitem {canISR}, \hyperpage{8}
+    \subitem {check\_ignition}, \hyperpage{9}
+    \subitem {current\_mission}, \hyperpage{12}
+    \subitem {current\_mission\_t}, \hyperpage{7}
+    \subitem {current\_state}, \hyperpage{12}
+    \subitem {EBS\_TANK\_PRESSURE\_A\_values}, \hyperpage{12}
+    \subitem {EBS\_TANK\_PRESSURE\_B\_values}, \hyperpage{12}
+    \subitem {EBS\_TEST}, \hyperpage{7}
+    \subitem {emergency\_flag}, \hyperpage{12}
+    \subitem {emergency\_timestamp}, \hyperpage{13}
+    \subitem {ERROR}, \hyperpage{8}
+    \subitem {HandleState}, \hyperpage{9}
+    \subitem {HeartBit}, \hyperpage{13}
+    \subitem {HYDRAULIC\_PRESSURE\_FRONT}, \hyperpage{13}
+    \subitem {HYDRAULIC\_PRESSURE\_REAR}, \hyperpage{13}
+    \subitem {ignition\_enable}, \hyperpage{13}
+    \subitem {ignition\_flag}, \hyperpage{13}
+    \subitem {ignition\_vcu}, \hyperpage{14}
+    \subitem {IGNITON}, \hyperpage{8}
+    \subitem {initial\_sequence}, \hyperpage{9}
+    \subitem {initial\_sequence\_state}, \hyperpage{14}
+    \subitem {INITIAL\_SEQUENCE\_STATE\_t}, \hyperpage{7}
+    \subitem {INSPECTION}, \hyperpage{7}
+    \subitem {jetson\_mission}, \hyperpage{14}
+    \subitem {last\_button\_time\_ms}, \hyperpage{14}
+    \subitem {led\_heartbit}, \hyperpage{9}
+    \subitem {loop}, \hyperpage{9}
+    \subitem {MANUAL}, \hyperpage{7}
+    \subitem {median\_pressures}, \hyperpage{9}
+    \subitem {Mission\_Indicator}, \hyperpage{10}
+    \subitem {peripheral\_init}, \hyperpage{10}
+    \subitem {PNEUMATIC\_CHECK}, \hyperpage{8}
+    \subitem {PRESSURE\_CHECK1}, \hyperpage{8}
+    \subitem {PRESSURE\_CHECK2}, \hyperpage{8}
+    \subitem {pressure\_check\_delay}, \hyperpage{14}
+    \subitem {PRESSURE\_CHECK\_FRONT}, \hyperpage{8}
+    \subitem {PRESSURE\_CHECK\_REAR}, \hyperpage{8}
+    \subitem {PRESSURE\_READINGS}, \hyperpage{6}
+    \subitem {Pressure\_readings}, \hyperpage{10}
+    \subitem {PRESSURE\_TIMER}, \hyperpage{14}
+    \subitem {previous\_state}, \hyperpage{14}
+    \subitem {print\_state}, \hyperpage{6}
+    \subitem {print\_state\_transition}, \hyperpage{10}
+    \subitem {res\_active}, \hyperpage{15}
+    \subitem {res\_emergency}, \hyperpage{15}
+    \subitem {send\_can\_msg}, \hyperpage{10}
+    \subitem {setup}, \hyperpage{10}
+    \subitem {SKIDPAD}, \hyperpage{7}
+    \subitem {STATE\_DRIVING}, \hyperpage{7}
+    \subitem {STATE\_EBS\_ERROR}, \hyperpage{7}
+    \subitem {STATE\_EMERGENCY}, \hyperpage{7}
+    \subitem {STATE\_FINISHED}, \hyperpage{7}
+    \subitem {STATE\_INIT}, \hyperpage{7}
+    \subitem {STATE\_INITIAL\_SEQUENCE}, \hyperpage{7}
+    \subitem {STATE\_MISSION\_SELECT}, \hyperpage{7}
+    \subitem {state\_names}, \hyperpage{15}
+    \subitem {STATE\_READY}, \hyperpage{7}
+    \subitem {TANK\_PRESSURE\_FRONT}, \hyperpage{15}
+    \subitem {TANK\_PRESSURE\_REAR}, \hyperpage{15}
+    \subitem {TRACKDRIVE}, \hyperpage{7}
+    \subitem {update\_median\_flag}, \hyperpage{15}
+    \subitem {UpdateState}, \hyperpage{11}
+    \subitem {wdt\_relay\_timout}, \hyperpage{16}
+    \subitem {WDT\_STP\_TOOGLE\_CHECK}, \hyperpage{8}
+    \subitem {wdt\_togle\_counter}, \hyperpage{16}
+    \subitem {wdt\_togle\_enable}, \hyperpage{16}
+    \subitem {WDT\_TOOGLE\_CHECK}, \hyperpage{8}
+  \item {MANUAL}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {median\_pressures}
+    \subitem {main.cpp}, \hyperpage{9}
+  \item {Mission\_Indicator}
+    \subitem {main.cpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {peripheral\_init}
+    \subitem {main.cpp}, \hyperpage{10}
+  \item {PNEUMATIC\_CHECK}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {PRESSURE\_CHECK1}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {PRESSURE\_CHECK2}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {pressure\_check\_delay}
+    \subitem {main.cpp}, \hyperpage{14}
+  \item {PRESSURE\_CHECK\_FRONT}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {PRESSURE\_CHECK\_REAR}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {PRESSURE\_READINGS}
+    \subitem {main.cpp}, \hyperpage{6}
+  \item {Pressure\_readings}
+    \subitem {main.cpp}, \hyperpage{10}
+  \item {PRESSURE\_TIMER}
+    \subitem {main.cpp}, \hyperpage{14}
+  \item {previous\_state}
+    \subitem {main.cpp}, \hyperpage{14}
+  \item {print\_state}
+    \subitem {main.cpp}, \hyperpage{6}
+  \item {print\_state\_transition}
+    \subitem {main.cpp}, \hyperpage{10}
+
+  \indexspace
+
+  \item {res\_active}
+    \subitem {main.cpp}, \hyperpage{15}
+  \item {res\_emergency}
+    \subitem {main.cpp}, \hyperpage{15}
+
+  \indexspace
+
+  \item {send\_can\_msg}
+    \subitem {main.cpp}, \hyperpage{10}
+  \item {setup}
+    \subitem {main.cpp}, \hyperpage{10}
+  \item {SKIDPAD}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {src/main.cpp}, \hyperpage{3}
+  \item {STATE\_DRIVING}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {STATE\_EBS\_ERROR}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {STATE\_EMERGENCY}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {STATE\_FINISHED}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {STATE\_INIT}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {STATE\_INITIAL\_SEQUENCE}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {STATE\_MISSION\_SELECT}
+    \subitem {main.cpp}, \hyperpage{7}
+  \item {state\_names}
+    \subitem {main.cpp}, \hyperpage{15}
+  \item {STATE\_READY}
+    \subitem {main.cpp}, \hyperpage{7}
+
+  \indexspace
+
+  \item {TANK\_PRESSURE\_FRONT}
+    \subitem {main.cpp}, \hyperpage{15}
+  \item {TANK\_PRESSURE\_REAR}
+    \subitem {main.cpp}, \hyperpage{15}
+  \item {TRACKDRIVE}
+    \subitem {main.cpp}, \hyperpage{7}
+
+  \indexspace
+
+  \item {update\_median\_flag}
+    \subitem {main.cpp}, \hyperpage{15}
+  \item {UpdateState}
+    \subitem {main.cpp}, \hyperpage{11}
+
+  \indexspace
+
+  \item {wdt\_relay\_timout}
+    \subitem {main.cpp}, \hyperpage{16}
+  \item {WDT\_STP\_TOOGLE\_CHECK}
+    \subitem {main.cpp}, \hyperpage{8}
+  \item {wdt\_togle\_counter}
+    \subitem {main.cpp}, \hyperpage{16}
+  \item {wdt\_togle\_enable}
+    \subitem {main.cpp}, \hyperpage{16}
+  \item {WDT\_TOOGLE\_CHECK}
+    \subitem {main.cpp}, \hyperpage{8}
+
+\end{theindex}

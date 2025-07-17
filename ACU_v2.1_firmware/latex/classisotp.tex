@@ -1,0 +1,159 @@
+\doxysection{isotp Class Reference}
+\hypertarget{classisotp}{}\label{classisotp}\index{isotp@{isotp}}
+
+
+{\ttfamily \#include $<$isotp.\+h$>$}
+
+Inheritance diagram for isotp\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classisotp}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classisotp_a03b5cd6eee161f34c3d055cf925e99f2}{isotp}} ()
+\item 
+void \mbox{\hyperlink{classisotp_ac09f8476fd12931f9394baa4fbc87538}{begin}} ()
+\item 
+void \mbox{\hyperlink{classisotp_a21d4bcefafde63c43204c95c16a2e36d}{enable}} (bool yes=1)
+\item 
+void \mbox{\hyperlink{classisotp_aa34a28ad898a6926f00aa76f67c35e9f}{set\+Padding}} (uint8\+\_\+t \+\_\+byte)
+\item 
+void \mbox{\hyperlink{classisotp_a1108099e0ee2435755e08bf1114d1cf4}{on\+Receive}} (\mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\+\_\+isotp\+\_\+cb\+\_\+ptr}} handler)
+\item 
+void \mbox{\hyperlink{classisotp_af631d4cafed239fba392b01b604a9fe4}{write}} (const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&config, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, uint16\+\_\+t size)
+\item 
+void \mbox{\hyperlink{classisotp_ac75c170de02a5234c5955b96c84cafcc}{write}} (const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&config, const char \texorpdfstring{$\ast$}{*}buf, uint16\+\_\+t size)
+\item 
+void \mbox{\hyperlink{classisotp_af6ff85b1331613423eae67ca86d1f7e7}{send\+Flow\+Control}} (const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&config)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classisotp_a6c0b3afc72170c0379a997ac70caa2fe}{\+\_\+process\+\_\+frame\+\_\+data}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ uint8\+\_\+t, \+\_\+rx\+Banks, \+\_\+max\+\_\+length $>$ \mbox{\hyperlink{classisotp_a0c4a7873cc2bb72a47f986565b8a9de2}{\+\_\+rx\+\_\+slots}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classisotp_ae866d46bdb6b976d65fa1a437d48d317}{padding\+\_\+value}} = 0x\+A5
+\item 
+volatile bool \mbox{\hyperlink{classisotp_ab8c79671c0ccc3dfe11a5d7d3e7927ab}{isotp\+\_\+enabled}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classisotp_ad7deaed81e910c76553843c80c0a4ad0}{read\+Bus}} = 1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classisotp__Base}{isotp\+\_\+\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\+\_\+isotp\+\_\+cb\+\_\+ptr}} \mbox{\hyperlink{classisotp__Base_ad9f38f39cc3ef0a1dc1130ea3ac861ee}{\+\_\+isotp\+\_\+handler}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classisotp_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classisotp_a03b5cd6eee161f34c3d055cf925e99f2}\index{isotp@{isotp}!isotp@{isotp}}
+\index{isotp@{isotp}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{isotp()}{isotp()}}
+{\footnotesize\ttfamily \label{classisotp_a03b5cd6eee161f34c3d055cf925e99f2} 
+isotp\+::isotp (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classisotp_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classisotp_a6c0b3afc72170c0379a997ac70caa2fe}\index{isotp@{isotp}!\_process\_frame\_data@{\_process\_frame\_data}}
+\index{\_process\_frame\_data@{\_process\_frame\_data}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{\_process\_frame\_data()}{\_process\_frame\_data()}}
+{\footnotesize\ttfamily \label{classisotp_a6c0b3afc72170c0379a997ac70caa2fe} 
+void isotp\+::\+\_\+process\+\_\+frame\+\_\+data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classisotp__Base_a4525ed5a2c2f836152bf4f555ed8036b}{isotp\+\_\+\+Base}}.
+
+\Hypertarget{classisotp_ac09f8476fd12931f9394baa4fbc87538}\index{isotp@{isotp}!begin@{begin}}
+\index{begin@{begin}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{classisotp_ac09f8476fd12931f9394baa4fbc87538} 
+void isotp\+::begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp_a21d4bcefafde63c43204c95c16a2e36d}\index{isotp@{isotp}!enable@{enable}}
+\index{enable@{enable}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{enable()}{enable()}}
+{\footnotesize\ttfamily \label{classisotp_a21d4bcefafde63c43204c95c16a2e36d} 
+void isotp\+::enable (\begin{DoxyParamCaption}\item[{bool}]{yes}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp_a1108099e0ee2435755e08bf1114d1cf4}\index{isotp@{isotp}!onReceive@{onReceive}}
+\index{onReceive@{onReceive}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{onReceive()}{onReceive()}}
+{\footnotesize\ttfamily \label{classisotp_a1108099e0ee2435755e08bf1114d1cf4} 
+void isotp\+::on\+Receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\+\_\+isotp\+\_\+cb\+\_\+ptr}}}]{handler}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp_af6ff85b1331613423eae67ca86d1f7e7}\index{isotp@{isotp}!sendFlowControl@{sendFlowControl}}
+\index{sendFlowControl@{sendFlowControl}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{sendFlowControl()}{sendFlowControl()}}
+{\footnotesize\ttfamily \label{classisotp_af6ff85b1331613423eae67ca86d1f7e7} 
+void isotp\+::send\+Flow\+Control (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&}]{config}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classisotp_aa34a28ad898a6926f00aa76f67c35e9f}\index{isotp@{isotp}!setPadding@{setPadding}}
+\index{setPadding@{setPadding}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{setPadding()}{setPadding()}}
+{\footnotesize\ttfamily \label{classisotp_aa34a28ad898a6926f00aa76f67c35e9f} 
+void isotp\+::set\+Padding (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{\+\_\+byte}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp_ac75c170de02a5234c5955b96c84cafcc}\index{isotp@{isotp}!write@{write}}
+\index{write@{write}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classisotp_ac75c170de02a5234c5955b96c84cafcc} 
+void isotp\+::write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&}]{config}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{uint16\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classisotp_af631d4cafed239fba392b01b604a9fe4}\index{isotp@{isotp}!write@{write}}
+\index{write@{write}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classisotp_af631d4cafed239fba392b01b604a9fe4} 
+void isotp\+::write (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structISOTP__data}{ISOTP\+\_\+data}} \&}]{config}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{uint16\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classisotp__Base_afeea48005bd7ff21340fb8944f77e938}{isotp\+\_\+\+Base}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classisotp_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classisotp_a0c4a7873cc2bb72a47f986565b8a9de2}\index{isotp@{isotp}!\_rx\_slots@{\_rx\_slots}}
+\index{\_rx\_slots@{\_rx\_slots}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{\_rx\_slots}{\_rx\_slots}}
+{\footnotesize\ttfamily \label{classisotp_a0c4a7873cc2bb72a47f986565b8a9de2} 
+\mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$uint8\+\_\+t, \+\_\+rx\+Banks, \+\_\+max\+\_\+length$>$ isotp\+::\+\_\+rx\+\_\+slots\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp_ab8c79671c0ccc3dfe11a5d7d3e7927ab}\index{isotp@{isotp}!isotp\_enabled@{isotp\_enabled}}
+\index{isotp\_enabled@{isotp\_enabled}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{isotp\_enabled}{isotp\_enabled}}
+{\footnotesize\ttfamily \label{classisotp_ab8c79671c0ccc3dfe11a5d7d3e7927ab} 
+volatile bool isotp\+::isotp\+\_\+enabled = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp_ae866d46bdb6b976d65fa1a437d48d317}\index{isotp@{isotp}!padding\_value@{padding\_value}}
+\index{padding\_value@{padding\_value}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{padding\_value}{padding\_value}}
+{\footnotesize\ttfamily \label{classisotp_ae866d46bdb6b976d65fa1a437d48d317} 
+uint8\+\_\+t isotp\+::padding\+\_\+value = 0x\+A5\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classisotp_ad7deaed81e910c76553843c80c0a4ad0}\index{isotp@{isotp}!readBus@{readBus}}
+\index{readBus@{readBus}!isotp@{isotp}}
+\doxysubsubsection{\texorpdfstring{readBus}{readBus}}
+{\footnotesize\ttfamily \label{classisotp_ad7deaed81e910c76553843c80c0a4ad0} 
+uint8\+\_\+t isotp\+::read\+Bus = 1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{isotp_8h}{isotp.\+h}}\end{DoxyCompactItemize}

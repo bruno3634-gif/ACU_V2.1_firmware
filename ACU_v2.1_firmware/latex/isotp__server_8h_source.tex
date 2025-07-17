@@ -1,0 +1,98 @@
+\doxysection{isotp\+\_\+server.\+h}
+\hypertarget{isotp__server_8h_source}{}\label{isotp__server_8h_source}\index{lib/FlexCAN\_T4/isotp\_server.h@{lib/FlexCAN\_T4/isotp\_server.h}}
+\mbox{\hyperlink{isotp__server_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ MIT\ License}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ Copyright\ (c)\ 2018\ Antonio\ Alexander\ Brewer\ (tonton81)\ -\/\ https://github.com/tonton81}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ Designed\ and\ tested\ for\ PJRC\ Teensy\ 4.0.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ Forum\ link\ :\ https://forum.pjrc.com/threads/56035-\/isotp-\/FlexCAN-\/for-\/Teensy-\/4?highlight=isotp}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ Thanks\ goes\ to\ skpang,\ mjs513,\ and\ collin\ for\ tech/testing\ support}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and\ /\ or\ sell}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ SOFTWARE.}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#if\ !defined(\_ISOTP\_SERVER\_H\_)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ \_ISOTP\_SERVER\_H\_}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{circular__buffer_8h}{circular\_buffer.h}}"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{isotp__server_8h}{isotp\_server.h}}"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}FlexCAN\_T4.h"{}}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\_ID\_TYPE}}\ \{}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a7fca708e939156904e31df242cb7e1f3}{STANDARD\_ID}}\ =\ 0,}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a181a77755e0176b27a6aa7eb84ff0f2c}{EXTENDED\_ID}}\ =\ 1,}
+\DoxyCodeLine{00042\ \}\ \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\_ID\_TYPE}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ISOTPSERVER\_CLASS\ template<uint32\_t\ canid,\ ISOTP\_ID\_TYPE\ extended,\ uint32\_t\ request,\ uint8\_t\ *buffer,\ uint16\_t\ len>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ISOTPSERVER\_FUNC\ template<uint32\_t\ canid,\ ISOTP\_ID\_TYPE\ extended,\ uint32\_t\ request,\ uint8\_t\ *buffer,\ uint16\_t\ len>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ISOTPSERVER\_OPT\ isotp\_server<canid,\ extended,\ request,\ buffer,\ len>}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classisotp__server__Base}{isotp\_server\_Base}}\ \{}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__server__Base_ae6eb113799632e02d307e34a57839f52}{\_process\_frame\_data}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg)\ =\ 0;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classisotp__server__Base_ad46127b263c06bf560c0b030906364a6}{buffer\_hosts}};}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\_isotp\_server\_busToWrite}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classisotp__server__Base}{isotp\_server\_Base}}*\ \_ISOTPSERVER\_OBJ[16]\ =\ \{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \mbox{\hyperlink{isotp__server_8h_a47813cbdb3a52fd2d0dc3e41ddf91d7c}{ISOTPSERVER\_CLASS}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classisotp__server_ac528c302613138a10cc52696b0c4d9bc}{isotp\_server}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classisotp__server__Base}{isotp\_server\_Base}}\ \{}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classisotp__server_ac528c302613138a10cc52696b0c4d9bc}{isotp\_server}}();}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__server_af68c37b036351b3ff809696ae39fa723}{begin}}()\ \{\ \mbox{\hyperlink{classisotp__server_a65aee799d1588207d50fbf811332ea0a}{enable}}();\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__server_a65aee799d1588207d50fbf811332ea0a}{enable}}(\textcolor{keywordtype}{bool}\ yes\ =\ 1)\ \{\ \mbox{\hyperlink{classisotp__server_a8f5fcb760f23439ad7558a98da48c1ae}{isotp\_enabled}}\ =\ yes;\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__server_ab25984593e57310c2a414dc9a3621bd0}{setWriteBus}}(\mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_busWritePtr)\ \{\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\_isotp\_server\_busToWrite}}\ =\ \_busWritePtr;\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ \ \ \#if\ defined(\_\_IMXRT1062\_\_)}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\_isotp\_server\_busToWrite}}\ ==\ \_CAN1\ )\ \mbox{\hyperlink{classisotp__server_ac3a82104059999ac942c7812dcbc4332}{readBus}}\ =\ 1;\ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\_isotp\_server\_busToWrite}}\ ==\ \_CAN2\ )\ \mbox{\hyperlink{classisotp__server_ac3a82104059999ac942c7812dcbc4332}{readBus}}\ =\ 2;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\_isotp\_server\_busToWrite}}\ ==\ \_CAN3\ )\ \mbox{\hyperlink{classisotp__server_ac3a82104059999ac942c7812dcbc4332}{readBus}}\ =\ 3;}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \#if\ defined(\_\_MK20DX256\_\_)\ ||\ defined(\_\_MK64FX512\_\_)\ ||\ defined(\_\_MK66FX1M0\_\_)}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\_isotp\_server\_busToWrite}}\ ==\ \_CAN0\ )\ \mbox{\hyperlink{classisotp__server_ac3a82104059999ac942c7812dcbc4332}{readBus}}\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{classisotp__server__Base_a41ca67bc2b8a81b276f42107a9c465a4}{\_isotp\_server\_busToWrite}}\ ==\ \_CAN1\ )\ \mbox{\hyperlink{classisotp__server_ac3a82104059999ac942c7812dcbc4332}{readBus}}\ =\ 1;}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00074\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__server_a39ec5f6d86845c27e7d71b3bf3d20784}{setPadding}}(uint8\_t\ \_byte)\ \{\ \mbox{\hyperlink{classisotp__server_a45cd1a3cb9aac55a8e6bd2a3b1731892}{padding\_value}}\ =\ \_byte;\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__server_a7301800d7e1e41cb3daba092f1a0be70}{\_process\_frame\_data}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__server_aacbd89eced69ae21ccd0ddc0ba034935}{send\_first\_frame}}();}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classisotp__server_a3ac439e5de1438ecb4c4506215952738}{send\_next\_frame}}();}
+\DoxyCodeLine{00081\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classisotp__server_a81376fa14789bd5bd2cc631f36518807}{header}}[2]\ =\ \{\ 0\ \};}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{classisotp__server_af97ec1a7d73fca9a6d0fd7a4e9512180}{request\_size}}\ =\ 4;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{volatile}\ uint16\_t\ \mbox{\hyperlink{classisotp__server_a3a8bc7c30cc04d0028a7e399fb05e25c}{index\_pos}}\ =\ 0;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{classisotp__server_a110fb73d0964366d329a703c73727eed}{index\_sequence}}\ =\ 1;}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classisotp__server_a8f5fcb760f23439ad7558a98da48c1ae}{isotp\_enabled}}\ =\ 0;}
+\DoxyCodeLine{00086\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classisotp__server_a45cd1a3cb9aac55a8e6bd2a3b1731892}{padding\_value}}\ =\ 0xA5;}
+\DoxyCodeLine{00087\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classisotp__server_ac3a82104059999ac942c7812dcbc4332}{readBus}}\ =\ 1;}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#include\ "{}isotp\_server.tpp"{}}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

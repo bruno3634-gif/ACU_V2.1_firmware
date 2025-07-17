@@ -1,0 +1,1205 @@
+\doxysection{lib/\+Flex\+CAN\+\_\+\+T4/\+Flex\+CAN\+\_\+\+T4\+\_\+.h File Reference}
+\hypertarget{FlexCAN__T4___8h}{}\label{FlexCAN__T4___8h}\index{lib/FlexCAN\_T4/FlexCAN\_T4\_.h@{lib/FlexCAN\_T4/FlexCAN\_T4\_.h}}
+{\ttfamily \#include "{}Arduino.\+h"{}}\newline
+{\ttfamily \#include "{}circular\+\_\+buffer.\+h"{}}\newline
+{\ttfamily \#include "{}imxrt\+\_\+flexcan.\+h"{}}\newline
+{\ttfamily \#include "{}Flex\+CAN\+\_\+\+T4.\+tpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCAN__error__t}{CAN\+\_\+error\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structCANFD__timings__t}{CANFD\+\_\+timings\+\_\+t}}
+\item 
+class \mbox{\hyperlink{classCANListener}{CANListener}}
+\item 
+class \mbox{\hyperlink{classFlexCAN__T4__Base}{Flex\+CAN\+\_\+\+T4\+\_\+\+Base}}
+\item 
+class \mbox{\hyperlink{classFlexCAN__T4FD}{Flex\+CAN\+\_\+\+T4\+FD}}
+\item 
+class \mbox{\hyperlink{classFlexCAN__T4}{Flex\+CAN\+\_\+\+T4}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{FlexCAN__T4___8h_af476d4a3a963e4d87d8cd9a7bfaafa92}{FCTP\+\_\+\+CLASS}}~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149}{RX\+\_\+\+SIZE\+\_\+16}}, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271}{TX\+\_\+\+SIZE\+\_\+16}}$>$
+\item 
+\#define \mbox{\hyperlink{FlexCAN__T4___8h_a4e7ef7c8e6f4883e9e7644d8cc385c7f}{FCTP\+\_\+\+FUNC}}~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size$>$
+\item 
+\#define \mbox{\hyperlink{FlexCAN__T4___8h_aa1dc910105bfa2755d8e0d40f3caa4da}{FCTP\+\_\+\+OPT}}~\mbox{\hyperlink{classFlexCAN__T4}{Flex\+CAN\+\_\+\+T4}}$<$\+\_\+bus, \+\_\+rx\+Size, \+\_\+tx\+Size$>$
+\item 
+\#define \mbox{\hyperlink{FlexCAN__T4___8h_adc2eabac41aa646f3855c1503778e566}{FCTPFD\+\_\+\+CLASS}}~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149}{RX\+\_\+\+SIZE\+\_\+16}}, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271}{TX\+\_\+\+SIZE\+\_\+16}}$>$
+\item 
+\#define \mbox{\hyperlink{FlexCAN__T4___8h_a740711e2e0839c8da542397402f39618}{FCTPFD\+\_\+\+FUNC}}~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size$>$
+\item 
+\#define \mbox{\hyperlink{FlexCAN__T4___8h_a6a933e7a6192c94839a6484f5d50230d}{FCTPFD\+\_\+\+OPT}}~\mbox{\hyperlink{classFlexCAN__T4FD}{Flex\+CAN\+\_\+\+T4\+FD}}$<$\+\_\+bus, \+\_\+rx\+Size, \+\_\+tx\+Size$>$
+\item 
+\#define \mbox{\hyperlink{FlexCAN__T4___8h_a746890fd396a84f08998256753010e1e}{SIZE\+\_\+\+LISTENERS}}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct CAN\+\_\+error\+\_\+t \mbox{\hyperlink{FlexCAN__T4___8h_aa52480795a8cf85e122c4ab4c0936fb4}{CAN\+\_\+error\+\_\+t}}
+\item 
+typedef struct CAN\+\_\+message\+\_\+t \mbox{\hyperlink{FlexCAN__T4___8h_acccb62f72dd72adf7bcc2a255e34db28}{CAN\+\_\+message\+\_\+t}}
+\item 
+typedef struct CANFD\+\_\+message\+\_\+t \mbox{\hyperlink{FlexCAN__T4___8h_a14a99c01f5d51b702dc6c763aa75c8fb}{CANFD\+\_\+message\+\_\+t}}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}{\+\_\+\+MB\+\_\+ptr}}) (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}{\+\_\+\+MBFD\+\_\+ptr}}) (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}} \mbox{\hyperlink{FlexCAN__T4___8h_a37ed5f77fe43d40e0352e88ef1e0554f}{FLEXCAN\+\_\+\+PINS}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \mbox{\hyperlink{FlexCAN__T4___8h_a0ad8e311c9f1340e155e36f25d4ee7bb}{FLEXCAN\+\_\+\+MAILBOX}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} \mbox{\hyperlink{FlexCAN__T4___8h_a40defddbbc23945385a2d9d6bd053a2b}{FLEXCAN\+\_\+\+RXTX}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\+\_\+\+FDRATES}} \mbox{\hyperlink{FlexCAN__T4___8h_a3c0443d8eec3e6c748f7529708a30ba6}{FLEXCAN\+\_\+\+FDRATES}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\+\_\+\+CLOCK}} \mbox{\hyperlink{FlexCAN__T4___8h_add46883e2d10fa4f18a3f6f373123589}{FLEXCAN\+\_\+\+CLOCK}}
+\item 
+typedef struct CANFD\+\_\+timings\+\_\+t \mbox{\hyperlink{FlexCAN__T4___8h_a156916445cf917763678af6070da8f5f}{CANFD\+\_\+timings\+\_\+t}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\+\_\+\+IDE}} \mbox{\hyperlink{FlexCAN__T4___8h_a0ca2ef372f6cae4fdd52e491f3aa0d85}{FLEXCAN\+\_\+\+IDE}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}} \mbox{\hyperlink{FlexCAN__T4___8h_a4b57bdc9b6e0fed5b0365e2285f15c0e}{FLEXCAN\+\_\+\+FLTEN}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_ac9d881119e3433f60bea477722032e63}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\+\_\+\+FIFOTABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_aecb518a7dc4df0d100932c2c00a56f7c}{FLEXCAN\+\_\+\+FIFOTABLE}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_ab1feaff3fe365fed2554d6b91f95ec41}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}{FLEXCAN\+\_\+\+DLC\+\_\+\+SIZE}} \mbox{\hyperlink{FlexCAN__T4___8h_a912a34a5d2a38e1704f990aac8478b72}{FLEXCAN\+\_\+\+DLC\+\_\+\+SIZE}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\+\_\+\+RFFN\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_ab1641d0a4e7f65aab7d1f091df724ec9}{FLEXCAN\+\_\+\+RFFN\+\_\+\+TABLE}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_aadde8d06172e0261c4c3fdc31b842a29}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}}
+\item 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_abb4c628e2d43f0524c33a58a74d354ae}{CAN\+\_\+\+DEV\+\_\+\+TABLE}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}} \{ \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206ab1d948a93e387798ef60b07c24a7c337}{ALT}} = 0
+, \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}{DEF}} = 1
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a28b37a4fe11d2d1cac7891e746846cea}{MB0}} = 0
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab8f2fdd7004d436c67330e246703e10d}{MB1}} = 1
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2eb489e39eb3591129813ea563ebaf64}{MB2}} = 2
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a81f6125b908196dac2ca27a981f7beba}{MB3}} = 3
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a32b8964db621c444dfac0c773d76f6ec}{MB4}} = 4
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af13285c367fdd83037fc1a8db4223a82}{MB5}} = 5
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a73354c0140c4bf0893d57bc9b7f034f5}{MB6}} = 6
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab0bc3cf9d45719117c7407116e95e904}{MB7}} = 7
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3cbf1384ae69e77d4ba1572c00f3cabc}{MB8}} = 8
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6afe7d271a47b25ed55db61f0340375e6b}{MB9}} = 9
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8dd7149ec7bd1a5c0181f44e8cb29803}{MB10}} = 10
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab4cc9f1371a57d1b100ad8d06972e41a}{MB11}} = 11
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6d367d6cea2be200fad20f1ccc23aa31}{MB12}} = 12
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a76b82498371648ad4633bf3f30b4d62f}{MB13}} = 13
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a19ce62ecbb30979cfac8d56dddcd7a7f}{MB14}} = 14
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab3758caa36e6531f63b11d8777efee1c}{MB15}} = 15
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9addf0ab5579760478e918cf397b6b77}{MB16}} = 16
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a314b891c8b8ea68fa44f73a4d5e69ac5}{MB17}} = 17
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1aee26d1188d1538df0e3505cc31e9c}{MB18}} = 18
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa552c9f470a31147639e7e885f3ae244}{MB19}} = 19
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a498d91e7d61e1dd5dad774bb492949e4}{MB20}} = 20
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acd07528ebce1d24fdb90be0812cfc213}{MB21}} = 21
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a15b1db44f9e4d4727c2efa56cbbfeafe}{MB22}} = 22
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7ec8724844f5686d45ff13a914b24ca8}{MB23}} = 23
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae15ae695c0995184684d2e3fa6981467}{MB24}} = 24
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a786c818dca89a2342f59add47f1d70fc}{MB25}} = 25
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a4f787a96ff4e8cf076fafcd1f0b3b4bc}{MB26}} = 26
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a688e1af92c01433be46b02b1a8857b7c}{MB27}} = 27
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af7aa5d0a1e235eb9df9267bfa2078278}{MB28}} = 28
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0d9214efcd9a5404cb02ad552fc3d235}{MB29}} = 29
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9f9c45d49a5b51436e4c28ff8aa7ff09}{MB30}} = 30
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a1c60e302a7901685bdd81bc16689e9e9}{MB31}} = 31
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6a42fed557c86bca298fa8cad4f9dc43}{MB32}} = 32
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8e2f91c861504188beff3f60e3bfef85}{MB33}} = 33
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c970aafe3282ad3f2a9a01f849dc6d4}{MB34}} = 34
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af9284eb71e3b2eaaed3d2d0d08cb6a3f}{MB35}} = 35
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aab95c20670823537468df78082c9b487}{MB36}} = 36
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1591af29950ba83cf498b2b628c2f22}{MB37}} = 37
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3d7849942006bb7a42701663d489a659}{MB38}} = 38
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9a47142e5ee10a7df6c5079c78216a85}{MB39}} = 39
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2af07b1e8a0ad5458f4adf92503beeff}{MB40}} = 40
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab7df4390c756adafb50d988066731f3c}{MB41}} = 41
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a74de2551bc779630532eea25898c3ec8}{MB42}} = 42
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7a3638e5cf2694095c2983e19169aaed}{MB43}} = 43
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a737a6c44e19b352536996dce3ef0f1e4}{MB44}} = 44
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aea2c259681f39686df2bab2f22744168}{MB45}} = 45
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a83e236f22a2b805819d84b47928e9771}{MB46}} = 46
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ac465784c4ea934b4153f09187916fcca}{MB47}} = 47
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0de7218400b27a7481c13054f7505e57}{MB48}} = 48
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3b35fc0b487062337726438fe45beae4}{MB49}} = 49
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa80a0e6b5f58be1ba71dae802faf4bad}{MB50}} = 50
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6adebed4fbe5c2679925d540fc0910d6ac}{MB51}} = 51
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0abeedbcfc533cfe10ab5436b6f07e2b}{MB52}} = 52
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a708ab18c4b94c40bdc212b0271cb032a}{MB53}} = 53
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a745d5a117fdaff0a7181609d0ad569c5}{MB54}} = 54
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ad277130d92101d1ce461abd75b13358d}{MB55}} = 55
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af6d997c230a179e4f646b5db3e003125}{MB56}} = 56
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6cd9a3b78759fb37008723c34f3bbbd4}{MB57}} = 57
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa9bc7deba1d4388456bd801276d1d49b}{MB58}} = 58
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a82158490fd3ba1feafe377e22a1da2aa}{MB59}} = 59
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acabbe536a6ca6f76bd1d6d6437608054}{MB60}} = 60
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a277c05af9dc076399de46ada7dded2a3}{MB61}} = 61
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aaf6e28a10a74815510ce5cb2c00372d1}{MB62}} = 62
+, \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c45af284bdf957a8087ee99450069f9}{MB63}} = 63
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7795ebef271efe70b28f37deb9a07a83}{FIFO}} = 99
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} \{ \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}{TX}}
+, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a4aca20d6e60fffb66e9668b3a6592531}{RX}}
+, \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a8db36ffd3e5dcacb9e1d3b696b14063f}{LISTEN\+\_\+\+ONLY}}
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\+\_\+\+FDRATES}} \{ \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ae66758a4ff1e39331c56aab55326c592}{CAN\+\_\+1\+M\+\_\+2M}}
+, \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ab292047f9b4bb3c66f50fb0505214d8b}{CAN\+\_\+1\+M\+\_\+4M}}
+, \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7abc463412d19affb567d9e1e420a2828d}{CAN\+\_\+1\+M\+\_\+6M}}
+, \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7afb23ad1b3b849b66e9222686f6a57414}{CAN\+\_\+1\+M\+\_\+8M}}
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\+\_\+\+CLOCK}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3baed4e85dc658fa8416c3c0870ed59da97}{CLK\+\_\+\+OFF}}
+, \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba1b5d3d8a5387493c22273b17502b5c2b}{CLK\+\_\+8\+MHz}} = 8
+, \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba2ee83ac1eb96ee44aea3743585ab3ee9}{CLK\+\_\+16\+MHz}} = 16
+, \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba5a5fe3174f496f72f8668ff05ac87e30}{CLK\+\_\+20\+MHz}} = 20
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}{CLK\+\_\+24\+MHz}} = 24
+, \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bacb8c5bc5790737e0986b772e8a9f01d2}{CLK\+\_\+30\+MHz}} = 30
+, \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba21be0f8c63aff4d56ebd2a54b7dfe4cd}{CLK\+\_\+40\+MHz}} = 40
+, \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bad6363a225675ab6bb5383d54e2f8e888}{CLK\+\_\+60\+MHz}} = 60
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba673f3c45b31b8f2706c911948cd22bfa}{CLK\+\_\+80\+MHz}} = 80
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\+\_\+\+IDE}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}} = 0
+, \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a43943b97a80411494fa56399e53f17c2}{EXT}} = 1
+, \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a779454a8be1f54331f192ac0d20d5fe0}{RTR}} = 2
+, \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab}{STD}} = 3
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a3ff8ba88da6f8947ab7c22b7825c6bb6}{INACTIVE}}
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}} \{ \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152a05f9de91d24f397ddfd2df959caf6e81}{ACCEPT\+\_\+\+ALL}} = 0
+, \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152aa8421710214f1fbd34c43b0d0b09d98f}{REJECT\+\_\+\+ALL}} = 1
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a9e029969c3c20a660324454fafca38f5}{FLEXCAN\+\_\+\+MULTI}} = 1
+, \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a439d11e753ede097a9c09fc401cd87b9}{FLEXCAN\+\_\+\+RANGE}} = 2
+, \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a8cb5a473b73a628c152a578c128432d0}{FLEXCAN\+\_\+\+TABLE\+\_\+\+B\+\_\+\+MULTI}} = 3
+, \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a3c3f4780d9b42f53748813c373840ea1}{FLEXCAN\+\_\+\+TABLE\+\_\+\+B\+\_\+\+RANGE}} = 4
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a2535c44466728adebd8a04ac40aa231a}{FLEXCAN\+\_\+\+USERMASK}} = 5
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\+\_\+\+FIFOTABLE}} \{ \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca42a4ade1acd55a49164099104990e09f}{A}} = 0
+, \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca3f2a77ecd272aa6d6b5902faa5e5fc68}{B}} = 1
+, \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca739ce3f516592d245d16fd8a3893472c}{C}} = 2
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea0591454b86898c32815b4cde991dfb10}{RX\+\_\+\+SIZE\+\_\+2}} = (uint16\+\_\+t)2
+, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea47951aafb85869e62636f4a4bb5d28e6}{RX\+\_\+\+SIZE\+\_\+4}} = (uint16\+\_\+t)4
+, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7a7bcf6089a816659b7c871bffb13759}{RX\+\_\+\+SIZE\+\_\+8}} = (uint16\+\_\+t)8
+, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149}{RX\+\_\+\+SIZE\+\_\+16}} = (uint16\+\_\+t)16
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7cb3201675052b330ff23a77a84d6586}{RX\+\_\+\+SIZE\+\_\+32}} = (uint16\+\_\+t)32
+, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeab679305fe53195c6b2f3748496f9fb01}{RX\+\_\+\+SIZE\+\_\+64}} = (uint16\+\_\+t)64
+, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea2586e615aa7d4ccd20c6a5cd29756a3e}{RX\+\_\+\+SIZE\+\_\+128}} = (uint16\+\_\+t)128
+, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeadc9b6daa4a86e480a2d18a44d7671fc0}{RX\+\_\+\+SIZE\+\_\+256}} = (uint16\+\_\+t)256
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea9c5b3264c4c9b76eba05745947456d51}{RX\+\_\+\+SIZE\+\_\+512}} = (uint16\+\_\+t)512
+, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea099f75b5031df716734b9a04489ae37a}{RX\+\_\+\+SIZE\+\_\+1024}} = (uint16\+\_\+t)1024
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}{FLEXCAN\+\_\+\+DLC\+\_\+\+SIZE}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caaf109bacc2978cf4fdc45de462ab2ffd}{DLC\+\_\+\+SIZE\+\_\+8}} = (uint16\+\_\+t)8
+, \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070cad1ed1f126b914314fcb1a223a47dc0c9}{DLC\+\_\+\+SIZE\+\_\+12}} = (uint16\+\_\+t)12
+, \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca7439b2a15eb7999195156ac71a7eb47e}{DLC\+\_\+\+SIZE\+\_\+16}} = (uint16\+\_\+t)16
+, \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca6a7a37cf48ea05f627ed26e3cb326527}{DLC\+\_\+\+SIZE\+\_\+20}} = (uint16\+\_\+t)20
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca986362f817c494cfc589ab587028b5a7}{DLC\+\_\+\+SIZE\+\_\+24}} = (uint16\+\_\+t)24
+, \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca75edac1ff2eb549c460440e30cb55136}{DLC\+\_\+\+SIZE\+\_\+32}} = (uint16\+\_\+t)32
+, \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caa2200fd2f527c1687646d966d3bcfdd8}{DLC\+\_\+\+SIZE\+\_\+48}} = (uint16\+\_\+t)48
+, \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca81f810251c282deb708c918d909d02a9}{DLC\+\_\+\+SIZE\+\_\+64}} = (uint16\+\_\+t)64
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\+\_\+\+RFFN\+\_\+\+TABLE}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa1ba88613aafdfb9f6ebf900317379db6}{RFFN\+\_\+8}} = (uint8\+\_\+t)0
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa9632dfb58e72dcdd9c338a049a307f4}{RFFN\+\_\+16}} = (uint8\+\_\+t)1
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa3ca54810ec9ed53388edf3249921c4a2}{RFFN\+\_\+24}} = (uint8\+\_\+t)2
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fab4d2a7abdab4450aef3f519c1cf9cd3d}{RFFN\+\_\+32}} = (uint8\+\_\+t)3
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa5272eb1c97f9fd626c769e4ee2f3fbb2}{RFFN\+\_\+40}} = (uint8\+\_\+t)4
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac92e0558e1d3f86ca62bf83ca6d30fa0}{RFFN\+\_\+48}} = (uint8\+\_\+t)5
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa78e51b44d166e15ec04c21bed170a2ce}{RFFN\+\_\+56}} = (uint8\+\_\+t)6
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac34130f5a245306ae21078bcc4875501}{RFFN\+\_\+64}} = (uint8\+\_\+t)7
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa39c7afb60580091e887ddb188d8c9ad8}{RFFN\+\_\+72}} = (uint8\+\_\+t)8
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa267279df01e8ef61c3a54a0b028d0e0c}{RFFN\+\_\+80}} = (uint8\+\_\+t)9
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faae6efed3e21baa5421f0ec74601dcdb9}{RFFN\+\_\+88}} = (uint8\+\_\+t)10
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa226b63a540a109588d7a91623a8da68b}{RFFN\+\_\+96}} = (uint8\+\_\+t)11
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa7928b87be8b023d2f81345e17723eed5}{RFFN\+\_\+104}} = (uint8\+\_\+t)12
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa88d34e9a6e0544b2a31183c657a1f0c5}{RFFN\+\_\+112}} = (uint8\+\_\+t)13
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa99b353317a759d67008b6b1d291bb04a}{RFFN\+\_\+120}} = (uint8\+\_\+t)14
+, \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa734b834dd1c7754ba0e1acb2149923f}{RFFN\+\_\+128}} = (uint8\+\_\+t)15
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \{ \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca0718cd311d70cea04754a112f416850b}{TX\+\_\+\+SIZE\+\_\+2}} = (uint16\+\_\+t)2
+, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3bfdca5d3696b6596d63dcb935435bdb}{TX\+\_\+\+SIZE\+\_\+4}} = (uint16\+\_\+t)4
+, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3cb70677c8d814d691eed77393f464f7}{TX\+\_\+\+SIZE\+\_\+8}} = (uint16\+\_\+t)8
+, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271}{TX\+\_\+\+SIZE\+\_\+16}} = (uint16\+\_\+t)16
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca38c7694abce2bb6449b60e00892b0657}{TX\+\_\+\+SIZE\+\_\+32}} = (uint16\+\_\+t)32
+, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca6189f814362be8f2ca2dd3748c1ff7b9}{TX\+\_\+\+SIZE\+\_\+64}} = (uint16\+\_\+t)64
+, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca094510ccc41293601c9be0229a1fb90f}{TX\+\_\+\+SIZE\+\_\+128}} = (uint16\+\_\+t)128
+, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca439f1b2bf0a923cbb8f28a7fd2027e9a}{TX\+\_\+\+SIZE\+\_\+256}} = (uint16\+\_\+t)256
+, \newline
+\mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca2812566f4a520ecd388af545461f0c44}{TX\+\_\+\+SIZE\+\_\+512}} = (uint16\+\_\+t)512
+, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95cae50651e18fc8e7f0f774fd135b7854c6}{TX\+\_\+\+SIZE\+\_\+1024}} = (uint16\+\_\+t)1024
+ \}
+\item 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} 
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{FlexCAN__T4___8h_ac162aec08f666e2c08b82819aaaf6d48}{ext\+\_\+output\+FD1}} (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{FlexCAN__T4___8h_ae4449c456d2067818cf924b5d33adbbe}{ext\+\_\+output\+FD2}} (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{FlexCAN__T4___8h_ad7ae642723704150ac87c57cb2ae1414}{ext\+\_\+output\+FD3}} (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{FlexCAN__T4___8h_a1d6cd6ac5253642ca58a5dcdc21456b4}{ext\+\_\+output1}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{FlexCAN__T4___8h_a440a7ae381df47bd201536971bba0026}{ext\+\_\+output2}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)
+\item 
+void \mbox{\hyperlink{FlexCAN__T4___8h_a23b18f101cb3333c06fc68ac36f4ad9f}{ext\+\_\+output3}} (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{FlexCAN__T4___8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{FlexCAN__T4___8h_af476d4a3a963e4d87d8cd9a7bfaafa92}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FCTP\_CLASS@{FCTP\_CLASS}}
+\index{FCTP\_CLASS@{FCTP\_CLASS}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FCTP\_CLASS}{FCTP\_CLASS}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_af476d4a3a963e4d87d8cd9a7bfaafa92} 
+\#define FCTP\+\_\+\+CLASS~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149}{RX\+\_\+\+SIZE\+\_\+16}}, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271}{TX\+\_\+\+SIZE\+\_\+16}}$>$}
+
+\Hypertarget{FlexCAN__T4___8h_a4e7ef7c8e6f4883e9e7644d8cc385c7f}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FCTP\_FUNC@{FCTP\_FUNC}}
+\index{FCTP\_FUNC@{FCTP\_FUNC}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FCTP\_FUNC}{FCTP\_FUNC}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a4e7ef7c8e6f4883e9e7644d8cc385c7f} 
+\#define FCTP\+\_\+\+FUNC~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size$>$}
+
+\Hypertarget{FlexCAN__T4___8h_aa1dc910105bfa2755d8e0d40f3caa4da}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FCTP\_OPT@{FCTP\_OPT}}
+\index{FCTP\_OPT@{FCTP\_OPT}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FCTP\_OPT}{FCTP\_OPT}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_aa1dc910105bfa2755d8e0d40f3caa4da} 
+\#define FCTP\+\_\+\+OPT~\mbox{\hyperlink{classFlexCAN__T4}{Flex\+CAN\+\_\+\+T4}}$<$\+\_\+bus, \+\_\+rx\+Size, \+\_\+tx\+Size$>$}
+
+\Hypertarget{FlexCAN__T4___8h_adc2eabac41aa646f3855c1503778e566}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FCTPFD\_CLASS@{FCTPFD\_CLASS}}
+\index{FCTPFD\_CLASS@{FCTPFD\_CLASS}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FCTPFD\_CLASS}{FCTPFD\_CLASS}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_adc2eabac41aa646f3855c1503778e566} 
+\#define FCTPFD\+\_\+\+CLASS~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149}{RX\+\_\+\+SIZE\+\_\+16}}, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size = \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271}{TX\+\_\+\+SIZE\+\_\+16}}$>$}
+
+\Hypertarget{FlexCAN__T4___8h_a740711e2e0839c8da542397402f39618}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FCTPFD\_FUNC@{FCTPFD\_FUNC}}
+\index{FCTPFD\_FUNC@{FCTPFD\_FUNC}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FCTPFD\_FUNC}{FCTPFD\_FUNC}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a740711e2e0839c8da542397402f39618} 
+\#define FCTPFD\+\_\+\+FUNC~template$<$\mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \+\_\+bus, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \+\_\+rx\+Size, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \+\_\+tx\+Size$>$}
+
+\Hypertarget{FlexCAN__T4___8h_a6a933e7a6192c94839a6484f5d50230d}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FCTPFD\_OPT@{FCTPFD\_OPT}}
+\index{FCTPFD\_OPT@{FCTPFD\_OPT}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FCTPFD\_OPT}{FCTPFD\_OPT}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a6a933e7a6192c94839a6484f5d50230d} 
+\#define FCTPFD\+\_\+\+OPT~\mbox{\hyperlink{classFlexCAN__T4FD}{Flex\+CAN\+\_\+\+T4\+FD}}$<$\+\_\+bus, \+\_\+rx\+Size, \+\_\+tx\+Size$>$}
+
+\Hypertarget{FlexCAN__T4___8h_a746890fd396a84f08998256753010e1e}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!SIZE\_LISTENERS@{SIZE\_LISTENERS}}
+\index{SIZE\_LISTENERS@{SIZE\_LISTENERS}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{SIZE\_LISTENERS}{SIZE\_LISTENERS}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a746890fd396a84f08998256753010e1e} 
+\#define SIZE\+\_\+\+LISTENERS~4}
+
+
+
+\label{doc-typedef-members}
+\Hypertarget{FlexCAN__T4___8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!\_MB\_ptr@{\_MB\_ptr}}
+\index{\_MB\_ptr@{\_MB\_ptr}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{\_MB\_ptr}{\_MB\_ptr}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a266ce252508d31574b24b7f79b2b13e2} 
+typedef void(\texorpdfstring{$\ast$}{*} \+\_\+\+MB\+\_\+ptr) (const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&msg)}
+
+\Hypertarget{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!\_MBFD\_ptr@{\_MBFD\_ptr}}
+\index{\_MBFD\_ptr@{\_MBFD\_ptr}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{\_MBFD\_ptr}{\_MBFD\_ptr}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a155bf8074c02b12d7238786f3cfc03b7} 
+typedef void(\texorpdfstring{$\ast$}{*} \+\_\+\+MBFD\+\_\+ptr) (const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&msg)}
+
+\Hypertarget{FlexCAN__T4___8h_abb4c628e2d43f0524c33a58a74d354ae}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_DEV\_TABLE@{CAN\_DEV\_TABLE}}
+\index{CAN\_DEV\_TABLE@{CAN\_DEV\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_DEV\_TABLE}{CAN\_DEV\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_abb4c628e2d43f0524c33a58a74d354ae} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}}}
+
+\Hypertarget{FlexCAN__T4___8h_aa52480795a8cf85e122c4ab4c0936fb4}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_error\_t@{CAN\_error\_t}}
+\index{CAN\_error\_t@{CAN\_error\_t}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_error\_t}{CAN\_error\_t}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_aa52480795a8cf85e122c4ab4c0936fb4} 
+typedef struct CAN\+\_\+error\+\_\+t CAN\+\_\+error\+\_\+t}
+
+\Hypertarget{FlexCAN__T4___8h_acccb62f72dd72adf7bcc2a255e34db28}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_message\_t@{CAN\_message\_t}}
+\index{CAN\_message\_t@{CAN\_message\_t}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_message\_t}{CAN\_message\_t}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_acccb62f72dd72adf7bcc2a255e34db28} 
+typedef struct CAN\+\_\+message\+\_\+t CAN\+\_\+message\+\_\+t}
+
+\Hypertarget{FlexCAN__T4___8h_a14a99c01f5d51b702dc6c763aa75c8fb}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CANFD\_message\_t@{CANFD\_message\_t}}
+\index{CANFD\_message\_t@{CANFD\_message\_t}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{CANFD\_message\_t}{CANFD\_message\_t}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a14a99c01f5d51b702dc6c763aa75c8fb} 
+typedef struct CANFD\+\_\+message\+\_\+t CANFD\+\_\+message\+\_\+t}
+
+\Hypertarget{FlexCAN__T4___8h_a156916445cf917763678af6070da8f5f}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CANFD\_timings\_t@{CANFD\_timings\_t}}
+\index{CANFD\_timings\_t@{CANFD\_timings\_t}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{CANFD\_timings\_t}{CANFD\_timings\_t}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a156916445cf917763678af6070da8f5f} 
+typedef struct CANFD\+\_\+timings\+\_\+t CANFD\+\_\+timings\+\_\+t}
+
+\Hypertarget{FlexCAN__T4___8h_add46883e2d10fa4f18a3f6f373123589}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_CLOCK@{FLEXCAN\_CLOCK}}
+\index{FLEXCAN\_CLOCK@{FLEXCAN\_CLOCK}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_CLOCK}{FLEXCAN\_CLOCK}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_add46883e2d10fa4f18a3f6f373123589} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\+\_\+\+CLOCK}} \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\+\_\+\+CLOCK}}}
+
+\Hypertarget{FlexCAN__T4___8h_a912a34a5d2a38e1704f990aac8478b72}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_DLC\_SIZE@{FLEXCAN\_DLC\_SIZE}}
+\index{FLEXCAN\_DLC\_SIZE@{FLEXCAN\_DLC\_SIZE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_DLC\_SIZE}{FLEXCAN\_DLC\_SIZE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a912a34a5d2a38e1704f990aac8478b72} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}{FLEXCAN\+\_\+\+DLC\+\_\+\+SIZE}} \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}{FLEXCAN\+\_\+\+DLC\+\_\+\+SIZE}}}
+
+\Hypertarget{FlexCAN__T4___8h_a3c0443d8eec3e6c748f7529708a30ba6}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FDRATES@{FLEXCAN\_FDRATES}}
+\index{FLEXCAN\_FDRATES@{FLEXCAN\_FDRATES}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FDRATES}{FLEXCAN\_FDRATES}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a3c0443d8eec3e6c748f7529708a30ba6} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\+\_\+\+FDRATES}} \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\+\_\+\+FDRATES}}}
+
+\Hypertarget{FlexCAN__T4___8h_aecb518a7dc4df0d100932c2c00a56f7c}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FIFOTABLE@{FLEXCAN\_FIFOTABLE}}
+\index{FLEXCAN\_FIFOTABLE@{FLEXCAN\_FIFOTABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FIFOTABLE}{FLEXCAN\_FIFOTABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_aecb518a7dc4df0d100932c2c00a56f7c} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\+\_\+\+FIFOTABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\+\_\+\+FIFOTABLE}}}
+
+\Hypertarget{FlexCAN__T4___8h_ac9d881119e3433f60bea477722032e63}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FILTER\_TABLE@{FLEXCAN\_FILTER\_TABLE}}
+\index{FLEXCAN\_FILTER\_TABLE@{FLEXCAN\_FILTER\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FILTER\_TABLE}{FLEXCAN\_FILTER\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ac9d881119e3433f60bea477722032e63} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}}}
+
+\Hypertarget{FlexCAN__T4___8h_a4b57bdc9b6e0fed5b0365e2285f15c0e}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FLTEN@{FLEXCAN\_FLTEN}}
+\index{FLEXCAN\_FLTEN@{FLEXCAN\_FLTEN}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FLTEN}{FLEXCAN\_FLTEN}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a4b57bdc9b6e0fed5b0365e2285f15c0e} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}} \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}}}
+
+\Hypertarget{FlexCAN__T4___8h_a0ca2ef372f6cae4fdd52e491f3aa0d85}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_IDE@{FLEXCAN\_IDE}}
+\index{FLEXCAN\_IDE@{FLEXCAN\_IDE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_IDE}{FLEXCAN\_IDE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a0ca2ef372f6cae4fdd52e491f3aa0d85} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\+\_\+\+IDE}} \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\+\_\+\+IDE}}}
+
+\Hypertarget{FlexCAN__T4___8h_a0ad8e311c9f1340e155e36f25d4ee7bb}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_MAILBOX@{FLEXCAN\_MAILBOX}}
+\index{FLEXCAN\_MAILBOX@{FLEXCAN\_MAILBOX}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_MAILBOX}{FLEXCAN\_MAILBOX}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a0ad8e311c9f1340e155e36f25d4ee7bb} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}} \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}
+
+\Hypertarget{FlexCAN__T4___8h_a37ed5f77fe43d40e0352e88ef1e0554f}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_PINS@{FLEXCAN\_PINS}}
+\index{FLEXCAN\_PINS@{FLEXCAN\_PINS}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_PINS}{FLEXCAN\_PINS}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a37ed5f77fe43d40e0352e88ef1e0554f} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}} \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}}}
+
+\Hypertarget{FlexCAN__T4___8h_ab1641d0a4e7f65aab7d1f091df724ec9}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_RFFN\_TABLE@{FLEXCAN\_RFFN\_TABLE}}
+\index{FLEXCAN\_RFFN\_TABLE@{FLEXCAN\_RFFN\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_RFFN\_TABLE}{FLEXCAN\_RFFN\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ab1641d0a4e7f65aab7d1f091df724ec9} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\+\_\+\+RFFN\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\+\_\+\+RFFN\+\_\+\+TABLE}}}
+
+\Hypertarget{FlexCAN__T4___8h_ab1feaff3fe365fed2554d6b91f95ec41}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_RXQUEUE\_TABLE@{FLEXCAN\_RXQUEUE\_TABLE}}
+\index{FLEXCAN\_RXQUEUE\_TABLE@{FLEXCAN\_RXQUEUE\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_RXQUEUE\_TABLE}{FLEXCAN\_RXQUEUE\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ab1feaff3fe365fed2554d6b91f95ec41} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}}}
+
+\Hypertarget{FlexCAN__T4___8h_a40defddbbc23945385a2d9d6bd053a2b}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_RXTX@{FLEXCAN\_RXTX}}
+\index{FLEXCAN\_RXTX@{FLEXCAN\_RXTX}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_RXTX}{FLEXCAN\_RXTX}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a40defddbbc23945385a2d9d6bd053a2b} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}} \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}
+
+\Hypertarget{FlexCAN__T4___8h_aadde8d06172e0261c4c3fdc31b842a29}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_TXQUEUE\_TABLE@{FLEXCAN\_TXQUEUE\_TABLE}}
+\index{FLEXCAN\_TXQUEUE\_TABLE@{FLEXCAN\_TXQUEUE\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_TXQUEUE\_TABLE}{FLEXCAN\_TXQUEUE\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_aadde8d06172e0261c4c3fdc31b842a29} 
+typedef enum \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}} \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}}}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{FlexCAN__T4___8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_DEV\_TABLE@{CAN\_DEV\_TABLE}}
+\index{CAN\_DEV\_TABLE@{CAN\_DEV\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_DEV\_TABLE}{CAN\_DEV\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a30369a14ea65d4aaaf1973a5b001dfe6}{CAN\+\_\+\+DEV\+\_\+\+TABLE}}}
+
+\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_CLOCK@{FLEXCAN\_CLOCK}}
+\index{FLEXCAN\_CLOCK@{FLEXCAN\_CLOCK}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_CLOCK}{FLEXCAN\_CLOCK}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3b}{FLEXCAN\+\_\+\+CLOCK}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_OFF@{CLK\_OFF}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_OFF@{CLK\_OFF}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3baed4e85dc658fa8416c3c0870ed59da97}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3baed4e85dc658fa8416c3c0870ed59da97} 
+CLK\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_8MHz@{CLK\_8MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_8MHz@{CLK\_8MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba1b5d3d8a5387493c22273b17502b5c2b}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba1b5d3d8a5387493c22273b17502b5c2b} 
+CLK\+\_\+8\+MHz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_16MHz@{CLK\_16MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_16MHz@{CLK\_16MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba2ee83ac1eb96ee44aea3743585ab3ee9}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba2ee83ac1eb96ee44aea3743585ab3ee9} 
+CLK\+\_\+16\+MHz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_20MHz@{CLK\_20MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_20MHz@{CLK\_20MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba5a5fe3174f496f72f8668ff05ac87e30}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba5a5fe3174f496f72f8668ff05ac87e30} 
+CLK\+\_\+20\+MHz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_24MHz@{CLK\_24MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_24MHz@{CLK\_24MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba755ede64379ce3ce1947e0d39a9f4241} 
+CLK\+\_\+24\+MHz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_30MHz@{CLK\_30MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_30MHz@{CLK\_30MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bacb8c5bc5790737e0986b772e8a9f01d2}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bacb8c5bc5790737e0986b772e8a9f01d2} 
+CLK\+\_\+30\+MHz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_40MHz@{CLK\_40MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_40MHz@{CLK\_40MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba21be0f8c63aff4d56ebd2a54b7dfe4cd}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba21be0f8c63aff4d56ebd2a54b7dfe4cd} 
+CLK\+\_\+40\+MHz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_60MHz@{CLK\_60MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_60MHz@{CLK\_60MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bad6363a225675ab6bb5383d54e2f8e888}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3bad6363a225675ab6bb5383d54e2f8e888} 
+CLK\+\_\+60\+MHz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLK\_80MHz@{CLK\_80MHz}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CLK\_80MHz@{CLK\_80MHz}}}\Hypertarget{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba673f3c45b31b8f2706c911948cd22bfa}\label{FlexCAN__T4___8h_ad9be3a317b98498a8a4e68d227690d3ba673f3c45b31b8f2706c911948cd22bfa} 
+CLK\+\_\+80\+MHz&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_DLC\_SIZE@{FLEXCAN\_DLC\_SIZE}}
+\index{FLEXCAN\_DLC\_SIZE@{FLEXCAN\_DLC\_SIZE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_DLC\_SIZE}{FLEXCAN\_DLC\_SIZE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070c}{FLEXCAN\+\_\+\+DLC\+\_\+\+SIZE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_8@{DLC\_SIZE\_8}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_8@{DLC\_SIZE\_8}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caaf109bacc2978cf4fdc45de462ab2ffd}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caaf109bacc2978cf4fdc45de462ab2ffd} 
+DLC\+\_\+\+SIZE\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_12@{DLC\_SIZE\_12}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_12@{DLC\_SIZE\_12}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070cad1ed1f126b914314fcb1a223a47dc0c9}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070cad1ed1f126b914314fcb1a223a47dc0c9} 
+DLC\+\_\+\+SIZE\+\_\+12&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_16@{DLC\_SIZE\_16}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_16@{DLC\_SIZE\_16}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca7439b2a15eb7999195156ac71a7eb47e}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca7439b2a15eb7999195156ac71a7eb47e} 
+DLC\+\_\+\+SIZE\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_20@{DLC\_SIZE\_20}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_20@{DLC\_SIZE\_20}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca6a7a37cf48ea05f627ed26e3cb326527}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca6a7a37cf48ea05f627ed26e3cb326527} 
+DLC\+\_\+\+SIZE\+\_\+20&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_24@{DLC\_SIZE\_24}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_24@{DLC\_SIZE\_24}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca986362f817c494cfc589ab587028b5a7}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca986362f817c494cfc589ab587028b5a7} 
+DLC\+\_\+\+SIZE\+\_\+24&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_32@{DLC\_SIZE\_32}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_32@{DLC\_SIZE\_32}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca75edac1ff2eb549c460440e30cb55136}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca75edac1ff2eb549c460440e30cb55136} 
+DLC\+\_\+\+SIZE\+\_\+32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_48@{DLC\_SIZE\_48}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_48@{DLC\_SIZE\_48}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caa2200fd2f527c1687646d966d3bcfdd8}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070caa2200fd2f527c1687646d966d3bcfdd8} 
+DLC\+\_\+\+SIZE\+\_\+48&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DLC\_SIZE\_64@{DLC\_SIZE\_64}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DLC\_SIZE\_64@{DLC\_SIZE\_64}}}\Hypertarget{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca81f810251c282deb708c918d909d02a9}\label{FlexCAN__T4___8h_a0ef7f3cf5d0b62820445f57ec3ae070ca81f810251c282deb708c918d909d02a9} 
+DLC\+\_\+\+SIZE\+\_\+64&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FDRATES@{FLEXCAN\_FDRATES}}
+\index{FLEXCAN\_FDRATES@{FLEXCAN\_FDRATES}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FDRATES}{FLEXCAN\_FDRATES}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7}{FLEXCAN\+\_\+\+FDRATES}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CAN\_1M\_2M@{CAN\_1M\_2M}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_1M\_2M@{CAN\_1M\_2M}}}\Hypertarget{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ae66758a4ff1e39331c56aab55326c592}\label{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ae66758a4ff1e39331c56aab55326c592} 
+CAN\+\_\+1\+M\+\_\+2M&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CAN\_1M\_4M@{CAN\_1M\_4M}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_1M\_4M@{CAN\_1M\_4M}}}\Hypertarget{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ab292047f9b4bb3c66f50fb0505214d8b}\label{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7ab292047f9b4bb3c66f50fb0505214d8b} 
+CAN\+\_\+1\+M\+\_\+4M&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CAN\_1M\_6M@{CAN\_1M\_6M}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_1M\_6M@{CAN\_1M\_6M}}}\Hypertarget{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7abc463412d19affb567d9e1e420a2828d}\label{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7abc463412d19affb567d9e1e420a2828d} 
+CAN\+\_\+1\+M\+\_\+6M&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CAN\_1M\_8M@{CAN\_1M\_8M}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!CAN\_1M\_8M@{CAN\_1M\_8M}}}\Hypertarget{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7afb23ad1b3b849b66e9222686f6a57414}\label{FlexCAN__T4___8h_ae8c4fc6c05f4cd1827277a5f339e1cc7afb23ad1b3b849b66e9222686f6a57414} 
+CAN\+\_\+1\+M\+\_\+8M&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FIFOTABLE@{FLEXCAN\_FIFOTABLE}}
+\index{FLEXCAN\_FIFOTABLE@{FLEXCAN\_FIFOTABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FIFOTABLE}{FLEXCAN\_FIFOTABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4ec}{FLEXCAN\+\_\+\+FIFOTABLE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A@{A}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!A@{A}}}\Hypertarget{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca42a4ade1acd55a49164099104990e09f}\label{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca42a4ade1acd55a49164099104990e09f} 
+A&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B@{B}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!B@{B}}}\Hypertarget{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca3f2a77ecd272aa6d6b5902faa5e5fc68}\label{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca3f2a77ecd272aa6d6b5902faa5e5fc68} 
+B&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{C@{C}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!C@{C}}}\Hypertarget{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca739ce3f516592d245d16fd8a3893472c}\label{FlexCAN__T4___8h_a77725927fd3848e2d44176bdf786d4eca739ce3f516592d245d16fd8a3893472c} 
+C&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FILTER\_TABLE@{FLEXCAN\_FILTER\_TABLE}}
+\index{FLEXCAN\_FILTER\_TABLE@{FLEXCAN\_FILTER\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FILTER\_TABLE}{FLEXCAN\_FILTER\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81}{FLEXCAN\+\_\+\+FILTER\+\_\+\+TABLE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLEXCAN\_MULTI@{FLEXCAN\_MULTI}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_MULTI@{FLEXCAN\_MULTI}}}\Hypertarget{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a9e029969c3c20a660324454fafca38f5}\label{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a9e029969c3c20a660324454fafca38f5} 
+FLEXCAN\+\_\+\+MULTI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLEXCAN\_RANGE@{FLEXCAN\_RANGE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_RANGE@{FLEXCAN\_RANGE}}}\Hypertarget{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a439d11e753ede097a9c09fc401cd87b9}\label{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a439d11e753ede097a9c09fc401cd87b9} 
+FLEXCAN\+\_\+\+RANGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLEXCAN\_TABLE\_B\_MULTI@{FLEXCAN\_TABLE\_B\_MULTI}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_TABLE\_B\_MULTI@{FLEXCAN\_TABLE\_B\_MULTI}}}\Hypertarget{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a8cb5a473b73a628c152a578c128432d0}\label{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a8cb5a473b73a628c152a578c128432d0} 
+FLEXCAN\+\_\+\+TABLE\+\_\+\+B\+\_\+\+MULTI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLEXCAN\_TABLE\_B\_RANGE@{FLEXCAN\_TABLE\_B\_RANGE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_TABLE\_B\_RANGE@{FLEXCAN\_TABLE\_B\_RANGE}}}\Hypertarget{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a3c3f4780d9b42f53748813c373840ea1}\label{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a3c3f4780d9b42f53748813c373840ea1} 
+FLEXCAN\+\_\+\+TABLE\+\_\+\+B\+\_\+\+RANGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLEXCAN\_USERMASK@{FLEXCAN\_USERMASK}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_USERMASK@{FLEXCAN\_USERMASK}}}\Hypertarget{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a2535c44466728adebd8a04ac40aa231a}\label{FlexCAN__T4___8h_a589ff65bd31915e3c77289dff67b5c81a2535c44466728adebd8a04ac40aa231a} 
+FLEXCAN\+\_\+\+USERMASK&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_FLTEN@{FLEXCAN\_FLTEN}}
+\index{FLEXCAN\_FLTEN@{FLEXCAN\_FLTEN}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_FLTEN}{FLEXCAN\_FLTEN}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152}{FLEXCAN\+\_\+\+FLTEN}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACCEPT\_ALL@{ACCEPT\_ALL}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ACCEPT\_ALL@{ACCEPT\_ALL}}}\Hypertarget{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152a05f9de91d24f397ddfd2df959caf6e81}\label{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152a05f9de91d24f397ddfd2df959caf6e81} 
+ACCEPT\+\_\+\+ALL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REJECT\_ALL@{REJECT\_ALL}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!REJECT\_ALL@{REJECT\_ALL}}}\Hypertarget{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152aa8421710214f1fbd34c43b0d0b09d98f}\label{FlexCAN__T4___8h_a41ffc69fb661a068858376b7d0f66152aa8421710214f1fbd34c43b0d0b09d98f} 
+REJECT\+\_\+\+ALL&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_IDE@{FLEXCAN\_IDE}}
+\index{FLEXCAN\_IDE@{FLEXCAN\_IDE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_IDE}{FLEXCAN\_IDE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2}{FLEXCAN\+\_\+\+IDE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NONE@{NONE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!NONE@{NONE}}}\Hypertarget{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2}\label{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ac157bdf0b85a40d2619cbc8bc1ae5fe2} 
+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXT@{EXT}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!EXT@{EXT}}}\Hypertarget{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a43943b97a80411494fa56399e53f17c2}\label{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a43943b97a80411494fa56399e53f17c2} 
+EXT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RTR@{RTR}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RTR@{RTR}}}\Hypertarget{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a779454a8be1f54331f192ac0d20d5fe0}\label{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a779454a8be1f54331f192ac0d20d5fe0} 
+RTR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STD@{STD}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!STD@{STD}}}\Hypertarget{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab}\label{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2ab92ba587835f1b1a50a2ab206326a3ab} 
+STD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INACTIVE@{INACTIVE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!INACTIVE@{INACTIVE}}}\Hypertarget{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a3ff8ba88da6f8947ab7c22b7825c6bb6}\label{FlexCAN__T4___8h_a1ea586aeb28df94c620ba8f1b37ec6d2a3ff8ba88da6f8947ab7c22b7825c6bb6} 
+INACTIVE&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_MAILBOX@{FLEXCAN\_MAILBOX}}
+\index{FLEXCAN\_MAILBOX@{FLEXCAN\_MAILBOX}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_MAILBOX}{FLEXCAN\_MAILBOX}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6}{FLEXCAN\+\_\+\+MAILBOX}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB0@{MB0}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB0@{MB0}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a28b37a4fe11d2d1cac7891e746846cea}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a28b37a4fe11d2d1cac7891e746846cea} 
+MB0&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB1@{MB1}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB1@{MB1}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab8f2fdd7004d436c67330e246703e10d}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab8f2fdd7004d436c67330e246703e10d} 
+MB1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB2@{MB2}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB2@{MB2}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2eb489e39eb3591129813ea563ebaf64}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2eb489e39eb3591129813ea563ebaf64} 
+MB2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB3@{MB3}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB3@{MB3}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a81f6125b908196dac2ca27a981f7beba}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a81f6125b908196dac2ca27a981f7beba} 
+MB3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB4@{MB4}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB4@{MB4}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a32b8964db621c444dfac0c773d76f6ec}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a32b8964db621c444dfac0c773d76f6ec} 
+MB4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB5@{MB5}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB5@{MB5}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af13285c367fdd83037fc1a8db4223a82}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af13285c367fdd83037fc1a8db4223a82} 
+MB5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB6@{MB6}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB6@{MB6}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a73354c0140c4bf0893d57bc9b7f034f5}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a73354c0140c4bf0893d57bc9b7f034f5} 
+MB6&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB7@{MB7}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB7@{MB7}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab0bc3cf9d45719117c7407116e95e904}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab0bc3cf9d45719117c7407116e95e904} 
+MB7&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB8@{MB8}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB8@{MB8}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3cbf1384ae69e77d4ba1572c00f3cabc}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3cbf1384ae69e77d4ba1572c00f3cabc} 
+MB8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB9@{MB9}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB9@{MB9}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6afe7d271a47b25ed55db61f0340375e6b}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6afe7d271a47b25ed55db61f0340375e6b} 
+MB9&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB10@{MB10}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB10@{MB10}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8dd7149ec7bd1a5c0181f44e8cb29803}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8dd7149ec7bd1a5c0181f44e8cb29803} 
+MB10&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB11@{MB11}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB11@{MB11}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab4cc9f1371a57d1b100ad8d06972e41a}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab4cc9f1371a57d1b100ad8d06972e41a} 
+MB11&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB12@{MB12}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB12@{MB12}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6d367d6cea2be200fad20f1ccc23aa31}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6d367d6cea2be200fad20f1ccc23aa31} 
+MB12&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB13@{MB13}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB13@{MB13}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a76b82498371648ad4633bf3f30b4d62f}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a76b82498371648ad4633bf3f30b4d62f} 
+MB13&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB14@{MB14}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB14@{MB14}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a19ce62ecbb30979cfac8d56dddcd7a7f}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a19ce62ecbb30979cfac8d56dddcd7a7f} 
+MB14&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB15@{MB15}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB15@{MB15}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab3758caa36e6531f63b11d8777efee1c}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab3758caa36e6531f63b11d8777efee1c} 
+MB15&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB16@{MB16}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB16@{MB16}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9addf0ab5579760478e918cf397b6b77}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9addf0ab5579760478e918cf397b6b77} 
+MB16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB17@{MB17}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB17@{MB17}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a314b891c8b8ea68fa44f73a4d5e69ac5}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a314b891c8b8ea68fa44f73a4d5e69ac5} 
+MB17&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB18@{MB18}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB18@{MB18}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1aee26d1188d1538df0e3505cc31e9c}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1aee26d1188d1538df0e3505cc31e9c} 
+MB18&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB19@{MB19}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB19@{MB19}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa552c9f470a31147639e7e885f3ae244}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa552c9f470a31147639e7e885f3ae244} 
+MB19&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB20@{MB20}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB20@{MB20}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a498d91e7d61e1dd5dad774bb492949e4}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a498d91e7d61e1dd5dad774bb492949e4} 
+MB20&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB21@{MB21}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB21@{MB21}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acd07528ebce1d24fdb90be0812cfc213}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acd07528ebce1d24fdb90be0812cfc213} 
+MB21&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB22@{MB22}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB22@{MB22}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a15b1db44f9e4d4727c2efa56cbbfeafe}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a15b1db44f9e4d4727c2efa56cbbfeafe} 
+MB22&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB23@{MB23}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB23@{MB23}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7ec8724844f5686d45ff13a914b24ca8}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7ec8724844f5686d45ff13a914b24ca8} 
+MB23&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB24@{MB24}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB24@{MB24}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae15ae695c0995184684d2e3fa6981467}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae15ae695c0995184684d2e3fa6981467} 
+MB24&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB25@{MB25}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB25@{MB25}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a786c818dca89a2342f59add47f1d70fc}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a786c818dca89a2342f59add47f1d70fc} 
+MB25&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB26@{MB26}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB26@{MB26}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a4f787a96ff4e8cf076fafcd1f0b3b4bc}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a4f787a96ff4e8cf076fafcd1f0b3b4bc} 
+MB26&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB27@{MB27}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB27@{MB27}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a688e1af92c01433be46b02b1a8857b7c}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a688e1af92c01433be46b02b1a8857b7c} 
+MB27&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB28@{MB28}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB28@{MB28}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af7aa5d0a1e235eb9df9267bfa2078278}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af7aa5d0a1e235eb9df9267bfa2078278} 
+MB28&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB29@{MB29}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB29@{MB29}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0d9214efcd9a5404cb02ad552fc3d235}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0d9214efcd9a5404cb02ad552fc3d235} 
+MB29&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB30@{MB30}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB30@{MB30}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9f9c45d49a5b51436e4c28ff8aa7ff09}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9f9c45d49a5b51436e4c28ff8aa7ff09} 
+MB30&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB31@{MB31}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB31@{MB31}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a1c60e302a7901685bdd81bc16689e9e9}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a1c60e302a7901685bdd81bc16689e9e9} 
+MB31&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB32@{MB32}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB32@{MB32}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6a42fed557c86bca298fa8cad4f9dc43}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6a42fed557c86bca298fa8cad4f9dc43} 
+MB32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB33@{MB33}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB33@{MB33}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8e2f91c861504188beff3f60e3bfef85}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a8e2f91c861504188beff3f60e3bfef85} 
+MB33&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB34@{MB34}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB34@{MB34}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c970aafe3282ad3f2a9a01f849dc6d4}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c970aafe3282ad3f2a9a01f849dc6d4} 
+MB34&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB35@{MB35}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB35@{MB35}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af9284eb71e3b2eaaed3d2d0d08cb6a3f}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af9284eb71e3b2eaaed3d2d0d08cb6a3f} 
+MB35&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB36@{MB36}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB36@{MB36}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aab95c20670823537468df78082c9b487}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aab95c20670823537468df78082c9b487} 
+MB36&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB37@{MB37}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB37@{MB37}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1591af29950ba83cf498b2b628c2f22}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ae1591af29950ba83cf498b2b628c2f22} 
+MB37&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB38@{MB38}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB38@{MB38}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3d7849942006bb7a42701663d489a659}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3d7849942006bb7a42701663d489a659} 
+MB38&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB39@{MB39}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB39@{MB39}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9a47142e5ee10a7df6c5079c78216a85}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a9a47142e5ee10a7df6c5079c78216a85} 
+MB39&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB40@{MB40}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB40@{MB40}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2af07b1e8a0ad5458f4adf92503beeff}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a2af07b1e8a0ad5458f4adf92503beeff} 
+MB40&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB41@{MB41}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB41@{MB41}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab7df4390c756adafb50d988066731f3c}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ab7df4390c756adafb50d988066731f3c} 
+MB41&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB42@{MB42}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB42@{MB42}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a74de2551bc779630532eea25898c3ec8}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a74de2551bc779630532eea25898c3ec8} 
+MB42&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB43@{MB43}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB43@{MB43}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7a3638e5cf2694095c2983e19169aaed}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7a3638e5cf2694095c2983e19169aaed} 
+MB43&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB44@{MB44}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB44@{MB44}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a737a6c44e19b352536996dce3ef0f1e4}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a737a6c44e19b352536996dce3ef0f1e4} 
+MB44&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB45@{MB45}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB45@{MB45}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aea2c259681f39686df2bab2f22744168}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aea2c259681f39686df2bab2f22744168} 
+MB45&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB46@{MB46}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB46@{MB46}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a83e236f22a2b805819d84b47928e9771}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a83e236f22a2b805819d84b47928e9771} 
+MB46&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB47@{MB47}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB47@{MB47}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ac465784c4ea934b4153f09187916fcca}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ac465784c4ea934b4153f09187916fcca} 
+MB47&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB48@{MB48}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB48@{MB48}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0de7218400b27a7481c13054f7505e57}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0de7218400b27a7481c13054f7505e57} 
+MB48&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB49@{MB49}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB49@{MB49}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3b35fc0b487062337726438fe45beae4}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a3b35fc0b487062337726438fe45beae4} 
+MB49&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB50@{MB50}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB50@{MB50}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa80a0e6b5f58be1ba71dae802faf4bad}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa80a0e6b5f58be1ba71dae802faf4bad} 
+MB50&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB51@{MB51}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB51@{MB51}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6adebed4fbe5c2679925d540fc0910d6ac}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6adebed4fbe5c2679925d540fc0910d6ac} 
+MB51&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB52@{MB52}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB52@{MB52}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0abeedbcfc533cfe10ab5436b6f07e2b}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a0abeedbcfc533cfe10ab5436b6f07e2b} 
+MB52&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB53@{MB53}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB53@{MB53}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a708ab18c4b94c40bdc212b0271cb032a}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a708ab18c4b94c40bdc212b0271cb032a} 
+MB53&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB54@{MB54}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB54@{MB54}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a745d5a117fdaff0a7181609d0ad569c5}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a745d5a117fdaff0a7181609d0ad569c5} 
+MB54&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB55@{MB55}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB55@{MB55}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ad277130d92101d1ce461abd75b13358d}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6ad277130d92101d1ce461abd75b13358d} 
+MB55&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB56@{MB56}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB56@{MB56}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af6d997c230a179e4f646b5db3e003125}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6af6d997c230a179e4f646b5db3e003125} 
+MB56&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB57@{MB57}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB57@{MB57}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6cd9a3b78759fb37008723c34f3bbbd4}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a6cd9a3b78759fb37008723c34f3bbbd4} 
+MB57&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB58@{MB58}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB58@{MB58}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa9bc7deba1d4388456bd801276d1d49b}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aa9bc7deba1d4388456bd801276d1d49b} 
+MB58&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB59@{MB59}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB59@{MB59}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a82158490fd3ba1feafe377e22a1da2aa}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a82158490fd3ba1feafe377e22a1da2aa} 
+MB59&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB60@{MB60}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB60@{MB60}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acabbe536a6ca6f76bd1d6d6437608054}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6acabbe536a6ca6f76bd1d6d6437608054} 
+MB60&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB61@{MB61}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB61@{MB61}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a277c05af9dc076399de46ada7dded2a3}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a277c05af9dc076399de46ada7dded2a3} 
+MB61&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB62@{MB62}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB62@{MB62}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aaf6e28a10a74815510ce5cb2c00372d1}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6aaf6e28a10a74815510ce5cb2c00372d1} 
+MB62&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MB63@{MB63}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!MB63@{MB63}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c45af284bdf957a8087ee99450069f9}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a5c45af284bdf957a8087ee99450069f9} 
+MB63&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FIFO@{FIFO}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FIFO@{FIFO}}}\Hypertarget{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7795ebef271efe70b28f37deb9a07a83}\label{FlexCAN__T4___8h_aefd977eda003b74644b99352247258b6a7795ebef271efe70b28f37deb9a07a83} 
+FIFO&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_PINS@{FLEXCAN\_PINS}}
+\index{FLEXCAN\_PINS@{FLEXCAN\_PINS}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_PINS}{FLEXCAN\_PINS}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206}{FLEXCAN\+\_\+\+PINS}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ALT@{ALT}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ALT@{ALT}}}\Hypertarget{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206ab1d948a93e387798ef60b07c24a7c337}\label{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206ab1d948a93e387798ef60b07c24a7c337} 
+ALT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEF@{DEF}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!DEF@{DEF}}}\Hypertarget{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94}\label{FlexCAN__T4___8h_aa61200d07baea0bfc508085065b76206a4ec32ebb3d661f27da6aff17d460ac94} 
+DEF&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_RFFN\_TABLE@{FLEXCAN\_RFFN\_TABLE}}
+\index{FLEXCAN\_RFFN\_TABLE@{FLEXCAN\_RFFN\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_RFFN\_TABLE}{FLEXCAN\_RFFN\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25f}{FLEXCAN\+\_\+\+RFFN\+\_\+\+TABLE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_8@{RFFN\_8}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_8@{RFFN\_8}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa1ba88613aafdfb9f6ebf900317379db6}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa1ba88613aafdfb9f6ebf900317379db6} 
+RFFN\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_16@{RFFN\_16}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_16@{RFFN\_16}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa9632dfb58e72dcdd9c338a049a307f4}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa9632dfb58e72dcdd9c338a049a307f4} 
+RFFN\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_24@{RFFN\_24}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_24@{RFFN\_24}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa3ca54810ec9ed53388edf3249921c4a2}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa3ca54810ec9ed53388edf3249921c4a2} 
+RFFN\+\_\+24&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_32@{RFFN\_32}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_32@{RFFN\_32}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fab4d2a7abdab4450aef3f519c1cf9cd3d}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fab4d2a7abdab4450aef3f519c1cf9cd3d} 
+RFFN\+\_\+32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_40@{RFFN\_40}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_40@{RFFN\_40}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa5272eb1c97f9fd626c769e4ee2f3fbb2}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa5272eb1c97f9fd626c769e4ee2f3fbb2} 
+RFFN\+\_\+40&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_48@{RFFN\_48}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_48@{RFFN\_48}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac92e0558e1d3f86ca62bf83ca6d30fa0}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac92e0558e1d3f86ca62bf83ca6d30fa0} 
+RFFN\+\_\+48&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_56@{RFFN\_56}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_56@{RFFN\_56}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa78e51b44d166e15ec04c21bed170a2ce}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa78e51b44d166e15ec04c21bed170a2ce} 
+RFFN\+\_\+56&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_64@{RFFN\_64}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_64@{RFFN\_64}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac34130f5a245306ae21078bcc4875501}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fac34130f5a245306ae21078bcc4875501} 
+RFFN\+\_\+64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_72@{RFFN\_72}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_72@{RFFN\_72}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa39c7afb60580091e887ddb188d8c9ad8}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa39c7afb60580091e887ddb188d8c9ad8} 
+RFFN\+\_\+72&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_80@{RFFN\_80}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_80@{RFFN\_80}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa267279df01e8ef61c3a54a0b028d0e0c}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa267279df01e8ef61c3a54a0b028d0e0c} 
+RFFN\+\_\+80&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_88@{RFFN\_88}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_88@{RFFN\_88}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faae6efed3e21baa5421f0ec74601dcdb9}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faae6efed3e21baa5421f0ec74601dcdb9} 
+RFFN\+\_\+88&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_96@{RFFN\_96}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_96@{RFFN\_96}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa226b63a540a109588d7a91623a8da68b}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa226b63a540a109588d7a91623a8da68b} 
+RFFN\+\_\+96&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_104@{RFFN\_104}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_104@{RFFN\_104}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa7928b87be8b023d2f81345e17723eed5}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa7928b87be8b023d2f81345e17723eed5} 
+RFFN\+\_\+104&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_112@{RFFN\_112}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_112@{RFFN\_112}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa88d34e9a6e0544b2a31183c657a1f0c5}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa88d34e9a6e0544b2a31183c657a1f0c5} 
+RFFN\+\_\+112&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_120@{RFFN\_120}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_120@{RFFN\_120}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa99b353317a759d67008b6b1d291bb04a}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25fa99b353317a759d67008b6b1d291bb04a} 
+RFFN\+\_\+120&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RFFN\_128@{RFFN\_128}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RFFN\_128@{RFFN\_128}}}\Hypertarget{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa734b834dd1c7754ba0e1acb2149923f}\label{FlexCAN__T4___8h_a07af2fb8310f909904bfee680596c25faa734b834dd1c7754ba0e1acb2149923f} 
+RFFN\+\_\+128&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_RXQUEUE\_TABLE@{FLEXCAN\_RXQUEUE\_TABLE}}
+\index{FLEXCAN\_RXQUEUE\_TABLE@{FLEXCAN\_RXQUEUE\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_RXQUEUE\_TABLE}{FLEXCAN\_RXQUEUE\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252ae}{FLEXCAN\+\_\+\+RXQUEUE\+\_\+\+TABLE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_2@{RX\_SIZE\_2}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_2@{RX\_SIZE\_2}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea0591454b86898c32815b4cde991dfb10}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea0591454b86898c32815b4cde991dfb10} 
+RX\+\_\+\+SIZE\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_4@{RX\_SIZE\_4}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_4@{RX\_SIZE\_4}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea47951aafb85869e62636f4a4bb5d28e6}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea47951aafb85869e62636f4a4bb5d28e6} 
+RX\+\_\+\+SIZE\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_8@{RX\_SIZE\_8}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_8@{RX\_SIZE\_8}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7a7bcf6089a816659b7c871bffb13759}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7a7bcf6089a816659b7c871bffb13759} 
+RX\+\_\+\+SIZE\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_16@{RX\_SIZE\_16}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_16@{RX\_SIZE\_16}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea28c2d2fbd99d0b16e0babe79aa800149} 
+RX\+\_\+\+SIZE\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_32@{RX\_SIZE\_32}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_32@{RX\_SIZE\_32}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7cb3201675052b330ff23a77a84d6586}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea7cb3201675052b330ff23a77a84d6586} 
+RX\+\_\+\+SIZE\+\_\+32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_64@{RX\_SIZE\_64}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_64@{RX\_SIZE\_64}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeab679305fe53195c6b2f3748496f9fb01}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeab679305fe53195c6b2f3748496f9fb01} 
+RX\+\_\+\+SIZE\+\_\+64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_128@{RX\_SIZE\_128}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_128@{RX\_SIZE\_128}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea2586e615aa7d4ccd20c6a5cd29756a3e}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea2586e615aa7d4ccd20c6a5cd29756a3e} 
+RX\+\_\+\+SIZE\+\_\+128&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_256@{RX\_SIZE\_256}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_256@{RX\_SIZE\_256}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeadc9b6daa4a86e480a2d18a44d7671fc0}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aeadc9b6daa4a86e480a2d18a44d7671fc0} 
+RX\+\_\+\+SIZE\+\_\+256&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_512@{RX\_SIZE\_512}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_512@{RX\_SIZE\_512}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea9c5b3264c4c9b76eba05745947456d51}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea9c5b3264c4c9b76eba05745947456d51} 
+RX\+\_\+\+SIZE\+\_\+512&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX\_SIZE\_1024@{RX\_SIZE\_1024}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX\_SIZE\_1024@{RX\_SIZE\_1024}}}\Hypertarget{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea099f75b5031df716734b9a04489ae37a}\label{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea099f75b5031df716734b9a04489ae37a} 
+RX\+\_\+\+SIZE\+\_\+1024&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_RXTX@{FLEXCAN\_RXTX}}
+\index{FLEXCAN\_RXTX@{FLEXCAN\_RXTX}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_RXTX}{FLEXCAN\_RXTX}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264}{FLEXCAN\+\_\+\+RXTX}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX@{TX}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX@{TX}}}\Hypertarget{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e}\label{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a951f819598b53b2729ee0e4c05e6888e} 
+TX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RX@{RX}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!RX@{RX}}}\Hypertarget{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a4aca20d6e60fffb66e9668b3a6592531}\label{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a4aca20d6e60fffb66e9668b3a6592531} 
+RX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LISTEN\_ONLY@{LISTEN\_ONLY}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!LISTEN\_ONLY@{LISTEN\_ONLY}}}\Hypertarget{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a8db36ffd3e5dcacb9e1d3b696b14063f}\label{FlexCAN__T4___8h_a1a6b099eaf1205e1d2a28baa09329264a8db36ffd3e5dcacb9e1d3b696b14063f} 
+LISTEN\+\_\+\+ONLY&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!FLEXCAN\_TXQUEUE\_TABLE@{FLEXCAN\_TXQUEUE\_TABLE}}
+\index{FLEXCAN\_TXQUEUE\_TABLE@{FLEXCAN\_TXQUEUE\_TABLE}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{FLEXCAN\_TXQUEUE\_TABLE}{FLEXCAN\_TXQUEUE\_TABLE}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c} 
+enum \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95c}{FLEXCAN\+\_\+\+TXQUEUE\+\_\+\+TABLE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_2@{TX\_SIZE\_2}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_2@{TX\_SIZE\_2}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca0718cd311d70cea04754a112f416850b}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca0718cd311d70cea04754a112f416850b} 
+TX\+\_\+\+SIZE\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_4@{TX\_SIZE\_4}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_4@{TX\_SIZE\_4}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3bfdca5d3696b6596d63dcb935435bdb}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3bfdca5d3696b6596d63dcb935435bdb} 
+TX\+\_\+\+SIZE\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_8@{TX\_SIZE\_8}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_8@{TX\_SIZE\_8}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3cb70677c8d814d691eed77393f464f7}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca3cb70677c8d814d691eed77393f464f7} 
+TX\+\_\+\+SIZE\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_16@{TX\_SIZE\_16}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_16@{TX\_SIZE\_16}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca920401c850b8ab413f01e7242cf70271} 
+TX\+\_\+\+SIZE\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_32@{TX\_SIZE\_32}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_32@{TX\_SIZE\_32}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca38c7694abce2bb6449b60e00892b0657}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca38c7694abce2bb6449b60e00892b0657} 
+TX\+\_\+\+SIZE\+\_\+32&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_64@{TX\_SIZE\_64}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_64@{TX\_SIZE\_64}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca6189f814362be8f2ca2dd3748c1ff7b9}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca6189f814362be8f2ca2dd3748c1ff7b9} 
+TX\+\_\+\+SIZE\+\_\+64&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_128@{TX\_SIZE\_128}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_128@{TX\_SIZE\_128}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca094510ccc41293601c9be0229a1fb90f}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca094510ccc41293601c9be0229a1fb90f} 
+TX\+\_\+\+SIZE\+\_\+128&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_256@{TX\_SIZE\_256}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_256@{TX\_SIZE\_256}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca439f1b2bf0a923cbb8f28a7fd2027e9a}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca439f1b2bf0a923cbb8f28a7fd2027e9a} 
+TX\+\_\+\+SIZE\+\_\+256&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_512@{TX\_SIZE\_512}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_512@{TX\_SIZE\_512}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca2812566f4a520ecd388af545461f0c44}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95ca2812566f4a520ecd388af545461f0c44} 
+TX\+\_\+\+SIZE\+\_\+512&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TX\_SIZE\_1024@{TX\_SIZE\_1024}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!TX\_SIZE\_1024@{TX\_SIZE\_1024}}}\Hypertarget{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95cae50651e18fc8e7f0f774fd135b7854c6}\label{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95cae50651e18fc8e7f0f774fd135b7854c6} 
+TX\+\_\+\+SIZE\+\_\+1024&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{FlexCAN__T4___8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{FlexCAN__T4___8h_a1d6cd6ac5253642ca58a5dcdc21456b4}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ext\_output1@{ext\_output1}}
+\index{ext\_output1@{ext\_output1}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{ext\_output1()}{ext\_output1()}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a1d6cd6ac5253642ca58a5dcdc21456b4} 
+void ext\+\_\+output1 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{FlexCAN__T4___8h_a440a7ae381df47bd201536971bba0026}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ext\_output2@{ext\_output2}}
+\index{ext\_output2@{ext\_output2}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{ext\_output2()}{ext\_output2()}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a440a7ae381df47bd201536971bba0026} 
+void ext\+\_\+output2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{FlexCAN__T4___8h_a23b18f101cb3333c06fc68ac36f4ad9f}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ext\_output3@{ext\_output3}}
+\index{ext\_output3@{ext\_output3}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{ext\_output3()}{ext\_output3()}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_a23b18f101cb3333c06fc68ac36f4ad9f} 
+void ext\+\_\+output3 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{FlexCAN__T4___8h_ac162aec08f666e2c08b82819aaaf6d48}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ext\_outputFD1@{ext\_outputFD1}}
+\index{ext\_outputFD1@{ext\_outputFD1}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{ext\_outputFD1()}{ext\_outputFD1()}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ac162aec08f666e2c08b82819aaaf6d48} 
+void ext\+\_\+output\+FD1 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{FlexCAN__T4___8h_ae4449c456d2067818cf924b5d33adbbe}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ext\_outputFD2@{ext\_outputFD2}}
+\index{ext\_outputFD2@{ext\_outputFD2}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{ext\_outputFD2()}{ext\_outputFD2()}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ae4449c456d2067818cf924b5d33adbbe} 
+void ext\+\_\+output\+FD2 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{FlexCAN__T4___8h_ad7ae642723704150ac87c57cb2ae1414}\index{FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}!ext\_outputFD3@{ext\_outputFD3}}
+\index{ext\_outputFD3@{ext\_outputFD3}!FlexCAN\_T4\_.h@{FlexCAN\_T4\_.h}}
+\doxysubsubsection{\texorpdfstring{ext\_outputFD3()}{ext\_outputFD3()}}
+{\footnotesize\ttfamily \label{FlexCAN__T4___8h_ad7ae642723704150ac87c57cb2ae1414} 
+void ext\+\_\+output\+FD3 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structCANFD__message__t}{CANFD\+\_\+message\+\_\+t}} \&}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+

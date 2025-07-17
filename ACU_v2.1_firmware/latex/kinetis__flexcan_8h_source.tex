@@ -1,0 +1,1154 @@
+\doxysection{kinetis\+\_\+flexcan.\+h}
+\hypertarget{kinetis__flexcan_8h_source}{}\label{kinetis__flexcan_8h_source}\index{lib/FlexCAN\_T4/kinetis\_flexcan.h@{lib/FlexCAN\_T4/kinetis\_flexcan.h}}
+\mbox{\hyperlink{kinetis__flexcan_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ File:\ \ \ \ kinetis\_flexcan.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Purpose:\ Register\ and\ bit\ definitions}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ \_\_KINETIS\_FLEXCAN\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ \_\_KINETIS\_FLEXCAN\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{/*\ Common\ bit\ definition\ */}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ BIT0\ \ \ \ \ \ \ \ \ \ \ \ \ (1L)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ BIT1\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<1)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ BIT2\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<2)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ BIT3\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<3)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ BIT4\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<4)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ BIT5\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<5)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ BIT6\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<6)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ BIT7\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<7)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ BIT8\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<8)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ BIT9\ \ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<9)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ BIT10\ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<10)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ BIT11\ \ \ \ \ \ \ \ \ \ \ \ (BIT0<<11)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ BIT12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000L)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ BIT13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000L)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ BIT14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000L)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ BIT15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000L)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ BIT16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000L)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ BIT17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000L)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ BIT18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000L)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ BIT19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000L)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ BIT20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000L)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ BIT21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000L)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ BIT22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000L)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ BIT23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000L)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ BIT24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000L)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ BIT25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000L)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ BIT26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000L)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ BIT27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000L)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ BIT28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000L)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ BIT29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000L)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ BIT30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000L)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ BIT31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000L)}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{/*\ FlexCAN\ module\ I/O\ Base\ Addresss\ */}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_BASE\ \ \ \ \ \ \ \ \ \ \ (0x40024000L)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_BASE\ \ \ \ \ \ \ \ \ \ \ (0x400A4000L)}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{volatile}\ uint32\_t\ \mbox{\hyperlink{imxrt__flexcan_8h_aa6eb327e1a47e374f46253e6eed88bf5}{vuint32\_t}};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*********************************************************************}}
+\DoxyCodeLine{00053\ \textcolor{comment}{*}}
+\DoxyCodeLine{00054\ \textcolor{comment}{*\ FlexCAN0\ (FLEXCAN0)}}
+\DoxyCodeLine{00055\ \textcolor{comment}{*}}
+\DoxyCodeLine{00056\ \textcolor{comment}{*********************************************************************/}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*\ Register\ read/write\ macros\ */}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE))}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_CTRL1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+4))}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_TIMER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+8))}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_TCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x0C))}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RXMGMASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x10))}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RX14MASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x14))}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RX15MASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x18))}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_ECR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x1C))}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_ESR1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x20))}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_IMASK2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x24))}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_IMASK1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x28))}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_IFLAG2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x2C))}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_IFLAG1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x30))}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_CTRL2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x34))}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_ESR2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x38))}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_FUREQ\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x3C))}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_FUACK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x40))}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_CRCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x44))}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RXFGMASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x48))}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RXFIR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x4C))}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_DBG1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x58))}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_DBG2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x5C))}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_IMEUR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLEXCAN0\_FUREQ}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_LRFR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLEXCAN0\_FUACK}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ Message\ Buffers\ */}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MB0\_CS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x80))}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MB0\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x84))}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MB0\_WORD0\ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x88))}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MB0\_WORD1\ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x8C))}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MBn\_CS(n)\ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x80+n*0x10))}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MBn\_ID(n)\ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x84+n*0x10))}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MBn\_WORD0(n)\ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x88+n*0x10))}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MBn\_WORD1(n)\ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x8C+n*0x10))}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ Rx\ Individual\ Mask\ Registers\ */}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RXIMR0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x880))}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RXIMRn(n)\ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0x880+n*4))}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{/*\ Rx\ FIFO\ ID\ Filter\ Table\ Element\ 0\ to\ 127\ */}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_IDFLT\_TAB0\ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0xE0))}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_IDFLT\_TAB(n)\ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0xE0+(n*4)))}}
+\DoxyCodeLine{00104\ \textcolor{comment}{//\#define\ FLEXCAN0\_IDFLT\_TAB(n)\ \ \ \ \ (*(vuint32\_t*)(FLEXCAN0\_BASE+0xE0+(n<<2)))}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{/*\ Memory\ Error\ Control\ Register\ */}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_MECR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B70))}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{comment}{/*\ Error\ Injection\ Address\ Register\ */}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_ERRIAR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B74))}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{/*\ Error\ Injection\ Data\ Pattern\ Register\ */}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_ERRIDPR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B78))}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{/*\ Error\ Injection\ Parity\ Pattern\ Register\ */}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_ERRIPPR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B7C))}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ Error\ Report\ Address\ Register\ */}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RERRAR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B80))}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{/*\ Error\ Report\ Data\ Register\ */}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RERRDR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B84))}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{comment}{/*\ Error\ Report\ Syndrome\ Register\ */}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_RERRSYNR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B88))}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{/*\ Error\ Status\ Register\ */}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ FLEXCAN0\_ERRSR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN0\_BASE+0x3B8C))}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{/*********************************************************************}}
+\DoxyCodeLine{00132\ \textcolor{comment}{*}}
+\DoxyCodeLine{00133\ \textcolor{comment}{*\ FlexCAN1\ (FLEXCAN1)}}
+\DoxyCodeLine{00134\ \textcolor{comment}{*}}
+\DoxyCodeLine{00135\ \textcolor{comment}{*********************************************************************/}}
+\DoxyCodeLine{00136\ \textcolor{comment}{/*\ Register\ read/write\ macros\ */}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE))}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_CTRL1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+4))}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_TIMER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+8))}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_TCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x0C))}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RXMGMASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x10))}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RX14MASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x14))}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RX15MASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x18))}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_ECR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x1C))}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_ESR1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x20))}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_IMASK2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x24))}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_IMASK1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x28))}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_IFLAG2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x2C))}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_IFLAG1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x30))}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_CTRL2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x34))}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_ESR2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x38))}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_FUREQ\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x3C))}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_FUACK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x40))}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_CRCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x44))}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RXFGMASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x48))}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RXFIR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x4C))}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_DBG1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x58))}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_DBG2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x5C))}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_IMEUR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLEXCAN1\_FUREQ}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_LRFR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLEXCAN1\_FUACK}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{/*\ Message\ Buffers\ */}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MB0\_CS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x80))}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MB0\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x84))}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MB0\_WORD0\ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x88))}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MB0\_WORD1\ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x8C))}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MBn\_CS(n)\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x80+n*0x10))}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MBn\_ID(n)\ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x84+n*0x10))}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MBn\_WORD0(n)\ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x88+n*0x10))}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MBn\_WORD1(n)\ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x8C+n*0x10))}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{comment}{/*\ Rx\ Individual\ Mask\ Registers\ */}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RXIMR0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x880))}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RXIMRn(n)\ \ \ \ \ \ \ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0x880+n*4))}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{comment}{/*\ Rx\ FIFO\ ID\ Filter\ Table\ Element\ 0\ to\ 127\ */}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_IDFLT\_TAB0\ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0xE0))}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_IDFLT\_TAB(n)\ \ \ \ \ \ \ (*(vuint32\_t*)(FLEXCAN1\_BASE+0xE0+(n<<2)))}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{comment}{/*\ Memory\ Error\ Control\ Register\ */}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_MECR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x7B70))}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{comment}{/*\ Error\ Injection\ Address\ Register\ */}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_ERRIAR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x3B74))}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{comment}{/*\ Error\ Injection\ Data\ Pattern\ Register\ */}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_ERRIDPR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x3B78))}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{comment}{/*\ Error\ Injection\ Parity\ Pattern\ Register\ */}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_ERRIPPR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x3B7C))}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{/*\ Error\ Report\ Address\ Register\ */}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RERRAR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x3B80))}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{comment}{/*\ Error\ Report\ Data\ Register\ */}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RERRDR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x3B84))}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{comment}{/*\ Error\ Report\ Syndrome\ Register\ */}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_RERRSYNR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x3B88))}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{/*\ Error\ Status\ Register\ */}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ FLEXCAN1\_ERRSR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(vuint32\_t*)(FLEXCAN1\_BASE+0x3B8C))}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_MCR\ */}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_MAXMB(x)\ \ \ \ \ \ \ \ \ \ \ (((x)\&0x0000007F)<<0)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_IDAM(x)\ \ \ \ \ \ \ \ \ \ \ \ (((x)\&0x00000003)<<8)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_MAXMB\_MASK\ \ \ \ \ \ \ \ \ \ (0x0000007F)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_IDAM\_MASK\ \ \ \ \ \ \ \ \ \ \ (0x00000300)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_IDAM\_BIT\_NO\ \ \ \ \ \ \ \ (8)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_AEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_LPRIO\_EN\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_IRMQ\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_SRX\_DIS\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_DOZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_WAK\_SRC\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_LPM\_ACK\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_WRN\_EN\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_SLF\_WAK\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_SUPV\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_FRZ\_ACK\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_SOFT\_RST\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_WAK\_MSK\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_NOT\_RDY\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_HALT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_FEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_FRZ\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MCR\_MDIS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_CTRL\ */}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_PROPSEG(x)\ \ \ \ \ \ \ \ (((x)\&0x00000007L)<<0)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_LOM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_LBUF\ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_TSYNC\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_BOFF\_REC\ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_SMP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_RWRN\_MSK\ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_TWRN\_MSK\ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_LPB\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00001000L)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_CLK\_SRC\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_ERR\_MSK\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_BOFF\_MSK\ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_PSEG2(x)\ \ \ \ \ \ \ \ \ \ (((x)\&0x00000007L)<<16)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_PSEG1(x)\ \ \ \ \ \ \ \ \ \ (((x)\&0x00000007L)<<19)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_RJW(x)\ \ \ \ \ \ \ \ \ \ \ \ (((x)\&0x00000003L)<<22)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL\_PRESDIV(x)\ \ \ \ \ \ \ \ (((x)\&0x000000FFL)<<24)}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_CTRL2\ */}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_IMEUEN\ \ \ \ \ \ \ \ \ \ \ \ (BIT31)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_RFFN\ \ \ \ \ \ \ \ \ \ \ \ \ (0x0F000000L)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_RFFN\_BIT\_NO\ \ \ \ \ \ (24)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_TASD\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00F80000L)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_TASD\_BIT\_NO\ \ \ \ \ \ (19)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_MRP\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BIT18)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_RRS\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BIT17)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_EACEN\ \ \ \ \ \ \ \ \ \ \ \ (BIT16)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_MUMASK\ \ \ \ \ \ \ \ \ \ \ (BIT1)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_FUMASK\ \ \ \ \ \ \ \ \ \ \ (BIT0)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_LOSTRLMSK\ \ \ \ \ \ \ \ (BIT2)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_LOSTRMMSK\ \ \ \ \ \ \ \ (BIT1)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CTRL2\_IMEUMASK\ \ \ \ \ \ \ \ \ (BIT0)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ FLEXCAN\_set\_rffn(ctrl2,rffn)\ \ \ \ ctrl2\ =\ ((ctrl2)\ \&\ \string~FLEXCAN\_CTRL2\_RFFN)\ |\ ((rffn\ \&\ 0xF)<<FLEXCAN\_CTRL2\_RFFN\_BIT\_NO)}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_TIMER\ */}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ FLEXCAN\_TIMER\_TIMER(x)\ \ \ \ \ \ \ \ \ (((x)\&0x0000FFFF)<<0)}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_TCR\ */}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ FLEXCAN\_TCR\_DSCACK\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#define\ FLEXCAN\_TCR\_BIT\_CLS\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ FLEXCAN\_TCR\_TRD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXGMASK\ */}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI0\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI1\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI2\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI3\ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI4\ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI5\ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI6\ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI7\ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI8\ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI9\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI10\ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI11\ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI12\ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI13\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI14\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI15\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI16\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI17\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI18\ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI19\ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI20\ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI21\ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI22\ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI23\ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI24\ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI25\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI26\ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI27\ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI28\ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI29\ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI30\ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXGMASK\_MI31\ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RX14MASK\ */}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI0\ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI1\ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI2\ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI3\ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI4\ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI5\ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI6\ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI7\ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI8\ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI9\ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI10\ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI11\ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI12\ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI13\ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI14\ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI15\ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI16\ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI17\ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI18\ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI19\ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI20\ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI21\ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI22\ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI23\ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI24\ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI25\ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI26\ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI27\ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI28\ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI29\ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI30\ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX14MASK\_MI31\ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RX15MASK\ */}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI0\ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI1\ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI2\ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI3\ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI4\ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI5\ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI6\ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI7\ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI8\ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI9\ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI10\ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI11\ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI12\ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI13\ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI14\ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI15\ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI16\ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI17\ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI18\ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI19\ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI20\ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI21\ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI22\ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI23\ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI24\ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI25\ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI26\ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI27\ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI28\ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI29\ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI30\ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RX15MASK\_MI31\ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_ECR\ */}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ECR\_TX\_ERR\_COUNTER(x)\ \ (((x)\&0x000000FF)<<0)}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ECR\_RX\_ERR\_COUNTER(x)\ \ (((x)\&0x000000FF)<<8)}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_ESR1\ */}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_WAK\_INT\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_ERR\_INT\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_BOFF\_INT\ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_RX\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_FLT\_CONF(x)\ \ \ \ \ \ \ \ (((x)\&0x00000003)<<4)}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_FLT\_CONF\_MASK\ \ \ \ \ \ \ (0x00000030)}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_TX\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_IDLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_RX\_WRN\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_TX\_WRN\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_STF\_ERR\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_FRM\_ERR\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_CRC\_ERR\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_ACK\_ERR\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_BIT0\_ERR\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_BIT1\_ERR\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_RWRN\_INT\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_TWRN\_INT\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR\_get\_fault\_code(esr)\ (((esr)\ \&\ FLEXCAN\_ESR\_FLT\_CONF\_MASK)>>4)}}
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#define\ CAN\_ERROR\_ACTIVE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#define\ CAN\_ERROR\_PASSIVE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#define\ CAN\_ERROR\_BUS\_OFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \textcolor{comment}{/*\ Bit\ definition\ for\ FLEXCAN\_ESR2\ */}}
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR2\_IMB\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR2\_VPS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR2\_LTM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x007F0000L)}}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR2\_LTM\_BIT\_NO\ \ \ \ \ \ \ \ \ (16)}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR2\_LOSTRLF\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR2\_LOSTRMF\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ESR2\_IMEUF\ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\#define\ FLEXCAN\_get\_LTM(esr2\_value)\ (((esr2\_value)\ \&\ (FLEXCAN\_ESR2\_LTM))>>(FLEXCAN\_ESR2\_LTM\_BIT\_NO))}}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_IMASK1\ */}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF0M\ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF1M\ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF2M\ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF3M\ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF4M\ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF5M\ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF6M\ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF7M\ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF8M\ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF9M\ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF10M\ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF11M\ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF12M\ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF13M\ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF14M\ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF15M\ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF16M\ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF17M\ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF18M\ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF19M\ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF20M\ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF21M\ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF22M\ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF23M\ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF24M\ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF25M\ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF26M\ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF27M\ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF28M\ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF29M\ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF30M\ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMASK1\_BUF31M\ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_IFLAG1\ */}}
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF0I\ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF1I\ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF2I\ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF3I\ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF4I\ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF5I\ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF6I\ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF7I\ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF8I\ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF9I\ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF10I\ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF11I\ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF12I\ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF13I\ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF14I\ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF15I\ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF16I\ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF17I\ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF18I\ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF19I\ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF20I\ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF21I\ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF22I\ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF23I\ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF24I\ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF25I\ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00476\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF26I\ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00477\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF27I\ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF28I\ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF29I\ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00480\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF30I\ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IFLAG1\_BUF31I\ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_MB\_CS\ */}}
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_TIMESTAMP(x)\ \ \ \ (((x)\&0x0000FFFF)<<0)}}
+\DoxyCodeLine{00485\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_TIMESTAMP\_MASK\ \ (0x0000FFFFL)}}
+\DoxyCodeLine{00486\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_LENGTH(x)\ \ \ \ \ \ \ (((x)\&0x0000000F)<<16)}}
+\DoxyCodeLine{00487\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_RTR\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00488\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_IDE\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_SRR\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00490\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_CODE(x)\ \ \ \ \ \ \ \ \ (((x)\&0x0000000F)<<24)}}
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_CODE\_MASK\ \ \ \ \ (0x0F000000L)}}
+\DoxyCodeLine{00492\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_DLC\_MASK\ \ \ \ \ \ \ \ \ \ (0x000F0000L)}}
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_RX\_INACTIVE\ (0)}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_RX\_EMPTY\ \ \ \ \ \ \ \ (4)}}
+\DoxyCodeLine{00495\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_RX\_FULL\ \ \ \ \ (2)}}
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_RX\_OVERRUN\ \ \ \ \ \ (6)}}
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_RX\_BUSY\ \ \ \ \ (1)}}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_IDE\_BIT\_NO\ \ \ \ \ \ \ \ (21)}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_RTR\_BIT\_NO\ \ \ \ \ \ \ \ (20)}}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CS\_DLC\_BIT\_NO\ \ \ \ \ \ \ \ (16)}}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_TX\_INACTIVE\ (8)}}
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_TX\_ABORT\ \ \ \ \ \ \ \ (9)}}
+\DoxyCodeLine{00505\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_TX\_ONCE\ \ \ \ \ \ \ \ \ (0x0C)}}
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_TX\_RESPONSE\ \ \ \ \ (0x0A)}}
+\DoxyCodeLine{00507\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_CODE\_TX\_RESPONSE\_TEMPO\ \ \ (0x0E)}}
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\#define\ FLEXCAN\_get\_code(cs)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((cs)\ \&\ FLEXCAN\_MB\_CS\_CODE\_MASK)>>24)}}
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\#define\ FLEXCAN\_get\_length(cs)\ \ \ \ \ \ \ \ \ \ \ \ \ (((cs)\ \&\ FLEXCAN\_MB\_CS\_DLC\_MASK)>>16)}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#define\ FLEXCAN\_get\_timestamp(cs)\ \ \ \ \ \ \ \ \ \ \ \ \ (((cs)\ \&\ FLEXCAN\_MB\_CS\_TIMESTAMP\_MASK)>>0)}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_MB\_ID\ */}}
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_STD\_MASK\ \ \ \ \ \ \ \ \ (0x1FFC0000UL)}}
+\DoxyCodeLine{00514\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_EXT\_MASK\ \ \ \ \ \ \ \ \ (0x1FFFFFFFUL)}}
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_IDEXT(x)\ \ \ \ \ \ \ \ (((x)\&0x0003FFFF)<<0)}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_IDSTD(x)\ \ \ \ \ \ \ \ (((x)\&0x000007FF)<<18)}}
+\DoxyCodeLine{00517\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_PRIO(x)\ \ \ \ \ \ \ \ \ (((x)\&0x00000007)<<29)}}
+\DoxyCodeLine{00518\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_PRIO\_BIT\_NO\ \ \ (29)}}
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_STD\_BIT\_NO\ \ \ \ (18)}}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_ID\_EXT\_BIT\_NO\ \ \ \ (0)}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_MB\_WORD0\ */}}
+\DoxyCodeLine{00524\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD0\_DATA3(x)\ \ \ \ \ (((x)\&0x000000FF)<<0)}}
+\DoxyCodeLine{00525\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD0\_DATA2(x)\ \ \ \ \ (((x)\&0x000000FF)<<8)}}
+\DoxyCodeLine{00526\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD0\_DATA1(x)\ \ \ \ \ (((x)\&0x000000FF)<<16)}}
+\DoxyCodeLine{00527\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD0\_DATA0(x)\ \ \ \ \ (((x)\&0x000000FF)<<24)}}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_MB\_WORD1\ */}}
+\DoxyCodeLine{00530\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD1\_DATA7(x)\ \ \ \ \ (((x)\&0x000000FF)<<0)}}
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD1\_DATA6(x)\ \ \ \ \ (((x)\&0x000000FF)<<8)}}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD1\_DATA5(x)\ \ \ \ \ (((x)\&0x000000FF)<<16)}}
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MB\_WORD1\_DATA4(x)\ \ \ \ \ (((x)\&0x000000FF)<<24)}}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR0\ */}}
+\DoxyCodeLine{00536\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00537\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00538\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00539\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00540\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00544\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00546\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00547\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00548\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00549\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00550\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00551\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00552\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00554\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00555\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00557\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00558\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00559\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00560\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00563\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR0\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR1\ */}}
+\DoxyCodeLine{00570\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00571\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00572\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00573\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00575\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00576\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00577\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00578\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00579\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00580\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00581\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00582\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00583\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00584\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00585\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00586\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00587\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00588\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00589\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00590\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00594\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00595\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00596\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00597\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00598\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00599\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00600\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00601\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR1\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00603\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR2\ */}}
+\DoxyCodeLine{00604\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00605\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00606\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00607\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00608\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00609\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00610\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00611\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00612\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00613\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00614\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00615\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00616\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00617\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00618\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00619\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00620\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00621\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00622\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00623\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00624\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00625\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00626\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00627\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00628\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00629\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00630\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00631\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00632\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00633\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00634\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00635\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR2\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR3\ */}}
+\DoxyCodeLine{00638\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00639\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00640\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00641\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00642\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00643\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00644\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00645\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00646\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00647\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00648\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00649\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00650\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00651\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00652\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00653\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00654\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00655\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00656\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00657\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00658\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00659\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00660\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00661\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00663\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00664\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00667\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00668\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR3\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR4\ */}}
+\DoxyCodeLine{00672\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00673\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00674\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00675\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00676\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00678\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00679\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00680\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00681\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00682\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00683\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00684\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00685\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00686\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00687\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00688\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00689\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00690\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00692\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00693\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00694\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00695\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00697\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00698\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00699\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00700\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00701\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00702\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00703\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR4\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00705\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR5\ */}}
+\DoxyCodeLine{00706\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00707\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00708\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00709\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00710\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00711\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00712\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00713\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00714\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00715\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00716\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00717\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00718\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00719\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00720\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00721\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00722\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00723\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00724\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00725\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00726\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00727\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00728\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00729\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00730\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00731\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00732\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00733\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00734\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00735\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00736\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00737\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR5\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR6\ */}}
+\DoxyCodeLine{00740\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00741\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00742\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00743\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00744\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00745\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00746\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00747\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00748\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00749\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00750\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00751\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00752\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00754\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00755\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00756\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00757\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00758\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00759\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00761\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00762\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00763\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00764\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00765\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00766\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00767\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00768\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00769\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00770\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR6\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR7\ */}}
+\DoxyCodeLine{00774\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00775\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00776\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00777\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00778\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00779\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00780\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00781\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00782\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00783\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00784\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00785\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00786\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00787\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00788\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00789\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00790\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00791\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00792\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00793\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00794\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00795\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00796\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00797\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00798\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00799\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00800\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00801\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00802\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00803\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00804\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00805\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR7\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR8\ */}}
+\DoxyCodeLine{00808\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00809\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00810\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00811\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00812\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00813\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00814\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00815\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00816\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00817\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00818\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00819\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00820\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00821\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00822\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00823\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00824\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00825\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00826\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00827\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00828\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00829\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00830\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00831\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00832\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00833\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00834\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00835\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00836\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00837\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00838\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00839\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR8\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00840\ }
+\DoxyCodeLine{00841\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR9\ */}}
+\DoxyCodeLine{00842\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI0\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00843\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI1\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00844\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI2\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00845\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI3\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00846\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI4\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00847\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI5\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00848\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI6\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00849\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI7\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00850\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI8\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00851\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI9\ \ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00852\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI10\ \ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00853\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI11\ \ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00854\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI12\ \ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00855\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI13\ \ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00856\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI14\ \ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00857\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI15\ \ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00858\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI16\ \ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00859\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI17\ \ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00860\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI18\ \ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00861\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI19\ \ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00862\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI20\ \ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00863\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI21\ \ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00864\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI22\ \ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00865\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI23\ \ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00866\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI24\ \ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00867\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI25\ \ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00868\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI26\ \ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00869\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI27\ \ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00870\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI28\ \ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00871\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI29\ \ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00872\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI30\ \ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00873\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR9\_MI31\ \ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00874\ }
+\DoxyCodeLine{00875\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR10\ */}}
+\DoxyCodeLine{00876\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI0\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00877\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI1\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00878\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI2\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00879\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI3\ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00880\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI4\ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00881\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI5\ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00882\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI6\ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00883\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI7\ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00884\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI8\ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00885\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI9\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00886\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI10\ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00887\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI11\ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00888\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI12\ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00889\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI13\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00890\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI14\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00891\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI15\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00892\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI16\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00893\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI17\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00894\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI18\ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00895\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI19\ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00896\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI20\ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00897\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI21\ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00898\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI22\ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00899\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI23\ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00900\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI24\ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00901\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI25\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00902\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI26\ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00903\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI27\ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00904\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI28\ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00905\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI29\ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00906\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI30\ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00907\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR10\_MI31\ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00909\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR11\ */}}
+\DoxyCodeLine{00910\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI0\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00911\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI1\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00912\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI2\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00913\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI3\ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00914\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI4\ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00915\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI5\ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00916\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI6\ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00917\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI7\ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00918\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI8\ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00919\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI9\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00920\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI10\ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00921\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI11\ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00922\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI12\ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00923\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI13\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00924\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI14\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00925\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI15\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00926\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI16\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00927\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI17\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00928\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI18\ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00929\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI19\ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00930\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI20\ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00931\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI21\ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00932\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI22\ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00933\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI23\ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00934\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI24\ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00935\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI25\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00936\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI26\ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00937\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI27\ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00938\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI28\ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00939\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI29\ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00940\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI30\ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00941\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR11\_MI31\ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00942\ }
+\DoxyCodeLine{00943\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR12\ */}}
+\DoxyCodeLine{00944\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI0\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00945\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI1\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00946\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI2\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00947\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI3\ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00948\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI4\ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00949\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI5\ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00950\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI6\ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00951\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI7\ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00952\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI8\ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00953\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI9\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00954\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI10\ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00955\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI11\ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00956\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI12\ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00957\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI13\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00958\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI14\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00959\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI15\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00960\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI16\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00961\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI17\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00962\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI18\ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00963\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI19\ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00964\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI20\ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00965\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI21\ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{00966\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI22\ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{00967\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI23\ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{00968\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI24\ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{00969\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI25\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{00970\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI26\ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{00971\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI27\ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{00972\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI28\ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{00973\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI29\ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{00974\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI30\ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{00975\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR12\_MI31\ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00977\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR13\ */}}
+\DoxyCodeLine{00978\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI0\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{00979\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI1\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{00980\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI2\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{00981\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI3\ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{00982\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI4\ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{00983\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI5\ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{00984\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI6\ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{00985\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI7\ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{00986\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI8\ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{00987\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI9\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{00988\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI10\ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{00989\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI11\ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{00990\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI12\ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{00991\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI13\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{00992\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI14\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{00993\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI15\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{00994\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI16\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{00995\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI17\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{00996\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI18\ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{00997\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI19\ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{00998\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI20\ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{00999\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI21\ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{01000\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI22\ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{01001\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI23\ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{01002\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI24\ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{01003\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI25\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{01004\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI26\ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{01005\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI27\ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{01006\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI28\ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{01007\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI29\ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{01008\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI30\ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{01009\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR13\_MI31\ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{01010\ }
+\DoxyCodeLine{01011\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR14\ */}}
+\DoxyCodeLine{01012\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI0\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{01013\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI1\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{01014\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI2\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{01015\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI3\ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{01016\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI4\ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{01017\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI5\ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{01018\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI6\ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{01019\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI7\ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{01020\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI8\ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{01021\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI9\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{01022\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI10\ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{01023\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI11\ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{01024\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI12\ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{01025\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI13\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{01026\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI14\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{01027\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI15\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{01028\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI16\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{01029\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI17\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{01030\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI18\ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{01031\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI19\ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{01032\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI20\ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{01033\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI21\ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{01034\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI22\ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{01035\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI23\ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{01036\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI24\ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{01037\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI25\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{01038\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI26\ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{01039\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI27\ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{01040\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI28\ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{01041\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI29\ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{01042\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI30\ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{01043\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR14\_MI31\ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{01044\ }
+\DoxyCodeLine{01045\ \textcolor{comment}{/*\ Bit\ definitions\ and\ macros\ for\ FLEXCAN\_RXIMR15\ */}}
+\DoxyCodeLine{01046\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI0\ \ \ \ \ \ \ \ \ \ \ \ (0x00000001)}}
+\DoxyCodeLine{01047\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI1\ \ \ \ \ \ \ \ \ \ \ \ (0x00000002)}}
+\DoxyCodeLine{01048\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI2\ \ \ \ \ \ \ \ \ \ \ \ (0x00000004)}}
+\DoxyCodeLine{01049\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI3\ \ \ \ \ \ \ \ \ \ \ \ (0x00000008)}}
+\DoxyCodeLine{01050\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI4\ \ \ \ \ \ \ \ \ \ \ \ (0x00000010)}}
+\DoxyCodeLine{01051\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI5\ \ \ \ \ \ \ \ \ \ \ \ (0x00000020)}}
+\DoxyCodeLine{01052\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI6\ \ \ \ \ \ \ \ \ \ \ \ (0x00000040)}}
+\DoxyCodeLine{01053\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI7\ \ \ \ \ \ \ \ \ \ \ \ (0x00000080)}}
+\DoxyCodeLine{01054\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI8\ \ \ \ \ \ \ \ \ \ \ \ (0x00000100)}}
+\DoxyCodeLine{01055\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI9\ \ \ \ \ \ \ \ \ \ \ \ (0x00000200)}}
+\DoxyCodeLine{01056\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI10\ \ \ \ \ \ \ \ \ \ \ (0x00000400)}}
+\DoxyCodeLine{01057\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI11\ \ \ \ \ \ \ \ \ \ \ (0x00000800)}}
+\DoxyCodeLine{01058\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI12\ \ \ \ \ \ \ \ \ \ \ (0x00001000)}}
+\DoxyCodeLine{01059\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI13\ \ \ \ \ \ \ \ \ \ \ (0x00002000)}}
+\DoxyCodeLine{01060\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI14\ \ \ \ \ \ \ \ \ \ \ (0x00004000)}}
+\DoxyCodeLine{01061\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI15\ \ \ \ \ \ \ \ \ \ \ (0x00008000)}}
+\DoxyCodeLine{01062\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI16\ \ \ \ \ \ \ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{01063\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI17\ \ \ \ \ \ \ \ \ \ \ (0x00020000)}}
+\DoxyCodeLine{01064\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI18\ \ \ \ \ \ \ \ \ \ \ (0x00040000)}}
+\DoxyCodeLine{01065\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI19\ \ \ \ \ \ \ \ \ \ \ (0x00080000)}}
+\DoxyCodeLine{01066\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI20\ \ \ \ \ \ \ \ \ \ \ (0x00100000)}}
+\DoxyCodeLine{01067\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI21\ \ \ \ \ \ \ \ \ \ \ (0x00200000)}}
+\DoxyCodeLine{01068\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI22\ \ \ \ \ \ \ \ \ \ \ (0x00400000)}}
+\DoxyCodeLine{01069\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI23\ \ \ \ \ \ \ \ \ \ \ (0x00800000)}}
+\DoxyCodeLine{01070\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI24\ \ \ \ \ \ \ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{01071\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI25\ \ \ \ \ \ \ \ \ \ \ (0x02000000)}}
+\DoxyCodeLine{01072\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI26\ \ \ \ \ \ \ \ \ \ \ (0x04000000)}}
+\DoxyCodeLine{01073\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI27\ \ \ \ \ \ \ \ \ \ \ (0x08000000)}}
+\DoxyCodeLine{01074\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI28\ \ \ \ \ \ \ \ \ \ \ (0x10000000)}}
+\DoxyCodeLine{01075\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI29\ \ \ \ \ \ \ \ \ \ \ (0x20000000)}}
+\DoxyCodeLine{01076\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI30\ \ \ \ \ \ \ \ \ \ \ (0x40000000)}}
+\DoxyCodeLine{01077\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RXIMR15\_MI31\ \ \ \ \ \ \ \ \ \ \ (0x80000000)}}
+\DoxyCodeLine{01078\ }
+\DoxyCodeLine{01079\ \textcolor{comment}{/*\ Bit\ definitions\ for\ CRC\ register\ */}}
+\DoxyCodeLine{01080\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CRCR\_MBCRC\_BIT\_NO\ \ \ \ \ \ \ (16)}}
+\DoxyCodeLine{01081\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CRCR\_MBCRC\_MASK\ \ \ \ \ \ \ \ \ (0x007F0000)}}
+\DoxyCodeLine{01082\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CRCR\_CRC\_BIT\_NO\ \ \ \ \ \ \ \ \ (0)}}
+\DoxyCodeLine{01083\ \textcolor{preprocessor}{\#define\ FLEXCAN\_CRCR\_CRC\_MASK\ \ \ \ \ \ \ \ \ \ \ (0x00007FFF)}}
+\DoxyCodeLine{01084\ }
+\DoxyCodeLine{01085\ \textcolor{comment}{/*\ Bit\ definition\ for\ Individual\ Matching\ Elements\ Update\ Register\ (IMEUR)\ */}}
+\DoxyCodeLine{01086\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMEUR\_IMEUP\_MASK\ \ \ \ (0x0000007F)}}
+\DoxyCodeLine{01087\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMEUR\_IMEUP\_BIT\_NO\ \ (0)}}
+\DoxyCodeLine{01088\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMEUR\_IMEUREQ\_MASK\ \ (0x00000100)}}
+\DoxyCodeLine{01089\ \textcolor{preprocessor}{\#define\ FLEXCAN\_IMEUR\_IMEUACK\_MASK\ \ (0x00000200)}}
+\DoxyCodeLine{01090\ \textcolor{preprocessor}{\#define\ FLEXCAN\_Set\_IMEUP(imeur,imeup)\ \ imeur\ =\ (imeur\ \&\ \string~(FLEXCAN\_IMEUR\_IMEUP\_MASK))\ |\ (imeup\ \&\ FLEXCAN\_IMEUR\_IMEUP\_MASK)}}
+\DoxyCodeLine{01091\ \textcolor{preprocessor}{\#define\ FLEXCAN\_Get\_IMEUP(imeur)\ \ \ \ (imeur\ \&\ FLEXCAN\_IMEUR\_IMEUP\_MASK)}}
+\DoxyCodeLine{01092\ }
+\DoxyCodeLine{01093\ \textcolor{comment}{/*\ Bit\ definition\ for\ Lost\ Rx\ Frames\ Register\ (LRFR)}}
+\DoxyCodeLine{01094\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{01095\ \textcolor{preprocessor}{\#define\ FLEXCAN\_LRFR\_LOSTRLP\_MASK\ \ \ (0x007F0000)}}
+\DoxyCodeLine{01096\ \textcolor{preprocessor}{\#define\ FLEXCAN\_LRFR\_LFIFOMTC\_MASK\ \ (0x00008000)}}
+\DoxyCodeLine{01097\ \textcolor{preprocessor}{\#define\ FLEXCAN\_LRFR\_LOSTRMP\_MASK\ \ \ (0x000001FF)}}
+\DoxyCodeLine{01098\ \textcolor{preprocessor}{\#define\ FLEXCAN\_LRFR\_LOSTRLP\_BIT\_NO\ (16)}}
+\DoxyCodeLine{01099\ \textcolor{preprocessor}{\#define\ FLEXCAN\_LRFR\_LFIFOMTC\_BIT\_NO\ \ \ \ (15)}}
+\DoxyCodeLine{01100\ \textcolor{preprocessor}{\#define\ FLEXCAN\_LRFR\_LOSTRMP\_BIT\_NO\ \ \ \ \ (0)}}
+\DoxyCodeLine{01101\ \textcolor{preprocessor}{\#define\ FLEXCAN\_Get\_LostMBLocked(lrfr)\ \ ((lrfr\ \&\ FLEXCAN\_LRFR\_LOSTRLP\_MASK)>>(FLEXCAN\_LRFR\_LOSTRLP\_BIT\_NO))}}
+\DoxyCodeLine{01102\ \textcolor{preprocessor}{\#define\ FLEXCAN\_Get\_LostMBUpdated(lrfr)\ ((lrfr\ \&\ FLEXCAN\_LRFR\_LOSTRMP\_MASK))}}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01104\ \textcolor{comment}{/*\ Bit\ definition\ for\ Memory\ Error\ Control\ Register\ */}}
+\DoxyCodeLine{01105\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_NCEFAFRZ\_MASK\ \ (0x00000080)}}
+\DoxyCodeLine{01106\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_RERRDIS\_MASK\ \ \ (0x00000100)}}
+\DoxyCodeLine{01107\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_EXTERRIE\_MAKS\ \ (0x00002000)}}
+\DoxyCodeLine{01108\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_FAERRIE\_MAKS\ \ \ (0x00004000)}}
+\DoxyCodeLine{01109\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_HAERRIE\_MAKS\ \ \ (0x00008000)}}
+\DoxyCodeLine{01110\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_CEI\_MSK\_MAKS\ \ \ (0x00010000)}}
+\DoxyCodeLine{01111\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_FANCEI\_MSK\_MAKS\ \ \ \ (0x00040000)}}
+\DoxyCodeLine{01112\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_HANCEI\_MSK\_MAKS\ \ \ \ (0x00080000)}}
+\DoxyCodeLine{01113\ \textcolor{preprocessor}{\#define\ FLEXCAN\_MECR\_ECRWRDIS\_MSK\_MAKS\ \ (0x80000000)}}
+\DoxyCodeLine{01114\ }
+\DoxyCodeLine{01115\ \textcolor{comment}{/*\ Bit\ definition\ for\ Error\ Report\ Address\ Register\ (RERRAR)\ */}}
+\DoxyCodeLine{01116\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRAR\_NCE\_MASK\ \ \ \ \ (0x01000000)}}
+\DoxyCodeLine{01117\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRAR\_SAID\_MASK\ \ \ \ (0x00070000)}}
+\DoxyCodeLine{01118\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ERRADDR\_MASK\ \ \ \ \ \ \ \ (0x00003FFF)}}
+\DoxyCodeLine{01119\ }
+\DoxyCodeLine{01120\ \textcolor{comment}{/*\ Bit\ definition\ for\ Error\ Report\ Syndrome\ Register\ (RERRSYNR)\ */}}
+\DoxyCodeLine{01121\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_BE3\_MASK\ \ \ (0x80000000)}}
+\DoxyCodeLine{01122\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND3\_MASK\ (0x1F000000)}}
+\DoxyCodeLine{01123\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND3\_BIT\_NO\ \ \ (24)}}
+\DoxyCodeLine{01124\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_BE2\_MASK\ \ \ (0x00800000)}}
+\DoxyCodeLine{01125\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND2\_MASK\ (0x001F0000)}}
+\DoxyCodeLine{01126\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND2\_BIT\_NO\ \ \ (16)}}
+\DoxyCodeLine{01127\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_BE1\_MASK\ \ \ (0x00008000)}}
+\DoxyCodeLine{01128\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND1\_MASK\ (0x00001F00)}}
+\DoxyCodeLine{01129\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND1\_BIT\_NO\ \ \ (8)}}
+\DoxyCodeLine{01130\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_BE0\_MASK\ \ \ (0x00000080)}}
+\DoxyCodeLine{01131\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND0\_MASK\ (0x0000001F)}}
+\DoxyCodeLine{01132\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_SYND0\_BIT\_NO\ \ \ (0)}}
+\DoxyCodeLine{01133\ }
+\DoxyCodeLine{01134\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_check\_BEn\_Bit(errsynr,n)\ (errsynr\ \&\ FLEXCAN\_RERRSYNR\_BE\#\#n\#\#\_MASK)}}
+\DoxyCodeLine{01135\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_get\_SYNDn(errsynr,n)\ (errsynr\ \&\ FLEXCAN\_RERRSYNR\_SYND\#\#n\#\#\_MASK)}}
+\DoxyCodeLine{01136\ \textcolor{preprocessor}{\#define\ FLEXCAN\_RERRSYNR\_check\_SYNDn\_Bit(errsynr,n)\ ((errsynr\ \&\ FLEXCAN\_RERRSYNR\_SYND\#\#n\#\#\_MASK)>>FLEXCAN\_RERRSYNR\_SYND\#\#n\#\#\_BIT\_NO)}}
+\DoxyCodeLine{01137\ }
+\DoxyCodeLine{01138\ \textcolor{comment}{/*\ Bit\ definition\ for\ Error\ Status\ Register\ (ERRSR)\ */}}
+\DoxyCodeLine{01139\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ERRSR\_CEIOF\_MASK\ \ \ \ (0x00000001)}}
+\DoxyCodeLine{01140\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ERRSR\_FANCEIOF\_MASK\ (0x00000004)}}
+\DoxyCodeLine{01141\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ERRSR\_HANCEIOF\_MASK\ (0x00000008)}}
+\DoxyCodeLine{01142\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ERRSR\_CEIF\_MASK\ \ \ \ \ (0x00010000)}}
+\DoxyCodeLine{01143\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ERRSR\_FANCEIF\_MASK\ \ (0x00040000)}}
+\DoxyCodeLine{01144\ \textcolor{preprocessor}{\#define\ FLEXCAN\_ERRSR\_HANCEIF\_MASK\ \ (0x00080000)}}
+\DoxyCodeLine{01145\ }
+\DoxyCodeLine{01146\ }
+\DoxyCodeLine{01147\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{01148\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_KINETIS\_FLEXCAN\_H}}
+
+\end{DoxyCode}

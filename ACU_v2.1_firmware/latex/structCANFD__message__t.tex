@@ -1,0 +1,140 @@
+\doxysection{CANFD\+\_\+message\+\_\+t Struct Reference}
+\hypertarget{structCANFD__message__t}{}\label{structCANFD__message__t}\index{CANFD\_message\_t@{CANFD\_message\_t}}
+
+
+{\ttfamily \#include $<$Flex\+CAN\+\_\+\+T4\+\_\+.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structCANFD__message__t_a3d995a1209bae37f78e79654e9346f2b}{id}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{structCANFD__message__t_a64897e9c1769e535e2c63ee161bc82ff}{timestamp}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structCANFD__message__t_ad784db14183b16d01b1137aa798bf6b1}{idhit}} = 0
+\item 
+bool \mbox{\hyperlink{structCANFD__message__t_aeae2cf923e5deb3830fe3f635b8aeb1e}{brs}} = 1
+\item 
+bool \mbox{\hyperlink{structCANFD__message__t_a5cbdd5e970376fb1df09b8766cca0998}{esi}} = 0
+\item 
+bool \mbox{\hyperlink{structCANFD__message__t_a431c62dbc1851f7ff0e1de98ae8a65f4}{edl}} = 1
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>bool \mbox{\hyperlink{structCANFD__message__t_a495d4ef647f972c7be15d666a4d56f99}{extended}} = 0\\
+\>bool \mbox{\hyperlink{structCANFD__message__t_a38163f20d303edd2ce1aa1d02d72969d}{overrun}} = 0\\
+\>bool \mbox{\hyperlink{structCANFD__message__t_a09463c4a24791a4f74bfaba77c6396c1}{reserved}} = 0\\
+\} \mbox{\hyperlink{structCANFD__message__t_ab7861e2f0699e0bffc4edff360a1b15e}{flags}}\\
+
+\end{tabbing}\item 
+uint8\+\_\+t \mbox{\hyperlink{structCANFD__message__t_a5cf0c34dacf02165cece3043ae73179b}{len}} = 8
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structCANFD__message__t_acc9796148618b8142e29a96ebc55e807}{buf}} \mbox{[}64\mbox{]} = \{ 0 \}
+\item 
+int8\+\_\+t \mbox{\hyperlink{structCANFD__message__t_a4ea4747f7f46f4cad33e9064c1a9e81e}{mb}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structCANFD__message__t_a26913a3888b4e3d8b22ed60f5cc0e5fd}{bus}} = 0
+\item 
+bool \mbox{\hyperlink{structCANFD__message__t_a3c9160fc2e55c7e0baa72e823782a9f9}{seq}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{structCANFD__message__t_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structCANFD__message__t_aeae2cf923e5deb3830fe3f635b8aeb1e}\index{CANFD\_message\_t@{CANFD\_message\_t}!brs@{brs}}
+\index{brs@{brs}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{brs}{brs}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_aeae2cf923e5deb3830fe3f635b8aeb1e} 
+bool CANFD\+\_\+message\+\_\+t\+::brs = 1}
+
+\Hypertarget{structCANFD__message__t_acc9796148618b8142e29a96ebc55e807}\index{CANFD\_message\_t@{CANFD\_message\_t}!buf@{buf}}
+\index{buf@{buf}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_acc9796148618b8142e29a96ebc55e807} 
+uint8\+\_\+t CANFD\+\_\+message\+\_\+t\+::buf\mbox{[}64\mbox{]} = \{ 0 \}}
+
+\Hypertarget{structCANFD__message__t_a26913a3888b4e3d8b22ed60f5cc0e5fd}\index{CANFD\_message\_t@{CANFD\_message\_t}!bus@{bus}}
+\index{bus@{bus}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{bus}{bus}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a26913a3888b4e3d8b22ed60f5cc0e5fd} 
+uint8\+\_\+t CANFD\+\_\+message\+\_\+t\+::bus = 0}
+
+\Hypertarget{structCANFD__message__t_a431c62dbc1851f7ff0e1de98ae8a65f4}\index{CANFD\_message\_t@{CANFD\_message\_t}!edl@{edl}}
+\index{edl@{edl}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{edl}{edl}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a431c62dbc1851f7ff0e1de98ae8a65f4} 
+bool CANFD\+\_\+message\+\_\+t\+::edl = 1}
+
+\Hypertarget{structCANFD__message__t_a5cbdd5e970376fb1df09b8766cca0998}\index{CANFD\_message\_t@{CANFD\_message\_t}!esi@{esi}}
+\index{esi@{esi}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{esi}{esi}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a5cbdd5e970376fb1df09b8766cca0998} 
+bool CANFD\+\_\+message\+\_\+t\+::esi = 0}
+
+\Hypertarget{structCANFD__message__t_a495d4ef647f972c7be15d666a4d56f99}\index{CANFD\_message\_t@{CANFD\_message\_t}!extended@{extended}}
+\index{extended@{extended}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{extended}{extended}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a495d4ef647f972c7be15d666a4d56f99} 
+bool CANFD\+\_\+message\+\_\+t\+::extended = 0}
+
+\Hypertarget{structCANFD__message__t_ab7861e2f0699e0bffc4edff360a1b15e}\index{CANFD\_message\_t@{CANFD\_message\_t}!flags@{flags}}
+\index{flags@{flags}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_ab7861e2f0699e0bffc4edff360a1b15e} 
+struct  \{ ... \}  CANFD\+\_\+message\+\_\+t\+::flags}
+
+\Hypertarget{structCANFD__message__t_a3d995a1209bae37f78e79654e9346f2b}\index{CANFD\_message\_t@{CANFD\_message\_t}!id@{id}}
+\index{id@{id}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a3d995a1209bae37f78e79654e9346f2b} 
+uint32\+\_\+t CANFD\+\_\+message\+\_\+t\+::id = 0}
+
+\Hypertarget{structCANFD__message__t_ad784db14183b16d01b1137aa798bf6b1}\index{CANFD\_message\_t@{CANFD\_message\_t}!idhit@{idhit}}
+\index{idhit@{idhit}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{idhit}{idhit}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_ad784db14183b16d01b1137aa798bf6b1} 
+uint8\+\_\+t CANFD\+\_\+message\+\_\+t\+::idhit = 0}
+
+\Hypertarget{structCANFD__message__t_a5cf0c34dacf02165cece3043ae73179b}\index{CANFD\_message\_t@{CANFD\_message\_t}!len@{len}}
+\index{len@{len}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a5cf0c34dacf02165cece3043ae73179b} 
+uint8\+\_\+t CANFD\+\_\+message\+\_\+t\+::len = 8}
+
+\Hypertarget{structCANFD__message__t_a4ea4747f7f46f4cad33e9064c1a9e81e}\index{CANFD\_message\_t@{CANFD\_message\_t}!mb@{mb}}
+\index{mb@{mb}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{mb}{mb}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a4ea4747f7f46f4cad33e9064c1a9e81e} 
+int8\+\_\+t CANFD\+\_\+message\+\_\+t\+::mb = 0}
+
+\Hypertarget{structCANFD__message__t_a38163f20d303edd2ce1aa1d02d72969d}\index{CANFD\_message\_t@{CANFD\_message\_t}!overrun@{overrun}}
+\index{overrun@{overrun}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{overrun}{overrun}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a38163f20d303edd2ce1aa1d02d72969d} 
+bool CANFD\+\_\+message\+\_\+t\+::overrun = 0}
+
+\Hypertarget{structCANFD__message__t_a09463c4a24791a4f74bfaba77c6396c1}\index{CANFD\_message\_t@{CANFD\_message\_t}!reserved@{reserved}}
+\index{reserved@{reserved}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{reserved}{reserved}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a09463c4a24791a4f74bfaba77c6396c1} 
+bool CANFD\+\_\+message\+\_\+t\+::reserved = 0}
+
+\Hypertarget{structCANFD__message__t_a3c9160fc2e55c7e0baa72e823782a9f9}\index{CANFD\_message\_t@{CANFD\_message\_t}!seq@{seq}}
+\index{seq@{seq}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{seq}{seq}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a3c9160fc2e55c7e0baa72e823782a9f9} 
+bool CANFD\+\_\+message\+\_\+t\+::seq = 0}
+
+\Hypertarget{structCANFD__message__t_a64897e9c1769e535e2c63ee161bc82ff}\index{CANFD\_message\_t@{CANFD\_message\_t}!timestamp@{timestamp}}
+\index{timestamp@{timestamp}!CANFD\_message\_t@{CANFD\_message\_t}}
+\doxysubsubsection{\texorpdfstring{timestamp}{timestamp}}
+{\footnotesize\ttfamily \label{structCANFD__message__t_a64897e9c1769e535e2c63ee161bc82ff} 
+uint16\+\_\+t CANFD\+\_\+message\+\_\+t\+::timestamp = 0}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{FlexCAN__T4___8h}{Flex\+CAN\+\_\+\+T4\+\_\+.\+h}}\end{DoxyCompactItemize}

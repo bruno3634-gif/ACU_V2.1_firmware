@@ -1,0 +1,66 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}File Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}File List}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}File Documentation}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}src/main.cpp File Reference}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Detailed Description}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Macro Definition Documentation}{6}{subsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.1}PRESSURE\_READINGS}{6}{subsubsection.2.1.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.2.2}print\_state}{6}{subsubsection.2.1.2.2}%
+\contentsline {subsection}{\numberline {2.1.3}Enumeration Type Documentation}{6}{subsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.3.1}ACU\_STATE\_t}{6}{subsubsection.2.1.3.1}%
+\contentsline {subsubsection}{\numberline {2.1.3.2}AS\_STATE\_t}{7}{subsubsection.2.1.3.2}%
+\contentsline {subsubsection}{\numberline {2.1.3.3}current\_mission\_t}{7}{subsubsection.2.1.3.3}%
+\contentsline {subsubsection}{\numberline {2.1.3.4}INITIAL\_SEQUENCE\_STATE\_t}{7}{subsubsection.2.1.3.4}%
+\contentsline {subsection}{\numberline {2.1.4}Function Documentation}{8}{subsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.4.1}ASSI()}{8}{subsubsection.2.1.4.1}%
+\contentsline {subsubsection}{\numberline {2.1.4.2}canISR()}{8}{subsubsection.2.1.4.2}%
+\contentsline {subsubsection}{\numberline {2.1.4.3}check\_ignition()}{9}{subsubsection.2.1.4.3}%
+\contentsline {subsubsection}{\numberline {2.1.4.4}HandleState()}{9}{subsubsection.2.1.4.4}%
+\contentsline {subsubsection}{\numberline {2.1.4.5}initial\_sequence()}{9}{subsubsection.2.1.4.5}%
+\contentsline {subsubsection}{\numberline {2.1.4.6}led\_heartbit()}{9}{subsubsection.2.1.4.6}%
+\contentsline {subsubsection}{\numberline {2.1.4.7}loop()}{9}{subsubsection.2.1.4.7}%
+\contentsline {subsubsection}{\numberline {2.1.4.8}median\_pressures()}{10}{subsubsection.2.1.4.8}%
+\contentsline {subsubsection}{\numberline {2.1.4.9}Mission\_Indicator()}{10}{subsubsection.2.1.4.9}%
+\contentsline {subsubsection}{\numberline {2.1.4.10}peripheral\_init()}{10}{subsubsection.2.1.4.10}%
+\contentsline {subsubsection}{\numberline {2.1.4.11}Pressure\_readings()}{10}{subsubsection.2.1.4.11}%
+\contentsline {subsubsection}{\numberline {2.1.4.12}print\_state\_transition()}{10}{subsubsection.2.1.4.12}%
+\contentsline {subsubsection}{\numberline {2.1.4.13}send\_can\_msg()}{10}{subsubsection.2.1.4.13}%
+\contentsline {subsubsection}{\numberline {2.1.4.14}setup()}{11}{subsubsection.2.1.4.14}%
+\contentsline {subsubsection}{\numberline {2.1.4.15}UpdateState()}{11}{subsubsection.2.1.4.15}%
+\contentsline {subsection}{\numberline {2.1.5}Variable Documentation}{11}{subsection.2.1.5}%
+\contentsline {subsubsection}{\numberline {2.1.5.1}adc\_pointer}{11}{subsubsection.2.1.5.1}%
+\contentsline {subsubsection}{\numberline {2.1.5.2}as\_state}{11}{subsubsection.2.1.5.2}%
+\contentsline {subsubsection}{\numberline {2.1.5.3}asms\_flag}{11}{subsubsection.2.1.5.3}%
+\contentsline {subsubsection}{\numberline {2.1.5.4}ASSI\_BLUE\_time}{11}{subsubsection.2.1.5.4}%
+\contentsline {subsubsection}{\numberline {2.1.5.5}ASSI\_YELLOW\_time}{11}{subsubsection.2.1.5.5}%
+\contentsline {subsubsection}{\numberline {2.1.5.6}CAN}{12}{subsubsection.2.1.5.6}%
+\contentsline {subsubsection}{\numberline {2.1.5.7}CAN\_TIMER}{12}{subsubsection.2.1.5.7}%
+\contentsline {subsubsection}{\numberline {2.1.5.8}current\_mission}{12}{subsubsection.2.1.5.8}%
+\contentsline {subsubsection}{\numberline {2.1.5.9}current\_state}{12}{subsubsection.2.1.5.9}%
+\contentsline {subsubsection}{\numberline {2.1.5.10}EBS\_TANK\_PRESSURE\_A\_values}{12}{subsubsection.2.1.5.10}%
+\contentsline {subsubsection}{\numberline {2.1.5.11}EBS\_TANK\_PRESSURE\_B\_values}{12}{subsubsection.2.1.5.11}%
+\contentsline {subsubsection}{\numberline {2.1.5.12}emergency\_flag}{13}{subsubsection.2.1.5.12}%
+\contentsline {subsubsection}{\numberline {2.1.5.13}emergency\_timestamp}{13}{subsubsection.2.1.5.13}%
+\contentsline {subsubsection}{\numberline {2.1.5.14}HeartBit}{13}{subsubsection.2.1.5.14}%
+\contentsline {subsubsection}{\numberline {2.1.5.15}HYDRAULIC\_PRESSURE\_FRONT}{13}{subsubsection.2.1.5.15}%
+\contentsline {subsubsection}{\numberline {2.1.5.16}HYDRAULIC\_PRESSURE\_REAR}{13}{subsubsection.2.1.5.16}%
+\contentsline {subsubsection}{\numberline {2.1.5.17}ignition\_enable}{13}{subsubsection.2.1.5.17}%
+\contentsline {subsubsection}{\numberline {2.1.5.18}ignition\_flag}{14}{subsubsection.2.1.5.18}%
+\contentsline {subsubsection}{\numberline {2.1.5.19}ignition\_vcu}{14}{subsubsection.2.1.5.19}%
+\contentsline {subsubsection}{\numberline {2.1.5.20}initial\_sequence\_state}{14}{subsubsection.2.1.5.20}%
+\contentsline {subsubsection}{\numberline {2.1.5.21}jetson\_mission}{14}{subsubsection.2.1.5.21}%
+\contentsline {subsubsection}{\numberline {2.1.5.22}last\_button\_time\_ms}{14}{subsubsection.2.1.5.22}%
+\contentsline {subsubsection}{\numberline {2.1.5.23}pressure\_check\_delay}{14}{subsubsection.2.1.5.23}%
+\contentsline {subsubsection}{\numberline {2.1.5.24}PRESSURE\_TIMER}{14}{subsubsection.2.1.5.24}%
+\contentsline {subsubsection}{\numberline {2.1.5.25}previous\_state}{15}{subsubsection.2.1.5.25}%
+\contentsline {subsubsection}{\numberline {2.1.5.26}res\_active}{15}{subsubsection.2.1.5.26}%
+\contentsline {subsubsection}{\numberline {2.1.5.27}res\_emergency}{15}{subsubsection.2.1.5.27}%
+\contentsline {subsubsection}{\numberline {2.1.5.28}state\_names}{15}{subsubsection.2.1.5.28}%
+\contentsline {subsubsection}{\numberline {2.1.5.29}TANK\_PRESSURE\_FRONT}{15}{subsubsection.2.1.5.29}%
+\contentsline {subsubsection}{\numberline {2.1.5.30}TANK\_PRESSURE\_REAR}{15}{subsubsection.2.1.5.30}%
+\contentsline {subsubsection}{\numberline {2.1.5.31}update\_median\_flag}{16}{subsubsection.2.1.5.31}%
+\contentsline {subsubsection}{\numberline {2.1.5.32}wdt\_relay\_timout}{16}{subsubsection.2.1.5.32}%
+\contentsline {subsubsection}{\numberline {2.1.5.33}wdt\_togle\_counter}{16}{subsubsection.2.1.5.33}%
+\contentsline {subsubsection}{\numberline {2.1.5.34}wdt\_togle\_enable}{16}{subsubsection.2.1.5.34}%
+\contentsline {chapter}{Index}{17}{section*.5}%

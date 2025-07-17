@@ -1,0 +1,104 @@
+\doxysection{CANListener Class Reference}
+\hypertarget{classCANListener}{}\label{classCANListener}\index{CANListener@{CANListener}}
+
+
+{\ttfamily \#include $<$Flex\+CAN\+\_\+\+T4\+\_\+.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCANListener_a32ab9a4b4959fcb3778db9c84d92e984}{CANListener}} ()
+\item 
+virtual bool \mbox{\hyperlink{classCANListener_aaf2276c948cde12394cf8ac350db4b17}{frame\+Handler}} (\mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&frame, int mailbox, uint8\+\_\+t controller)
+\item 
+virtual void \mbox{\hyperlink{classCANListener_a10c64fc99a6f751bbe6d48e076ed231e}{tx\+Handler}} (int mailbox, uint8\+\_\+t controller)
+\item 
+void \mbox{\hyperlink{classCANListener_ad5d44a051a97af80457a91dd64366877}{attach\+MBHandler}} (uint64\+\_\+t mail\+Box)
+\item 
+void \mbox{\hyperlink{classCANListener_a8906d9aed26d35de509a1c9649e9e3d6}{detach\+MBHandler}} (uint64\+\_\+t mail\+Box)
+\item 
+void \mbox{\hyperlink{classCANListener_ae1650c9f13d8dc1654316f9011d76da3}{attach\+General\+Handler}} (void)
+\item 
+void \mbox{\hyperlink{classCANListener_a774669f1b25dd631550284d8e6ddce10}{detach\+General\+Handler}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{classCANListener_ae4729c316224400bafd45f915832c91f}{callbacks\+Active}}
+\item 
+bool \mbox{\hyperlink{classCANListener_ad947d14a98e75bb5cb0cb45e7e728046}{general\+Callback\+Active}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classCANListener_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classCANListener_a32ab9a4b4959fcb3778db9c84d92e984}\index{CANListener@{CANListener}!CANListener@{CANListener}}
+\index{CANListener@{CANListener}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{CANListener()}{CANListener()}}
+{\footnotesize\ttfamily \label{classCANListener_a32ab9a4b4959fcb3778db9c84d92e984} 
+CANListener\+::\+CANListener (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classCANListener_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCANListener_ae1650c9f13d8dc1654316f9011d76da3}\index{CANListener@{CANListener}!attachGeneralHandler@{attachGeneralHandler}}
+\index{attachGeneralHandler@{attachGeneralHandler}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{attachGeneralHandler()}{attachGeneralHandler()}}
+{\footnotesize\ttfamily \label{classCANListener_ae1650c9f13d8dc1654316f9011d76da3} 
+void CANListener\+::attach\+General\+Handler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCANListener_ad5d44a051a97af80457a91dd64366877}\index{CANListener@{CANListener}!attachMBHandler@{attachMBHandler}}
+\index{attachMBHandler@{attachMBHandler}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{attachMBHandler()}{attachMBHandler()}}
+{\footnotesize\ttfamily \label{classCANListener_ad5d44a051a97af80457a91dd64366877} 
+void CANListener\+::attach\+MBHandler (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{mail\+Box}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCANListener_a774669f1b25dd631550284d8e6ddce10}\index{CANListener@{CANListener}!detachGeneralHandler@{detachGeneralHandler}}
+\index{detachGeneralHandler@{detachGeneralHandler}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{detachGeneralHandler()}{detachGeneralHandler()}}
+{\footnotesize\ttfamily \label{classCANListener_a774669f1b25dd631550284d8e6ddce10} 
+void CANListener\+::detach\+General\+Handler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCANListener_a8906d9aed26d35de509a1c9649e9e3d6}\index{CANListener@{CANListener}!detachMBHandler@{detachMBHandler}}
+\index{detachMBHandler@{detachMBHandler}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{detachMBHandler()}{detachMBHandler()}}
+{\footnotesize\ttfamily \label{classCANListener_a8906d9aed26d35de509a1c9649e9e3d6} 
+void CANListener\+::detach\+MBHandler (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{mail\+Box}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCANListener_aaf2276c948cde12394cf8ac350db4b17}\index{CANListener@{CANListener}!frameHandler@{frameHandler}}
+\index{frameHandler@{frameHandler}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{frameHandler()}{frameHandler()}}
+{\footnotesize\ttfamily \label{classCANListener_aaf2276c948cde12394cf8ac350db4b17} 
+virtual bool CANListener\+::frame\+Handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCAN__message__t}{CAN\+\_\+message\+\_\+t}} \&}]{frame}{, }\item[{int}]{mailbox}{, }\item[{uint8\+\_\+t}]{controller}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\Hypertarget{classCANListener_a10c64fc99a6f751bbe6d48e076ed231e}\index{CANListener@{CANListener}!txHandler@{txHandler}}
+\index{txHandler@{txHandler}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{txHandler()}{txHandler()}}
+{\footnotesize\ttfamily \label{classCANListener_a10c64fc99a6f751bbe6d48e076ed231e} 
+virtual void CANListener\+::tx\+Handler (\begin{DoxyParamCaption}\item[{int}]{mailbox}{, }\item[{uint8\+\_\+t}]{controller}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classCANListener_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classCANListener_ae4729c316224400bafd45f915832c91f}\index{CANListener@{CANListener}!callbacksActive@{callbacksActive}}
+\index{callbacksActive@{callbacksActive}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{callbacksActive}{callbacksActive}}
+{\footnotesize\ttfamily \label{classCANListener_ae4729c316224400bafd45f915832c91f} 
+uint64\+\_\+t CANListener\+::callbacks\+Active}
+
+\Hypertarget{classCANListener_ad947d14a98e75bb5cb0cb45e7e728046}\index{CANListener@{CANListener}!generalCallbackActive@{generalCallbackActive}}
+\index{generalCallbackActive@{generalCallbackActive}!CANListener@{CANListener}}
+\doxysubsubsection{\texorpdfstring{generalCallbackActive}{generalCallbackActive}}
+{\footnotesize\ttfamily \label{classCANListener_ad947d14a98e75bb5cb0cb45e7e728046} 
+bool CANListener\+::general\+Callback\+Active = 0}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{FlexCAN__T4___8h}{Flex\+CAN\+\_\+\+T4\+\_\+.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,90 @@
+\doxysection{lib/\+Flex\+CAN\+\_\+\+T4/isotp\+\_\+server.h File Reference}
+\hypertarget{isotp__server_8h}{}\label{isotp__server_8h}\index{lib/FlexCAN\_T4/isotp\_server.h@{lib/FlexCAN\_T4/isotp\_server.h}}
+{\ttfamily \#include "{}Arduino.\+h"{}}\newline
+{\ttfamily \#include "{}circular\+\_\+buffer.\+h"{}}\newline
+{\ttfamily \#include "{}isotp\+\_\+server.\+h"{}}\newline
+{\ttfamily \#include "{}Flex\+CAN\+\_\+\+T4.\+h"{}}\newline
+{\ttfamily \#include "{}isotp\+\_\+server.\+tpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classisotp__server__Base}{isotp\+\_\+server\+\_\+\+Base}}
+\item 
+class \mbox{\hyperlink{classisotp__server}{isotp\+\_\+server}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{isotp__server_8h_a47813cbdb3a52fd2d0dc3e41ddf91d7c}{ISOTPSERVER\+\_\+\+CLASS}}~template$<$uint32\+\_\+t canid, \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}} extended, uint32\+\_\+t request, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t len$>$
+\item 
+\#define \mbox{\hyperlink{isotp__server_8h_a8b074858600dac84a446005cac24e01e}{ISOTPSERVER\+\_\+\+FUNC}}~template$<$uint32\+\_\+t canid, \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}} extended, uint32\+\_\+t request, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t len$>$
+\item 
+\#define \mbox{\hyperlink{isotp__server_8h_a5cfe74f269029aafec9633c1c6edb36b}{ISOTPSERVER\+\_\+\+OPT}}~\mbox{\hyperlink{classisotp__server}{isotp\+\_\+server}}$<$canid, extended, request, buffer, len$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}} \mbox{\hyperlink{isotp__server_8h_addba28b7ca56102dbfe6e80c555ce473}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}} \{ \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a7fca708e939156904e31df242cb7e1f3}{STANDARD\+\_\+\+ID}} = 0
+, \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a181a77755e0176b27a6aa7eb84ff0f2c}{EXTENDED\+\_\+\+ID}} = 1
+ \}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{isotp__server_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{isotp__server_8h_a47813cbdb3a52fd2d0dc3e41ddf91d7c}\index{isotp\_server.h@{isotp\_server.h}!ISOTPSERVER\_CLASS@{ISOTPSERVER\_CLASS}}
+\index{ISOTPSERVER\_CLASS@{ISOTPSERVER\_CLASS}!isotp\_server.h@{isotp\_server.h}}
+\doxysubsubsection{\texorpdfstring{ISOTPSERVER\_CLASS}{ISOTPSERVER\_CLASS}}
+{\footnotesize\ttfamily \label{isotp__server_8h_a47813cbdb3a52fd2d0dc3e41ddf91d7c} 
+\#define ISOTPSERVER\+\_\+\+CLASS~template$<$uint32\+\_\+t canid, \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}} extended, uint32\+\_\+t request, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t len$>$}
+
+\Hypertarget{isotp__server_8h_a8b074858600dac84a446005cac24e01e}\index{isotp\_server.h@{isotp\_server.h}!ISOTPSERVER\_FUNC@{ISOTPSERVER\_FUNC}}
+\index{ISOTPSERVER\_FUNC@{ISOTPSERVER\_FUNC}!isotp\_server.h@{isotp\_server.h}}
+\doxysubsubsection{\texorpdfstring{ISOTPSERVER\_FUNC}{ISOTPSERVER\_FUNC}}
+{\footnotesize\ttfamily \label{isotp__server_8h_a8b074858600dac84a446005cac24e01e} 
+\#define ISOTPSERVER\+\_\+\+FUNC~template$<$uint32\+\_\+t canid, \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}} extended, uint32\+\_\+t request, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t len$>$}
+
+\Hypertarget{isotp__server_8h_a5cfe74f269029aafec9633c1c6edb36b}\index{isotp\_server.h@{isotp\_server.h}!ISOTPSERVER\_OPT@{ISOTPSERVER\_OPT}}
+\index{ISOTPSERVER\_OPT@{ISOTPSERVER\_OPT}!isotp\_server.h@{isotp\_server.h}}
+\doxysubsubsection{\texorpdfstring{ISOTPSERVER\_OPT}{ISOTPSERVER\_OPT}}
+{\footnotesize\ttfamily \label{isotp__server_8h_a5cfe74f269029aafec9633c1c6edb36b} 
+\#define ISOTPSERVER\+\_\+\+OPT~\mbox{\hyperlink{classisotp__server}{isotp\+\_\+server}}$<$canid, extended, request, buffer, len$>$}
+
+
+
+\label{doc-typedef-members}
+\Hypertarget{isotp__server_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{isotp__server_8h_addba28b7ca56102dbfe6e80c555ce473}\index{isotp\_server.h@{isotp\_server.h}!ISOTP\_ID\_TYPE@{ISOTP\_ID\_TYPE}}
+\index{ISOTP\_ID\_TYPE@{ISOTP\_ID\_TYPE}!isotp\_server.h@{isotp\_server.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_ID\_TYPE}{ISOTP\_ID\_TYPE}}
+{\footnotesize\ttfamily \label{isotp__server_8h_addba28b7ca56102dbfe6e80c555ce473} 
+typedef enum \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}} \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}}}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{isotp__server_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}\index{isotp\_server.h@{isotp\_server.h}!ISOTP\_ID\_TYPE@{ISOTP\_ID\_TYPE}}
+\index{ISOTP\_ID\_TYPE@{ISOTP\_ID\_TYPE}!isotp\_server.h@{isotp\_server.h}}
+\doxysubsubsection{\texorpdfstring{ISOTP\_ID\_TYPE}{ISOTP\_ID\_TYPE}}
+{\footnotesize\ttfamily \label{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1} 
+enum \mbox{\hyperlink{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1}{ISOTP\+\_\+\+ID\+\_\+\+TYPE}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STANDARD\_ID@{STANDARD\_ID}!isotp\_server.h@{isotp\_server.h}}\index{isotp\_server.h@{isotp\_server.h}!STANDARD\_ID@{STANDARD\_ID}}}\Hypertarget{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a7fca708e939156904e31df242cb7e1f3}\label{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a7fca708e939156904e31df242cb7e1f3} 
+STANDARD\+\_\+\+ID&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXTENDED\_ID@{EXTENDED\_ID}!isotp\_server.h@{isotp\_server.h}}\index{isotp\_server.h@{isotp\_server.h}!EXTENDED\_ID@{EXTENDED\_ID}}}\Hypertarget{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a181a77755e0176b27a6aa7eb84ff0f2c}\label{isotp__server_8h_aa822cbdd36e3bdad4f4767b3203c72e1a181a77755e0176b27a6aa7eb84ff0f2c} 
+EXTENDED\+\_\+\+ID&\\
+\hline
+
+\end{DoxyEnumFields}

@@ -1,0 +1,134 @@
+\doxysection{isotp.\+h}
+\hypertarget{isotp_8h_source}{}\label{isotp_8h_source}\index{lib/FlexCAN\_T4/isotp.h@{lib/FlexCAN\_T4/isotp.h}}
+\mbox{\hyperlink{isotp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ MIT\ License}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ Copyright\ (c)\ 2018\ Antonio\ Alexander\ Brewer\ (tonton81)\ -\/\ https://github.com/tonton81}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ Designed\ and\ tested\ for\ PJRC\ Teensy\ 4.0.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ Forum\ link\ :\ https://forum.pjrc.com/threads/56035-\/isotp-\/FlexCAN-\/for-\/Teensy-\/4?highlight=isotp}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ Thanks\ goes\ to\ skpang,\ mjs513,\ and\ collin\ for\ tech/testing\ support}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ of\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and\ /\ or\ sell}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ SOFTWARE.}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#if\ !defined(\_ISOTP\_H\_)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ \_ISOTP\_H\_}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{circular__buffer_8h}{circular\_buffer.h}}"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{isotp_8h}{isotp.h}}"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#if\ defined(TEENSYDUINO)\ }\textcolor{comment}{//\ Teensy}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}FlexCAN\_T4.h"{}}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#elif\ defined(ARDUINO\_ARCH\_ESP32)\ }\textcolor{comment}{//ESP32}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}ESP32\_CAN.h"{}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structISOTP__data}{ISOTP\_data}}\ \{}
+\DoxyCodeLine{00045\ \ \ uint32\_t\ \textcolor{keywordtype}{id}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ can\ identifier\ */}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structISOTP__data_a329e806fa504383c348dbb341cbce94c}{extended}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ identifier\ is\ extended\ (29-\/bit)\ */}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structISOTP__data_af47a7d57f0537d78dcd07ad6303984eb}{usePadding}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ padd\ and\ use\ all\ 8\ bytes\ instead\ of\ truncating\ len\ */}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structISOTP__data_aff3f2364c6caf8e1c45cab4c8c5dd9df}{separation\_uS}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ separation\ time\ in\ uS\ (100-\/900uS\ only)\ */}}
+\DoxyCodeLine{00050\ \ \ \}\ \mbox{\hyperlink{structISOTP__data_aa96c00ac002739f7cd21d47d51c351d6}{flags}};}
+\DoxyCodeLine{00051\ \ \ uint16\_t\ \mbox{\hyperlink{structISOTP__data_a68dc65dee02ab82108bb8275964a4924}{len}}\ =\ 8;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ length\ of\ CAN\ message\ or\ callback\ payload\ */}}
+\DoxyCodeLine{00052\ \ \ uint16\_t\ \mbox{\hyperlink{structISOTP__data_a5f7e7a965f2974ddee2725648cce3d87}{blockSize}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ used\ for\ flow\ control,\ specify\ how\ many\ frame\ blocks\ per\ frame\ control\ request\ */}}
+\DoxyCodeLine{00053\ \ \ uint8\_t\ \mbox{\hyperlink{structISOTP__data_ab3ebdcf423c70498690c8a9d08698b32}{flow\_control\_type}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ flow\ control\ type:\ 0:\ Clear\ to\ Send,\ 1:\ Wait,\ 2:\ Abort\ */}}
+\DoxyCodeLine{00054\ \ \ uint16\_t\ \mbox{\hyperlink{structISOTP__data_a09b46ae9e7b689da1ead5e77d19926f6}{separation\_time}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ time\ between\ frames\ */}}
+\DoxyCodeLine{00055\ \}\ \mbox{\hyperlink{structISOTP__data}{ISOTP\_data}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\_RXBANKS\_TABLE}}\ \{}
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039aefdf14fcbeaebffe5e2d5480868f1989}{RX\_BANKS\_2}}\ =\ (uint16\_t)2,}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab7a816e16451f7fee45ce37cd97446d0}{RX\_BANKS\_4}}\ =\ (uint16\_t)4,}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a90ae7ea310c61a435b0f1e8bae007f9f}{RX\_BANKS\_8}}\ =\ (uint16\_t)8,}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a3ce5a7cc207b03dbe0d4d2877aa942fb}{RX\_BANKS\_16}}\ =\ (uint16\_t)16,}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a109e8e406b18f597e8bab249291f2810}{RX\_BANKS\_32}}\ =\ (uint16\_t)32,}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a147817d9320a5f0ce5cd5a0b049cc5e3}{RX\_BANKS\_64}}\ =\ (uint16\_t)64,}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a48bb0c28823df5f93c256a16992b4acf}{RX\_BANKS\_128}}\ =\ (uint16\_t)128,}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a554a8831ccf3aa04e3a9ebb9686fb477}{RX\_BANKS\_256}}\ =\ (uint16\_t)256,}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039ab54a07a09717dcb9208eb2d4d0009c17}{RX\_BANKS\_512}}\ =\ (uint16\_t)512,}
+\DoxyCodeLine{00067\ \ \ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039a39377dfecda960dc4a0d8d7f0b27383f}{RX\_BANKS\_1024}}\ =\ (uint16\_t)1024}
+\DoxyCodeLine{00068\ \}\ \mbox{\hyperlink{isotp_8h_a9f738c04cb38c75db61698b0a0c8c039}{ISOTP\_RXBANKS\_TABLE}};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ISOTP\_CLASS\ template<ISOTP\_RXBANKS\_TABLE\ \_rxBanks\ =\ RX\_BANKS\_16,\ size\_t\ \_max\_length\ =\ 32>}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ISOTP\_FUNC\ template<ISOTP\_RXBANKS\_TABLE\ \_rxBanks,\ size\_t\ \_max\_length>}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ISOTP\_OPT\ isotp<\_rxBanks,\ \_max\_length>}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\_isotp\_cb\_ptr}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{structISOTP__data}{ISOTP\_data}}\ \&config,\ \textcolor{keyword}{const}\ uint8\_t\ *buf);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#if\ defined(TEENSYDUINO)\ }\textcolor{comment}{//\ Teensy}}
+\DoxyCodeLine{00077\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_isotp\_busToWrite\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#elif\ defined(ARDUINO\_ARCH\_ESP32)\ }\textcolor{comment}{//ESP32}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{static}\ ESP32\_CAN\_Base*\ \_isotp\_busToWrite\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classisotp__Base}{isotp\_Base}}\ \{}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__Base_a4525ed5a2c2f836152bf4f555ed8036b}{\_process\_frame\_data}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg)\ =\ 0;}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp__Base_afeea48005bd7ff21340fb8944f77e938}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structISOTP__data}{ISOTP\_data}}\ \&config,\ \textcolor{keyword}{const}\ uint8\_t\ *buf,\ uint16\_t\ size)\ =\ 0;}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\_isotp\_cb\_ptr}}\ \mbox{\hyperlink{classisotp__Base_ad9f38f39cc3ef0a1dc1130ea3ac861ee}{\_isotp\_handler}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{static}\ \mbox{\hyperlink{classisotp__Base}{isotp\_Base}}*\ \_ISOTP\_OBJ\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \mbox{\hyperlink{isotp_8h_a6dd61d649128360213d6c389b9835cb2}{ISOTP\_CLASS}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classisotp_a03b5cd6eee161f34c3d055cf925e99f2}{isotp}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classisotp__Base}{isotp\_Base}}\ \{}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{classisotp_a03b5cd6eee161f34c3d055cf925e99f2}{isotp}}()\ \{\ \_ISOTP\_OBJ\ =\ \textcolor{keyword}{this};\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#if\ defined(TEENSYDUINO)\ }\textcolor{comment}{//\ Teensy}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ setWriteBus(\mbox{\hyperlink{classFlexCAN__T4__Base}{FlexCAN\_T4\_Base}}*\ \_busWritePtr)\ \{\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \_isotp\_busToWrite\ =\ \_busWritePtr;\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ \ \ \#if\ defined(\_\_IMXRT1062\_\_)}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \_isotp\_busToWrite\ ==\ \_CAN1\ )\ \mbox{\hyperlink{classisotp_ad7deaed81e910c76553843c80c0a4ad0}{readBus}}\ =\ 1;\ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \_isotp\_busToWrite\ ==\ \_CAN2\ )\ \mbox{\hyperlink{classisotp_ad7deaed81e910c76553843c80c0a4ad0}{readBus}}\ =\ 2;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \_isotp\_busToWrite\ ==\ \_CAN3\ )\ \mbox{\hyperlink{classisotp_ad7deaed81e910c76553843c80c0a4ad0}{readBus}}\ =\ 3;}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ \ \ \ \ \#if\ defined(\_\_MK20DX256\_\_)\ ||\ defined(\_\_MK64FX512\_\_)\ ||\ defined(\_\_MK66FX1M0\_\_)}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \_isotp\_busToWrite\ ==\ \_CAN0\ )\ \mbox{\hyperlink{classisotp_ad7deaed81e910c76553843c80c0a4ad0}{readBus}}\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \_isotp\_busToWrite\ ==\ \_CAN1\ )\ \mbox{\hyperlink{classisotp_ad7deaed81e910c76553843c80c0a4ad0}{readBus}}\ =\ 1;}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#elif\ defined(ARDUINO\_ARCH\_ESP32)\ }\textcolor{comment}{//ESP32}}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ setWriteBus(ESP32\_CAN\_Base*\ \_busWritePtr)\ \{\ \_isotp\_busToWrite\ =\ \_busWritePtr;\ \}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_ac09f8476fd12931f9394baa4fbc87538}{begin}}()\ \{\ \mbox{\hyperlink{classisotp_a21d4bcefafde63c43204c95c16a2e36d}{enable}}();\ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_a21d4bcefafde63c43204c95c16a2e36d}{enable}}(\textcolor{keywordtype}{bool}\ yes\ =\ 1)\ \{\ \mbox{\hyperlink{classisotp_ab8c79671c0ccc3dfe11a5d7d3e7927ab}{isotp\_enabled}}\ =\ yes;\ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_aa34a28ad898a6926f00aa76f67c35e9f}{setPadding}}(uint8\_t\ \_byte)\ \{\ \mbox{\hyperlink{classisotp_ae866d46bdb6b976d65fa1a437d48d317}{padding\_value}}\ =\ \_byte;\ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_a1108099e0ee2435755e08bf1114d1cf4}{onReceive}}(\mbox{\hyperlink{isotp_8h_a92cfde92030026deac25802a0d98826c}{\_isotp\_cb\_ptr}}\ handler)\ \{\ \_ISOTP\_OBJ-\/>\_isotp\_handler\ =\ handler;\ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_af631d4cafed239fba392b01b604a9fe4}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structISOTP__data}{ISOTP\_data}}\ \&config,\ \textcolor{keyword}{const}\ uint8\_t\ *buf,\ uint16\_t\ size);}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_ac75c170de02a5234c5955b96c84cafcc}{write}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structISOTP__data}{ISOTP\_data}}\ \&config,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ uint16\_t\ size)\ \{\ \mbox{\hyperlink{classisotp_ac75c170de02a5234c5955b96c84cafcc}{write}}(config,\ (\textcolor{keyword}{const}\ uint8\_t*)buf,\ size);\ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_af6ff85b1331613423eae67ca86d1f7e7}{sendFlowControl}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structISOTP__data}{ISOTP\_data}}\ \&config);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classisotp_a6c0b3afc72170c0379a997ac70caa2fe}{\_process\_frame\_data}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structCAN__message__t}{CAN\_message\_t}}\ \&msg);}
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{classCircular__Buffer}{Circular\_Buffer<uint8\_t,\ \_rxBanks,\ \_max\_length>}}\ \mbox{\hyperlink{classisotp_a0c4a7873cc2bb72a47f986565b8a9de2}{\_rx\_slots}};}
+\DoxyCodeLine{00122\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classisotp_ae866d46bdb6b976d65fa1a437d48d317}{padding\_value}}\ =\ 0xA5;}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classisotp_ab8c79671c0ccc3dfe11a5d7d3e7927ab}{isotp\_enabled}}\ =\ 0;}
+\DoxyCodeLine{00124\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classisotp_ad7deaed81e910c76553843c80c0a4ad0}{readBus}}\ =\ 1;}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#include\ "{}isotp.tpp"{}}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

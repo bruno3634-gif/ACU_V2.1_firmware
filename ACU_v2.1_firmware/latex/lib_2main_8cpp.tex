@@ -1,0 +1,305 @@
+\doxysection{lib/main.cpp File Reference}
+\hypertarget{lib_2main_8cpp}{}\label{lib_2main_8cpp}\index{lib/main.cpp@{lib/main.cpp}}
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Flex\+CAN\+\_\+\+T4\+\_\+.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{lib_2main_8cpp_a58aa9c1c811304edc824eef2f3375c16}{print\+\_\+state}}~1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} \{ \newline
+\mbox{\hyperlink{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}}
+, \mbox{\hyperlink{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027acee8959f0be0cfa49a2ce9eb88cfc216}{STATE\+\_\+\+INITIAL\+\_\+\+SEQUENCE}}
+, \mbox{\hyperlink{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a5ae0bbfe1a737c76e53253b05168b56b}{STATE\+\_\+\+READY}}
+, \mbox{\hyperlink{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027af95526d1ef4831064e055679fde8e9d5}{STATE\+\_\+\+DRIVING}}
+, \newline
+\mbox{\hyperlink{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a3df5e9f9e42f7d731b2ada9df91022dc}{STATE\+\_\+\+EBS\+\_\+\+ERROR}}
+, \mbox{\hyperlink{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027ad0180e0382824e561c72f20f08838420}{STATE\+\_\+\+EMERGENCY}}
+ \}
+\item 
+enum \mbox{\hyperlink{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291}{AS\+\_\+\+STATE\+\_\+t}} \{ \newline
+\mbox{\hyperlink{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291acebdef96c5ee4caa7e8635f29742c4e2}{AS\+\_\+\+STATE\+\_\+\+OFF}}
+, \mbox{\hyperlink{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a5693ff96ec6d98e68a932a046322209b}{AS\+\_\+\+STATE\+\_\+\+READY}}
+, \mbox{\hyperlink{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291ade7e0dd70ec6503e1c8e1bb1ace8ba8e}{AS\+\_\+\+STATE\+\_\+\+DRIVING}}
+, \mbox{\hyperlink{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a62909aaf15074efd95349b61fae63235}{AS\+\_\+\+STATE\+\_\+\+EMERGENCY}}
+, \newline
+\mbox{\hyperlink{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a6eabdbb243af859b3f58c80b9e21c9f1}{AS\+\_\+\+STATE\+\_\+\+FINISHED}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{lib_2main_8cpp_ab720bd133a6801af067982496780e6fe}{Update\+State}} (void)
+\begin{DoxyCompactList}\small\item\em Update the state of the ACU based on inputs and conditions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lib_2main_8cpp_aeabeb8f2cc848d690e00b50345563597}{Handle\+State}} (void)
+\begin{DoxyCompactList}\small\item\em Handle actions specific to the current state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lib_2main_8cpp_a365a7ca4b4550d949262a3dbbed122ac}{print\+\_\+state\+\_\+transition}} (\mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} from, \mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} to)
+\begin{DoxyCompactList}\small\item\em Print state transition for debugging. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lib_2main_8cpp_a80b90abfd46377a13c1ac43648bb3624}{led\+\_\+heartbit}} ()
+\item 
+void \mbox{\hyperlink{lib_2main_8cpp_a9276a0e4f94fc527943d2ccc75986801}{peripheral\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initialize peripherals and pins. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lib_2main_8cpp_a41a2ef81f321319f1f2fd450ab85d3a2}{Pressure\+\_\+readings}} ()
+\begin{DoxyCompactList}\small\item\em Read pressure sensors and update system state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lib_2main_8cpp_af5b02dc36a29cc8a9cecafe91de92888}{send\+\_\+can\+\_\+msg}} ()
+\begin{DoxyCompactList}\small\item\em Send CAN messages based on system state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lib_2main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{lib_2main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} \mbox{\hyperlink{lib_2main_8cpp_a393dd44ba278dca0ba4dbd5ae35b203f}{current\+\_\+state}} = \mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}}
+\item 
+\mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} \mbox{\hyperlink{lib_2main_8cpp_a3eb4df4a049f68516e3abe54ac28628d}{previous\+\_\+state}} = \mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}}
+\item 
+\mbox{\hyperlink{src_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291}{AS\+\_\+\+STATE\+\_\+t}} \mbox{\hyperlink{lib_2main_8cpp_a274f5c12bd9811f7e52c04a40569f9e6}{as\+\_\+state}} = \mbox{\hyperlink{src_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291acebdef96c5ee4caa7e8635f29742c4e2}{AS\+\_\+\+STATE\+\_\+\+OFF}}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lib_2main_8cpp_afc8e27fc9a2dc86341a3c0c5ae2809da}{state\+\_\+names}} \mbox{[}$\,$\mbox{]}
+\item 
+Interval\+Timer \mbox{\hyperlink{lib_2main_8cpp_a27704d3b3dc2314a6a46697028ea9084}{PRESSURE\+\_\+\+TIMER}}
+\item 
+Interval\+Timer \mbox{\hyperlink{lib_2main_8cpp_aad9c1d6673f4b146294ecb5c3deb475d}{CAN\+\_\+\+TIMER}}
+\item 
+\mbox{\hyperlink{classFlexCAN__T4}{Flex\+CAN\+\_\+\+T4}}$<$ CAN2, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea099f75b5031df716734b9a04489ae37a}{RX\+\_\+\+SIZE\+\_\+1024}}, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95cae50651e18fc8e7f0f774fd135b7854c6}{TX\+\_\+\+SIZE\+\_\+1024}} $>$ \mbox{\hyperlink{lib_2main_8cpp_ad167169760644f4776109ea0cfe13862}{CAN}}
+\item 
+unsigned long \mbox{\hyperlink{lib_2main_8cpp_aee5c37d99841325356136abf5b12d12b}{Heart\+Bit}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{lib_2main_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{lib_2main_8cpp_a58aa9c1c811304edc824eef2f3375c16}\index{main.cpp@{main.cpp}!print\_state@{print\_state}}
+\index{print\_state@{print\_state}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{print\_state}{print\_state}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a58aa9c1c811304edc824eef2f3375c16} 
+\#define print\+\_\+state~1}
+
+
+
+\label{doc-enum-members}
+\Hypertarget{lib_2main_8cpp_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}\index{main.cpp@{main.cpp}!ACU\_STATE\_t@{ACU\_STATE\_t}}
+\index{ACU\_STATE\_t@{ACU\_STATE\_t}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ACU\_STATE\_t}{ACU\_STATE\_t}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027} 
+enum \mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_INIT@{STATE\_INIT}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!STATE\_INIT@{STATE\_INIT}}}\Hypertarget{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9}\label{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9} 
+STATE\+\_\+\+INIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_INITIAL\_SEQUENCE@{STATE\_INITIAL\_SEQUENCE}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!STATE\_INITIAL\_SEQUENCE@{STATE\_INITIAL\_SEQUENCE}}}\Hypertarget{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027acee8959f0be0cfa49a2ce9eb88cfc216}\label{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027acee8959f0be0cfa49a2ce9eb88cfc216} 
+STATE\+\_\+\+INITIAL\+\_\+\+SEQUENCE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_READY@{STATE\_READY}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!STATE\_READY@{STATE\_READY}}}\Hypertarget{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a5ae0bbfe1a737c76e53253b05168b56b}\label{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a5ae0bbfe1a737c76e53253b05168b56b} 
+STATE\+\_\+\+READY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_DRIVING@{STATE\_DRIVING}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!STATE\_DRIVING@{STATE\_DRIVING}}}\Hypertarget{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027af95526d1ef4831064e055679fde8e9d5}\label{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027af95526d1ef4831064e055679fde8e9d5} 
+STATE\+\_\+\+DRIVING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_EBS\_ERROR@{STATE\_EBS\_ERROR}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!STATE\_EBS\_ERROR@{STATE\_EBS\_ERROR}}}\Hypertarget{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a3df5e9f9e42f7d731b2ada9df91022dc}\label{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a3df5e9f9e42f7d731b2ada9df91022dc} 
+STATE\+\_\+\+EBS\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_EMERGENCY@{STATE\_EMERGENCY}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!STATE\_EMERGENCY@{STATE\_EMERGENCY}}}\Hypertarget{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027ad0180e0382824e561c72f20f08838420}\label{lib_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027ad0180e0382824e561c72f20f08838420} 
+STATE\+\_\+\+EMERGENCY&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291}\index{main.cpp@{main.cpp}!AS\_STATE\_t@{AS\_STATE\_t}}
+\index{AS\_STATE\_t@{AS\_STATE\_t}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{AS\_STATE\_t}{AS\_STATE\_t}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291} 
+enum \mbox{\hyperlink{src_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291}{AS\+\_\+\+STATE\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_STATE\_OFF@{AS\_STATE\_OFF}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!AS\_STATE\_OFF@{AS\_STATE\_OFF}}}\Hypertarget{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291acebdef96c5ee4caa7e8635f29742c4e2}\label{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291acebdef96c5ee4caa7e8635f29742c4e2} 
+AS\+\_\+\+STATE\+\_\+\+OFF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_STATE\_READY@{AS\_STATE\_READY}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!AS\_STATE\_READY@{AS\_STATE\_READY}}}\Hypertarget{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a5693ff96ec6d98e68a932a046322209b}\label{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a5693ff96ec6d98e68a932a046322209b} 
+AS\+\_\+\+STATE\+\_\+\+READY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_STATE\_DRIVING@{AS\_STATE\_DRIVING}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!AS\_STATE\_DRIVING@{AS\_STATE\_DRIVING}}}\Hypertarget{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291ade7e0dd70ec6503e1c8e1bb1ace8ba8e}\label{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291ade7e0dd70ec6503e1c8e1bb1ace8ba8e} 
+AS\+\_\+\+STATE\+\_\+\+DRIVING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_STATE\_EMERGENCY@{AS\_STATE\_EMERGENCY}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!AS\_STATE\_EMERGENCY@{AS\_STATE\_EMERGENCY}}}\Hypertarget{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a62909aaf15074efd95349b61fae63235}\label{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a62909aaf15074efd95349b61fae63235} 
+AS\+\_\+\+STATE\+\_\+\+EMERGENCY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AS\_STATE\_FINISHED@{AS\_STATE\_FINISHED}!main.cpp@{main.cpp}}\index{main.cpp@{main.cpp}!AS\_STATE\_FINISHED@{AS\_STATE\_FINISHED}}}\Hypertarget{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a6eabdbb243af859b3f58c80b9e21c9f1}\label{lib_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291a6eabdbb243af859b3f58c80b9e21c9f1} 
+AS\+\_\+\+STATE\+\_\+\+FINISHED&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{lib_2main_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{lib_2main_8cpp_aeabeb8f2cc848d690e00b50345563597}\index{main.cpp@{main.cpp}!HandleState@{HandleState}}
+\index{HandleState@{HandleState}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{HandleState()}{HandleState()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_aeabeb8f2cc848d690e00b50345563597} 
+void Handle\+State (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Handle actions specific to the current state. 
+
+\Hypertarget{lib_2main_8cpp_a80b90abfd46377a13c1ac43648bb3624}\index{main.cpp@{main.cpp}!led\_heartbit@{led\_heartbit}}
+\index{led\_heartbit@{led\_heartbit}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{led\_heartbit()}{led\_heartbit()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a80b90abfd46377a13c1ac43648bb3624} 
+void led\+\_\+heartbit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2main_8cpp_afe461d27b9c48d5921c00d521181f12f}\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_afe461d27b9c48d5921c00d521181f12f} 
+void loop (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2main_8cpp_a9276a0e4f94fc527943d2ccc75986801}\index{main.cpp@{main.cpp}!peripheral\_init@{peripheral\_init}}
+\index{peripheral\_init@{peripheral\_init}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{peripheral\_init()}{peripheral\_init()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a9276a0e4f94fc527943d2ccc75986801} 
+void peripheral\+\_\+init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize peripherals and pins. 
+
+\Hypertarget{lib_2main_8cpp_a41a2ef81f321319f1f2fd450ab85d3a2}\index{main.cpp@{main.cpp}!Pressure\_readings@{Pressure\_readings}}
+\index{Pressure\_readings@{Pressure\_readings}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Pressure\_readings()}{Pressure\_readings()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a41a2ef81f321319f1f2fd450ab85d3a2} 
+void Pressure\+\_\+readings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Read pressure sensors and update system state. 
+
+\Hypertarget{lib_2main_8cpp_a365a7ca4b4550d949262a3dbbed122ac}\index{main.cpp@{main.cpp}!print\_state\_transition@{print\_state\_transition}}
+\index{print\_state\_transition@{print\_state\_transition}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{print\_state\_transition()}{print\_state\_transition()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a365a7ca4b4550d949262a3dbbed122ac} 
+void print\+\_\+state\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}}}]{from}{, }\item[{\mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}}}]{to}{}\end{DoxyParamCaption})}
+
+
+
+Print state transition for debugging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & Previous state \\
+\hline
+{\em to} & New state \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lib_2main_8cpp_af5b02dc36a29cc8a9cecafe91de92888}\index{main.cpp@{main.cpp}!send\_can\_msg@{send\_can\_msg}}
+\index{send\_can\_msg@{send\_can\_msg}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{send\_can\_msg()}{send\_can\_msg()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_af5b02dc36a29cc8a9cecafe91de92888} 
+void send\+\_\+can\+\_\+msg (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Send CAN messages based on system state. 
+
+\Hypertarget{lib_2main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a4fc01d736fe50cf5b977f755b675f11d} 
+void setup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{lib_2main_8cpp_ab720bd133a6801af067982496780e6fe}\index{main.cpp@{main.cpp}!UpdateState@{UpdateState}}
+\index{UpdateState@{UpdateState}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{UpdateState()}{UpdateState()}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_ab720bd133a6801af067982496780e6fe} 
+void Update\+State (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Update the state of the ACU based on inputs and conditions. 
+
+
+
+\label{doc-var-members}
+\Hypertarget{lib_2main_8cpp_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{lib_2main_8cpp_a274f5c12bd9811f7e52c04a40569f9e6}\index{main.cpp@{main.cpp}!as\_state@{as\_state}}
+\index{as\_state@{as\_state}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{as\_state}{as\_state}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a274f5c12bd9811f7e52c04a40569f9e6} 
+\mbox{\hyperlink{src_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291}{AS\+\_\+\+STATE\+\_\+t}} as\+\_\+state = \mbox{\hyperlink{src_2main_8cpp_a9c37b122762e5d8b803b3ee44e747291acebdef96c5ee4caa7e8635f29742c4e2}{AS\+\_\+\+STATE\+\_\+\+OFF}}}
+
+\Hypertarget{lib_2main_8cpp_ad167169760644f4776109ea0cfe13862}\index{main.cpp@{main.cpp}!CAN@{CAN}}
+\index{CAN@{CAN}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CAN}{CAN}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_ad167169760644f4776109ea0cfe13862} 
+\mbox{\hyperlink{classFlexCAN__T4}{Flex\+CAN\+\_\+\+T4}}$<$CAN2, \mbox{\hyperlink{FlexCAN__T4___8h_a91a449f8deb6921e9f8f4b44481252aea099f75b5031df716734b9a04489ae37a}{RX\+\_\+\+SIZE\+\_\+1024}}, \mbox{\hyperlink{FlexCAN__T4___8h_a84273db97741b575833b9f205c8dc95cae50651e18fc8e7f0f774fd135b7854c6}{TX\+\_\+\+SIZE\+\_\+1024}}$>$ CAN}
+
+\Hypertarget{lib_2main_8cpp_aad9c1d6673f4b146294ecb5c3deb475d}\index{main.cpp@{main.cpp}!CAN\_TIMER@{CAN\_TIMER}}
+\index{CAN\_TIMER@{CAN\_TIMER}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CAN\_TIMER}{CAN\_TIMER}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_aad9c1d6673f4b146294ecb5c3deb475d} 
+Interval\+Timer CAN\+\_\+\+TIMER}
+
+\Hypertarget{lib_2main_8cpp_a393dd44ba278dca0ba4dbd5ae35b203f}\index{main.cpp@{main.cpp}!current\_state@{current\_state}}
+\index{current\_state@{current\_state}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{current\_state}{current\_state}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a393dd44ba278dca0ba4dbd5ae35b203f} 
+\mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} current\+\_\+state = \mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}}}
+
+\Hypertarget{lib_2main_8cpp_aee5c37d99841325356136abf5b12d12b}\index{main.cpp@{main.cpp}!HeartBit@{HeartBit}}
+\index{HeartBit@{HeartBit}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{HeartBit}{HeartBit}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_aee5c37d99841325356136abf5b12d12b} 
+unsigned long Heart\+Bit = 0}
+
+\Hypertarget{lib_2main_8cpp_a27704d3b3dc2314a6a46697028ea9084}\index{main.cpp@{main.cpp}!PRESSURE\_TIMER@{PRESSURE\_TIMER}}
+\index{PRESSURE\_TIMER@{PRESSURE\_TIMER}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{PRESSURE\_TIMER}{PRESSURE\_TIMER}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a27704d3b3dc2314a6a46697028ea9084} 
+Interval\+Timer PRESSURE\+\_\+\+TIMER}
+
+\Hypertarget{lib_2main_8cpp_a3eb4df4a049f68516e3abe54ac28628d}\index{main.cpp@{main.cpp}!previous\_state@{previous\_state}}
+\index{previous\_state@{previous\_state}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{previous\_state}{previous\_state}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_a3eb4df4a049f68516e3abe54ac28628d} 
+\mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027}{ACU\+\_\+\+STATE\+\_\+t}} previous\+\_\+state = \mbox{\hyperlink{src_2main_8cpp_a915949d2c2451633e1b1fbbd74a7b027a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}}}
+
+\Hypertarget{lib_2main_8cpp_afc8e27fc9a2dc86341a3c0c5ae2809da}\index{main.cpp@{main.cpp}!state\_names@{state\_names}}
+\index{state\_names@{state\_names}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{state\_names}{state\_names}}
+{\footnotesize\ttfamily \label{lib_2main_8cpp_afc8e27fc9a2dc86341a3c0c5ae2809da} 
+const char\texorpdfstring{$\ast$}{*} state\+\_\+names\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_INIT"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_SHUTDOWN"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_STANDBY"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_PRECHARGE"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_WAITING\_FOR\_R2D\_MANUAL"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_WAITING\_FOR\_R2D\_AUTO"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_READY\_MANUAL"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_READY\_AUTONOMOUS"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}STATE\_AS\_EMERGENCY"{}}\}}
+
+\end{DoxyCode}

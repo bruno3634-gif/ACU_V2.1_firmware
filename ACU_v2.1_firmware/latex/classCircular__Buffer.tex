@@ -1,0 +1,486 @@
+\doxysection{Circular\+\_\+\+Buffer\texorpdfstring{$<$}{<} T, \+\_\+size, multi \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classCircular__Buffer}{}\label{classCircular__Buffer}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+
+
+{\ttfamily \#include $<$circular\+\_\+buffer.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_aaaf9d3fe5d10c71e9e065bcc2001227e}{push\+\_\+back}} (T value)
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_aec6589de1b52cd11dac150e1b6d94dcd}{push\+\_\+front}} (T value)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a5100b3c9a1098c5e513e0602edf9be0c}{pop\+\_\+front}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a2191444434c68629d9be9774713e5a4a}{pop\+\_\+back}} ()
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_ab66581802a8a842b047fb10bcab66c6c}{write}} (T value)
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_a097ef3a4d20162fce53838f0f4442b5b}{push\+\_\+back}} (const T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_a0bc26a6e2bd94972d00eacc46455633f}{write}} (const T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_a78e28d24100f93cfea25ae2cc840fa0a}{push\+\_\+front}} (const T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_ac31f2612b3b2399ec25b16403886dd2c}{peek}} (uint16\+\_\+t pos=0)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a71d7b1597758121d8c3424f6af7e9396}{peek\+Bytes}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a6a178352ea8e83b65723ed0723dc4bc5}{read}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a75ebe60fb817331136e0684faa2ee7c6}{pop\+\_\+front}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_af13d14fd6664009f00a91870cfea159c}{peek\+\_\+front}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length, uint32\+\_\+t entry=0)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_ab64048424075ff353179bf14b7fdfd7a}{read}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_aea42508ac5106d582e29eecac0ee1180}{read\+Bytes}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_aeb89fe85d4e708af8db50ebba9b90bf2}{flush}} ()
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_a77fca415f782e46b53af7ae9c5673c0a}{clear}} ()
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_aea748b0673dc531c7391319b6adabccc}{print}} (const char \texorpdfstring{$\ast$}{*}p)
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_aa063b92c055edb4fe1bffd07fcc2a60c}{println}} (const char \texorpdfstring{$\ast$}{*}p)
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_a402e6ae69dfd3cc9432b198858d11dfd}{size}} ()
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_ade400744dbceb3e5273e3ba7c31a2f60}{available}} ()
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_a0069f4ea940ed06b443c2210a5b026f7}{capacity}} ()
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_a4297d0a6273e0390e8b67715035fa267}{length\+\_\+back}} ()
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_aa5e7261f80df80ca09bc016d6230dd7c}{length\+\_\+front}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_ad50df689a421d93169e8ef79a9266ba4}{list}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a4e1eb269848cda479828de4012f6e8ee}{variance}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a62850702731ce3381790a440fa0e8750}{deviation}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a4de031da7c711d2956dd7767ff531c16}{average}} ()
+\item 
+bool \mbox{\hyperlink{classCircular__Buffer_aad651d9a9ec0a8653c419d035be941ba}{remove}} (uint16\+\_\+t pos)
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a29a3997d6a4cd719cc91065b7ef605c2}{median}} (bool override=0)
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_a38773b3b1467a16bfcfda1b13b47d797}{sort\+\_\+ascending}} ()
+\item 
+void \mbox{\hyperlink{classCircular__Buffer_a963ec042286bed7ec7bcb6cb46761b49}{sort\+\_\+descending}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a28267c92b7fb6884d5c707df3cf7e738}{sum}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a1c63e1182d14209db915e33ee348b61b}{min}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a39d74c16a6451385313d2aa6dbb08738}{max}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_aee0a17ffc70966eeded811f9b74fbf79}{mean}} ()
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_a81658d33aea5d0ff8b64d0b3f137f8cb}{max\+\_\+size}} ()
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_ac9d7b982e5ab8589f3d48a72b144c146}{pop\+\_\+back}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length)
+\item 
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer_a33c3d15b25a9a1f51a2320d52d47682f}{peek\+\_\+front}} ()
+\item 
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer_a2f66edc389cc1faf6af6bda861866819}{peek\+\_\+back}} ()
+\item 
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer_a1290f9ca29aec2f542126e88609773a0}{front}} ()
+\item 
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer_a5f916bbcc28b0f58c3b6d3c687a13d1e}{back}} ()
+\item 
+bool \mbox{\hyperlink{classCircular__Buffer_a154710f1e28544bc3a7bc5c8d55ad072}{replace}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length, int pos1, int pos2, int pos3, int pos4=-\/1, int pos5=-\/1)
+\item 
+bool \mbox{\hyperlink{classCircular__Buffer_acbbe975e1da586bac91ff67b0a01a97b}{is\+Equal}} (const T \texorpdfstring{$\ast$}{*}buffer)
+\item 
+bool \mbox{\hyperlink{classCircular__Buffer_a12a4d84a352c70bb752d7a80abbfcb32}{find}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length, int pos1, int pos2, int pos3, int pos4=-\/1, int pos5=-\/1)
+\item 
+bool \mbox{\hyperlink{classCircular__Buffer_a61ef37d0d1235df5a38b40bb4026e527}{find\+Remove}} (T \texorpdfstring{$\ast$}{*}buffer, uint16\+\_\+t length, int pos1, int pos2, int pos3, int pos4=-\/1, int pos5=-\/1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_aa7a5cfd47c7659efa96a7bdf8c4ee901}{head}} = 0
+\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_a50340135e97ad94cbd399e05db2751ca}{tail}} = 0
+\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer_af8ff40b86636fc5f22e0fad348f23ee5}{\+\_\+available}} = 0
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a20bd256630ed0139ac2d4bad494526d7}{\+\_\+cbuf}} \mbox{[}\+\_\+size\mbox{]}
+\item 
+T \mbox{\hyperlink{classCircular__Buffer_a3f6b64caca35ac2cdbc6400155902dbc}{\+\_\+cabuf}} \mbox{[}\+\_\+size\mbox{]}\mbox{[}multi+2\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{classCircular__Buffer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCircular__Buffer_ade400744dbceb3e5273e3ba7c31a2f60}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!available@{available}}
+\index{available@{available}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{available()}{available()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_ade400744dbceb3e5273e3ba7c31a2f60} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::available (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a4de031da7c711d2956dd7767ff531c16}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!average@{average}}
+\index{average@{average}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{average()}{average()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a4de031da7c711d2956dd7767ff531c16} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::average (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a5f916bbcc28b0f58c3b6d3c687a13d1e}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!back@{back}}
+\index{back@{back}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a5f916bbcc28b0f58c3b6d3c687a13d1e} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::back (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a0069f4ea940ed06b443c2210a5b026f7}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!capacity@{capacity}}
+\index{capacity@{capacity}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{capacity()}{capacity()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a0069f4ea940ed06b443c2210a5b026f7} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::capacity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a77fca415f782e46b53af7ae9c5673c0a}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!clear@{clear}}
+\index{clear@{clear}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a77fca415f782e46b53af7ae9c5673c0a} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a62850702731ce3381790a440fa0e8750}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!deviation@{deviation}}
+\index{deviation@{deviation}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{deviation()}{deviation()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a62850702731ce3381790a440fa0e8750} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::deviation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a12a4d84a352c70bb752d7a80abbfcb32}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!find@{find}}
+\index{find@{find}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{find()}{find()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a12a4d84a352c70bb752d7a80abbfcb32} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+bool \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::find (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{, }\item[{int}]{pos1}{, }\item[{int}]{pos2}{, }\item[{int}]{pos3}{, }\item[{int}]{pos4}{ = {\ttfamily -\/1}, }\item[{int}]{pos5}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a61ef37d0d1235df5a38b40bb4026e527}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!findRemove@{findRemove}}
+\index{findRemove@{findRemove}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{findRemove()}{findRemove()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a61ef37d0d1235df5a38b40bb4026e527} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+bool \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::find\+Remove (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{, }\item[{int}]{pos1}{, }\item[{int}]{pos2}{, }\item[{int}]{pos3}{, }\item[{int}]{pos4}{ = {\ttfamily -\/1}, }\item[{int}]{pos5}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_aeb89fe85d4e708af8db50ebba9b90bf2}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!flush@{flush}}
+\index{flush@{flush}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{flush()}{flush()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aeb89fe85d4e708af8db50ebba9b90bf2} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::flush (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a1290f9ca29aec2f542126e88609773a0}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!front@{front}}
+\index{front@{front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a1290f9ca29aec2f542126e88609773a0} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::front (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_acbbe975e1da586bac91ff67b0a01a97b}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!isEqual@{isEqual}}
+\index{isEqual@{isEqual}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{isEqual()}{isEqual()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_acbbe975e1da586bac91ff67b0a01a97b} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+bool \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::is\+Equal (\begin{DoxyParamCaption}\item[{const T \texorpdfstring{$\ast$}{*}}]{buffer}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a4297d0a6273e0390e8b67715035fa267}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!length\_back@{length\_back}}
+\index{length\_back@{length\_back}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{length\_back()}{length\_back()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a4297d0a6273e0390e8b67715035fa267} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::length\+\_\+back (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_aa5e7261f80df80ca09bc016d6230dd7c}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!length\_front@{length\_front}}
+\index{length\_front@{length\_front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{length\_front()}{length\_front()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aa5e7261f80df80ca09bc016d6230dd7c} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::length\+\_\+front (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_ad50df689a421d93169e8ef79a9266ba4}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!list@{list}}
+\index{list@{list}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{list()}{list()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_ad50df689a421d93169e8ef79a9266ba4} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::list (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a39d74c16a6451385313d2aa6dbb08738}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!max@{max}}
+\index{max@{max}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a39d74c16a6451385313d2aa6dbb08738} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::max (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a81658d33aea5d0ff8b64d0b3f137f8cb}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!max\_size@{max\_size}}
+\index{max\_size@{max\_size}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{max\_size()}{max\_size()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a81658d33aea5d0ff8b64d0b3f137f8cb} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::max\+\_\+size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_aee0a17ffc70966eeded811f9b74fbf79}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!mean@{mean}}
+\index{mean@{mean}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{mean()}{mean()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aee0a17ffc70966eeded811f9b74fbf79} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::mean (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a29a3997d6a4cd719cc91065b7ef605c2}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!median@{median}}
+\index{median@{median}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{median()}{median()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a29a3997d6a4cd719cc91065b7ef605c2} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::median (\begin{DoxyParamCaption}\item[{bool}]{override}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a1c63e1182d14209db915e33ee348b61b}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!min@{min}}
+\index{min@{min}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a1c63e1182d14209db915e33ee348b61b} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::min (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_ac31f2612b3b2399ec25b16403886dd2c}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!peek@{peek}}
+\index{peek@{peek}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{peek()}{peek()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_ac31f2612b3b2399ec25b16403886dd2c} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::peek (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{pos}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a2f66edc389cc1faf6af6bda861866819}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!peek\_back@{peek\_back}}
+\index{peek\_back@{peek\_back}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{peek\_back()}{peek\_back()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a2f66edc389cc1faf6af6bda861866819} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::peek\+\_\+back (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a33c3d15b25a9a1f51a2320d52d47682f}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!peek\_front@{peek\_front}}
+\index{peek\_front@{peek\_front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{peek\_front()}{peek\_front()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a33c3d15b25a9a1f51a2320d52d47682f} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::peek\+\_\+front (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_af13d14fd6664009f00a91870cfea159c}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!peek\_front@{peek\_front}}
+\index{peek\_front@{peek\_front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{peek\_front()}{peek\_front()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_af13d14fd6664009f00a91870cfea159c} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::peek\+\_\+front (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{, }\item[{uint32\+\_\+t}]{entry}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a71d7b1597758121d8c3424f6af7e9396}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!peekBytes@{peekBytes}}
+\index{peekBytes@{peekBytes}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{peekBytes()}{peekBytes()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a71d7b1597758121d8c3424f6af7e9396} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::peek\+Bytes (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a2191444434c68629d9be9774713e5a4a}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!pop\_back@{pop\_back}}
+\index{pop\_back@{pop\_back}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{pop\_back()}{pop\_back()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a2191444434c68629d9be9774713e5a4a} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::pop\+\_\+back (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_ac9d7b982e5ab8589f3d48a72b144c146}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!pop\_back@{pop\_back}}
+\index{pop\_back@{pop\_back}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{pop\_back()}{pop\_back()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_ac9d7b982e5ab8589f3d48a72b144c146} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::pop\+\_\+back (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a5100b3c9a1098c5e513e0602edf9be0c}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!pop\_front@{pop\_front}}
+\index{pop\_front@{pop\_front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{pop\_front()}{pop\_front()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a5100b3c9a1098c5e513e0602edf9be0c} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::pop\+\_\+front (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a75ebe60fb817331136e0684faa2ee7c6}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!pop\_front@{pop\_front}}
+\index{pop\_front@{pop\_front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{pop\_front()}{pop\_front()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a75ebe60fb817331136e0684faa2ee7c6} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::pop\+\_\+front (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_aea748b0673dc531c7391319b6adabccc}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!print@{print}}
+\index{print@{print}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aea748b0673dc531c7391319b6adabccc} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::print (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_aa063b92c055edb4fe1bffd07fcc2a60c}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!println@{println}}
+\index{println@{println}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{println()}{println()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aa063b92c055edb4fe1bffd07fcc2a60c} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::println (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a097ef3a4d20162fce53838f0f4442b5b}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a097ef3a4d20162fce53838f0f4442b5b} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{const T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_aaaf9d3fe5d10c71e9e065bcc2001227e}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aaaf9d3fe5d10c71e9e065bcc2001227e} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a78e28d24100f93cfea25ae2cc840fa0a}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!push\_front@{push\_front}}
+\index{push\_front@{push\_front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{push\_front()}{push\_front()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a78e28d24100f93cfea25ae2cc840fa0a} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::push\+\_\+front (\begin{DoxyParamCaption}\item[{const T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_aec6589de1b52cd11dac150e1b6d94dcd}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!push\_front@{push\_front}}
+\index{push\_front@{push\_front}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{push\_front()}{push\_front()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aec6589de1b52cd11dac150e1b6d94dcd} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::push\+\_\+front (\begin{DoxyParamCaption}\item[{T}]{value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a6a178352ea8e83b65723ed0723dc4bc5}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!read@{read}}
+\index{read@{read}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a6a178352ea8e83b65723ed0723dc4bc5} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_ab64048424075ff353179bf14b7fdfd7a}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!read@{read}}
+\index{read@{read}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_ab64048424075ff353179bf14b7fdfd7a} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::read (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_aea42508ac5106d582e29eecac0ee1180}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!readBytes@{readBytes}}
+\index{readBytes@{readBytes}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{readBytes()}{readBytes()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aea42508ac5106d582e29eecac0ee1180} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::read\+Bytes (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_aad651d9a9ec0a8653c419d035be941ba}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!remove@{remove}}
+\index{remove@{remove}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aad651d9a9ec0a8653c419d035be941ba} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+bool \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::remove (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{pos}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a154710f1e28544bc3a7bc5c8d55ad072}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!replace@{replace}}
+\index{replace@{replace}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{replace()}{replace()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a154710f1e28544bc3a7bc5c8d55ad072} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+bool \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::replace (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{, }\item[{int}]{pos1}{, }\item[{int}]{pos2}{, }\item[{int}]{pos3}{, }\item[{int}]{pos4}{ = {\ttfamily -\/1}, }\item[{int}]{pos5}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a402e6ae69dfd3cc9432b198858d11dfd}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!size@{size}}
+\index{size@{size}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a402e6ae69dfd3cc9432b198858d11dfd} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classCircular__Buffer_a38773b3b1467a16bfcfda1b13b47d797}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!sort\_ascending@{sort\_ascending}}
+\index{sort\_ascending@{sort\_ascending}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{sort\_ascending()}{sort\_ascending()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a38773b3b1467a16bfcfda1b13b47d797} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::sort\+\_\+ascending (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a963ec042286bed7ec7bcb6cb46761b49}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!sort\_descending@{sort\_descending}}
+\index{sort\_descending@{sort\_descending}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{sort\_descending()}{sort\_descending()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a963ec042286bed7ec7bcb6cb46761b49} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::sort\+\_\+descending (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a28267c92b7fb6884d5c707df3cf7e738}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!sum@{sum}}
+\index{sum@{sum}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{sum()}{sum()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a28267c92b7fb6884d5c707df3cf7e738} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::sum (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a4e1eb269848cda479828de4012f6e8ee}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!variance@{variance}}
+\index{variance@{variance}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{variance()}{variance()}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a4e1eb269848cda479828de4012f6e8ee} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::variance (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_a0bc26a6e2bd94972d00eacc46455633f}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!write@{write}}
+\index{write@{write}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a0bc26a6e2bd94972d00eacc46455633f} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::write (\begin{DoxyParamCaption}\item[{const T \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{uint16\+\_\+t}]{length}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classCircular__Buffer_ab66581802a8a842b047fb10bcab66c6c}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!write@{write}}
+\index{write@{write}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_ab66581802a8a842b047fb10bcab66c6c} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi$>$ \\
+void \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::write (\begin{DoxyParamCaption}\item[{T}]{value}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classCircular__Buffer_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classCircular__Buffer_af8ff40b86636fc5f22e0fad348f23ee5}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!\_available@{\_available}}
+\index{\_available@{\_available}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{\_available}{\_available}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_af8ff40b86636fc5f22e0fad348f23ee5} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+volatile uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::\+\_\+available = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classCircular__Buffer_a3f6b64caca35ac2cdbc6400155902dbc}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!\_cabuf@{\_cabuf}}
+\index{\_cabuf@{\_cabuf}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{\_cabuf}{\_cabuf}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a3f6b64caca35ac2cdbc6400155902dbc} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::\+\_\+cabuf\mbox{[}\+\_\+size\mbox{]}\mbox{[}multi+2\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classCircular__Buffer_a20bd256630ed0139ac2d4bad494526d7}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!\_cbuf@{\_cbuf}}
+\index{\_cbuf@{\_cbuf}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{\_cbuf}{\_cbuf}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a20bd256630ed0139ac2d4bad494526d7} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+T \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::\+\_\+cbuf\mbox{[}\+\_\+size\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classCircular__Buffer_aa7a5cfd47c7659efa96a7bdf8c4ee901}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!head@{head}}
+\index{head@{head}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{head}{head}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_aa7a5cfd47c7659efa96a7bdf8c4ee901} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+volatile uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::head = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classCircular__Buffer_a50340135e97ad94cbd399e05db2751ca}\index{Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}!tail@{tail}}
+\index{tail@{tail}!Circular\_Buffer$<$ T, \_size, multi $>$@{Circular\_Buffer$<$ T, \_size, multi $>$}}
+\doxysubsubsection{\texorpdfstring{tail}{tail}}
+{\footnotesize\ttfamily \label{classCircular__Buffer_a50340135e97ad94cbd399e05db2751ca} 
+template$<$typename T, uint16\+\_\+t \+\_\+size, uint16\+\_\+t multi = 0$>$ \\
+volatile uint16\+\_\+t \mbox{\hyperlink{classCircular__Buffer}{Circular\+\_\+\+Buffer}}$<$ T, \+\_\+size, multi $>$\+::tail = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{circular__buffer_8h}{circular\+\_\+buffer.\+h}}\end{DoxyCompactItemize}

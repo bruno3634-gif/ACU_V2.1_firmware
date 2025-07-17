@@ -1,0 +1,123 @@
+\doxysection{CAN\+\_\+message\+\_\+t Struct Reference}
+\hypertarget{structCAN__message__t}{}\label{structCAN__message__t}\index{CAN\_message\_t@{CAN\_message\_t}}
+
+
+{\ttfamily \#include $<$Flex\+CAN\+\_\+\+T4\+\_\+.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structCAN__message__t_a3a849eafbfd32290dea1b9bd0961f611}{id}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{structCAN__message__t_aa9e73822485d6d1e96b9faf40f823643}{timestamp}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structCAN__message__t_a338504e83663e390c3e9b78252ddd941}{idhit}} = 0
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>bool \mbox{\hyperlink{structCAN__message__t_a06e7a88ef519f6831072cb46db81dfd3}{extended}} = 0\\
+\>bool \mbox{\hyperlink{structCAN__message__t_a438f0464c022d6561575bc7db79cd442}{remote}} = 0\\
+\>bool \mbox{\hyperlink{structCAN__message__t_a1993a9fe50ca9bfad03fd81ad879d955}{overrun}} = 0\\
+\>bool \mbox{\hyperlink{structCAN__message__t_ad23ec8e319319c4694e43787392ed4d4}{reserved}} = 0\\
+\} \mbox{\hyperlink{structCAN__message__t_a6a9de58ab8a818d4889121dcc4f214f1}{flags}}\\
+
+\end{tabbing}\item 
+uint8\+\_\+t \mbox{\hyperlink{structCAN__message__t_afc951607033ce8c0efd4c946c5ae0a97}{len}} = 8
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structCAN__message__t_a52bc67911e26766be5b19d70018182e9}{buf}} \mbox{[}8\mbox{]} = \{ 0 \}
+\item 
+int8\+\_\+t \mbox{\hyperlink{structCAN__message__t_af502bb6074144f6e55835af88ecd0d6a}{mb}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structCAN__message__t_a2199715a48006dda162c7ac2d1e3ea4e}{bus}} = 0
+\item 
+bool \mbox{\hyperlink{structCAN__message__t_af2ae92d000d655ff6985f16d1b3b2769}{seq}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{structCAN__message__t_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structCAN__message__t_a52bc67911e26766be5b19d70018182e9}\index{CAN\_message\_t@{CAN\_message\_t}!buf@{buf}}
+\index{buf@{buf}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a52bc67911e26766be5b19d70018182e9} 
+uint8\+\_\+t CAN\+\_\+message\+\_\+t\+::buf\mbox{[}8\mbox{]} = \{ 0 \}}
+
+\Hypertarget{structCAN__message__t_a2199715a48006dda162c7ac2d1e3ea4e}\index{CAN\_message\_t@{CAN\_message\_t}!bus@{bus}}
+\index{bus@{bus}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{bus}{bus}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a2199715a48006dda162c7ac2d1e3ea4e} 
+uint8\+\_\+t CAN\+\_\+message\+\_\+t\+::bus = 0}
+
+\Hypertarget{structCAN__message__t_a06e7a88ef519f6831072cb46db81dfd3}\index{CAN\_message\_t@{CAN\_message\_t}!extended@{extended}}
+\index{extended@{extended}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{extended}{extended}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a06e7a88ef519f6831072cb46db81dfd3} 
+bool CAN\+\_\+message\+\_\+t\+::extended = 0}
+
+\Hypertarget{structCAN__message__t_a6a9de58ab8a818d4889121dcc4f214f1}\index{CAN\_message\_t@{CAN\_message\_t}!flags@{flags}}
+\index{flags@{flags}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a6a9de58ab8a818d4889121dcc4f214f1} 
+struct  \{ ... \}  CAN\+\_\+message\+\_\+t\+::flags}
+
+\Hypertarget{structCAN__message__t_a3a849eafbfd32290dea1b9bd0961f611}\index{CAN\_message\_t@{CAN\_message\_t}!id@{id}}
+\index{id@{id}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a3a849eafbfd32290dea1b9bd0961f611} 
+uint32\+\_\+t CAN\+\_\+message\+\_\+t\+::id = 0}
+
+\Hypertarget{structCAN__message__t_a338504e83663e390c3e9b78252ddd941}\index{CAN\_message\_t@{CAN\_message\_t}!idhit@{idhit}}
+\index{idhit@{idhit}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{idhit}{idhit}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a338504e83663e390c3e9b78252ddd941} 
+uint8\+\_\+t CAN\+\_\+message\+\_\+t\+::idhit = 0}
+
+\Hypertarget{structCAN__message__t_afc951607033ce8c0efd4c946c5ae0a97}\index{CAN\_message\_t@{CAN\_message\_t}!len@{len}}
+\index{len@{len}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily \label{structCAN__message__t_afc951607033ce8c0efd4c946c5ae0a97} 
+uint8\+\_\+t CAN\+\_\+message\+\_\+t\+::len = 8}
+
+\Hypertarget{structCAN__message__t_af502bb6074144f6e55835af88ecd0d6a}\index{CAN\_message\_t@{CAN\_message\_t}!mb@{mb}}
+\index{mb@{mb}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{mb}{mb}}
+{\footnotesize\ttfamily \label{structCAN__message__t_af502bb6074144f6e55835af88ecd0d6a} 
+int8\+\_\+t CAN\+\_\+message\+\_\+t\+::mb = 0}
+
+\Hypertarget{structCAN__message__t_a1993a9fe50ca9bfad03fd81ad879d955}\index{CAN\_message\_t@{CAN\_message\_t}!overrun@{overrun}}
+\index{overrun@{overrun}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{overrun}{overrun}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a1993a9fe50ca9bfad03fd81ad879d955} 
+bool CAN\+\_\+message\+\_\+t\+::overrun = 0}
+
+\Hypertarget{structCAN__message__t_a438f0464c022d6561575bc7db79cd442}\index{CAN\_message\_t@{CAN\_message\_t}!remote@{remote}}
+\index{remote@{remote}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{remote}{remote}}
+{\footnotesize\ttfamily \label{structCAN__message__t_a438f0464c022d6561575bc7db79cd442} 
+bool CAN\+\_\+message\+\_\+t\+::remote = 0}
+
+\Hypertarget{structCAN__message__t_ad23ec8e319319c4694e43787392ed4d4}\index{CAN\_message\_t@{CAN\_message\_t}!reserved@{reserved}}
+\index{reserved@{reserved}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{reserved}{reserved}}
+{\footnotesize\ttfamily \label{structCAN__message__t_ad23ec8e319319c4694e43787392ed4d4} 
+bool CAN\+\_\+message\+\_\+t\+::reserved = 0}
+
+\Hypertarget{structCAN__message__t_af2ae92d000d655ff6985f16d1b3b2769}\index{CAN\_message\_t@{CAN\_message\_t}!seq@{seq}}
+\index{seq@{seq}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{seq}{seq}}
+{\footnotesize\ttfamily \label{structCAN__message__t_af2ae92d000d655ff6985f16d1b3b2769} 
+bool CAN\+\_\+message\+\_\+t\+::seq = 0}
+
+\Hypertarget{structCAN__message__t_aa9e73822485d6d1e96b9faf40f823643}\index{CAN\_message\_t@{CAN\_message\_t}!timestamp@{timestamp}}
+\index{timestamp@{timestamp}!CAN\_message\_t@{CAN\_message\_t}}
+\doxysubsubsection{\texorpdfstring{timestamp}{timestamp}}
+{\footnotesize\ttfamily \label{structCAN__message__t_aa9e73822485d6d1e96b9faf40f823643} 
+uint16\+\_\+t CAN\+\_\+message\+\_\+t\+::timestamp = 0}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Flex\+CAN\+\_\+\+T4/\mbox{\hyperlink{FlexCAN__T4___8h}{Flex\+CAN\+\_\+\+T4\+\_\+.\+h}}\end{DoxyCompactItemize}
