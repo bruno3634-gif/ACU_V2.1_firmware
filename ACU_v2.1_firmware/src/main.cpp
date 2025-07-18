@@ -550,7 +550,7 @@ void UpdateState(void)
     break;
 
   case STATE_EMERGENCY:
-    emergency_flag = 1; // Set emergency flag
+      emergency_flag = 1; // Set emergency flag
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH);
     break;
@@ -665,22 +665,22 @@ void HandleState(void)
     break;
   case STATE_MISSION_SELECT:
 
-    static bool last_button = false;  // Start with LOW (pulldown default)
-    
+    static int last_button = 0;  // Start with LOW (pulldown default)
     if (digitalRead(ASMS) == LOW && !res_active) {
-        bool current_button = (digitalRead(MS_BUTTON1) == HIGH);  // HIGH when pressed
-        
-        // Trigger ONLY on button press (LOW→HIGH transition)
-        if (!last_button && current_button) {
-            current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
-            Serial.print("Mission changed to: ");
-            Serial.println(current_mission);
-        }
-        
-        last_button = current_button;  // Update for next loop
+      int current_button = digitalRead(MS_BUTTON1);  // HIGH when pressed
+
+      // Only change on LOW→HIGH transition (rising edge)
+      if (last_button == LOW && current_button == HIGH) {
+        current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
+        Serial.print("Mission changed to: ");
+        Serial.println(current_mission);
+      }
+
+      last_button = current_button;  // Update for next loop
     }
     else {
         current_state = STATE_INITIAL_SEQUENCE;
+        initial_sequence_state = IGNITON; // Reset initial sequence state
     }
     break;
 
@@ -737,7 +737,7 @@ void peripheral_init()
   pinMode(YELLOW_LEDS, OUTPUT);
   pinMode(BLUE_LEDS, OUTPUT);
 
-  pinMode(MS_BUTTON1, INPUT_PULLUP);
+  pinMode(MS_BUTTON1, INPUT);
 
   pinMode(MS_LED1, OUTPUT);
   pinMode(MS_LED2, OUTPUT);
@@ -812,7 +812,7 @@ void peripheral_init()
   Serial.println("Peripheral initialization complete");
   digitalWrite(Debug_LED2, 1); // Indicate initialization complete
 
-  HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
+  //HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
  
 }
 
@@ -923,6 +923,9 @@ void median_pressures() {
     
     // Apply formula ONCE with corrected divider
     TANK_PRESSURE_REAR = (actualVoltage - 0.5) / 0.4;
+
+    TANK_PRESSURE_FRONT = 10;
+    TANK_PRESSURE_REAR = 10;
   }
 
 
@@ -1059,6 +1062,7 @@ void median_pressures() {
     case IGNITON:
         ignition_enable = 1; // Enable ignition
         if(ignition_vcu == 1 && ignition_flag == 1) {
+          current_state = STATE_READY; 
           initial_sequence_state = PRESSURE_CHECK_FRONT; // Transition to pressure check state
           pressure_check_delay = millis(); // Reset pressure check delay
         }
@@ -1230,76 +1234,76 @@ void Mission_Indicator() {
   switch (current_mission)
   {
   case MANUAL:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 1);
-    digitalWrite(MS_LED3, 1);
-    digitalWrite(MS_LED4, 1);
-    digitalWrite(MS_LED5, 1);
-    digitalWrite(MS_LED6, 1);
-    digitalWrite(MS_LED7, 1);
-    break;
-  case ACCELERATION:
     digitalWrite(MS_LED1, 1);
     digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 1);
-    digitalWrite(MS_LED4, 1);
-    digitalWrite(MS_LED5, 1);
-    digitalWrite(MS_LED6, 1);
-    digitalWrite(MS_LED7, 1);
+    digitalWrite(MS_LED3, 0);
+    digitalWrite(MS_LED4, 0);
+    digitalWrite(MS_LED5, 0);
+    digitalWrite(MS_LED6, 0);
+    digitalWrite(MS_LED7, 0);
     break;
-  case SKIDPAD:
-    digitalWrite(MS_LED1, 1);
+  case ACCELERATION:
+    digitalWrite(MS_LED1, 0);
     digitalWrite(MS_LED2, 1);
     digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 1);
-    digitalWrite(MS_LED5, 1);
-    digitalWrite(MS_LED6, 1);
-    digitalWrite(MS_LED7, 1);
+    digitalWrite(MS_LED4, 0);
+    digitalWrite(MS_LED5, 0);
+    digitalWrite(MS_LED6, 0);
+    digitalWrite(MS_LED7, 0);
     break;
-  case TRACKDRIVE:
-    digitalWrite(MS_LED1, 1);
-    digitalWrite(MS_LED2, 1);
+  case SKIDPAD:
+    digitalWrite(MS_LED1, 0);
+    digitalWrite(MS_LED2, 0);
     digitalWrite(MS_LED3, 1);
     digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 1);
-    digitalWrite(MS_LED6, 1);
-    digitalWrite(MS_LED7, 1);
+    digitalWrite(MS_LED5, 0);
+    digitalWrite(MS_LED6, 0);
+    digitalWrite(MS_LED7, 0);
     break;
-  case EBS_TEST:
-    digitalWrite(MS_LED1, 1);
-    digitalWrite(MS_LED2, 1);
-    digitalWrite(MS_LED3, 1);
+  case TRACKDRIVE:
+    digitalWrite(MS_LED1, 0);
+    digitalWrite(MS_LED2, 0);
+    digitalWrite(MS_LED3, 0);
     digitalWrite(MS_LED4, 1);
     digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 1);
-    digitalWrite(MS_LED7, 1);
+    digitalWrite(MS_LED6, 0);
+    digitalWrite(MS_LED7, 0);
     break;
-  case INSPECTION:
-    digitalWrite(MS_LED1, 1);
-    digitalWrite(MS_LED2, 1);
-    digitalWrite(MS_LED3, 1);
-    digitalWrite(MS_LED4, 1);
+  case EBS_TEST:
+    digitalWrite(MS_LED1, 0);
+    digitalWrite(MS_LED2, 0);
+    digitalWrite(MS_LED3, 0);
+    digitalWrite(MS_LED4, 0);
     digitalWrite(MS_LED5, 1);
     digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 1);
+    digitalWrite(MS_LED7, 0);
     break;
-  case AUTOCROSS:
-    digitalWrite(MS_LED1, 1);
-    digitalWrite(MS_LED2, 1);
-    digitalWrite(MS_LED3, 1);
-    digitalWrite(MS_LED4, 1);
-    digitalWrite(MS_LED5, 1);
+  case INSPECTION:
+    digitalWrite(MS_LED1, 0);
+    digitalWrite(MS_LED2, 0);
+    digitalWrite(MS_LED3, 0);
+    digitalWrite(MS_LED4, 0);
+    digitalWrite(MS_LED5, 0);
     digitalWrite(MS_LED6, 1);
     digitalWrite(MS_LED7, 0);
     break;
-  default:
-    digitalWrite(MS_LED1, 1);
-    digitalWrite(MS_LED2, 1);
-    digitalWrite(MS_LED3, 1);
-    digitalWrite(MS_LED4, 1);
-    digitalWrite(MS_LED5, 1);
-    digitalWrite(MS_LED6, 1);
+  case AUTOCROSS:
+    digitalWrite(MS_LED1, 0);
+    digitalWrite(MS_LED2, 0);
+    digitalWrite(MS_LED3, 0);
+    digitalWrite(MS_LED4, 0);
+    digitalWrite(MS_LED5, 0);
+    digitalWrite(MS_LED6, 0);
     digitalWrite(MS_LED7, 1);
+    break;
+  default:
+    digitalWrite(MS_LED1, 0);
+    digitalWrite(MS_LED2, 0);
+    digitalWrite(MS_LED3, 0);
+    digitalWrite(MS_LED4, 0);
+    digitalWrite(MS_LED5, 0);
+    digitalWrite(MS_LED6, 0);
+    digitalWrite(MS_LED7, 0);
     break;
   }
 }
