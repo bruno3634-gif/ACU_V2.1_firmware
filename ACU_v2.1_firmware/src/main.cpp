@@ -465,6 +465,7 @@ void check_ignition();
 void ASSI();
 void led_heartbit();
 void Mission_Indicator();
+void continuous_monitoring();
 
 void send_handbook_variables();
 
@@ -640,11 +641,9 @@ void HandleState(void)
   }
 
 
-/**
- * TODO: Se current_state > initial_sequence and < emegencia 
- * codigo do fluxogama que te vou envia
- */
-
+ if(current_state > STATE_INITIAL_SEQUENCE && current_state < STATE_EMERGENCY){
+    continuous_monitoring();
+  }
 
   switch (current_state)
   {
@@ -780,6 +779,8 @@ void peripheral_init()
 
   digitalWrite(SOLENOID_FRONT, 1);  // 1 equals braking on
   digitalWrite(SOLENOID_REAR, 1);
+
+  pinMode(SDC_FEEDBACK, INPUT);
 
   Serial2.begin(115200);
   Serial.begin(115200);
@@ -947,8 +948,9 @@ void median_pressures() {
     Serial2.println("Dynamics steering angle: " + String(dynamics_steering_angle/10) + " degrees in isr");
     break;
   case 0x546:
-    aux_brake_p = (msg.buf[1] << 8 | msg.buf[0]) / 10; // Update rear brake pressure
-    Brake_pressure_rear = aux_brake_p;
+    aux_brake_p = (msg.buf[1] << 8 | msg.buf[0]);
+    HYDRAULIC_PRESSURE_REAR = aux_brake_p / 10; // Update rear brake pressure
+    Brake_pressure_rear = (u_int8_t)HYDRAULIC_PRESSURE_REAR;
     Serial2.println("Rear brake pressure: " + String(Brake_pressure_rear) + " bar in isr");
    
 
@@ -1370,4 +1372,18 @@ void send_handbook_variables(){
     msg_asf.len = 4; // Set message length to 4 bytes
     msg_asf.id = 0x511; // Set CAN ID for ASF signals
     CAN.write(msg_asf); // Send the CAN message
+}
+
+void continuous_monitoring() {
+  bool sdc_opened = digitalRead(SDC_FEEDBACK) == HIGH;   
+  if (sdc_opened) {
+    delay(50);
+    if (!(HYDRAULIC_PRESSURE_FRONT >= 60 && HYDRAULIC_PRESSURE_FRONT <= 120) || !(HYDRAULIC_PRESSURE_REAR >= 60 && HYDRAULIC_PRESSURE_REAR <= 120)) {
+      current_state = STATE_EBS_ERROR;
+    }
+    //stop monitoring
+    current_state = STATE_INIT;
+  } else if (!(TANK_PRESSURE_FRONT >= 6 && TANK_PRESSURE_FRONT <= 10) || !(TANK_PRESSURE_REAR >= 6 && TANK_PRESSURE_REAR <= 10)) {
+      current_state = STATE_EBS_ERROR;
+  }
 }
