@@ -705,6 +705,9 @@ void HandleState(void)
      * Solenoids a 0
      * AS_state = AS_STATE_DRIVING;
      */
+    digitalWrite(SOLENOID_FRONT, LOW);
+    digitalWrite(SOLENOID_REAR, LOW);
+    as_state = AS_STATE_DRIVING;
     break;
 
   case STATE_EMERGENCY:
