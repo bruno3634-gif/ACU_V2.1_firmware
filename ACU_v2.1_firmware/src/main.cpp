@@ -384,6 +384,13 @@ uint8_t Brake_hydr_target = 0;
 uint8_t Motor_moment_actual = 0;
 uint8_t Motor_moment_target = 0;
 
+uint8_t wheel_speed_fl = 0;
+uint8_t wheel_speed_fr = 0;
+uint8_t wheel_speed_rl = 0;
+uint8_t wheel_speed_rr = 0;
+
+
+
 /**
  * @brief Handbook variables that are sent to can bus -> DV system status
  * @showrefs FSG Handbook 2025  page 20
@@ -457,7 +464,7 @@ void loop()
     update_median_flag = false; // Reset flag after reading
   }
   asms_flag = digitalRead(ASMS); // Read ASMS state
-  ASSI();                   // Update ASSI state
+  ASSI();                        // Update ASSI state
 
   if (wdt_togle_enable)
   {
@@ -503,7 +510,7 @@ void UpdateState(void)
     break;
 
   case STATE_EBS_ERROR:
-    as_state = AS_STATE_EMERGENCY;    // Autonomous system state
+    as_state = AS_STATE_EMERGENCY; // Autonomous system state
     break;
 
   case STATE_READY:
@@ -511,6 +518,7 @@ void UpdateState(void)
     break;
 
   case STATE_DRIVING:
+    as_state = AS_STATE_DRIVING; // Autonomous system state
     break;
 
   case STATE_EMERGENCY:
@@ -529,9 +537,9 @@ void UpdateState(void)
   // Execute entry actions when state has changed
   if (current_state != previous_state)
   {
-    #ifdef print_state
-        print_state_transition(previous_state, current_state);
-    #endif
+#ifdef print_state
+    print_state_transition(previous_state, current_state);
+#endif
     // State entry actions
     switch (current_state)
     {
@@ -677,6 +685,7 @@ void HandleState(void)
      * Solenoids a 0
      * AS_state = AS_STATE_DRIVING;
      */
+    
     digitalWrite(SOLENOID_FRONT, LOW);
     digitalWrite(SOLENOID_REAR, LOW);
     as_state = AS_STATE_DRIVING;
@@ -698,7 +707,7 @@ void HandleState(void)
     break;
   case STATE_FINISHED:
     // TODO: Make sue the ca is stopped
-    if (speed <= 0)
+    if (speed <= 0 && wheel_speed_fl == 0 && wheel_speed_fr == 0 && wheel_speed_rl == 0 && wheel_speed_rr == 0)
     {
       as_state = AS_STATE_FINISHED;
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
@@ -933,6 +942,7 @@ void canISR(const CAN_message_t &msg)
     Serial2.println("Steering angle actual: " + String(Steering_angle_actual) + " degrees in isr");
     Serial2.println("Dynamics steering angle: " + String(dynamics_steering_angle / 10) + " degrees in isr");
     break;
+
   case 0x546:
     aux_brake_p = (msg.buf[1] << 8 | msg.buf[0]);
     HYDRAULIC_PRESSURE_REAR = aux_brake_p / 10; // Update rear brake pressure
@@ -946,6 +956,7 @@ void canISR(const CAN_message_t &msg)
   case AUTONOMOUS_TEMPORARY_JETSON_MS_FRAME_ID:
     jetson_mission = (current_mission_t)msg.buf[0]; // Update mission response from Jetson
     break;
+
   case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
 
     if (msg.buf[0] == 0)
@@ -962,11 +973,13 @@ void canISR(const CAN_message_t &msg)
       res_active = true; // Set response active flag
     }
     break;
+
   case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
     ignition_vcu = (msg.buf[0] == 9) ? 1 : 0; // Update ignition signal from VCU
     HYDRAULIC_PRESSURE_FRONT = msg.buf[1];    // Convert to bar
     Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
     break;
+
   case 0x503:
     if (current_state != STATE_EMERGENCY)
     {
@@ -974,25 +987,36 @@ void canISR(const CAN_message_t &msg)
     }
     switch (as_state)
     {
-    case AS_STATE_OFF:
-      current_state = STATE_INIT; // Transition to INIT state
-      break;
-    case AS_STATE_READY:
-      current_state = STATE_READY; // Transition to READY state
-      break;
-    case AS_STATE_DRIVING:
-      current_state = STATE_DRIVING; // Transition to DRIVING state
-      break;
-    case AS_STATE_EMERGENCY:
-      current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
-      break;
-    case AS_STATE_FINISHED:
-      current_state = STATE_FINISHED; // Transition to FINISHED state
-      break;
-    default:
-      break;
+      case AS_STATE_OFF:
+        current_state = STATE_INIT; // Transition to INIT state
+        break;
+      case AS_STATE_READY:
+        current_state = STATE_READY; // Transition to READY state
+        break;
+      case AS_STATE_DRIVING:
+        current_state = STATE_DRIVING; // Transition to DRIVING state
+        break;
+      case AS_STATE_EMERGENCY:
+        current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+        break;
+      case AS_STATE_FINISHED:
+        current_state = STATE_FINISHED; // Transition to FINISHED state
+        break;
+      default:
+        break;
     }
     break;
+
+  case 0x080: // Rear wheels
+    wheel_speed_rl = msg.buf[0];  // Byte 0: rear left
+    wheel_speed_rr = msg.buf[1];  // Byte 1: rear right
+    break;
+
+  case 0x0A0: // Front wheels
+    wheel_speed_fl = msg.buf[0];  // Byte 0: front left
+    wheel_speed_fr = msg.buf[1];  // Byte 1: front right
+    break;
+
   default:
     // Unknown message ID, ignore
     break;
