@@ -1,0 +1,6 @@
+ready state -> destravar carro e atuar luzes
+finish state -> garantir que o carro parou (usar speed das dynamics)
+verificar que pressão estão a se lidas corretamento do can
+Sair de emergencia n está a funcionar (linha 630 a 633)
+verificar a sequencia inicial (falta um relé no watchdog)
+Continuous sequence falta verificar timeouts dos moudulos de can 

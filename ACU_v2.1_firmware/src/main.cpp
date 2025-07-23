@@ -176,7 +176,7 @@ volatile AS_STATE_t as_state = AS_STATE_OFF; // Autonomous system state
 
 //INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
 //INITIAL_SEQUENCE_STATE_t initial_sequence_state = PNEUMATIC_CHECK;
-INITIAL_SEQUENCE_STATE_t initial_sequence_state = IGNITON;
+INITIAL_SEQUENCE_STATE_t initial_sequence_state = WDT_TOOGLE_CHECK;
 current_mission_t current_mission = MANUAL; // Current mission state
 current_mission_t jetson_mission = MANUAL; // Mission state from Jetson
 
@@ -389,7 +389,7 @@ static uint8_t debounced_ign_state = LOW;
 
 
 
-
+int speed = 0;
 
 
 
@@ -552,8 +552,9 @@ void UpdateState(void)
 
   case STATE_EMERGENCY:
       emergency_flag = 1; // Set emergency flag
-      digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, HIGH);
+      as_state = AS_STATE_EMERGENCY;
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
     break;
   case STATE_FINISHED:
     
@@ -579,19 +580,20 @@ void UpdateState(void)
       wdt_togle_enable = true; // Enable WDT toggle
       break;
     case STATE_INITIAL_SEQUENCE:
-    initial_sequence_state = WDT_TOOGLE_CHECK;
+    //initial_sequence_state = WDT_TOOGLE_CHECK;
       // reset all inital sequence variables
       break;
 
     case STATE_EBS_ERROR:
-      digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, LOW);
       
       break;
 
     case STATE_READY:
       as_state = AS_STATE_READY;
-
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
       break;
 
     case STATE_DRIVING:
@@ -602,18 +604,16 @@ void UpdateState(void)
       break;
 
     case STATE_EMERGENCY:
-    ignition_enable = 0; 
+      ignition_enable = 0; 
       as_state = AS_STATE_EMERGENCY;
-      digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, HIGH);
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
       emergency_timestamp = millis(); // Record the time of entering emergency state
-      Serial2.println("Entering emergency state");
       break;
       case STATE_FINISHED:
       // Handle finished state actions if needed
-      as_state = AS_STATE_FINISHED;
-      digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, HIGH);
+
+
       break;
     }
     // Store current state for change detection
@@ -656,23 +656,24 @@ void HandleState(void)
       asms_flag = 0;
       jetson_mission = MANUAL;
       res_emergency = 0;
-      wdt_togle_enable = true;
+      wdt_togle_enable = false;
 
     
     //current_state = STATE_INITIAL_SEQUENCE; // Transition to initial sequence state
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
+   // current_state = STATE_INIT;
     break;
   case STATE_MISSION_SELECT:
 
     static int last_button = 0;  // Start with LOW (pulldown default)
-    if (digitalRead(ASMS) == LOW && !res_active) {
+    if (digitalRead(ASMS) == LOW /*&& !res_active*/) {
       int current_button = digitalRead(MS_BUTTON1);  // HIGH when pressed
 
       // Only change on LOW→HIGH transition (rising edge)
       if (last_button == LOW && current_button == HIGH) {
         current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
         Serial.print("Mission changed to: ");
-        Serial.println(current_mission);
+       // Serial.println(current_mission);
       }
 
       last_button = current_button;  // Update for next loop
@@ -680,6 +681,10 @@ void HandleState(void)
     else {
         current_state = STATE_INITIAL_SEQUENCE;
         initial_sequence_state = IGNITON; // Reset initial sequence state
+        //initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
+        //digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
+        //digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+        digitalWrite(Debug_LED4,HIGH); // Indicate mission selection
     }
     break;
 
@@ -724,6 +729,11 @@ void HandleState(void)
     break;
     case STATE_FINISHED:
     //TODO: Make sue the ca is stopped
+      if(speed <= 0){
+        as_state = AS_STATE_FINISHED;
+        digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
+        digitalWrite(SOLENOID_FRONT, HIGH);
+      }
     break;
   }
 }
@@ -780,8 +790,8 @@ void peripheral_init()
   pinMode(SOLENOID_FRONT, OUTPUT);
   pinMode(SOLENOID_REAR, OUTPUT);
 
-  digitalWrite(SOLENOID_FRONT, 1);  // 1 equals braking on
-  digitalWrite(SOLENOID_REAR, 1);
+  digitalWrite(SOLENOID_FRONT, 0);  // 1 equals braking off
+  digitalWrite(SOLENOID_REAR, 0);
 
   pinMode(SDC_FEEDBACK, INPUT);
 
@@ -824,9 +834,21 @@ void led_heartbit() {
     if (HeartBit + 500 <= millis()) {
         digitalWrite(HB_LED, !digitalRead(HB_LED)); // Toggle LED state
         HeartBit = millis();
+        Serial.print("Hydraulic pressure front: ");
+        Serial.println(HYDRAULIC_PRESSURE_FRONT);
+        Serial.print("Hydraulic pressure rear: ");
+        Serial.println(HYDRAULIC_PRESSURE_REAR);
+        Serial.print("current_state: ");
         Serial.println(current_state);
+        Serial.print("as_state: ");
+        Serial.println(as_state);
+        Serial.print("initial_sequence_state: ");
+        Serial.println(initial_sequence_state);
+        Serial.print("SDC feedback: ");
+        Serial.println(digitalRead(SDC_FEEDBACK));
     }
 }
+
 
 /**
  * @brief Read pressure sensors and update system state
@@ -928,8 +950,8 @@ void median_pressures() {
     // Apply formula ONCE with corrected divider
     TANK_PRESSURE_REAR = (actualVoltage - 0.5) / 0.4;
 
-    TANK_PRESSURE_FRONT = 10;
-    TANK_PRESSURE_REAR = 10;
+    Serial.println("Tank pressure front: " + String(TANK_PRESSURE_FRONT) + " bar");
+    Serial.println("Tank pressure rear: " + String(TANK_PRESSURE_REAR) + " bar");
   }
 
 
@@ -988,7 +1010,7 @@ void median_pressures() {
       HYDRAULIC_PRESSURE_FRONT = msg.buf[1];    // Convert to bar
       Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
       break;
-    case AUTONOMOUS_TEMPORARY_AS_STATE_FRAME_ID:
+    case 0x503:
       if (current_state != STATE_EMERGENCY)
       {
         as_state = (AS_STATE_t)msg.buf[0]; // Update autonomous system state
@@ -1024,14 +1046,14 @@ void median_pressures() {
     switch (initial_sequence_state)
     {
     case WDT_TOOGLE_CHECK:
-      if(digitalRead(WDT) == HIGH) {
+      if(digitalRead(SDC_FEEDBACK) == LOW) {
         initial_sequence_state = WDT_STP_TOOGLE_CHECK;
         wdt_togle_enable = false; // Disable WDT toggle for initial sequence
         wdt_relay_timout = millis(); // Reset WDT toggle counter
       }
       break;
     case WDT_STP_TOOGLE_CHECK:
-      if(digitalRead(WDT) == LOW) {
+      if(digitalRead(SDC_FEEDBACK) == HIGH) {
         initial_sequence_state = PNEUMATIC_CHECK; 
         wdt_togle_enable = true; 
       }else{
@@ -1073,8 +1095,8 @@ void median_pressures() {
         }
       break;
     case PRESSURE_CHECK_REAR:
-      digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
-      digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
+      digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
       if(/*TANK_PRESSURE_REAR >= 11.5 * HYDRAULIC_PRESSURE_REAR &&*/ TANK_PRESSURE_FRONT <= 1) {
         initial_sequence_state = PRESSURE_CHECK2; 
         pressure_check_delay = millis(); // Reset pressure check delay
@@ -1084,8 +1106,8 @@ void median_pressures() {
       }
       break;
     case PRESSURE_CHECK_FRONT:
-      digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
+      digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
       if(TANK_PRESSURE_FRONT > 11.5 * HYDRAULIC_PRESSURE_FRONT && TANK_PRESSURE_REAR <= 1) {
         //initial_sequence_state = PRESSURE_CHECK_REAR; 
         initial_sequence_state = PRESSURE_CHECK2; // Transition to pressure check state
@@ -1096,8 +1118,8 @@ void median_pressures() {
       }
       break;
     case PRESSURE_CHECK2:
-      digitalWrite(SOLENOID_REAR, LOW); // Deactivate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW); // Deactivate front solenoid
+      digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
       if(/*TANK_PRESSURE_REAR >= 11.5 * HYDRAULIC_PRESSURE_REAR &&*/ TANK_PRESSURE_FRONT >= 11.5 * HYDRAULIC_PRESSURE_FRONT) {
         current_state = STATE_READY; // Transition to ready state
       }
