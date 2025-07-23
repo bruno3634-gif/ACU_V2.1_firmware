@@ -12,3 +12,4 @@ https://github.com/FSLART/CAN_DBC
 
 
 Acertar leds do mission indicator com o painel
+Adicionar defines para dar bypass para testes
