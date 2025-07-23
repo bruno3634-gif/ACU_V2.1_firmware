@@ -8,3 +8,7 @@ Continuous sequence falta verificar timeouts dos moudulos de can
 para verificar id's vê o ficheiro excel no separador autonomous_temporary deste repositório:
 
 https://github.com/FSLART/CAN_DBC
+
+
+
+Acertar leds do mission indicator com o painel
