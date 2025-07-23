@@ -1,6 +1,10 @@
-ready state -> destravar carro e atuar luzes
+ready state -> atuar luzes
 finish state -> garantir que o carro parou (usar speed das dynamics)
 verificar que pressão estão a se lidas corretamento do can
 Sair de emergencia n está a funcionar (linha 630 a 633)
 verificar a sequencia inicial (falta um relé no watchdog)
 Continuous sequence falta verificar timeouts dos moudulos de can 
+
+para verificar id's vê o ficheiro excel no separador autonomous_temporary deste repositório:
+
+https://github.com/FSLART/CAN_DBC
