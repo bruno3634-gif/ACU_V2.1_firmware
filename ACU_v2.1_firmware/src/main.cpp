@@ -680,8 +680,8 @@ void HandleState(void)
     }
     else {
         current_state = STATE_INITIAL_SEQUENCE;
-        initial_sequence_state = IGNITON; // Reset initial sequence state
-        //initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
+        //initial_sequence_state = IGNITON; // Reset initial sequence state
+        initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
         //digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
         //digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
         digitalWrite(Debug_LED4,HIGH); // Indicate mission selection
