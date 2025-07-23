@@ -1,4 +1,4 @@
-ready state -> atuar luzes
+ready state -> atuar luzes (verificar)
 finish state -> garantir que o carro parou (usar speed das dynamics)
 verificar que pressão estão a se lidas corretamento do can
 Sair de emergencia n está a funcionar (linha 630 a 633)
