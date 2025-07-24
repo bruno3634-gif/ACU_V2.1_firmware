@@ -508,7 +508,10 @@ void UpdateState(void)
     break;
 
   case STATE_EBS_ERROR:
-    as_state = AS_STATE_EMERGENCY; // Autonomous system state
+    if (!SKIP_EBS_ERROR)
+    {
+      as_state = AS_STATE_EMERGENCY; // Autonomous system state
+    }
     break;
 
   case STATE_READY:
@@ -520,10 +523,13 @@ void UpdateState(void)
     break;
 
   case STATE_EMERGENCY:
-    emergency_flag = 1; // Set emergency flag
-    as_state = AS_STATE_EMERGENCY;
-    digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
-    digitalWrite(SOLENOID_FRONT, LOW);
+    if (!SKIP_STATE_EMERGENCY)
+    {
+      emergency_flag = 1; // Set emergency flag
+      as_state = AS_STATE_EMERGENCY;
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
+    }
     break;
 
   case STATE_FINISHED:
@@ -557,9 +563,12 @@ void UpdateState(void)
       break;
 
     case STATE_EBS_ERROR:
-      as_state = AS_STATE_EMERGENCY;    // Autonomous system state
-      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW);
+      if (!SKIP_EBS_ERROR)
+      {
+        as_state = AS_STATE_EMERGENCY;    // Autonomous system state
+        digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+        digitalWrite(SOLENOID_FRONT, LOW);
+      }
       break;
 
     case STATE_READY:
@@ -575,11 +584,14 @@ void UpdateState(void)
       break;
 
     case STATE_EMERGENCY:
-      ignition_enable = 0;
-      as_state = AS_STATE_EMERGENCY;
-      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW);
-      emergency_timestamp = millis(); // Record the time of entering emergency state
+      if (!SKIP_STATE_EMERGENCY)
+      {
+        ignition_enable = 0;
+        as_state = AS_STATE_EMERGENCY;
+        digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+        digitalWrite(SOLENOID_FRONT, LOW);
+        emergency_timestamp = millis(); // Record the time of entering emergency state
+      }
       break;
 
     case STATE_FINISHED:
@@ -610,7 +622,7 @@ void HandleState(void)
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
   }
 
-  if (res_emergency == 1)
+  if (res_emergency == 1 && !SKIP_RES_EMMERGENCY)
   {
     current_state = STATE_EMERGENCY;
     as_state = AS_STATE_EMERGENCY; // Autonomous system state
@@ -1000,7 +1012,10 @@ void canISR(const CAN_message_t &msg)
       current_state = STATE_DRIVING; // Transition to DRIVING state
       break;
     case AS_STATE_EMERGENCY:
-      current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+      if (!SKIP_CAN_AS_STATE_EMERGENCY)
+      {
+        current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+      }
       break;
     case AS_STATE_FINISHED:
       current_state = STATE_FINISHED; // Transition to FINISHED state
@@ -1094,8 +1109,8 @@ void initial_sequence()
   case PRESSURE_CHECK1:
     if (SKIP_PRESSURE_CHECK1)
     {
-        initial_sequence_state = IGNITON;
-        break;
+      initial_sequence_state = IGNITON;
+      break;
     }
 
     if (HYDRAULIC_PRESSURE_FRONT >= 11.5 * TANK_PRESSURE_FRONT /*&& HYDRAULIC_PRESSURE_REAR >= 11.5 * TANK_PRESSURE_REAR*/)
@@ -1111,17 +1126,17 @@ void initial_sequence()
 
   case IGNITON:
     ignition_enable = 1; // Enable ignition
-     if (SKIP_IGNITION_CHECK)
+    if (SKIP_IGNITION_CHECK)
     {
-        //current_state = STATE_READY;
-        initial_sequence_state = PRESSURE_CHECK_FRONT;
-        pressure_check_delay = millis();
-        break;
+      // current_state = STATE_READY;
+      initial_sequence_state = PRESSURE_CHECK_FRONT;
+      pressure_check_delay = millis();
+      break;
     }
 
     if (ignition_vcu == 1 && ignition_flag == 1)
     {
-      //current_state = STATE_READY; //no final da initial sequence
+      // current_state = STATE_READY; //no final da initial sequence
       initial_sequence_state = PRESSURE_CHECK_FRONT; // Transition to pressure check state
       pressure_check_delay = millis();               // Reset pressure check delay
     }
@@ -1133,9 +1148,9 @@ void initial_sequence()
 
     if (SKIP_PRESSURE_REAR_CHECK)
     {
-        initial_sequence_state = PRESSURE_CHECK2;
-        pressure_check_delay = millis();
-        break;
+      initial_sequence_state = PRESSURE_CHECK2;
+      pressure_check_delay = millis();
+      break;
     }
 
     if (/*TANK_PRESSURE_REAR >= 11.5 * HYDRAULIC_PRESSURE_REAR &&*/ TANK_PRESSURE_FRONT <= 1)
@@ -1155,16 +1170,16 @@ void initial_sequence()
 
     if (SKIP_PRESSURE_FRONT_CHECK)
     {
-        initial_sequence_state = PRESSURE_CHECK_REAR;
-        pressure_check_delay = millis();
-        break;
+      initial_sequence_state = PRESSURE_CHECK_REAR;
+      pressure_check_delay = millis();
+      break;
     }
 
     if (TANK_PRESSURE_FRONT > 11.5 * HYDRAULIC_PRESSURE_FRONT && TANK_PRESSURE_REAR <= 1)
     {
       // initial_sequence_state = PRESSURE_CHECK_REAR;
       initial_sequence_state = PRESSURE_CHECK_REAR; // Transition to pressure check state
-      pressure_check_delay = millis();          // Reset pressure check delay
+      pressure_check_delay = millis();              // Reset pressure check delay
     }
     if (millis() - pressure_check_delay >= 500)
     {                                 // Check if 500 ms has passed
@@ -1176,10 +1191,10 @@ void initial_sequence()
     digitalWrite(SOLENOID_REAR, HIGH);  // Deactivate rear solenoid
     digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
 
-    if( SKIP_PRESSURE_CHECK2)
+    if (SKIP_PRESSURE_CHECK2)
     {
       current_state = STATE_READY; // Transition to ready state
-      //initial_sequence_state = STATE_READY; // Reset initial sequence state
+      // initial_sequence_state = STATE_READY; // Reset initial sequence state
       break;
     }
 
