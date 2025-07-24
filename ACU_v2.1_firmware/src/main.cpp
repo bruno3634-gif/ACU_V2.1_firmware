@@ -389,8 +389,6 @@ uint8_t wheel_speed_fr = 0;
 uint8_t wheel_speed_rl = 0;
 uint8_t wheel_speed_rr = 0;
 
-
-
 /**
  * @brief Handbook variables that are sent to can bus -> DV system status
  * @showrefs FSG Handbook 2025  page 20
@@ -485,7 +483,7 @@ void loop()
  */
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
 {
-  Serial2.println("\n\rState transition: " + String(state_names[from]) + " -> " + String(state_names[to]));
+  // Serial2.println("\n\rState transition: " + String(state_names[from]) + " -> " + String(state_names[to]));
 }
 
 /**
@@ -600,7 +598,13 @@ void UpdateState(void)
 void HandleState(void)
 {
 
-  if (asms_flag == LOW && current_state > STATE_MISSION_SELECT && current_state != STATE_EMERGENCY)
+  /*if (asms_flag == LOW && current_state > STATE_MISSION_SELECT && current_state != STATE_EMERGENCY)
+  {
+    ignition_enable = 0;                  // Reset ignition enable flag
+    current_state = STATE_MISSION_SELECT; // Transition to mission select state
+  }*/
+
+  if (asms_flag == LOW && current_state > STATE_MISSION_SELECT)
   {
     ignition_enable = 0;                  // Reset ignition enable flag
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
@@ -685,7 +689,7 @@ void HandleState(void)
      * Solenoids a 0
      * AS_state = AS_STATE_DRIVING;
      */
-    
+
     digitalWrite(SOLENOID_FRONT, LOW);
     digitalWrite(SOLENOID_REAR, LOW);
     as_state = AS_STATE_DRIVING;
@@ -697,11 +701,11 @@ void HandleState(void)
     {
       as_state = AS_STATE_OFF;
       current_state = STATE_INIT;
-      Serial2.println("Emergency state timeout, returning to INIT state");
+      // Serial2.println("Emergency state timeout, returning to INIT state");
     }
     else
     {
-      Serial2.println("Emergency state active, waiting for AS response");
+      // Serial2.println("Emergency state active, waiting for AS response");
     }
 
     break;
@@ -727,20 +731,20 @@ void peripheral_init()
 
   pinMode(MS_BUTTON1, INPUT);
 
-  pinMode(MS_LED1, OUTPUT);
-  pinMode(MS_LED2, OUTPUT);
-  pinMode(MS_LED3, OUTPUT);
-  pinMode(MS_LED4, OUTPUT);
-  pinMode(MS_LED5, OUTPUT);
-  pinMode(MS_LED6, OUTPUT);
-  pinMode(MS_LED7, OUTPUT);
-  digitalWrite(MS_LED1, 1);
-  digitalWrite(MS_LED2, 1);
-  digitalWrite(MS_LED3, 1);
-  digitalWrite(MS_LED4, 1);
-  digitalWrite(MS_LED5, 1);
-  digitalWrite(MS_LED6, 1);
-  digitalWrite(MS_LED7, 1);
+  pinMode(MS_LED_TRACKD, OUTPUT);
+  pinMode(MS_LED_ACCL, OUTPUT);
+  pinMode(MS_LED_SKIDPAD, OUTPUT);
+  pinMode(MS_LED_MANUEL, OUTPUT);
+  pinMode(MS_LED_INSPCT, OUTPUT);
+  pinMode(MS_LED_AUTOCRSS, OUTPUT);
+  pinMode(MS_LED_EBS, OUTPUT);
+  digitalWrite(MS_LED_TRACKD, 1);
+  digitalWrite(MS_LED_ACCL, 1);
+  digitalWrite(MS_LED_SKIDPAD, 1);
+  digitalWrite(MS_LED_MANUEL, 1);
+  digitalWrite(MS_LED_INSPCT, 1);
+  digitalWrite(MS_LED_AUTOCRSS, 1);
+  digitalWrite(MS_LED_EBS, 1);
   pinMode(AS_SW, INPUT);
 
   pinMode(HB_LED, OUTPUT);
@@ -918,8 +922,8 @@ void median_pressures()
   // Apply formula ONCE with corrected divider
   TANK_PRESSURE_REAR = (actualVoltage - 0.5) / 0.4;
 
-  Serial.println("Tank pressure front: " + String(TANK_PRESSURE_FRONT) + " bar");
-  Serial.println("Tank pressure rear: " + String(TANK_PRESSURE_REAR) + " bar");
+  // Serial.println("Tank pressure front: " + String(TANK_PRESSURE_FRONT) + " bar");
+  // Serial.println("Tank pressure rear: " + String(TANK_PRESSURE_REAR) + " bar");
 }
 
 /**
@@ -939,16 +943,15 @@ void canISR(const CAN_message_t &msg)
   case 0x446:
     dynamics_steering_angle = msg.buf[1] << 8 | msg.buf[0]; // Update steering angle actual
     Steering_angle_actual = (dynamics_steering_angle / 10);
-    Serial2.println("Steering angle actual: " + String(Steering_angle_actual) + " degrees in isr");
-    Serial2.println("Dynamics steering angle: " + String(dynamics_steering_angle / 10) + " degrees in isr");
+    // Serial2.println("Steering angle actual: " + String(Steering_angle_actual) + " degrees in isr");
+    // Serial2.println("Dynamics steering angle: " + String(dynamics_steering_angle / 10) + " degrees in isr");
     break;
 
   case 0x546:
     aux_brake_p = (msg.buf[1] << 8 | msg.buf[0]);
     HYDRAULIC_PRESSURE_REAR = aux_brake_p / 10; // Update rear brake pressure
     Brake_pressure_rear = (u_int8_t)HYDRAULIC_PRESSURE_REAR;
-    Serial2.println("Rear brake pressure: " + String(Brake_pressure_rear) + " bar in isr");
-
+    // Serial2.println("Rear brake pressure: " + String(Brake_pressure_rear) + " bar in isr");
     break;
     // TODO: Read id 0x556
     //  divide by 10 and store in float
@@ -977,7 +980,7 @@ void canISR(const CAN_message_t &msg)
   case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
     ignition_vcu = (msg.buf[0] == 9) ? 1 : 0; // Update ignition signal from VCU
     HYDRAULIC_PRESSURE_FRONT = msg.buf[1];    // Convert to bar
-    Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
+    // Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
     break;
 
   case 0x503:
@@ -987,34 +990,36 @@ void canISR(const CAN_message_t &msg)
     }
     switch (as_state)
     {
-      case AS_STATE_OFF:
-        current_state = STATE_INIT; // Transition to INIT state
-        break;
-      case AS_STATE_READY:
-        current_state = STATE_READY; // Transition to READY state
-        break;
-      case AS_STATE_DRIVING:
-        current_state = STATE_DRIVING; // Transition to DRIVING state
-        break;
-      case AS_STATE_EMERGENCY:
-        current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
-        break;
-      case AS_STATE_FINISHED:
-        current_state = STATE_FINISHED; // Transition to FINISHED state
-        break;
-      default:
-        break;
+    case AS_STATE_OFF:
+      current_state = STATE_INIT; // Transition to INIT state
+      break;
+    case AS_STATE_READY:
+      current_state = STATE_READY; // Transition to READY state
+      break;
+    case AS_STATE_DRIVING:
+      current_state = STATE_DRIVING; // Transition to DRIVING state
+      break;
+    case AS_STATE_EMERGENCY:
+      current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+      break;
+    case AS_STATE_FINISHED:
+      current_state = STATE_FINISHED; // Transition to FINISHED state
+      break;
+    default:
+      break;
     }
     break;
 
-  case 0x080: // Rear wheels
-    wheel_speed_rl = msg.buf[0];  // Byte 0: rear left
-    wheel_speed_rr = msg.buf[1];  // Byte 1: rear right
+  case 0x456: // Front wheels
+    wheel_speed_fl = (uint16_t)msg.buf[0] | ((uint16_t)msg.buf[1] << 8);
+    wheel_speed_fr = (uint16_t)msg.buf[2] | ((uint16_t)msg.buf[3] << 8);
+    // Serial2.println("Wheel speed front: FL = " + String(wheel_speed_fl) + " | FR = " + String(wheel_speed_fr));
     break;
 
-  case 0x0A0: // Front wheels
-    wheel_speed_fl = msg.buf[0];  // Byte 0: front left
-    wheel_speed_fr = msg.buf[1];  // Byte 1: front right
+  case 0x556: // Rear wheels
+    wheel_speed_rl = (uint16_t)msg.buf[0] | ((uint16_t)msg.buf[1] << 8);
+    wheel_speed_rr = (uint16_t)msg.buf[2] | ((uint16_t)msg.buf[3] << 8);
+    // Serial2.println("Wheel speed rear: RL = " + String(wheel_speed_rl) + " | RR = " + String(wheel_speed_rr));
     break;
 
   default:
@@ -1256,76 +1261,76 @@ void Mission_Indicator()
   switch (current_mission)
   {
   case MANUAL:
-    digitalWrite(MS_LED1, 1);
-    digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 0);
+    digitalWrite(MS_LED_TRACKD, 0);
+    digitalWrite(MS_LED_ACCL, 0);
+    digitalWrite(MS_LED_SKIDPAD, 0);
+    digitalWrite(MS_LED_MANUEL, 1);
+    digitalWrite(MS_LED_INSPCT, 0);
+    digitalWrite(MS_LED_AUTOCRSS, 0);
+    digitalWrite(MS_LED_EBS, 0);
     break;
   case ACCELERATION:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 1);
-    digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 0);
+    digitalWrite(MS_LED_TRACKD, 0);
+    digitalWrite(MS_LED_ACCL, 1);
+    digitalWrite(MS_LED_SKIDPAD, 0);
+    digitalWrite(MS_LED_MANUEL, 0);
+    digitalWrite(MS_LED_INSPCT, 0);
+    digitalWrite(MS_LED_AUTOCRSS, 0);
+    digitalWrite(MS_LED_EBS, 0);
     break;
   case SKIDPAD:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 1);
-    digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 0);
+    digitalWrite(MS_LED_TRACKD, 0);
+    digitalWrite(MS_LED_ACCL, 0);
+    digitalWrite(MS_LED_SKIDPAD, 1);
+    digitalWrite(MS_LED_MANUEL, 0);
+    digitalWrite(MS_LED_INSPCT, 0);
+    digitalWrite(MS_LED_AUTOCRSS, 0);
+    digitalWrite(MS_LED_EBS, 0);
     break;
   case TRACKDRIVE:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 1);
-    digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 0);
+    digitalWrite(MS_LED_TRACKD, 1);
+    digitalWrite(MS_LED_ACCL, 0);
+    digitalWrite(MS_LED_SKIDPAD, 0);
+    digitalWrite(MS_LED_MANUEL, 0);
+    digitalWrite(MS_LED_INSPCT, 0);
+    digitalWrite(MS_LED_AUTOCRSS, 0);
+    digitalWrite(MS_LED_EBS, 0);
     break;
   case EBS_TEST:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 1);
-    digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 0);
+    digitalWrite(MS_LED_TRACKD, 0);
+    digitalWrite(MS_LED_ACCL, 0);
+    digitalWrite(MS_LED_SKIDPAD, 0);
+    digitalWrite(MS_LED_MANUEL, 0);
+    digitalWrite(MS_LED_INSPCT, 0);
+    digitalWrite(MS_LED_AUTOCRSS, 0);
+    digitalWrite(MS_LED_EBS, 1);
     break;
   case INSPECTION:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 1);
-    digitalWrite(MS_LED7, 0);
+    digitalWrite(MS_LED_TRACKD, 0);
+    digitalWrite(MS_LED_ACCL, 0);
+    digitalWrite(MS_LED_SKIDPAD, 0);
+    digitalWrite(MS_LED_MANUEL, 0);
+    digitalWrite(MS_LED_INSPCT, 1);
+    digitalWrite(MS_LED_AUTOCRSS, 0);
+    digitalWrite(MS_LED_EBS, 0);
     break;
   case AUTOCROSS:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 1);
+    digitalWrite(MS_LED_TRACKD, 0);
+    digitalWrite(MS_LED_ACCL, 0);
+    digitalWrite(MS_LED_SKIDPAD, 0);
+    digitalWrite(MS_LED_MANUEL, 0);
+    digitalWrite(MS_LED_INSPCT, 0);
+    digitalWrite(MS_LED_AUTOCRSS, 1);
+    digitalWrite(MS_LED_EBS, 0);
     break;
   default:
-    digitalWrite(MS_LED1, 0);
-    digitalWrite(MS_LED2, 0);
-    digitalWrite(MS_LED3, 0);
-    digitalWrite(MS_LED4, 0);
-    digitalWrite(MS_LED5, 0);
-    digitalWrite(MS_LED6, 0);
-    digitalWrite(MS_LED7, 0);
+    digitalWrite(MS_LED_TRACKD, 0);
+    digitalWrite(MS_LED_ACCL, 0);
+    digitalWrite(MS_LED_SKIDPAD, 0);
+    digitalWrite(MS_LED_MANUEL, 0);
+    digitalWrite(MS_LED_INSPCT, 0);
+    digitalWrite(MS_LED_AUTOCRSS, 0);
+    digitalWrite(MS_LED_EBS, 0);
     break;
   }
 }

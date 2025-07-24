@@ -16,13 +16,13 @@
 // Mission Select
 
 #define MS_BUTTON1 21
-#define MS_LED1 14
-#define MS_LED2 15
-#define MS_LED3 16
-#define MS_LED4 17  
-#define MS_LED5 33
-#define MS_LED6 13
-#define MS_LED7 20
+#define MS_LED_TRACKD 14
+#define MS_LED_ACCL 15
+#define MS_LED_SKIDPAD 16
+#define MS_LED_MANUEL 17  
+#define MS_LED_INSPCT 33
+#define MS_LED_AUTOCRSS 13
+#define MS_LED_EBS 20
 #define AS_SW 38
 // ASSI
 
