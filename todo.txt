@@ -1,9 +1,9 @@
 ready state -> atuar luzes (verificar)									V
-finish state -> garantir que o carro parou (usar speed das dynamics)
-verificar que pressão estão a se lidas corretamento do can
-Sair de emergencia n está a funcionar (linha 630 a 633)
-verificar a sequencia inicial (falta um relé no watchdog)
-Continuous sequence falta verificar timeouts dos moudulos de can 
+finish state -> garantir que o carro parou (usar speed das dynamics) ---- testing
+verificar que pressão estão a se lidas corretamento do can   --- V
+Sair de emergencia n está a funcionar (linha 630 a 633) ---- V
+verificar a sequencia inicial (falta um relé no watchdog)	-----	V
+Continuous sequence falta verificar timeouts dos moudulos de can 	
 
 para verificar id's vê o ficheiro excel no separador autonomous_temporary deste repositório:
 
@@ -11,7 +11,14 @@ https://github.com/FSLART/CAN_DBC
 
 
 
-Acertar leds do mission indicator com o painel
-Adicionar defines para dar bypass para testes
+Acertar leds do mission indicator com o painel		V
+Adicionar defines para dar bypass para testes  ---- V
 
-manual driving n dar ignição
+manual driving n dar ignição --- V
+
+N avançar para ready sem ter feito ignition e sequencia (quando jetson manda)~
+
+
+finish se rpm a zero durante mais de um segundo
+
+ler ignição manual do barramento autonoma

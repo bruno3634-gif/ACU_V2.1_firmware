@@ -634,7 +634,7 @@ void HandleState(void)
 
   if (current_state > STATE_INITIAL_SEQUENCE && current_state < STATE_EMERGENCY)
   {
-    //continuous_monitoring();
+    continuous_monitoring();
   }
 
   switch (current_state)
@@ -1036,7 +1036,14 @@ void canISR(const CAN_message_t &msg)
 
   case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
     VCU_timeout = millis(); // Update VCU timeout
-    ignition_vcu = (msg.buf[0] == 9) ? 1 : 0; // Update ignition signal from VCU
+    if(ignition_flag == 1)
+    {
+      ignition_vcu = (msg.buf[0] == 9) ? 1 : 0; // Update ignition signal from VCU
+    }
+    else{
+      ignition_vcu = 0; // Reset ignition flag if ignition enable is not set
+    }
+    
     HYDRAULIC_PRESSURE_FRONT = msg.buf[1];    // Convert to bar
     // Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
     break;
