@@ -77,6 +77,7 @@ typedef enum
   STATE_INIT,
   STATE_MISSION_SELECT,
   STATE_INITIAL_SEQUENCE,
+  STATE_WAITING_READY,
   STATE_READY,
   STATE_DRIVING,
   STATE_EBS_ERROR,
@@ -389,6 +390,7 @@ float wheel_speed_fr = 0;
 float wheel_speed_rl = 0;
 float wheel_speed_rr = 0;
 
+
 /**
  * @brief Handbook variables that are sent to can bus -> DV system status
  * @showrefs FSG Handbook 2025  page 20
@@ -417,6 +419,9 @@ uint8_t Brake_pressure_front = 0;
 int8_t Brake_pressure_rear = 0;
 
 int16_t dynamics_steering_angle = 0;
+int16_t rpm_vcu = 0;
+
+
 
 void UpdateState(void);
 void HandleState(void);
@@ -508,28 +513,24 @@ void UpdateState(void)
     break;
 
   case STATE_EBS_ERROR:
-    if (!SKIP_EBS_ERROR)
-    {
-      as_state = AS_STATE_EMERGENCY; // Autonomous system state
-    }
+    as_state = AS_STATE_EMERGENCY; // Autonomous system state
     break;
 
   case STATE_READY:
     as_state = AS_STATE_READY; // Autonomous system state
     break;
+  case STATE_WAITING_READY:
 
+  break;
   case STATE_DRIVING:
     as_state = AS_STATE_DRIVING; // Autonomous system state
     break;
 
   case STATE_EMERGENCY:
-    if (!SKIP_STATE_EMERGENCY)
-    {
-      emergency_flag = 1; // Set emergency flag
-      as_state = AS_STATE_EMERGENCY;
-      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW);
-    }
+    emergency_flag = 1; // Set emergency flag
+    as_state = AS_STATE_EMERGENCY;
+    digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+    digitalWrite(SOLENOID_FRONT, LOW);
     break;
 
   case STATE_FINISHED:
@@ -563,13 +564,13 @@ void UpdateState(void)
       break;
 
     case STATE_EBS_ERROR:
-      if (!SKIP_EBS_ERROR)
-      {
-        as_state = AS_STATE_EMERGENCY;    // Autonomous system state
-        digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
-        digitalWrite(SOLENOID_FRONT, LOW);
-      }
+      as_state = AS_STATE_EMERGENCY;    // Autonomous system state
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
       break;
+
+    case STATE_WAITING_READY:
+    break;
 
     case STATE_READY:
       as_state = AS_STATE_READY;
@@ -584,14 +585,11 @@ void UpdateState(void)
       break;
 
     case STATE_EMERGENCY:
-      if (!SKIP_STATE_EMERGENCY)
-      {
-        ignition_enable = 0;
-        as_state = AS_STATE_EMERGENCY;
-        digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
-        digitalWrite(SOLENOID_FRONT, LOW);
-        emergency_timestamp = millis(); // Record the time of entering emergency state
-      }
+      ignition_enable = 0;
+      as_state = AS_STATE_EMERGENCY;
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
+      emergency_timestamp = millis(); // Record the time of entering emergency state
       break;
 
     case STATE_FINISHED:
@@ -616,13 +614,13 @@ void HandleState(void)
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
   }*/
 
-  if (asms_flag == LOW && current_state > STATE_MISSION_SELECT)
+  if (asms_flag == LOW && current_state > STATE_MISSION_SELECT )
   {
     ignition_enable = 0;                  // Reset ignition enable flag
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
   }
 
-  if (res_emergency == 1 && !SKIP_RES_EMMERGENCY)
+  if (res_emergency == 1)
   {
     current_state = STATE_EMERGENCY;
     as_state = AS_STATE_EMERGENCY; // Autonomous system state
@@ -651,22 +649,26 @@ void HandleState(void)
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
                                           // current_state = STATE_INIT;
     break;
-  case STATE_MISSION_SELECT:
 
-    static int last_button = 0; // Start with LOW (pulldown default)
+ case STATE_MISSION_SELECT:
+
+    static int last_button = 0;            // Start with LOW (pulldown default)
+    static unsigned long ms_last_time = 0; // last timestamp
+
     if (digitalRead(ASMS) == LOW /*&& !res_active*/)
     {
-      int current_button = digitalRead(MS_BUTTON1); // HIGH when pressed
+      uint8_t current_button = digitalRead(MS_BUTTON1); // HIGH when pressed
 
-      // Only change on LOW→HIGH transition (rising edge)
-      if (last_button == LOW && current_button == HIGH)
+      // 100 ms debunce
+      if (last_button == LOW && current_button == HIGH && (millis() - ms_last_time) >= 100)
       {
         current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
+        ms_last_time = millis(); // start new lockout
         Serial.print("Mission changed to: ");
-        // Serial.println(current_mission);
+        Serial.println(current_mission);
       }
 
-      last_button = current_button; // Update for next loop
+      last_button = current_button; // remember raw state
     }
     else
     {
@@ -702,18 +704,22 @@ void HandleState(void)
      * AS_state = AS_STATE_DRIVING;
      */
 
-    digitalWrite(SOLENOID_FRONT, LOW);
-    digitalWrite(SOLENOID_REAR, LOW);
+    digitalWrite(SOLENOID_FRONT, HIGH);
+    digitalWrite(SOLENOID_REAR, HIGH);
     as_state = AS_STATE_DRIVING;
     break;
 
   case STATE_EMERGENCY:
     // Handle emergency actions
+    digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
+    digitalWrite(SOLENOID_REAR, LOW);  // Activate rear solenoid
+    emergency_flag = 1; // Set emergency flag
     if (res_emergency == 0 && TANK_PRESSURE_FRONT < 1 && TANK_PRESSURE_REAR < 1 && ignition_flag == 0 && millis() - emergency_timestamp > 9000)
     {
       as_state = AS_STATE_OFF;
       current_state = STATE_INIT;
       Serial2.println("Emergency state timeout, returning to INIT state");
+      emergency_flag = 0; // Reset emergency flag
     }
     else
     {
@@ -723,12 +729,14 @@ void HandleState(void)
     break;
   case STATE_FINISHED:
     // TODO: Make sue the ca is stopped
-    if (speed <= 0 && wheel_speed_fl == 0 && wheel_speed_fr == 0 && wheel_speed_rl == 0 && wheel_speed_rr == 0)
+    if (rpm_vcu == 0)
     {
       as_state = AS_STATE_FINISHED;
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH);
     }
+    break;
+    case STATE_WAITING_READY:
     break;
   }
 }
@@ -823,10 +831,6 @@ void led_heartbit()
   {
     digitalWrite(HB_LED, !digitalRead(HB_LED)); // Toggle LED state
     HeartBit = millis();
-    Serial.print("Hydraulic pressure front: ");
-    Serial.println(HYDRAULIC_PRESSURE_FRONT);
-    Serial.print("Hydraulic pressure rear: ");
-    Serial.println(HYDRAULIC_PRESSURE_REAR);
     Serial.print("current_state: ");
     Serial.println(current_state);
     Serial.print("as_state: ");
@@ -835,6 +839,14 @@ void led_heartbit()
     Serial.println(initial_sequence_state);
     Serial.print("SDC feedback: ");
     Serial.println(digitalRead(SDC_FEEDBACK));
+    Serial.print("EBS Tank Pressure rear: ");
+    Serial.println(TANK_PRESSURE_REAR);
+    Serial.print("EBS Tank Pressure front: ");
+    Serial.println(TANK_PRESSURE_FRONT);
+    Serial.print("Hydraulic Pressure rear: ");
+    Serial.println(HYDRAULIC_PRESSURE_REAR);
+    Serial.print("Hydraulic Pressure front: ");
+    Serial.println(HYDRAULIC_PRESSURE_FRONT);
   }
 }
 
@@ -890,7 +902,7 @@ void send_can_msg()
   struct autonomous_temporary_rd_jetson_t RD_jetson_encode;
   RD_jetson_encode.rd = (as_state == AS_STATE_READY || as_state == AS_STATE_DRIVING) ? 1 : 0; // Set RD value based on current mission
   autonomous_temporary_rd_jetson_pack(tx_buffer, &RD_jetson_encode, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH);
-  tx_message.id = AUTONOMOUS_TEMPORARY_RD_JETSON_FRAME_ID;
+  tx_message.id = 0x513;
   tx_message.len = AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH;                   //
   memcpy(tx_message.buf, tx_buffer, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH); // Copy data to CAN message buffer
 
@@ -1012,10 +1024,7 @@ void canISR(const CAN_message_t &msg)
       current_state = STATE_DRIVING; // Transition to DRIVING state
       break;
     case AS_STATE_EMERGENCY:
-      if (!SKIP_CAN_AS_STATE_EMERGENCY)
-      {
-        current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
-      }
+      current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
       break;
     case AS_STATE_FINISHED:
       current_state = STATE_FINISHED; // Transition to FINISHED state
@@ -1026,6 +1035,8 @@ void canISR(const CAN_message_t &msg)
     break;
 
   case 0x456: // Front wheels
+    wheel_speed_fl = 0;
+    wheel_speed_fr = 0;
     wheel_speed_fl = (uint16_t)msg.buf[0] | ((uint16_t)msg.buf[1] << 8);
     wheel_speed_fl = wheel_speed_fl * 0.1;
     wheel_speed_fr = (uint16_t)msg.buf[2] | ((uint16_t)msg.buf[3] << 8);
@@ -1034,12 +1045,17 @@ void canISR(const CAN_message_t &msg)
     break;
 
   case 0x556: // Rear wheels
+    wheel_speed_rl = 0;
+    wheel_speed_rr = 0;
     wheel_speed_rl = (uint16_t)msg.buf[0] | ((uint16_t)msg.buf[1] << 8);
     wheel_speed_rl = wheel_speed_rl * 0.1;
     wheel_speed_rr = (uint16_t)msg.buf[2] | ((uint16_t)msg.buf[3] << 8);
     wheel_speed_rr = wheel_speed_rr * 0.1;
-    Serial2.println("Wheel speed rear: RL = " + String(wheel_speed_rl) + " | RR = " + String(wheel_speed_rr));
+    //Serial.println("Wheel speed rear: RL = " + String(wheel_speed_rl) + " | RR = " + String(wheel_speed_rr));
     break;
+  case AUTONOMOUS_TEMPORARY_VCU_RPM_FRAME_ID:
+    rpm_vcu = ((msg.buf[1] << 8) | msg.buf[0]);
+  break;
 
   default:
     // Unknown message ID, ignore
@@ -1075,7 +1091,7 @@ void initial_sequence()
     }
     else
     {
-      if (millis() - wdt_relay_timout >= 500)
+      if (millis() - wdt_relay_timout >= 5000)
       {
         initial_sequence_state = ERROR;
       }
@@ -1089,9 +1105,9 @@ void initial_sequence()
       break;
     }
 
-    if (/*TANK_PRESSURE_REAR > 6.0 &&*/ TANK_PRESSURE_FRONT > 6.0)
+    if (TANK_PRESSURE_REAR > 6.0 && TANK_PRESSURE_FRONT > 6.0)
     {
-      if (/*TANK_PRESSURE_REAR < 10.0 &&*/ TANK_PRESSURE_FRONT < 10.0)
+      if (TANK_PRESSURE_REAR < 10.0 && TANK_PRESSURE_FRONT < 10.0)
       {
         initial_sequence_state = PRESSURE_CHECK1; // Transition to pressure check state
       }
@@ -1109,16 +1125,18 @@ void initial_sequence()
   case PRESSURE_CHECK1:
     if (SKIP_PRESSURE_CHECK1)
     {
-      initial_sequence_state = IGNITON;
-      break;
+        initial_sequence_state = IGNITON;
+        break;
     }
 
-    if (HYDRAULIC_PRESSURE_FRONT >= 11.5 * TANK_PRESSURE_FRONT /*&& HYDRAULIC_PRESSURE_REAR >= 11.5 * TANK_PRESSURE_REAR*/)
+    if (HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT && HYDRAULIC_PRESSURE_REAR >= 3.8 * TANK_PRESSURE_REAR)
     {
       initial_sequence_state = IGNITON;
     }
     else
     {
+      Serial2.println("Pressure check failed: Front pressure: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar, Rear pressure: " + String(HYDRAULIC_PRESSURE_REAR) + " bar");
+      Serial2.println("Tank pressure front: " + String(TANK_PRESSURE_FRONT) + " bar, Rear pressure: " + String(TANK_PRESSURE_REAR) + " bar");  
       initial_sequence_state = ERROR;
     }
 
@@ -1126,17 +1144,17 @@ void initial_sequence()
 
   case IGNITON:
     ignition_enable = 1; // Enable ignition
-    if (SKIP_IGNITION_CHECK)
+     if (SKIP_IGNITION_CHECK)
     {
-      // current_state = STATE_READY;
-      initial_sequence_state = PRESSURE_CHECK_FRONT;
-      pressure_check_delay = millis();
-      break;
+        //current_state = STATE_READY;
+        initial_sequence_state = PRESSURE_CHECK_FRONT;
+        pressure_check_delay = millis();
+        break;
     }
 
     if (ignition_vcu == 1 && ignition_flag == 1)
     {
-      // current_state = STATE_READY; //no final da initial sequence
+      //current_state = STATE_READY; //no final da initial sequence
       initial_sequence_state = PRESSURE_CHECK_FRONT; // Transition to pressure check state
       pressure_check_delay = millis();               // Reset pressure check delay
     }
@@ -1145,72 +1163,81 @@ void initial_sequence()
   case PRESSURE_CHECK_REAR:
     digitalWrite(SOLENOID_REAR, HIGH); // Deactivate rear solenoid
     digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
-
+    
     if (SKIP_PRESSURE_REAR_CHECK)
     {
-      initial_sequence_state = PRESSURE_CHECK2;
-      pressure_check_delay = millis();
-      break;
+        initial_sequence_state = PRESSURE_CHECK2;
+        pressure_check_delay = millis();
+        break;
     }
 
-    if (/*TANK_PRESSURE_REAR >= 11.5 * HYDRAULIC_PRESSURE_REAR &&*/ TANK_PRESSURE_FRONT <= 1)
+    if (HYDRAULIC_PRESSURE_REAR >= TANK_PRESSURE_REAR * 3 && HYDRAULIC_PRESSURE_FRONT <= 1 && millis() - pressure_check_delay >= 1000)
     {
       initial_sequence_state = PRESSURE_CHECK2;
       pressure_check_delay = millis(); // Reset pressure check delay
     }
-    if (millis() - pressure_check_delay >= 500)
+    if (millis() - pressure_check_delay >= 5000)
     {                                 // Check if 500 ms has passed
       initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
+      Serial.println("Pressure check failed: Front pressure: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar, Rear pressure: " + String(HYDRAULIC_PRESSURE_REAR) + " bar");
+      Serial.println("rear pressure check");
     }
     break;
 
   case PRESSURE_CHECK_FRONT:
     digitalWrite(SOLENOID_REAR, LOW);   // Deactivate rear solenoid
     digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
+    
 
     if (SKIP_PRESSURE_FRONT_CHECK)
     {
-      initial_sequence_state = PRESSURE_CHECK_REAR;
-      pressure_check_delay = millis();
-      break;
+        initial_sequence_state = PRESSURE_CHECK_REAR;
+        pressure_check_delay = millis();
+        break;
     }
 
-    if (TANK_PRESSURE_FRONT > 11.5 * HYDRAULIC_PRESSURE_FRONT && TANK_PRESSURE_REAR <= 1)
+    if (HYDRAULIC_PRESSURE_FRONT >=  TANK_PRESSURE_FRONT * 9  && HYDRAULIC_PRESSURE_REAR <= 1 && millis() - pressure_check_delay >= 1000)
     {
       // initial_sequence_state = PRESSURE_CHECK_REAR;
       initial_sequence_state = PRESSURE_CHECK_REAR; // Transition to pressure check state
-      pressure_check_delay = millis();              // Reset pressure check delay
+      pressure_check_delay = millis();          // Reset pressure check delay
     }
-    if (millis() - pressure_check_delay >= 500)
+    if (millis() - pressure_check_delay >= 5000)
     {                                 // Check if 500 ms has passed
       initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
+      Serial.println("Pressure check failed: Front pressure: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar, Rear pressure: " + String(HYDRAULIC_PRESSURE_REAR) + " bar");
+      Serial.println("Tank pressure front: " + String(TANK_PRESSURE_FRONT) + " bar, Rear pressure: " + String(TANK_PRESSURE_REAR) + " bar");
+      Serial.println("Front pressure check");
     }
     break;
 
   case PRESSURE_CHECK2:
-    digitalWrite(SOLENOID_REAR, HIGH);  // Deactivate rear solenoid
-    digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
+    digitalWrite(SOLENOID_REAR, LOW);  // Deactivate rear solenoid
+    digitalWrite(SOLENOID_FRONT, LOW); // Deactivate front solenoid
 
-    if (SKIP_PRESSURE_CHECK2)
+    if( SKIP_PRESSURE_CHECK2)
     {
       current_state = STATE_READY; // Transition to ready state
-      // initial_sequence_state = STATE_READY; // Reset initial sequence state
+      //initial_sequence_state = STATE_READY; // Reset initial sequence state
       break;
     }
 
-    if (/*TANK_PRESSURE_REAR >= 11.5 * HYDRAULIC_PRESSURE_REAR &&*/ TANK_PRESSURE_FRONT >= 11.5 * HYDRAULIC_PRESSURE_FRONT)
+    if (HYDRAULIC_PRESSURE_REAR >= 3 * TANK_PRESSURE_REAR && HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT)
     {
-      current_state = STATE_READY; // Transition to ready state
+      current_state = STATE_WAITING_READY; // Transition to ready state
     }
-    if (millis() - pressure_check_delay >= 1000)
-    {                                 // Check if 1000 ms has passed
+    if (millis() - pressure_check_delay >= 5000)
+    {                                 // Check if 5000 ms has passed
+      Serial2.println("Pressure check 2 failed: Front pressure: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar, Rear pressure: " + String(HYDRAULIC_PRESSURE_REAR) + " bar");
+      Serial2.println("Tank pressure front: " + String(TANK_PRESSURE_FRONT) + " bar, Rear pressure: " + String(TANK_PRESSURE_REAR) + " bar");
+      Serial2.println("Initial sequence error: Pressure check 2 failed or timeout occurred");
       initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
     }
     break;
 
   case ERROR:
     current_state = STATE_EBS_ERROR; // Transition to EBS error state
-    Serial.println("Initial sequence error: Pressure check failed or timeout occurred");
+    Serial2.println("Initial sequence error: Pressure check failed or timeout occurred");
 
     break;
 
