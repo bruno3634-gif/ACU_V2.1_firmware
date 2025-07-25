@@ -1,3 +1,17 @@
+// SKIPS INITIAL SEQUENCE
+#define SKIP_SDC_FEEDBACK false
+#define SKIP_PNEUMATIC_CHECK false
+#define SKIP_PRESSURE_CHECK1 false
+#define SKIP_IGNITION_CHECK false
+#define SKIP_PRESSURE_FRONT_CHECK false
+#define SKIP_PRESSURE_REAR_CHECK false
+#define SKIP_PRESSURE_CHECK2 false
+
+#define SKIP_RES_EMMERGENCY false
+#define SKIP_EBS_ERROR false
+#define SKIP_CAN_AS_STATE_EMERGENCY false
+#define SKIP_STATE_EMERGENCY false
+
 
 
 #define WDT 39
@@ -16,13 +30,13 @@
 // Mission Select
 
 #define MS_BUTTON1 21
-#define MS_LED1 14
-#define MS_LED2 15
-#define MS_LED3 16
-#define MS_LED4 17  
-#define MS_LED5 33
-#define MS_LED6 13
-#define MS_LED7 20
+#define MS_LED_TRACKD 14
+#define MS_LED_ACCL 15
+#define MS_LED_SKIDPAD 16
+#define MS_LED_MANUEL 17  
+#define MS_LED_INSPCT 33
+#define MS_LED_AUTOCRSS 13
+#define MS_LED_EBS 20
 #define AS_SW 38
 // ASSI
 
@@ -57,3 +71,5 @@
 #define ASMS 38
 #define IGN_PIN 4
    
+
+#define CAN_TIMEOUT_TIME 1000 // Timeout for CAN messages in milliseconds
