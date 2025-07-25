@@ -77,7 +77,6 @@ typedef enum
   STATE_INIT,
   STATE_MISSION_SELECT,
   STATE_INITIAL_SEQUENCE,
-  STATE_WAITING_READY,
   STATE_READY,
   STATE_DRIVING,
   STATE_EBS_ERROR,
@@ -114,22 +113,22 @@ const char *state_names[] = {
  */
 typedef enum
 {
-  AS_STATE_OFF,       // 0
-  AS_STATE_READY,     // 1
-  AS_STATE_DRIVING,   // 2
-  AS_STATE_EMERGENCY, // 3
-  AS_STATE_FINISHED   // 4
+  AS_STATE_OFF = 1,       // 0
+  AS_STATE_READY = 2,     // 1
+  AS_STATE_DRIVING = 3,   // 2
+  AS_STATE_EMERGENCY = 4, // 3
+  AS_STATE_FINISHED = 5   // 4
 } AS_STATE_t;
 
 typedef enum
 {
   MANUAL,       // 0
   ACCELERATION, // 1
-  SKIDPAD,      // 2
-  AUTOCROSS,    // 3
+  SKIDPAD,      // 2   // 3
   TRACKDRIVE,   // 4
   EBS_TEST,     // 5
-  INSPECTION    // 6
+  INSPECTION,   // 6
+  AUTOCROSS    // 7
 } current_mission_t;
 
 typedef enum
@@ -428,6 +427,7 @@ unsigned long JETSON_timeout = 0; // Last time a CAN message was received
 unsigned long VCU_timeout = 0; // Last time a CAN message was received
 unsigned long MAXON_timeout = 0; // Last time a CAN message was received
 
+volatile int jetson_ready = 0;
 
 
 void UpdateState(void);
@@ -495,7 +495,7 @@ void loop()
  */
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to)
 {
-  Serial2.println("\n\rState transition: " + String(state_names[from]) + " -> " + String(state_names[to]));
+  Serial.println("\n\rState transition: " + String(state_names[from]) + " -> " + String(state_names[to]));
 }
 
 /**
@@ -524,13 +524,13 @@ void UpdateState(void)
     break;
 
   case STATE_READY:
-    as_state = AS_STATE_READY; // Autonomous system state
+    
+    
     break;
-  case STATE_WAITING_READY:
-
-  break;
   case STATE_DRIVING:
     as_state = AS_STATE_DRIVING; // Autonomous system state
+    digitalWrite(SOLENOID_REAR, HIGH);  // Activate rear solenoid
+    digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
     break;
 
   case STATE_EMERGENCY:
@@ -576,19 +576,17 @@ void UpdateState(void)
       digitalWrite(SOLENOID_FRONT, LOW);
       break;
 
-    case STATE_WAITING_READY:
-    break;
 
     case STATE_READY:
-      as_state = AS_STATE_READY;
-      digitalWrite(SOLENOID_REAR, LOW);  // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
+     // as_state = AS_STATE_READY;
+      ///digitalWrite(SOLENOID_REAR, LOW);  // Activate rear solenoid
+      //digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
       break;
 
     case STATE_DRIVING:
       as_state = AS_STATE_DRIVING;
-      digitalWrite(SOLENOID_REAR, HIGH);  // Deactivate rear solenoid
-      digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
+      //digitalWrite(SOLENOID_REAR, HIGH);  // Deactivate rear solenoid
+      //digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
       break;
 
     case STATE_EMERGENCY:
@@ -625,6 +623,7 @@ void HandleState(void)
   {
     ignition_enable = 0;                  // Reset ignition enable flag
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
+    jetson_ready = 0; // Reset jetson ready flag
   }
 
   if (res_emergency == 1)
@@ -636,7 +635,7 @@ void HandleState(void)
 
   if (current_state > STATE_INITIAL_SEQUENCE && current_state < STATE_EMERGENCY)
   {
-    continuous_monitoring();
+    //continuous_monitoring();
   }
 
   switch (current_state)
@@ -667,7 +666,7 @@ void HandleState(void)
       uint8_t current_button = digitalRead(MS_BUTTON1); // HIGH when pressed
 
       // 100 ms debunce
-      if (last_button == LOW && current_button == HIGH && (millis() - ms_last_time) >= 100)
+      if (last_button == LOW && current_button == HIGH && (millis() - ms_last_time) >= 400)
       {
         current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
         ms_last_time = millis(); // start new lockout
@@ -701,6 +700,11 @@ void HandleState(void)
      *  Solenoids a 0
      *
      * ***/
+    if(jetson_ready){
+      as_state = AS_STATE_READY; // Autonomous system state
+      digitalWrite(SOLENOID_REAR, LOW);  // Deactivate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW); // Deactivate front solenoid
+    }
 
     break;
 
@@ -736,14 +740,25 @@ void HandleState(void)
     break;
   case STATE_FINISHED:
     // TODO: Make sue the ca is stopped
+    static unsigned long rpm_zero_time = 0;
     if (rpm_vcu == 0)
     {
+      if (rpm_zero_time == 0){
+        rpm_zero_time = millis();
+      }
+      
+      if (millis() - rpm_zero_time > 1000)
+      {
       as_state = AS_STATE_FINISHED;
-      digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, HIGH);
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
+      ignition_enable = 0; // Reset ignition enable flag
+      }
     }
-    break;
-    case STATE_WAITING_READY:
+    else
+    {
+      rpm_zero_time = 0;
+    }
     break;
   }
 }
@@ -907,7 +922,19 @@ void send_can_msg()
   CAN.write(tx_message); // Send CAN message
 
   struct autonomous_temporary_rd_jetson_t RD_jetson_encode;
-  RD_jetson_encode.rd = (as_state == AS_STATE_READY || as_state == AS_STATE_DRIVING) ? 3 : 0; // Set RD value based on current mission
+  
+  if(current_state == STATE_READY){
+    RD_jetson_encode.rd = 2; // Set RD value based on current mission
+  }
+  else if(current_state == STATE_DRIVING){
+    RD_jetson_encode.rd = 3; // Set RD value based on current mission
+  }
+  else if(current_state == STATE_EMERGENCY){
+    RD_jetson_encode.rd = 4; // Set RD value based on current mission
+  }
+  else{
+    RD_jetson_encode.rd = 1; // Set RD value based on current mission
+  }
   autonomous_temporary_rd_jetson_pack(tx_buffer, &RD_jetson_encode, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH);
   tx_message.id = 0x513;
   tx_message.len = AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH;                   //
@@ -1024,10 +1051,12 @@ void canISR(const CAN_message_t &msg)
     switch (as_state)
     {
     case AS_STATE_OFF:
-      current_state = STATE_INIT; // Transition to INIT state
+     // current_state = STATE_INIT; // Transition to INIT state
+     current_state = STATE_READY;
       break;
     case AS_STATE_READY:
       current_state = STATE_READY; // Transition to READY state
+      jetson_ready = 1;
       break;
     case AS_STATE_DRIVING:
       current_state = STATE_DRIVING; // Transition to DRIVING state
@@ -1233,7 +1262,8 @@ void initial_sequence()
 
     if (HYDRAULIC_PRESSURE_REAR >= 3 * TANK_PRESSURE_REAR && HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT)
     {
-      current_state = STATE_WAITING_READY; // Transition to ready state
+      current_state = STATE_READY; // Transition to ready state
+ 
     }
     if (millis() - pressure_check_delay >= 5000)
     {                                 // Check if 5000 ms has passed
