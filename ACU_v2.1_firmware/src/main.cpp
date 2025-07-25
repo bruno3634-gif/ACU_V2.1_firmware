@@ -656,22 +656,26 @@ void HandleState(void)
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
                                           // current_state = STATE_INIT;
     break;
-  case STATE_MISSION_SELECT:
 
-    static int last_button = 0; // Start with LOW (pulldown default)
+ case STATE_MISSION_SELECT:
+
+    static int last_button = 0;            // Start with LOW (pulldown default)
+    static unsigned long ms_last_time = 0; // last timestamp
+
     if (digitalRead(ASMS) == LOW /*&& !res_active*/)
     {
-      int current_button = digitalRead(MS_BUTTON1); // HIGH when pressed
+      uint8_t current_button = digitalRead(MS_BUTTON1); // HIGH when pressed
 
-      // Only change on LOW→HIGH transition (rising edge)
-      if (last_button == LOW && current_button == HIGH)
+      // 100 ms debunce
+      if (last_button == LOW && current_button == HIGH && (millis() - ms_last_time) >= 100)
       {
         current_mission = (current_mission_t)(((int)current_mission + 1) % 7);
+        ms_last_time = millis(); // start new lockout
         Serial.print("Mission changed to: ");
-        // Serial.println(current_mission);
+        Serial.println(current_mission);
       }
 
-      last_button = current_button; // Update for next loop
+      last_button = current_button; // remember raw state
     }
     else
     {

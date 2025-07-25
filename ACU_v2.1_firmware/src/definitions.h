@@ -7,6 +7,11 @@
 #define SKIP_PRESSURE_REAR_CHECK false
 #define SKIP_PRESSURE_CHECK2 false
 
+#define SKIP_RES_EMMERGENCY false
+#define SKIP_EBS_ERROR false
+#define SKIP_CAN_AS_STATE_EMERGENCY false
+#define SKIP_STATE_EMERGENCY false
+
 
 
 #define WDT 39
