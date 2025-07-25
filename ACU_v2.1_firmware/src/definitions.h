@@ -66,3 +66,5 @@
 #define ASMS 38
 #define IGN_PIN 4
    
+
+#define CAN_TIMEOUT_TIME 1000 // Timeout for CAN messages in milliseconds

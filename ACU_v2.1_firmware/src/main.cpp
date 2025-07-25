@@ -423,6 +423,13 @@ int16_t rpm_vcu = 0;
 
 
 
+unsigned long RES_timeout = 0;
+unsigned long JETSON_timeout = 0; // Last time a CAN message was received
+unsigned long VCU_timeout = 0; // Last time a CAN message was received
+unsigned long MAXON_timeout = 0; // Last time a CAN message was received
+
+
+
 void UpdateState(void);
 void HandleState(void);
 void print_state_transition(ACU_STATE_t from, ACU_STATE_t to);
@@ -896,7 +903,7 @@ void send_can_msg()
   CAN.write(tx_message); // Send CAN message
 
   struct autonomous_temporary_rd_jetson_t RD_jetson_encode;
-  RD_jetson_encode.rd = (as_state == AS_STATE_READY || as_state == AS_STATE_DRIVING) ? 1 : 0; // Set RD value based on current mission
+  RD_jetson_encode.rd = (as_state == AS_STATE_READY || as_state == AS_STATE_DRIVING) ? 3 : 0; // Set RD value based on current mission
   autonomous_temporary_rd_jetson_pack(tx_buffer, &RD_jetson_encode, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH);
   tx_message.id = 0x513;
   tx_message.len = AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH;                   //
@@ -981,7 +988,7 @@ void canISR(const CAN_message_t &msg)
     break;
 
   case AUTONOMOUS_TEMPORARY_RES_FRAME_ID:
-
+    RES_timeout = millis();
     if (msg.buf[0] == 0)
     {
       res_emergency = 1; // Set emergency response flag
@@ -998,12 +1005,14 @@ void canISR(const CAN_message_t &msg)
     break;
 
   case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
+    VCU_timeout = millis(); // Update VCU timeout
     ignition_vcu = (msg.buf[0] == 9) ? 1 : 0; // Update ignition signal from VCU
     HYDRAULIC_PRESSURE_FRONT = msg.buf[1];    // Convert to bar
     // Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
     break;
 
   case 0x503:
+    JETSON_timeout = millis(); // Update Jetson timeout
     if (current_state != STATE_EMERGENCY)
     {
       as_state = (AS_STATE_t)msg.buf[0]; // Update autonomous system state
@@ -1514,8 +1523,14 @@ void continuous_monitoring()
     // stop monitoring
     current_state = STATE_INIT;
   }
-  else if (!(TANK_PRESSURE_FRONT >= 6 && TANK_PRESSURE_FRONT <= 10) || !(TANK_PRESSURE_REAR >= 6 && TANK_PRESSURE_REAR <= 10))
+  else if (!(TANK_PRESSURE_FRONT >= 4 && TANK_PRESSURE_FRONT <= 10) || !(TANK_PRESSURE_REAR >= 4 && TANK_PRESSURE_REAR <= 10))
   {
     current_state = STATE_EBS_ERROR;
+  }
+  if(current_state == STATE_DRIVING){
+    if(millis()- RES_timeout > CAN_TIMEOUT_TIME && millis()- JETSON_timeout > CAN_TIMEOUT_TIME && millis()- VCU_timeout > CAN_TIMEOUT_TIME /*&& millis()- MAXON_timeout > CAN_TIMEOUT_TIME*/)
+    {
+      current_state = STATE_EMERGENCY;
+    }
   }
 }
