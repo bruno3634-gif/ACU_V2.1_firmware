@@ -77,6 +77,7 @@ typedef enum
   STATE_INIT,
   STATE_MISSION_SELECT,
   STATE_INITIAL_SEQUENCE,
+  STATE_WAITING_READY,
   STATE_READY,
   STATE_DRIVING,
   STATE_EBS_ERROR,
@@ -418,6 +419,9 @@ uint8_t Brake_pressure_front = 0;
 int8_t Brake_pressure_rear = 0;
 
 int16_t dynamics_steering_angle = 0;
+int16_t rpm_vcu = 0;
+
+
 
 void UpdateState(void);
 void HandleState(void);
@@ -515,7 +519,9 @@ void UpdateState(void)
   case STATE_READY:
     as_state = AS_STATE_READY; // Autonomous system state
     break;
+  case STATE_WAITING_READY:
 
+  break;
   case STATE_DRIVING:
     as_state = AS_STATE_DRIVING; // Autonomous system state
     break;
@@ -562,6 +568,9 @@ void UpdateState(void)
       digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, LOW);
       break;
+
+    case STATE_WAITING_READY:
+    break;
 
     case STATE_READY:
       as_state = AS_STATE_READY;
@@ -691,18 +700,22 @@ void HandleState(void)
      * AS_state = AS_STATE_DRIVING;
      */
 
-    digitalWrite(SOLENOID_FRONT, LOW);
-    digitalWrite(SOLENOID_REAR, LOW);
+    digitalWrite(SOLENOID_FRONT, HIGH);
+    digitalWrite(SOLENOID_REAR, HIGH);
     as_state = AS_STATE_DRIVING;
     break;
 
   case STATE_EMERGENCY:
     // Handle emergency actions
+    digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
+    digitalWrite(SOLENOID_REAR, LOW);  // Activate rear solenoid
+    emergency_flag = 1; // Set emergency flag
     if (res_emergency == 0 && TANK_PRESSURE_FRONT < 1 && TANK_PRESSURE_REAR < 1 && ignition_flag == 0 && millis() - emergency_timestamp > 9000)
     {
       as_state = AS_STATE_OFF;
       current_state = STATE_INIT;
       Serial2.println("Emergency state timeout, returning to INIT state");
+      emergency_flag = 0; // Reset emergency flag
     }
     else
     {
@@ -712,12 +725,14 @@ void HandleState(void)
     break;
   case STATE_FINISHED:
     // TODO: Make sue the ca is stopped
-    if (speed <= 0 && wheel_speed_fl == 0 && wheel_speed_fr == 0 && wheel_speed_rl == 0 && wheel_speed_rr == 0)
+    if (rpm_vcu == 0)
     {
       as_state = AS_STATE_FINISHED;
       digitalWrite(SOLENOID_REAR, HIGH); // Activate rear solenoid
       digitalWrite(SOLENOID_FRONT, HIGH);
     }
+    break;
+    case STATE_WAITING_READY:
     break;
   }
 }
@@ -1034,6 +1049,9 @@ void canISR(const CAN_message_t &msg)
     wheel_speed_rr = wheel_speed_rr * 0.1;
     //Serial.println("Wheel speed rear: RL = " + String(wheel_speed_rl) + " | RR = " + String(wheel_speed_rr));
     break;
+  case AUTONOMOUS_TEMPORARY_VCU_RPM_FRAME_ID:
+    rpm_vcu = ((msg.buf[1] << 8) | msg.buf[0]);
+  break;
 
   default:
     // Unknown message ID, ignore
@@ -1202,14 +1220,14 @@ void initial_sequence()
 
     if (HYDRAULIC_PRESSURE_REAR >= 3 * TANK_PRESSURE_REAR && HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT)
     {
-      current_state = STATE_READY; // Transition to ready state
+      current_state = STATE_WAITING_READY; // Transition to ready state
     }
     if (millis() - pressure_check_delay >= 5000)
     {                                 // Check if 5000 ms has passed
       Serial2.println("Pressure check 2 failed: Front pressure: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar, Rear pressure: " + String(HYDRAULIC_PRESSURE_REAR) + " bar");
       Serial2.println("Tank pressure front: " + String(TANK_PRESSURE_FRONT) + " bar, Rear pressure: " + String(TANK_PRESSURE_REAR) + " bar");
       Serial2.println("Initial sequence error: Pressure check 2 failed or timeout occurred");
-      //initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
+      initial_sequence_state = ERROR; // Transition to error state if pressure check takes too long
     }
     break;
 
