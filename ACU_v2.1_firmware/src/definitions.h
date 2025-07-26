@@ -1,5 +1,5 @@
 // SKIPS INITIAL SEQUENCE
-#define SKIP_SDC_FEEDBACK false
+#define SKIP_SDC_FEEDBACK true
 #define SKIP_PNEUMATIC_CHECK false
 #define SKIP_PRESSURE_CHECK1 false
 #define SKIP_IGNITION_CHECK false
