@@ -82,7 +82,8 @@ typedef enum
   STATE_DRIVING,
   STATE_EBS_ERROR,
   STATE_EMERGENCY,
-  STATE_FINISHED
+  STATE_FINISHED,
+  STATE_MANUAL,
 } ACU_STATE_t;
 
 // State names for debug output
@@ -420,6 +421,8 @@ int8_t Brake_pressure_rear = 0;
 int16_t dynamics_steering_angle = 0;
 int16_t rpm_vcu = 0;
 
+int HV_manual_mode = 0; // Manual mode for HV system
+
 
 
 unsigned long RES_timeout = 0;
@@ -527,6 +530,9 @@ void UpdateState(void)
     
     
     break;
+    case STATE_MANUAL:
+    break;
+
   case STATE_DRIVING:
     as_state = AS_STATE_DRIVING; // Autonomous system state
     digitalWrite(SOLENOID_REAR, HIGH);  // Activate rear solenoid
@@ -575,7 +581,8 @@ void UpdateState(void)
       // initial_sequence_state = WDT_TOOGLE_CHECK;
       //  reset all inital sequence variables
       break;
-
+    case STATE_MANUAL:
+    break;
     case STATE_EBS_ERROR:
       as_state = AS_STATE_EMERGENCY;    // Autonomous system state
       digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
@@ -625,11 +632,12 @@ void HandleState(void)
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
   }*/
 
-  if (asms_flag == LOW && current_state > STATE_MISSION_SELECT)
+  if (asms_flag == LOW && current_state > STATE_MISSION_SELECT && current_state != STATE_MANUAL)
   {
     ignition_enable = 0;                  // Reset ignition enable flag
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
     jetson_ready = 0; // Reset jetson ready flag
+    initial_sequence_state = WDT_TOOGLE_CHECK; // ← Also reset this
   }
 
   if (res_emergency == 1)
@@ -646,6 +654,15 @@ void HandleState(void)
 
   switch (current_state)
   {
+    case STATE_MANUAL:
+      current_mission = MANUAL; // Set current mission to manual
+      digitalWrite(SOLENOID_FRONT, LOW); // Deactivate front solenoid
+      digitalWrite(SOLENOID_REAR, LOW);  // Deactivate rear solenoid
+      ignition_enable = 0; // Reset ignition enable flag
+      emergency_flag = 0;  // Reset emergency flag
+      as_state = AS_STATE_OFF; // Autonomous system state
+      break;
+
   case STATE_INIT:
     // peripheral_init();
     as_state = AS_STATE_OFF; // Autonomous system state
@@ -690,6 +707,9 @@ void HandleState(void)
       // digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
       // digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
       digitalWrite(Debug_LED4, HIGH); // Indicate mission selection
+    }
+    if(HV_manual_mode == 1){
+      current_state = STATE_MANUAL; // Transition to manual state
     }
     break;
 
@@ -856,7 +876,7 @@ void peripheral_init()
   Serial.println("Peripheral initialization complete");
   digitalWrite(Debug_LED2, 1); // Indicate initialization complete
 
-  // HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
+   HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
 }
 
 void led_heartbit()
@@ -1119,7 +1139,8 @@ void canISR(const CAN_message_t &msg)
   case AUTONOMOUS_TEMPORARY_VCU_RPM_FRAME_ID:
     rpm_vcu = ((msg.buf[1] << 8) | msg.buf[0]);
     break;
-
+  case 0x600:
+    HV_manual_mode = msg.buf[0]; // Read HV manual mode from CAN message
   default:
     // Unknown message ID, ignore
     break;
