@@ -76,6 +76,7 @@ typedef enum
 {
   STATE_INIT,
   STATE_MISSION_SELECT,
+  STATE_JETSON_INIT,
   STATE_INITIAL_SEQUENCE,
   STATE_READY,
   STATE_DRIVING,
@@ -543,7 +544,10 @@ void UpdateState(void)
     as_state = AS_STATE_FINISHED; // Autonomous system state
     // Handle finished state if needed
     break;
+    case STATE_JETSON_INIT:
+    as_state = AS_STATE_OFF; // Autonomous system state
   }
+  
 
   // Execute entry actions when state has changed
   if (current_state != previous_state)
@@ -563,7 +567,10 @@ void UpdateState(void)
       as_state = AS_STATE_OFF; // Autonomous system state
       wdt_togle_enable = true; // Enable WDT toggle
       break;
-
+    case STATE_JETSON_INIT:
+      as_state = AS_STATE_OFF; // Autonomous system state
+      wdt_togle_enable = true; // Enable WDT toggle
+      break;
     case STATE_INITIAL_SEQUENCE:
       // initial_sequence_state = WDT_TOOGLE_CHECK;
       //  reset all inital sequence variables
@@ -677,7 +684,7 @@ void HandleState(void)
     }
     else
     {
-      current_state = STATE_INITIAL_SEQUENCE;
+      current_state = STATE_JETSON_INIT;
       // initial_sequence_state = IGNITON; // Reset initial sequence state
       initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
       // digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
@@ -693,6 +700,12 @@ void HandleState(void)
   case STATE_EBS_ERROR:
     current_state = STATE_EMERGENCY;
     break;
+  case STATE_JETSON_INIT:
+    if(jetson_ready == 1){
+      current_state = STATE_INITIAL_SEQUENCE;
+      initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
+    }
+  break;
 
   case STATE_READY:
     /***TODO: Destava o cao
@@ -1058,12 +1071,13 @@ void canISR(const CAN_message_t &msg)
     {
     case AS_STATE_OFF:
      // current_state = STATE_INIT; // Transition to INIT state
-     current_state = STATE_READY;
+     //current_state = STATE_READY;
+     jetson_ready = 1;
       break;
 
     case AS_STATE_READY:
       current_state = STATE_READY; // Transition to READY state
-      jetson_ready = 1;
+      
       break;
 
     case AS_STATE_DRIVING:
