@@ -1648,6 +1648,8 @@ void send_handbook_variables()
   CAN_message_t msg_asf;
   msg_asf.buf[0] = (uint8_t)(TANK_PRESSURE_FRONT * 10);
   msg_asf.buf[1] = (uint8_t)(TANK_PRESSURE_REAR * 10);
+  HYDRAULIC_PRESSURE_FRONT = Brake_pressure_front*10;
+  HYDRAULIC_PRESSURE_REAR = Brake_pressure_rear*10;
   msg_asf.buf[2] = Brake_pressure_front; // Convert to 0.1 bar scale
   msg_asf.buf[3] = Brake_pressure_rear;  // Convert to 0.1 bar scale
 
