@@ -1688,7 +1688,7 @@ void continuous_monitoring()
     current_state = STATE_EBS_ERROR;
   }
   if(current_state == STATE_DRIVING){
-    if(millis()- RES_timeout > CAN_TIMEOUT_TIME && millis()- JETSON_timeout > CAN_TIMEOUT_TIME && millis()- VCU_timeout > CAN_TIMEOUT_TIME /*&& millis()- MAXON_timeout > CAN_TIMEOUT_TIME*/)
+    if(millis()- RES_timeout > CAN_TIMEOUT_TIME || millis()- JETSON_timeout > CAN_TIMEOUT_TIME || millis()- VCU_timeout > CAN_TIMEOUT_TIME /*&& millis()- MAXON_timeout > CAN_TIMEOUT_TIME*/)
     {
       current_state = STATE_EMERGENCY;
     }

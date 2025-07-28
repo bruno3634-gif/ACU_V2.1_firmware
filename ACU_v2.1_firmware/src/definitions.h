@@ -72,6 +72,6 @@
 #define IGN_PIN 4
    
 
-#define CAN_TIMEOUT_TIME 1000 // Timeout for CAN messages in milliseconds
+#define CAN_TIMEOUT_TIME 2000 // Timeout for CAN messages in milliseconds
 
 #define MAX_RPM 6500
