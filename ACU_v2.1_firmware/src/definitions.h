@@ -73,3 +73,5 @@
    
 
 #define CAN_TIMEOUT_TIME 1000 // Timeout for CAN messages in milliseconds
+
+#define MAX_RPM 6500

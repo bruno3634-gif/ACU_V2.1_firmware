@@ -394,8 +394,8 @@ int speed = 0;
  * @param steering_angle_target Target steering angle of the vehicle 0.5 scale
  * @param brake_hydr_actual Current hydraulic brake pressure 0.5 scale
  * @param brake_hydr_target Target hydraulic brake pressure 0.5 scale
- * @param motor_moment_actual Current motor moment 0.5 scale
- * @param motor_moment_target Target motor moment 0.5 scale
+ * @param Motor_moment_actual Current motor moment 0.5 scale
+ * @param Motor_moment_target Target motor moment 0.5 scale
  * @note 0,5 scale
  * @note ID 0x500
  */
@@ -441,7 +441,7 @@ uint16_t cones_count = 0;
 uint8_t Brake_pressure_front = 0;
 int8_t Brake_pressure_rear = 0;
 
-int16_t dynamics_steering_angle = 0;
+int8_t steering_angle = 0;
 int16_t rpm_vcu = 0;
 
 volatile int IGN_manual = 0; // Manual ignition control from Jetson
@@ -453,6 +453,8 @@ unsigned long MAXON_timeout = 0; // Last time a CAN message was received
 
 volatile int jetson_ready = 0;
 volatile int sdc_signal = 1;
+volatile int16_t target_rpm = 0; 
+
 
 
 void UpdateState(void);
@@ -1101,18 +1103,21 @@ void canISR(const CAN_message_t &msg)
   digitalWrite(Debug_LED3, !digitalRead(Debug_LED3)); // Indicate reception of RES message
   switch (msg.id)
   {
-  case 0x446:
-    dynamics_steering_angle = msg.buf[1] << 8 | msg.buf[0]; // Update steering angle actual
-    Steering_angle_actual = (dynamics_steering_angle / 10);
-    Serial2.println("Steering angle actual: " + String(Steering_angle_actual) + " degrees in isr");
-    Serial2.println("Dynamics steering angle: " + String(dynamics_steering_angle / 10) + " degrees in isr");
+  case 0x613:
+    Steering_angle_target = msg.buf[0]; // Update steering angle target
+    Speed_target = msg.buf[1]; // Update speed target
+    Steering_angle_actual = msg.buf[2]; // Update steering angle actual
+    Speed_actual = msg.buf[3]; // Update speed actual
+    Lap_counter = msg.buf[4];
+    cones_count_actual = msg.buf[5];
+    cones_count = msg.buf[6];
     break;
 
   case 0x546:
     aux_brake_p = (msg.buf[1] << 8 | msg.buf[0]);
     HYDRAULIC_PRESSURE_REAR = aux_brake_p / 10; // Update rear brake pressure
     Brake_pressure_rear = (u_int8_t)HYDRAULIC_PRESSURE_REAR;
-    Serial2.println("Rear brake pressure: " + String(Brake_pressure_rear) + " bar in isr");
+   // Serial2.println("Rear brake pressure: " + String(Brake_pressure_rear) + " bar in isr");
     break;
     // TODO: Read id 0x556
     //  divide by 10 and store in float
@@ -1214,10 +1219,17 @@ void canISR(const CAN_message_t &msg)
     break;
   case AUTONOMOUS_TEMPORARY_VCU_RPM_FRAME_ID:
     rpm_vcu = ((msg.buf[1] << 8) | msg.buf[0]);
+    Motor_moment_actual = rpm_vcu * 100 / MAX_RPM;
     break;
     case 0x600:
       IGN_manual = msg.buf[0]; // Read manual ignition state
       sdc_signal = msg.buf[4];
+      break;
+    case 0x499:
+      target_rpm = ((msg.buf[1] << 8) | msg.buf[0]);
+      Motor_moment_target = target_rpm * 100 / MAX_RPM; // Calculate target motor moment
+    break;
+
   default:
     // Unknown message ID, ignore
     break;
@@ -1623,7 +1635,7 @@ void send_handbook_variables()
   msg_dv.buf[0] = as_status && 0b00000111; // Autonomous system status
   aux_buf = EBS_status << 3;
   msg_dv.buf[0] = msg_dv.buf[0] || aux_buf; // Set EBS status in bits 3-4
-  aux_buf = AMI_status << 5;                // set AMI status in bits 5-7
+  aux_buf = AMI_status << 5;               
   msg_dv.buf[0] = msg_dv.buf[0] || aux_buf; // Set AMI status in bits 5-7
 
   // byte 1
