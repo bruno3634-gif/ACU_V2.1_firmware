@@ -132,7 +132,7 @@ typedef enum
   TRACKDRIVE,   // 4
   EBS_TEST,     // 5
   INSPECTION,   // 6
-  AUTOCROSS    // 7
+  AUTOCROSS     // 7
 } current_mission_t;
 
 typedef enum
@@ -448,12 +448,11 @@ volatile int IGN_manual = 0; // Manual ignition control from Jetson
 
 unsigned long RES_timeout = 0;
 unsigned long JETSON_timeout = 0; // Last time a CAN message was received
-unsigned long VCU_timeout = 0; // Last time a CAN message was received
-unsigned long MAXON_timeout = 0; // Last time a CAN message was received
+unsigned long VCU_timeout = 0;    // Last time a CAN message was received
+unsigned long MAXON_timeout = 0;  // Last time a CAN message was received
 
 volatile int jetson_ready = 0;
 volatile int sdc_signal = 1;
-
 
 void UpdateState(void);
 void HandleState(void);
@@ -553,11 +552,10 @@ void UpdateState(void)
     break;
 
   case STATE_READY:
-    
-    
+
     break;
   case STATE_DRIVING:
-    as_state = AS_STATE_DRIVING; // Autonomous system state
+    as_state = AS_STATE_DRIVING;        // Autonomous system state
     digitalWrite(SOLENOID_REAR, HIGH);  // Activate rear solenoid
     digitalWrite(SOLENOID_FRONT, HIGH); // Activate front solenoid
     break;
@@ -570,16 +568,16 @@ void UpdateState(void)
     break;
 
   case STATE_FINISHED:
-   // as_state = AS_STATE_FINISHED; // Autonomous system state
+    // as_state = AS_STATE_FINISHED; // Autonomous system state
     // Handle finished state if needed
     break;
 
   case STATE_MANUAL:
-    as_state = AS_STATE_OFF; // Manual state uses OFF autonomous system state
+    as_state = AS_STATE_OFF;  // Manual state uses OFF autonomous system state
     current_mission = MANUAL; // Set current mission to MANUAL
     // Keep brakes applied in manual mode
-    digitalWrite(SOLENOID_REAR, HIGH);  
-    digitalWrite(SOLENOID_FRONT, HIGH); 
+    digitalWrite(SOLENOID_REAR, HIGH);
+    digitalWrite(SOLENOID_FRONT, HIGH);
     break;
   }
 
@@ -618,17 +616,16 @@ void UpdateState(void)
       digitalWrite(SOLENOID_FRONT, LOW);
       break;
 
-
     case STATE_READY:
-     // as_state = AS_STATE_READY;
-      ///digitalWrite(SOLENOID_REAR, LOW);  // Activate rear solenoid
-      //digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
+      // as_state = AS_STATE_READY;
+      /// digitalWrite(SOLENOID_REAR, LOW);  // Activate rear solenoid
+      // digitalWrite(SOLENOID_FRONT, LOW); // Activate front solenoid
       break;
 
     case STATE_DRIVING:
       as_state = AS_STATE_DRIVING;
-      //digitalWrite(SOLENOID_REAR, HIGH);  // Deactivate rear solenoid
-      //digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
+      // digitalWrite(SOLENOID_REAR, HIGH);  // Deactivate rear solenoid
+      // digitalWrite(SOLENOID_FRONT, HIGH); // Deactivate front solenoid
       break;
 
     case STATE_EMERGENCY:
@@ -644,7 +641,7 @@ void UpdateState(void)
       break;
 
     case STATE_MANUAL:
-      as_state = AS_STATE_OFF; // Set autonomous system state to OFF
+      as_state = AS_STATE_OFF;           // Set autonomous system state to OFF
       digitalWrite(SOLENOID_REAR, LOW);  // Apply brakes
       digitalWrite(SOLENOID_FRONT, LOW); // Apply brakes
       Serial.println("Entered MANUAL state via CAN ignition signal");
@@ -672,7 +669,7 @@ void HandleState(void)
   {
     ignition_enable = 0;                  // Reset ignition enable flag
     current_state = STATE_MISSION_SELECT; // Transition to mission select state
-    jetson_ready = 0; // Reset jetson ready flag
+    jetson_ready = 0;                     // Reset jetson ready flag
   }
 
   if (res_emergency == 1)
@@ -681,8 +678,10 @@ void HandleState(void)
     as_state = AS_STATE_EMERGENCY; // Autonomous system state
     return;
   }
-  if(initial_sequence_state != WDT_STP_TOOGLE_CHECK && current_state >= STATE_INITIAL_SEQUENCE && current_state != STATE_MANUAL){
-    if(sdc_signal == 0){
+  if (initial_sequence_state != WDT_STP_TOOGLE_CHECK && current_state >= STATE_INITIAL_SEQUENCE && current_state != STATE_MANUAL)
+  {
+    if (sdc_signal == 0)
+    {
       current_state = STATE_EMERGENCY;
       emergency_flag = 1; // Set emergency flag
     }
@@ -696,7 +695,7 @@ void HandleState(void)
       Serial.println("ASMS is LOW, enabling ignition");
     }
   }
-  if(current_state >= STATE_JETSONWAITING && current_state < STATE_EMERGENCY && current_state != STATE_MANUAL)
+  if (current_state >= STATE_JETSONWAITING && current_state < STATE_EMERGENCY && current_state != STATE_MANUAL)
   {
     continuous_monitoring();
   }
@@ -770,6 +769,7 @@ void HandleState(void)
     break;
 
   case STATE_INITIAL_SEQUENCE:
+    
     initial_sequence(); // Execute initial sequence actions
     break;
 
@@ -782,10 +782,11 @@ void HandleState(void)
      *  Solenoids a 0
      *
      * ***/
-    if(jetson_ready){
-      as_state = AS_STATE_READY; // Autonomous system state
-      digitalWrite(SOLENOID_REAR, LOW);  // Deactivate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW); // Deactivate front solenoid
+    if (jetson_ready)
+    {
+      as_state = AS_STATE_READY;         // Autonomous system state
+      digitalWrite(SOLENOID_REAR, LOW);  
+      digitalWrite(SOLENOID_FRONT, LOW); 
     }
 
     break;
@@ -823,23 +824,43 @@ void HandleState(void)
   case STATE_FINISHED:
     // TODO: Make sue the ca is stopped
     static unsigned long rpm_zero_time = 0;
+    static unsigned long state_change_time = 0;
+    static volatile int flag_as_state = 0;
+
     if (rpm_vcu == 0)
     {
-      if (rpm_zero_time == 0){
+      if (rpm_zero_time == 0)
+      {
         rpm_zero_time = millis();
       }
-      
+
       if (millis() - rpm_zero_time > 1000)
       {
-      as_state = AS_STATE_FINISHED;
-      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
-      digitalWrite(SOLENOID_FRONT, LOW);
-      ignition_enable = 0; // Reset ignition enable flag
+        digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+        digitalWrite(SOLENOID_FRONT, LOW);
+        ignition_enable = 0; // Reset ignition enable flag
+        if (flag_as_state == 0)
+        {
+          flag_as_state = 1;
+          state_change_time = millis(); // Record the time of entering finished state
+        }
+        if (millis() - state_change_time > 5000)
+        {
+          if (HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT && HYDRAULIC_PRESSURE_REAR >= 3.8 * TANK_PRESSURE_REAR)
+          {
+            as_state = AS_STATE_FINISHED;
+          }
+          else
+          {
+            current_state = STATE_EMERGENCY;
+          }
+        }
       }
     }
     else
     {
       rpm_zero_time = 0;
+      state_change_time = 0;
     }
     break;
 
@@ -937,7 +958,7 @@ void peripheral_init()
   Serial.println("Peripheral initialization complete");
   digitalWrite(Debug_LED2, 1); // Indicate initialization complete
 
-   HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
+  //HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
 }
 
 void led_heartbit()
@@ -1015,19 +1036,24 @@ void send_can_msg()
   CAN.write(tx_message); // Send CAN message
 
   struct autonomous_temporary_rd_jetson_t RD_jetson_encode;
-  if(current_state == STATE_JETSONWAITING){
+  if (current_state == STATE_JETSONWAITING)
+  {
     RD_jetson_encode.rd = 1; // Set RD value for Jetson waiting state
   }
-  if(current_state == STATE_READY){
+  if (current_state == STATE_READY)
+  {
     RD_jetson_encode.rd = 2; // Set RD value based on current mission
   }
-  else if(current_state == STATE_DRIVING){
+  else if (current_state == STATE_DRIVING)
+  {
     RD_jetson_encode.rd = 3; // Set RD value based on current mission
   }
-  else if(current_state == STATE_EMERGENCY){
+  else if (current_state == STATE_EMERGENCY)
+  {
     RD_jetson_encode.rd = 4; // Set RD value based on current mission
   }
-  else{
+  else
+  {
     RD_jetson_encode.rd = 1; // Set RD value based on current mission
   }
   autonomous_temporary_rd_jetson_pack(tx_buffer, &RD_jetson_encode, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH);
@@ -1042,8 +1068,7 @@ void send_can_msg()
   acu_state_msg.id = 0x700;
   acu_state_msg.len = 8;
   acu_state_msg.buf[0] = (uint8_t)current_state; // Send current ACU state in first byte
-  CAN.write(acu_state_msg); // Send ACU state message
-
+  CAN.write(acu_state_msg);                      // Send ACU state message
 }
 
 void median_pressures()
@@ -1140,35 +1165,37 @@ void canISR(const CAN_message_t &msg)
 
   case AUTONOMOUS_TEMPORARY_VCU_HV_FRAME_ID:
     VCU_timeout = millis(); // Update VCU timeout
-    if(ignition_flag == 1)
+    if (ignition_flag == 1)
     {
       ignition_vcu = (msg.buf[0] == 9) ? 1 : 0; // Update ignition signal from VCU
     }
-    else{
+    else
+    {
       ignition_vcu = 0; // Reset ignition flag if ignition enable is not set
     }
-    
-    HYDRAULIC_PRESSURE_FRONT = msg.buf[1];    // Convert to bar
+
+    HYDRAULIC_PRESSURE_FRONT = msg.buf[1]; // Convert to bar
     // Serial2.println("Hydraulic pressure front: " + String(HYDRAULIC_PRESSURE_FRONT) + " bar in isr");
     break;
 
   case 0x503:
     JETSON_timeout = millis(); // Update Jetson timeout
-    if (current_state != STATE_EMERGENCY)
+    if (current_state != STATE_EMERGENCY && current_state != STATE_FINISHED)
     {
       as_state = (AS_STATE_t)msg.buf[0]; // Update autonomous system state
     }
     switch (as_state)
     {
     case AS_STATE_OFF:
-     // If in JETSONWAITING state, transition to INITIAL_SEQUENCE when receiving AS_STATE_OFF
-     if (current_state == STATE_JETSONWAITING)
-     {
-       current_state = STATE_INITIAL_SEQUENCE;
-       initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
-       Serial.println("Jetson responded with AS_STATE_OFF, starting initial sequence");
-     }
-     // Don't transition to READY from other states - only after initial sequence completes
+      // If in JETSONWAITING state, transition to INITIAL_SEQUENCE when receiving AS_STATE_OFF
+      if (current_state == STATE_JETSONWAITING)
+      {
+        current_state = STATE_INITIAL_SEQUENCE;
+        initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
+        Serial.println("Jetson responded with AS_STATE_OFF, starting initial sequence");
+      }
+      jetson_ready = 0;
+      // Don't transition to READY from other states - only after initial sequence completes
       break;
 
     case AS_STATE_READY:
@@ -1187,7 +1214,7 @@ void canISR(const CAN_message_t &msg)
     case AS_STATE_FINISHED:
       current_state = STATE_FINISHED; // Transition to FINISHED state
       break;
-      
+
     default:
       break;
     }
@@ -1215,9 +1242,9 @@ void canISR(const CAN_message_t &msg)
   case AUTONOMOUS_TEMPORARY_VCU_RPM_FRAME_ID:
     rpm_vcu = ((msg.buf[1] << 8) | msg.buf[0]);
     break;
-    case 0x600:
-      IGN_manual = msg.buf[0]; // Read manual ignition state
-      sdc_signal = msg.buf[4];
+  case 0x600:
+    IGN_manual = msg.buf[0]; // Read manual ignition state
+    sdc_signal = msg.buf[4];
   default:
     // Unknown message ID, ignore
     break;
@@ -1392,7 +1419,6 @@ void initial_sequence()
     if (HYDRAULIC_PRESSURE_REAR >= 3 * TANK_PRESSURE_REAR && HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT)
     {
       current_state = STATE_READY; // Transition to ready state
- 
     }
     if (millis() - pressure_check_delay >= 5000)
     { // Check if 5000 ms has passed
@@ -1529,7 +1555,7 @@ void ASSI()
  * LED pattern, where one LED is turned on to represent the active mission,
  * and the others are turned off (logic HIGH). If the mission state is not recognized,
  * all LEDs are turned off by default.
- * 
+ *
  * When the current state is >= STATE_INITIAL_SEQUENCE, the active mission LED blinks
  * at 1 Hz frequency. When the state is below STATE_INITIAL_SEQUENCE, the LED stays solid.
  */
@@ -1538,21 +1564,25 @@ void Mission_Indicator()
   // Determine if we should blink (state >= STATE_INITIAL_SEQUENCE)
   bool should_blink = (current_state >= STATE_INITIAL_SEQUENCE);
   bool led_output = true; // Default to ON for solid state
-  
-  if (should_blink) {
+
+  if (should_blink)
+  {
     // Check if 500ms have passed (for 1 Hz blinking: 500ms ON, 500ms OFF)
-    if (millis() - mission_LED_time >= 500) {
+    if (millis() - mission_LED_time >= 500)
+    {
       mission_LED_time = millis();
       mission_LED_state = !mission_LED_state; // Toggle the LED state
     }
     led_output = mission_LED_state;
-  } else {
+  }
+  else
+  {
     // For solid state, always ON and reset blinking state
     led_output = true;
     mission_LED_state = true;
     mission_LED_time = millis();
   }
-  
+
   // First turn off all LEDs
   digitalWrite(MS_LED_TRACKD, 0);
   digitalWrite(MS_LED_ACCL, 0);
@@ -1561,7 +1591,7 @@ void Mission_Indicator()
   digitalWrite(MS_LED_INSPCT, 0);
   digitalWrite(MS_LED_AUTOCRSS, 0);
   digitalWrite(MS_LED_EBS, 0);
-  
+
   // Then turn on the appropriate LED based on current mission
   switch (current_mission)
   {
@@ -1673,8 +1703,9 @@ void continuous_monitoring()
   {
     current_state = STATE_EBS_ERROR;
   }
-  if(current_state == STATE_DRIVING){
-    if(millis()- RES_timeout > CAN_TIMEOUT_TIME && millis()- JETSON_timeout > CAN_TIMEOUT_TIME && millis()- VCU_timeout > CAN_TIMEOUT_TIME /*&& millis()- MAXON_timeout > CAN_TIMEOUT_TIME*/)
+  if (current_state == STATE_DRIVING)
+  {
+    if (millis() - RES_timeout > CAN_TIMEOUT_TIME && millis() - JETSON_timeout > CAN_TIMEOUT_TIME && millis() - VCU_timeout > CAN_TIMEOUT_TIME /*&& millis()- MAXON_timeout > CAN_TIMEOUT_TIME*/)
     {
       current_state = STATE_EMERGENCY;
     }
