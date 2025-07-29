@@ -166,6 +166,8 @@ IntervalTimer CAN_TIMER;
 
 IntervalTimer HANDBOOK_MESSAGE_TIMER;
 
+IntervalTimer CONTINUOUS_SEQUENCE_TIMER;
+
 FlexCAN_T4<CAN2, RX_SIZE_1024, TX_SIZE_1024> CAN;
 
 // VARIABLES
@@ -698,10 +700,7 @@ void HandleState(void)
       Serial.println("ASMS is LOW, enabling ignition");
     }
   }
-  if(current_state >= STATE_JETSONWAITING && current_state < STATE_EMERGENCY && current_state != STATE_MANUAL)
-  {
-    continuous_monitoring();
-  }
+ 
 
   switch (current_state)
   {
@@ -935,6 +934,8 @@ void peripheral_init()
   PRESSURE_TIMER.begin(Pressure_readings, 100000); // 100ms
 
   CAN_TIMER.begin(send_can_msg, 100000); // 100ms
+
+  CONTINUOUS_SEQUENCE_TIMER.begin(continuous_monitoring, 100000); // 100ms
 
   Serial.println("Peripheral initialization complete");
   digitalWrite(Debug_LED2, 1); // Indicate initialization complete
@@ -1672,25 +1673,29 @@ void send_handbook_variables()
 
 void continuous_monitoring()
 {
-  bool sdc_opened = digitalRead(SDC_FEEDBACK) == HIGH;
-  if (sdc_opened)
+  if (current_state >= STATE_JETSONWAITING && current_state < STATE_EMERGENCY && current_state != STATE_MANUAL)
   {
-    delay(50);
-    if (!(HYDRAULIC_PRESSURE_FRONT >= 60 && HYDRAULIC_PRESSURE_FRONT <= 120) || !(HYDRAULIC_PRESSURE_REAR >= 60 && HYDRAULIC_PRESSURE_REAR <= 120))
+    bool sdc_opened = digitalRead(SDC_FEEDBACK) == HIGH;
+    if (sdc_opened)
+    {
+      delay(50);
+      if (!(HYDRAULIC_PRESSURE_FRONT >= 60 && HYDRAULIC_PRESSURE_FRONT <= 120) || !(HYDRAULIC_PRESSURE_REAR >= 60 && HYDRAULIC_PRESSURE_REAR <= 120))
+      {
+        current_state = STATE_EBS_ERROR;
+      }
+      // stop monitoring
+      current_state = STATE_INIT;
+    }
+    else if (!(TANK_PRESSURE_FRONT >= 4 && TANK_PRESSURE_FRONT <= 10) || !(TANK_PRESSURE_REAR >= 4 && TANK_PRESSURE_REAR <= 10))
     {
       current_state = STATE_EBS_ERROR;
     }
-    // stop monitoring
-    current_state = STATE_INIT;
-  }
-  else if (!(TANK_PRESSURE_FRONT >= 4 && TANK_PRESSURE_FRONT <= 10) || !(TANK_PRESSURE_REAR >= 4 && TANK_PRESSURE_REAR <= 10))
-  {
-    current_state = STATE_EBS_ERROR;
-  }
-  if(current_state == STATE_DRIVING){
-    if(millis()- RES_timeout > CAN_TIMEOUT_TIME || millis()- JETSON_timeout > CAN_TIMEOUT_TIME || millis()- VCU_timeout > CAN_TIMEOUT_TIME /*&& millis()- MAXON_timeout > CAN_TIMEOUT_TIME*/)
+    if (current_state == STATE_DRIVING)
     {
-      current_state = STATE_EMERGENCY;
+      if (millis() - RES_timeout > CAN_TIMEOUT_TIME || millis() - JETSON_timeout > CAN_TIMEOUT_TIME || millis() - VCU_timeout > CAN_TIMEOUT_TIME /*&& millis()- MAXON_timeout > CAN_TIMEOUT_TIME*/)
+      {
+        current_state = STATE_EMERGENCY;
+      }
     }
   }
 }
