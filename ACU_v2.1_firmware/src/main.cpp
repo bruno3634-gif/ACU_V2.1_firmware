@@ -107,6 +107,8 @@ const char *state_names[] = {
  * @var AS_STATE_OFF
  * ASSI OFF
  * @var AS_STATE_READY
+ * @var AS_STATE_READY
+ * @var AS_STATE_READY
  *    ASSI yellow
  *  @var AS_STATE_DRIVING
  *   ASSI Blinking yellow
@@ -450,6 +452,7 @@ unsigned long RES_timeout = 0;
 unsigned long JETSON_timeout = 0; // Last time a CAN message was received
 unsigned long VCU_timeout = 0;    // Last time a CAN message was received
 unsigned long MAXON_timeout = 0;  // Last time a CAN message was received
+unsigned long mission_confirmation_timeout = 0;
 
 volatile int jetson_ready = 0;
 volatile int sdc_signal = 1;
@@ -769,8 +772,15 @@ void HandleState(void)
     break;
 
   case STATE_INITIAL_SEQUENCE:
+    if(jetson_mission == current_mission){
+      initial_sequence(); // Execute initial sequence actions
+    }else{
+      if(millis() - mission_confirmation_timeout > 3000){
+        Serial.println("Missão errada na jetson");
+        current_state = STATE_EMERGENCY;
+      }
+    }
     
-    initial_sequence(); // Execute initial sequence actions
     break;
 
   case STATE_EBS_ERROR:
@@ -822,7 +832,7 @@ void HandleState(void)
 
     break;
   case STATE_FINISHED:
-    // TODO: Make sue the ca is stopped
+    // TODO: Make sure the car is stopped
     static unsigned long rpm_zero_time = 0;
     static unsigned long state_change_time = 0;
     static volatile int flag_as_state = 0;
@@ -1056,6 +1066,9 @@ void send_can_msg()
   {
     RD_jetson_encode.rd = 1; // Set RD value based on current mission
   }
+  if(current_state == STATE_FINISHED){
+    RD_jetson_encode.rd = 5;
+  }
   autonomous_temporary_rd_jetson_pack(tx_buffer, &RD_jetson_encode, AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH);
   tx_message.id = 0x513;
   tx_message.len = AUTONOMOUS_TEMPORARY_RD_JETSON_LENGTH;                   //
@@ -1180,7 +1193,7 @@ void canISR(const CAN_message_t &msg)
 
   case 0x503:
     JETSON_timeout = millis(); // Update Jetson timeout
-    if (current_state != STATE_EMERGENCY && current_state != STATE_FINISHED)
+    if (current_state != STATE_EMERGENCY || current_state != STATE_FINISHED)
     {
       as_state = (AS_STATE_t)msg.buf[0]; // Update autonomous system state
     }
