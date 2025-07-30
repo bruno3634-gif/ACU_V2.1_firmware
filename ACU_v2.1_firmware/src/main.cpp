@@ -769,7 +769,7 @@ void HandleState(void)
     break;
 
   case STATE_INITIAL_SEQUENCE:
-    
+
     initial_sequence(); // Execute initial sequence actions
     break;
 
@@ -784,9 +784,9 @@ void HandleState(void)
      * ***/
     if (jetson_ready)
     {
-      as_state = AS_STATE_READY;         // Autonomous system state
-      digitalWrite(SOLENOID_REAR, LOW);  
-      digitalWrite(SOLENOID_FRONT, LOW); 
+      as_state = AS_STATE_READY; // Autonomous system state
+      digitalWrite(SOLENOID_REAR, LOW);
+      digitalWrite(SOLENOID_FRONT, LOW);
     }
 
     break;
@@ -848,7 +848,7 @@ void HandleState(void)
         {
           if (HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT && HYDRAULIC_PRESSURE_REAR >= 3.8 * TANK_PRESSURE_REAR)
           {
-           // as_state = AS_STATE_FINISHED;
+             as_state = AS_STATE_FINISHED;
           }
           else
           {
@@ -958,7 +958,7 @@ void peripheral_init()
   Serial.println("Peripheral initialization complete");
   digitalWrite(Debug_LED2, 1); // Indicate initialization complete
 
-  //HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
+  // HANDBOOK_MESSAGE_TIMER.begin(send_handbook_variables, 100000); // 100ms
 }
 
 void led_heartbit()
@@ -1068,7 +1068,7 @@ void send_can_msg()
   acu_state_msg.id = 0x700;
   acu_state_msg.len = 8;
   acu_state_msg.buf[0] = (uint8_t)current_state; // Send current ACU state in first byte
-  acu_state_msg.buf[1] = (uint8_t)as_state;     // Send current autonomous system state in second byte
+  acu_state_msg.buf[1] = (uint8_t)as_state;      // Send current autonomous system state in second byte
   CAN.write(acu_state_msg);                      // Send ACU state message
 }
 
@@ -1181,60 +1181,65 @@ void canISR(const CAN_message_t &msg)
 
   case 0x503:
     JETSON_timeout = millis(); // Update Jetson timeout
-   /* if (current_state != STATE_EMERGENCY || current_state != STATE_FINISHED)
-    {
-      // Update autonomous system state
-    }*/
+                               /* if (current_state != STATE_EMERGENCY || current_state != STATE_FINISHED)
+                                {
+                                  // Update autonomous system state
+                                }*/
 
-    if(msg.buf[0] == 5 || msg.buf[0] == 4){
-      if(msg.buf[0] == 5){
+    if (msg.buf[0] == 5 || msg.buf[0] == 4)
+    {
+      if (msg.buf[0] == 5)
+      {
         current_state = STATE_FINISHED; // Transition to FINISHED state
         Serial.println("Jetson responded with AS_STATE_FINISHED, transitioning to FINISHED state");
       }
-      if (msg.buf[0] == AS_STATE_EMERGENCY){
+      if (msg.buf[0] == AS_STATE_EMERGENCY)
+      {
         current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
         Serial.println("Jetson responded with AS_STATE_EMERGENCY, transitioning to EMERGENCY state");
       }
-    }else{
-       as_state = (AS_STATE_t)msg.buf[0];
-
     }
-
-    switch (as_state)
+    else
     {
-    case AS_STATE_OFF:
-      // If in JETSONWAITING state, transition to INITIAL_SEQUENCE when receiving AS_STATE_OFF
-      if (current_state == STATE_JETSONWAITING)
+      as_state = (AS_STATE_t)msg.buf[0];
+
+      switch (as_state)
       {
+      case AS_STATE_OFF:
+        // If in JETSONWAITING state, transition to INITIAL_SEQUENCE when receiving AS_STATE_OFF
+        if (current_state == STATE_JETSONWAITING)
+        {
 
-        current_state = STATE_INITIAL_SEQUENCE;
-        initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
-        Serial.println("Jetson responded with AS_STATE_OFF, starting initial sequence");
+          current_state = STATE_INITIAL_SEQUENCE;
+          initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
+          Serial.println("Jetson responded with AS_STATE_OFF, starting initial sequence");
+        }
+        jetson_ready = 0;
+        // Don't transition to READY from other states - only after initial sequence completes
+        break;
+
+      case AS_STATE_READY:
+        current_state = STATE_READY; // Transition to READY state
+        jetson_ready = 1;
+        break;
+
+      case AS_STATE_DRIVING:
+        current_state = STATE_DRIVING; // Transition to DRIVING state
+        break;
+
+      case AS_STATE_EMERGENCY:
+        current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+        break;
+
+      case AS_STATE_FINISHED:
+        current_state = STATE_FINISHED; // Transition to FINISHED state
+        break;
+
+      default:
+        break;
       }
-      jetson_ready = 0;
-      // Don't transition to READY from other states - only after initial sequence completes
-      break;
-
-    case AS_STATE_READY:
-      current_state = STATE_READY; // Transition to READY state
-      jetson_ready = 1;
-      break;
-
-    case AS_STATE_DRIVING:
-      current_state = STATE_DRIVING; // Transition to DRIVING state
-      break;
-
-    case AS_STATE_EMERGENCY:
-      current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
-      break;
-
-    case AS_STATE_FINISHED:
-      current_state = STATE_FINISHED; // Transition to FINISHED state
-      break;
-
-    default:
-      break;
     }
+
     break;
 
   case 0x456: // Front wheels
