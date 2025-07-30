@@ -848,7 +848,7 @@ void HandleState(void)
         {
           if (HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT && HYDRAULIC_PRESSURE_REAR >= 3.8 * TANK_PRESSURE_REAR)
           {
-            as_state = AS_STATE_FINISHED;
+           // as_state = AS_STATE_FINISHED;
           }
           else
           {
@@ -1068,6 +1068,7 @@ void send_can_msg()
   acu_state_msg.id = 0x700;
   acu_state_msg.len = 8;
   acu_state_msg.buf[0] = (uint8_t)current_state; // Send current ACU state in first byte
+  acu_state_msg.buf[1] = (uint8_t)as_state;     // Send current autonomous system state in second byte
   CAN.write(acu_state_msg);                      // Send ACU state message
 }
 
@@ -1180,16 +1181,32 @@ void canISR(const CAN_message_t &msg)
 
   case 0x503:
     JETSON_timeout = millis(); // Update Jetson timeout
-    if (current_state != STATE_EMERGENCY && current_state != STATE_FINISHED)
+   /* if (current_state != STATE_EMERGENCY || current_state != STATE_FINISHED)
     {
-      as_state = (AS_STATE_t)msg.buf[0]; // Update autonomous system state
+      // Update autonomous system state
+    }*/
+
+    if(msg.buf[0] == 5 || msg.buf[0] == 4){
+      if(msg.buf[0] == 5){
+        current_state = STATE_FINISHED; // Transition to FINISHED state
+        Serial.println("Jetson responded with AS_STATE_FINISHED, transitioning to FINISHED state");
+      }
+      if (msg.buf[0] == AS_STATE_EMERGENCY){
+        current_state = STATE_EMERGENCY; // Transition to EMERGENCY state
+        Serial.println("Jetson responded with AS_STATE_EMERGENCY, transitioning to EMERGENCY state");
+      }
+    }else{
+       as_state = (AS_STATE_t)msg.buf[0];
+
     }
+
     switch (as_state)
     {
     case AS_STATE_OFF:
       // If in JETSONWAITING state, transition to INITIAL_SEQUENCE when receiving AS_STATE_OFF
       if (current_state == STATE_JETSONWAITING)
       {
+
         current_state = STATE_INITIAL_SEQUENCE;
         initial_sequence_state = WDT_TOOGLE_CHECK; // Reset initial sequence state
         Serial.println("Jetson responded with AS_STATE_OFF, starting initial sequence");
