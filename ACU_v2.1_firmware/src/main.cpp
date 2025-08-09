@@ -46,6 +46,12 @@
 
 #define PRESSURE_READINGS 8 // Number of pressure readings to average
 
+#define FINISHED_TIMEOUT 5000 // Timeout for finished state in milliseconds
+#define FINISHED_TIME_FLAG 0
+int first_finished_flag = 0; // Flag to indicate if the finished state has been entered
+unsigned long finished_timestamp = 0; // Timestamp for finished state
+
+
 /* -------------------- STATE MACHINE DEFINITIONS -------------------- */
 
 /**
@@ -798,8 +804,8 @@ void HandleState(void)
      * AS_state = AS_STATE_DRIVING;
      */
 
-    digitalWrite(SOLENOID_FRONT, HIGH);
-    digitalWrite(SOLENOID_REAR, HIGH);
+  //  digitalWrite(SOLENOID_FRONT, HIGH);
+  //  digitalWrite(SOLENOID_REAR, HIGH);
     as_state = AS_STATE_DRIVING;
     break;
 
@@ -822,12 +828,39 @@ void HandleState(void)
 
     break;
   case STATE_FINISHED:
+  #if FINISHED_TIME_FLAG
     // TODO: Make sue the ca is stopped
+    if (first_finished_flag == 0)
+    {
+      first_finished_flag = 1;       // Set flag to indicate finished state has been entered
+      finished_timestamp = millis(); // Record the time of entering finished state
+    }
+    if (millis() - finished_timestamp > FINISHED_TIMEOUT && first_finished_flag == 1)
+    {
+      digitalWrite(SOLENOID_REAR, LOW); // Activate rear solenoid
+      digitalWrite(SOLENOID_FRONT, LOW);
+      ignition_enable = 0; // Reset ignition enable flag
+      if (millis() - finished_timestamp > FINISHED_TIMEOUT + 5000)
+      {
+        if (HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT && HYDRAULIC_PRESSURE_REAR >= 3.8 * TANK_PRESSURE_REAR)
+        {
+          as_state = AS_STATE_FINISHED;
+        }
+        else
+        {
+          current_state = STATE_EMERGENCY;
+        }
+      }
+    }
+
+
+
+#else
     static unsigned long rpm_zero_time = 0;
     static unsigned long state_change_time = 0;
     static volatile int flag_as_state = 0;
 
-    if (rpm_vcu == 0)
+    if (rpm_vcu <= 500)
     {
       if (rpm_zero_time == 0)
       {
@@ -848,7 +881,7 @@ void HandleState(void)
         {
           if (HYDRAULIC_PRESSURE_FRONT >= 9 * TANK_PRESSURE_FRONT && HYDRAULIC_PRESSURE_REAR >= 3.8 * TANK_PRESSURE_REAR)
           {
-             as_state = AS_STATE_FINISHED;
+            as_state = AS_STATE_FINISHED;
           }
           else
           {
@@ -862,6 +895,7 @@ void HandleState(void)
       rpm_zero_time = 0;
       state_change_time = 0;
     }
+#endif // FINISHED_TIME_FLAG
     break;
 
   case STATE_MANUAL:
@@ -1261,7 +1295,7 @@ void canISR(const CAN_message_t &msg)
     wheel_speed_rr = wheel_speed_rr * 0.1;
     // Serial.println("Wheel speed rear: RL = " + String(wheel_speed_rl) + " | RR = " + String(wheel_speed_rr));
     break;
-  case AUTONOMOUS_TEMPORARY_VCU_RPM_FRAME_ID:
+  case 0x509:
     rpm_vcu = ((msg.buf[1] << 8) | msg.buf[0]);
     break;
   case 0x600:
